@@ -1,11 +1,11 @@
 /******************************************
- * menuoptions.com
+ * menuoptions.org
  *
  * Create menus over any element and create select menus under input=text elements
  *
  * @author          Mike Etts
  * @copyright       Copyright (c) 2013 
- * @license         Menu Options jQuery plug-in is licensed under the BSD 3 point license
+ * @license         Menu Options jQuery plug-in is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
  * @version         Version 1.0
