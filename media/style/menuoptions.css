@@ -1,0 +1,44 @@
+
+table.CrEaTeDtAbLeStYlE { 
+    border-collapse:collapse; 
+    font-size: 14px; 
+    text-align:center; 
+    margin-left: auto; 
+    margin-right: auto;
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    background-color: #EFE; 
+    table-layout: auto;
+} 
+
+table.CrEaTeDtAbLeStYlE tr.odd { 
+    background-color: #DFD;
+}
+table.CrEaTeDtAbLeStYlE tr.even { 
+   background-color: #EFE;
+} 
+table.CrEaTeDtAbLeStYlE td.dflt { 
+   border: 1px solid silver; 
+   padding: 4px; 
+} 
+table.CrEaTeDtAbLeStYlE td.mo { 
+   background: #ECD872; 
+   cursor: pointer; 
+}
+table.CrEaTeDtAbLeStYlE td.mo  {
+   border: 1px solid #999999 ;
+   background: #dadada url(../images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+   font-weight: normal;
+   color: #212121;
+}
+div.clear_btn { 
+                 background-image:url('../images/clearRec.png') ; 
+                 border:2px outset lightgray;
+                 cursor:pointer; 
+                 height:18px; 
+                 width:18px; 
+                 display:inline-block; 
+                 vertical-align:middle;
+              }
+div.clear_btn.ClearButtonMO { 
+   border-color: #95C256;
+}
