@@ -1,5 +1,5 @@
 
-For complete documentation, go [www.menuoptions.org](http://www.menuoptions.org]/ "Documentation for the jQuery plug in menuoptions")
+For complete documentation, go [www.menuoptions.org][http://www.menuoptions.org]/ "Documentation for the jQuery plug in menuoptions")
 
 ###Menu Options is a a plugin that: ###
 
