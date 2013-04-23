@@ -126,7 +126,7 @@
            }
            buffer+="</table>";
             if ( base.options.MenuOptionsType === "Navigate" ) { // delete all the key props or attr 
-                base.html=buffer.replace(/ key='.*?'/ig, '') 
+                base.html=buffer.replace(/ key='.*?>/ig, '>') 
             } else { // keep the key props or attr 
                base.html=buffer; 
             } 
