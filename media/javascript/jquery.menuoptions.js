@@ -198,8 +198,9 @@
                      $(base.element).val($.trim($(this).text())); 
                      $(base.element).attr('key',$(this).attr('key'));  
                   } else {
-                     SelectedCellValue = $(this).text();
-                     MatchedObjects = $.grep(base.ary_of_objs, function(rec){ return rec.val === SelectedCellValue; });
+                     SelectedCellValue = $(this).html().replace(/^<.*>/, "");
+                     MatchedObjects = $.grep(base.ary_of_objs, function(rec){ 
+                                         return SelectedCellValue === rec.val.replace(/^<.*>/, ""); });
                      if ( MatchedObjects && MatchedObjects.length > 0 ) {
                         if ( $.isFunction(MatchedObjects[0].ky) ) {
                            MatchedObjects[0].ky.call();

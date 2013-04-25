@@ -1,7 +1,7 @@
 {
     "name": "menuoptions",
     "title": "Menu Options",
-    "description": "jQuery plugin that can create multi-column menus (menu items can be URLs or a javascript function) under most DOM elements.  2 - create a multi-column drop down select under any input=text element. Hover over an input element and a multi-column select list appears. Click an item and it fills the input element. Can be configured as read-only (user must choose from list) or to allow user input.",
+    "description": "jQuery plugin that can create menus (menu items can be URLs or a JavaScript function) under most DOM elements or a select list under any input=text element. Menus can be mutil-column and can include images for a more user friendly experince. Select lists appear when hovering over an input element. Click an item and it fills the input element. Can be configured as read-only (user must choose from list) or to allow user input.",
     "keywords": [
         "ui",
         "input",
@@ -9,7 +9,7 @@
         "input",
         "menu"
     ],
-    "version":"1.0.6",
+    "version":"1.0.7",
     "author": {
         "name": "Michael Etts",
         "url": "https://github.com/compsult/menuoptions"
