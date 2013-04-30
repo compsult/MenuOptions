@@ -22,6 +22,7 @@
 	   "UseValueForKey": false,
 	   "PlaceHolder": "",
 	   "Width": "",
+	   "ShowAt": "bottom",
 	   "Sort": true,
 	   "MenuOptionsType": "Select" // the other option is Navigate, to run JS or follow an href
         };
@@ -159,11 +160,13 @@
         }
     },
 
-    init : function () {
-         var base = this,
-             SelectedCellValue = "",
-             MatchedObjects;
-         base.add_clear_btn( base );
+    set_options : function ( base ) {
+         if ( base.options.ShowAt.match(/^ *bottom *$/i) ) {
+	     base.options.ShowAt= "left bottom";
+         }
+         else if ( base.options.ShowAt.match(/^ *right *$/i) ) {
+             base.options.ShowAt="right top";
+         }
          if ( base.options.SelectOnly ) {
              $(this.element).prop("readonly", true);
          }
@@ -173,6 +176,14 @@
          if ( base.options.Data.toString() !== "" ) { 
              base.build_html ( base );
          }
+    },
+
+    init : function () {
+         var base = this,
+             SelectedCellValue = "",
+             MatchedObjects;
+             base.set_options( base );
+         base.add_clear_btn( base );
         $(this.element).on('mouseenter', function(e) {
              $('span#'+base.options.ID).remove(); /*-- remove any stragglers --*/
              // create the select or menu and hide it.
@@ -226,18 +237,18 @@
              .show(0)
              .position({
                  my : "left top",
-                 at : "left bottom",
+                 at : base.options.ShowAt,
                  of : this,
              });  
          });  
          $(this.element).on('mouseleave', function(e) {
-               // get the dimensions of the drop down
-               // the Top & Bottom adjustments provide overlap between element & drop down||up
-               var Top = $('span#'+base.options.ID).position().top-3;
-               var Bottom = Top + $('span#'+base.options.ID).height()+3;
-               var Left = $('span#'+base.options.ID).position().left;
+               // the Top & Bottom adjustments provide overlap between element & drop down||right
+               var overlap = 4;
+               var Top = $('span#'+base.options.ID).position().top-overlap;
+               var Bottom = Top + $('span#'+base.options.ID).height()+overlap;
+               var Left = $('span#'+base.options.ID).position().left-overlap;
                var Right = Left + $('span#'+base.options.ID).width();
-               // is the mouse over the drop down?
+               // is the mouse over the drop down? If not, remove it from DOM
                if ( ! ( e.pageX >= Left && e.pageX <= Right && e.pageY >= Top && e.pageY <= Bottom ) ) {
                       $('span#'+base.options.ID).remove();  
                }
