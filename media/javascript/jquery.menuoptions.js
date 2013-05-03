@@ -33,6 +33,20 @@
         this.options = $.extend( {}, defaults, options) ;
         this._defaults = defaults;
         this.total_rec_cnt = 0;
+        this.menu_start_loc = {};
+        this.menu_box = { 
+                          top : 0,
+                          bottom : 0,
+                          left : 0,
+                          right : 0,
+                          overlap : 1
+                        };
+        this.width_adj = { 
+                            width_menu : 0, 
+                            width_adjustment : 0, 
+                            width_after_adj : 0
+                        };
+        this.original_width = 0;
         this.ary_of_objs = [];
 	this.html = "";
         this.init();
@@ -193,7 +207,7 @@
                         .position ({      
                           of:  this,  
                           my: 'left top',  
-                          at: 'right bottom',  
+                          at : base.options.ShowAt,
                           collision: 'flipfit'  
                         });  
              // set mouseenter and mouseleave class for table cell
@@ -226,30 +240,35 @@
              $('span#'+base.options.ID).on('mouseleave', function(e) {
                      $('span#'+base.options.ID).remove();  
              });
-             var SpanWidth = (parseInt($("span#"+base.options.ID+" > table").css('width'),10) > $(this).width()) ? parseInt($("span#"+base.options.ID+" > table").css('width'),10)+3 : $(this).width();
-             if ( base.options.Width !== "" ) {
-                 SpanWidth = (parseInt(base.options.Width));
-             }
-             $("span#"+base.options.ID+", span#"+base.options.ID+" > table").css({ width: SpanWidth, zIndex: 9999 }); 
-             // show the dropdown and position it
+             $("span#"+base.options.ID+", span#"+base.options.ID+" > table").css({  zIndex: 9999 });  
+             base.menu_start_loc = $('span#'+base.options.ID).offset();
+             base.width_adj.width_menu = parseInt($("span#"+base.options.ID+" > table").css('width'),10); 
+             base.width_adj.width_after_adj = (parseInt($("span#"+base.options.ID+" > table").css('width'),10) > $(this).width()) ? parseInt($("span#"+base.options.ID+" > table").css('width'),10) : $(this).width(); 
+             if ( base.options.Width !== "" ) {  // if user specified width, it trumps all
+                 base.width_adj.width_after_adj = (parseInt(base.options.Width));  
+             }  
+             $("span#"+base.options.ID+", span#"+base.options.ID+" > table").css({  "width": base.width_adj.width_after_adj });  
+             // show the menu
              $('span#'+base.options.ID) 
-             .stop(true,false)
-             .show(0)
-             .position({
-                 my : "left top",
-                 at : base.options.ShowAt,
-                 of : this,
-             });  
+                    .stop(true,false)
+                    .show();
+             // if the menu width was changed, test to see if it changed it's original offsets
+             // If it did, re-align menu to parent element
+             if ( base.menu_start_loc.left !== $('span#'+base.options.ID).offset().left || base.menu_start_loc.top !== $('span#'+base.options.ID).offset().top ) {
+                if ( $("span#"+base.options.ID) && $("span#"+base.options.ID)[0] ) {
+                    base.width_adj.width_adjustment = parseInt($("span#"+base.options.ID)[0].style.left) + ( ( base.width_adj.width_after_adj - base.width_adj.width_menu) / 2 );
+                    $('span#'+base.options.ID).css({ "left": base.width_adj.width_adjustment }); 
+                }
+              } 
          });  
          $(this.element).on('mouseleave', function(e) {
-               // the Top & Bottom adjustments provide overlap between element & drop down||right
-               var overlap = 4;
-               var Top = $('span#'+base.options.ID).position().top-overlap;
-               var Bottom = Top + $('span#'+base.options.ID).height()+overlap;
-               var Left = $('span#'+base.options.ID).position().left-overlap;
-               var Right = Left + $('span#'+base.options.ID).width();
+               // the top & bottom adjustments provide overlap between element & drop down||right
+               base.menu_box.top = $('span#'+base.options.ID).position().top - base.menu_box.overlap;
+               base.menu_box.bottom = base.menu_box.top + $('span#'+base.options.ID).height() + base.menu_box.overlap;
+               base.menu_box.left = $('span#'+base.options.ID).position().left - base.menu_box.overlap;
+               base.menu_box.right = base.menu_box.left + $('span#'+base.options.ID).width();
                // is the mouse over the drop down? If not, remove it from DOM
-               if ( ! ( e.pageX >= Left && e.pageX <= Right && e.pageY >= Top && e.pageY <= Bottom ) ) {
+               if ( ! ( e.pageX >= base.menu_box.left && e.pageX <= base.menu_box.right && e.pageY >= base.menu_box.top && e.pageY <= base.menu_box.bottom ) ) {
                       $('span#'+base.options.ID).remove();  
                }
          });
