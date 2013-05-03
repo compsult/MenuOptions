@@ -8,7 +8,7 @@
  * @license         Menu Options jQuery plug-in is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
- * @version         Version 1.0
+ * @version         Version 1.2.1
  *
  ******************************************/
 ;(function ( $, window, document, undefined ) {
@@ -39,7 +39,7 @@
                           bottom : 0,
                           left : 0,
                           right : 0,
-                          overlap : 1
+                          overlap : 3
                         };
         this.width_adj = { 
                             width_menu : 0, 
