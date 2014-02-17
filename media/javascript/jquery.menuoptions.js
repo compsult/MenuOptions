@@ -24,6 +24,7 @@
 	   "Width": "",
 	   "ShowAt": "bottom",
 	   "Sort": true,
+	   "TriggerEvent": "",
 	   "MenuOptionsType": "Select" // the other option is Navigate, to run JS or follow an href
         };
 
@@ -221,6 +222,9 @@
              $('span#' + base.options.ID + ' tbody td').on('click', function() { 
                   if ( base.options.MenuOptionsType === "Select" ) { 
                      $(base.element).val($.trim($(this).text())); 
+                     if ( base.options.TriggerEvent.length ) {
+                         $(base.element).triggerHandler(base.options.TriggerEvent); 
+                     }
                      $(base.element).attr('key',$(this).attr('key'));  
                   } else {
                      SelectedCellValue = $(this).html().replace(/^<.*>/, "");
