@@ -13,4 +13,8 @@ For complete documentation, go [www.menuoptions.org](http://www.menuoptions.org 
 
 5. has a clear button can be added to a Custom Select control box with one parameter
 
-6. has a compact code base - 5k minified
+6. enables events to be triggered when user selects an option
+   This is useful when you want to have actions (validation, refreshes, etc.) 
+   proceed a user selection.
+
+7. has a compact code base - 5k minified
