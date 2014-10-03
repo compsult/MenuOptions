@@ -11,6 +11,6 @@ For complete documentation, go [www.menuoptions.org](http://www.menuoptions.org 
 
 4. has a Custom Select control that enables 1 click data entry
 
-5. has a clear button can be added to a Custom Select control box with one parameter
+5. Custom Select control has optional clear button for quick clearing of input
 
 6. code base - 7k minified
