@@ -8,7 +8,7 @@
  * @license         Menu Options jQuery plug-in is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
- * @version         Version 1.2.4
+ * @version         Version 1.2.5
  *
  ******************************************/
 ;(function ( $, window, document, undefined ) {
@@ -70,7 +70,7 @@
        },
 
        detect_destroyed_input: function ( base ) {
-           /*--  for Select type, if "parent" element is removed, widget get removed too  --*/
+           /*--  for Select type, if "parent" element is removed, widget gets removed too  --*/
            if ( base.options.MenuOptionsType === "Select" ) {
               $(this.element).bind('remove', function(e) {
                  $('span#'+base.options.ID).remove(); 
@@ -158,6 +158,7 @@
     },
 
     add_clear_btn : function ( base ) {
+        /*--  v1.2.4 made clear button simulate mouseover  --*/
         if (base.options.ClearBtn && base.options.MenuOptionsType === "Select") {
             var ClrBtn = "<div class=clear_btn onclick=\"$(this).siblings('input').val('');$(this).siblings('input').prop('key','');$(this).siblings('input').mouseover()\"></div>";
             $(this.element).after(ClrBtn); 
