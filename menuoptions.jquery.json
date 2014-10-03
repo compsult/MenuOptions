@@ -1,0 +1,39 @@
+{
+    "name": "menuoptions",
+    "title": "Menu Options",
+    "description": "jQuery plugin that can create menus (menu items can be URLs or a JavaScript function) under most DOM elements or a select list under any input=text element. Menus can be mutil-column and can include images for a more user friendly experince. Select lists appear when hovering over an input element. Click an item and it fills the input element. Can be configured as read-only (user must choose from list) or to allow user input.",
+    "keywords": [
+        "ui",
+        "input",
+        "form",
+        "input",
+        "menu"
+    ],
+    "version":"1.2.4",
+    "author": {
+        "name": "Michael Etts",
+        "url": "https://github.com/compsult/menuoptions"
+    },
+    "maintainers": [
+        {
+            "name": "Michael Etts",
+            "email": "compsult@yahoo.com",
+            "url": "http://www.menuoptions.org"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/compsult/menuoptions/blob/master/license.txt"
+        }
+    ],
+    "bugs": "https://github.com/compsult/menuoptions/issues",
+    "homepage": "https://github.com/compsult/menuoptions",
+    "docs": "http://www.menuoptions.org",
+    "download": "",
+    "demo": "http://www.menuoptions.org",
+    "dependencies": {
+        "jquery": ">=1.9",
+        "jquery ui": ">=1.10"
+    }
+}
