@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions examples of various menus</title>
+  
+   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+   <script src="../media/javascript/jquery.menuoptions.js"></script> 
+   <link rel="stylesheet" href="../media/style/menuoptions.css" type="text/css" media="all">
+   <style>
+        img.cnn_img {
+        width:16px;
+        height:16px;
+        background:url(images/menuicons.png);
+        float:left;
+        background-position: -20px 0px;
+        }
+        img.js_img {
+        width:16px;
+        height:16px;
+        background:url(images/menuicons.png);
+        float:left;
+        background-position: 62px 0px;
+        }
+        img.goog_img {
+        width:16px;
+        height:16px;
+        background:url(images/menuicons.png);
+        float:left;
+        background-position: 43px -1px;
+        }
+        img.yahoo_img {
+        width:16px;
+        height:16px;
+        background:url(images/menuicons.png);
+        float:left;
+        background-position: 0px 0px;
+        }
+        h1 { color: gray; font-size:24px; } 
+   </style>
+  
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+    var TstFunction = function() { alert ("I just ran a javscript function 1 "); };
+    var TST1 = [{"<img class='js_img' src='images/Transparent.gif' width='1' height='1'>javascript": function() { TstFunction('javascript'); }}, 
+           {"<img class='goog_img' src='images/Transparent.gif' width='1' height='1'>Google": "http://www.google.com"}, 
+           {"<img class='yahoo_img' src='images/Transparent.gif' width='1' height='1'>Yahoo": "http://www.yahoo.com"}];
+    TST1.push( {"<img class='cnn_img' src='images/Transparent.gif' width='1' height='1'>CNN": "http://www.cnn.com"} );
+
+    $('button[id$="menu_w_imgs"]').menuoptions({ 
+        "Data": TST1, 
+        "MenuOptionsType": "Navigate", 
+        "ColumnCount" : 1, 
+        "Width": "150", 
+        "ShowAt":"right"});  
+
+    var TestFunction = function() { alert ("I just ran a javscript function 2"); };
+    var TST2 = [{"javascript": function() { TestFunction(); }}, 
+        {"Google": "http://www.google.com"}, 
+        {"Yahoo": "http://www.yahoo.com"}];
+    TST2.push( {"CNN": "http://www.cnn.com"} );
+
+    $('button[id$="menu_plain"]').menuoptions({ 
+        'Data': TST2, 
+        'MenuOptionsType': 'Navigate', 
+        'ColumnCount' : 1,
+        "ShowAt":"right"});  
+
+    $('button[id="menu_divs_filts"]').menuoptions({ 
+        'MenuOptionsType': 'Navigate', 
+        'Data': [ {  'Search'  :'divider' }, 
+                    {  'Google'  :'http://www.google.com' }, 
+                    {  'Yahoo'  :'http://www.yahoo.com' }, 
+                    {  'Business'  :'divider' }, 
+                    {  'CNBC'  :'http://www.cnbc.com' }, 
+                    {  'MarketWatch'  :'http://www.MarketWatch.com' } ], 
+        'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ], 
+        'Sort': [], 
+        "ShowAt":"right"});  
+    $("div#buttons").buttonset().css({"padding":"5px" });
+});
+</script>
+</head>
+<body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
+	<br><h1 >Examples of Menus positioned at right </h1>
+	 <table style="margin: 0 auto;">
+         <tr>
+             <td height=60>
+                <div id=buttons>
+                    <button type="button" id="menu_plain" >Menu</button>
+                </div>
+             </td>
+         </tr>
+         <tr>
+             <td height=60>
+                <div id=buttons>
+                    <button type="button" id="menu_w_imgs" >Menu with images</button>
+                </div>
+             </td>
+         </tr>
+         <tr>
+             <td height=60>
+                <div id=buttons>
+                    <button type="button" id="menu_divs_filts" >Menu with dividers & filters</button>
+                </div>
+             </td>
+         </tr>
+	 </table>
+     </body>
+</html>
+

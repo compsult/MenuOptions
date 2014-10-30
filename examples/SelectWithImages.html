@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> Select demo</title>
+  
+   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <script src="../media/javascript/jquery.menuoptions.js"></script> 
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+   <link rel="stylesheet" href="../media/style/menuoptions.css" type="text/css" media="all">
+   <style>
+    img.cash {
+    width:30px;
+    height:16px;
+    background:url(images/payment_types.png);
+    float:left;
+    background-position: 30px 0px;
+    }
+    img.check {
+    width:37px;
+    height:16px;
+    background:url(images/payment_types.png);
+    float:left;
+    background-position: 0px 0px;
+    }
+    img.charge {
+    width:30px;
+    height:16px;
+    background:url(images/payment_types.png);
+    float:left;
+    background-position: 86px 0px;
+    }
+    img.paypal {
+    width:26px;
+    height:16px;
+    background:url(images/payment_types.png);
+    float:left;
+    background-position: 56px 0px;
+    }
+   h1 { color: gray; font-size:24px; } 
+   </style>
+  
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+  var PayMethod = { "1":"<img class='check' src='images/Transparent.gif' width='1' height='1'>Check", 
+                    "2": "<img class='cash' src='images/Transparent.gif' width='1' height='1'>Cash", 
+                    "3": "<img class='charge' src='images/Transparent.gif' width='1' height='1'>Charge", 
+                    "4": "<img class='paypal' src='images/Transparent.gif' width='1' height='1'>Paypal"};
+  $('input#CustSel').menuoptions({
+                                      "Data": PayMethod,
+                                      "ClearBtn": true,
+                                      "PlaceHolder": "Pay Method",
+                               });
+
+});
+</script>
+</head>
+<body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
+	<br><h1 >Example of MenuOptions select </h1>
+	 <table style="margin: 0 auto;">
+	    <tr>
+	       <td class=demotd1>
+		  <input id='CustSel' type='text' >
+	       </td>
+	    </tr>
+	 </table>
+     </body>
+</html>
+

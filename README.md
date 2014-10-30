@@ -1,20 +1,58 @@
+## MenuOptions is a: ##
 
-For complete documentation, go [www.menuoptions.org](http://www.menuoptions.org "Documentation for the jQuery plug in menuoptions")
+1. jQuery widget designed to optimize data entry speed for both keyboard and mouse users
+                                                                                
+2. uses autocomplete and mouseover filtering                                       
+                                                                                
+3. can create menus that follow URLs or execute javascript functions            
+                                                                                
+4. has a select control that enables 1 click data entry                         
+                                                                                
+5. has a clear button that wipes the current value and opens the select list       
+                                                                                   
+6. can optionally trigger an event (useful when updating                           
+   another part of the page based on user selection)                               
+                                                                                   
+7. is flexible, configurable and stays in the viewport  
 
-###Menu Options is a a plugin that: ###
+### Getting started with a simple select list
+[See the demo](http://www.menuoptions.org/examples/QuickStartSelect.html).
 
-1. combines a menu that can be created under any DOM element
+```javascript
+var Data = [ "January","February","March","April","May","June","July",
+              "August","September","October","November","December" ];
 
-2. can configure menu to drop down or out to the right
+$('input#selecttest').menuoptions({
+    "Data": Data
+});
+```
+![alt text](http://www.menuoptions.org/examples/images/SimpleSelect.jpg "select list image")
 
-3. is flexible, configurable and stays in the viewport
+### Getting started with a simple menu
 
-4. has a Custom Select control that enables 1 click data entry
+[See the demo](http://www.menuoptions.org/examples/QuickStartMenu.html)
 
-5. has a clear button can be added to a Custom Select control box with one parameter
+```javascript
+var Data =  [ {"javascript": function() { alert('Run some javascript'); }},
+              {"Google": "http://www.google.com"},
+              {"Yahoo": "http://www.yahoo.com"}];
 
-6. enables events to be triggered when user selects an option
-   This is useful when you want to have actions (validation, refreshes, etc.) 
-   proceed a user selection.
+$('button[id$="menutest"]').menuoptions({
+    "Data": Data;
+    "MenuOptionsType": "Navigate", // Navigate is for menus
+});
+```
 
-7. has a compact code base - 5k minified
+###Autocomplete with images###
+
+![alt text](http://www.menuoptions.org/examples/images/AutoCompWithImgs.jpg "autocomplete with images")
+
+
+* [Autocomplete (with images) demo can be seen here](http://www.menuoptions.org/examples/SelectWithImages.html)
+
+###Mouseover filtering with dividers###
+
+![alt text](http://www.menuoptions.org/examples/images/MenuWithMOandDivs.jpg "mouseover with images")
+
+* [Mouseover filtering (with dividers) demo can be seen here](http://www.menuoptions.org/examples/Dividers.html)
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions example of menu with dividers </title>
+  
+   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+   <script src="../media/javascript/jquery.menuoptions.js"></script> 
+   <link rel="stylesheet" href="../media/style/menuoptions.css" type="text/css" media="all">
+   <style>
+        img.cnn_img {
+        width:16px;
+        height:16px;
+        background:url(images/menuicons.png);
+        float:left;
+        background-position: -20px 0px;
+        }
+        img.js_img {
+        width:16px;
+        height:16px;
+        background:url(images/menuicons.png);
+        float:left;
+        background-position: 62px 0px;
+        }
+        img.goog_img {
+        width:16px;
+        height:16px;
+        background:url(images/menuicons.png);
+        float:left;
+        background-position: 43px -1px;
+        }
+        img.yahoo_img {
+        width:16px;
+        height:16px;
+        background:url(images/menuicons.png);
+        float:left;
+        background-position: 0px 0px;
+        }
+        h1 { color: gray; font-size:24px; } 
+   </style>
+  
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+    var Menu_w_Dividers =[ {  'Search'  :'divider' }, 
+                {  'Google'  :'http://www.google.com' }, 
+                {  'Yahoo'  :'http://www.yahoo.com' }, 
+                {  'Business'  :'divider' }, 
+                {  'CNBC'  :'http://www.cnbc.com' }, 
+                {  'MarketWatch' :'http://www.MarketWatch.com' } ];
+
+    $('button[id="menu_divs_filts"]').menuoptions({ 
+        'MenuOptionsType': 'Navigate', 
+        'Data': Menu_w_Dividers,
+        'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ], 
+        'Sort': [], 
+    }); 
+
+    $("div#buttons").buttonset().css({"padding":"5px" });
+});
+</script>
+</head>
+<body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
+	<br><h1 >Example of using dividers </h1>
+	 <table style="margin: 0 auto;">
+         <tr>
+             <td>
+                <div id=buttons>
+                    <button type="button" id="menu_divs_filts" >Menu with dividers & filters</button>
+                </div>
+             </td>
+         </tr>
+	 </table>
+     </body>
+</html>
+

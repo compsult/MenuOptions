@@ -1,5 +1,5 @@
 
-table.CrEaTeDtAbLeStYlE { 
+span table.HdrFilter, table.CrEaTeDtAbLeStYlE { 
     border-collapse:collapse; 
     font-size: 14px; 
     text-align:center; 
@@ -10,25 +10,27 @@ table.CrEaTeDtAbLeStYlE {
     table-layout: auto;
 } 
 
-table.CrEaTeDtAbLeStYlE tr.odd { 
+span table.HdrFilter td, th {
+            border: 1px solid silver;
+}
+
+span table.CrEaTeDtAbLeStYlE tr.odd { 
     background-color: #DFD;
 }
-table.CrEaTeDtAbLeStYlE tr.even { 
+span table.CrEaTeDtAbLeStYlE tr.even { 
    background-color: #EFE;
 } 
-table.CrEaTeDtAbLeStYlE td.dflt { 
+span table.HdrFilter, table.CrEaTeDtAbLeStYlE td.dflt { 
    border: 1px solid silver; 
    padding: 4px; 
 } 
-table.CrEaTeDtAbLeStYlE td.mo { 
+span table.CrEaTeDtAbLeStYlE td.mo { 
    background: #ECD872; 
    cursor: pointer; 
-}
-table.CrEaTeDtAbLeStYlE td.mo  {
    border: 1px solid #999999 ;
    background: #dadada url(../images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
    font-weight: normal;
-   color: #212121;
+   color: brown; 
 }
 div.clear_btn { 
                  background-image:url('../images/clearRec.png') ; 
@@ -41,4 +43,8 @@ div.clear_btn {
               }
 div.clear_btn.ClearButtonMO { 
    border-color: #95C256;
+}
+
+span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr { 
+    font-weight: bold;
 }

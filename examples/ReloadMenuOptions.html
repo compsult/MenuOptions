@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> Reload MenuOptions Slelect demo</title>
+  
+   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <script src="../media/javascript/jquery.menuoptions.js"></script> 
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+   <link rel="stylesheet" href="../media/style/menuoptions.css" type="text/css" media="all">
+   <style>
+   h1 { color: gray; font-size:26px; } 
+   h2 { color: gray; font-size:16px; } 
+   </style>
+  
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+    function get_hh_mm ( value ) {
+        var hh = new Date(value).getHours(),
+            ampm = "PM",
+            mm = new Date(value).getMinutes();
+        if ( hh < 12 ) { ampm = "AM";
+        } else { hh -= 12; }
+        hh = ( hh === 0 ) ? "12" : hh;
+        hh = ( hh < 10 ) ? "0" + hh : hh;
+        mm = ( mm < 10 ) ? "0" + mm : mm;
+        return hh + ":" + mm + " " + ampm;
+    }
+    var AddApptMins = function ( StartTime, Duration ) {
+        var epoch_time = new Date("Jan 1, " + new Date().getFullYear() + " " + StartTime).getTime() + Duration * 60000;
+        return get_hh_mm ( epoch_time );
+    }
+    var last_time = ""
+        earliest_time = '08:00 AM',
+        latest_time = '09:45 PM';
+    $("body").data("alltimes", [ earliest_time ]);
+    for (var t = 0; t <= 80; t += 1) {  
+       last_time = AddApptMins($("body").data("alltimes")[$("body").data("alltimes").length-1], 15);
+       $("body").data("alltimes").push(last_time);   
+       if ( last_time === latest_time ) { break; }
+    }  
+    $('input#starttime').menuoptions({
+                                    "Data": $("body").data("alltimes"),
+                                    "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                    "ClearBtn": true,
+                                    "PlaceHolder": "Start time",
+                                    "ShowAt": 'bottom',
+                                    "ColumnCount": 4,
+                                    "Width": 300,
+                                    "TriggerEvent": "change" 
+                                    });
+    $('input#endtime').menuoptions({
+                                    "Data": $("body").data("alltimes"),
+                                    "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                    "ClearBtn": true,
+                                    "PlaceHolder": "End time",
+                                    "ShowAt": 'bottom',
+                                    "ColumnCount": 4,
+                                    "Width": 300,
+                                    "TriggerEvent": "change" 
+                                    });
+    $('input#starttime' ).on("change", function(event){
+          var start = $(this);
+          var end_time = $('input#endtime');
+          /*--  dynamically adjust end time array  --*/
+          $("body").data("endtimes", []);
+          for (var t = 0; t <= 100; t += 5) { 
+            $("body").data("endtimes").push(AddApptMins(start.val(), t)); 
+          } 
+	      $('input#endtime').menuoptions( 'refreshData',  
+                { 'Data'    : $("body").data("endtimes"),
+                  'Filters' : [],
+                  'ColumnCount' : 4,
+                  'Width' : 300 });
+          /*--  end_time.val( AddApptMins( start.val(),60) ); // initialize  --*/
+     });
+});
+</script>
+</head>
+<body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
+	<br><h1 >Example of reloading a MenuOptions select</h1>
+    <h2>When you change the Start time, the end time select list will change to <br /> 
+        show thirty 5 minute intervals after the start time</h2><br />
+	 <table style="margin: 0 auto;">
+	    <tr>
+	       <td class=demotd1>
+		      <input id='starttime' type='text' >
+	       </td>
+	    </tr>
+	    <tr>
+	       <td class=demotd1>
+		      &nbsp;
+	       </td>
+	    </tr>
+	    <tr>
+	       <td class=demotd1>
+		      <input id='endtime' type='text' >
+	       </td>
+	    </tr>
+	 </table>
+     </body>
+</html>
+

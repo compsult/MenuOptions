@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions re_serialize demo</title>
+  
+   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+   <script src="../media/javascript/jquery.menuoptions.js"></script> 
+   <link rel="stylesheet" href="../media/style/menuoptions.css" type="text/css" media="all">
+
+  
+  <style>
+     html { min-height: 100%; margin-bottom: 1px; padding-top:3px; }
+     #wrapper { background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px; }
+     #header { text-align: left; display:block; height: 170px; margin: 0; padding: 0px;  }
+     button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:135px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
+     ul { list-style-image:url('images/check.png'); }
+     ul.inner { list-style-image:url('images/check2.png');  margin-top:0px; height:30px; }
+     li { text-align: left; font-family: myriad-pro,"Myriad Pro","Helvetica","Arial",sans-serif; font-size: 16px; color: #4F4F4F; line-height:30px; }
+     table#serial_demo tr { line-height:30px;  }
+     table#serial_demo td { text-align:left; font-size:14px; border: 1px solid silver;}
+     p { text-align:left;margin-left:20px; }
+     div#serialize, div#re_serialize { width:500px; } 
+     h1 { color: gray; font-size:26px; } 
+     h2 { color: gray; font-size:16px; } 
+  </style>
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+     var us_states  = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME',
+                                   'MD','MA','MI', 'MN','MS','MO','MT','NE','NV','NH','NJ','NM', 'NY','NC','ND','OH','OK','OR','PA',
+				   'RI','SC','SD','TN','TX','UT', 'VT','VA','WA','WV','WI','WY'], 
+        PayMethod   = { 1: "American Express", 2: "Visa", 3: "Mastercard", 4:"Discover", 5:"Check", 6:"PayPal", 7:"Cash", 8:"Money Order"},
+        MarStat   = { 1: "Single", 2: "Married", 3: "Co-habitating", 4:"Seperated", 5:"Divorced", 6:"Widowed"};
+
+    $('input[name="t"]').menuoptions({  "Data": PayMethod, 
+                                        "SelectOnly": true, 
+                                        "ClearBtn": true, 
+                                        "PlaceHolder": "Pay Method", 
+                                        "ColumnCount": 2,
+                                        'Width': 225 });
+    $('input[name="t2"]').menuoptions({ "Data": MarStat, 
+                                        "ClearBtn":true, 
+                                        "ClearBtn": true, 
+                                        "PlaceHolder": "Marital Status" });   
+    $('input[name="t3"]').menuoptions({ "Data": us_states, 
+                                        "ClearBtn":true, 
+                                        "PlaceHolder": "State", 
+                                        "ColumnCount":6, 
+                                        "UseValueForKey":true });   
+
+    $('button.a').off('click');
+    $('button.a').on('click', function(e) {
+       var res = $('form#tst').serialize(); 
+       var new_get_str = $('input[name=t3]').menuoptions('re_serialize', res);
+       $('div#serialize_text').html("serialize() result (below):").css({'color':'green'});
+       $('div#reserialize_text').html("re_serialize result (below):").css({'color':'green'});
+       $('div#serialize').html(res);
+       $('div#re_serialize').html(new_get_str);
+       e.preventDefault();
+    });
+});
+</script>
+</head>
+<body>
+    <div id="wrapper" >
+	<h1 style='border:0px solid gray'>Using re_serialize()</h1>
+	<h2 style='border:0px solid gray'>(serialize() will not pick up "value" information from input=text)</h2>
+	<h2 style='border:0px solid gray'>Choose from the drop downs and click "See results"</h2>
+	<form id=tst>
+	 <table id=serial_demo align=center style="margin-top:10px;text-align:left;">
+	    <tr>
+	       <td class=demotd1>
+		  <input name='t' type='text' placeholder='pay method'>
+	       </td>
+	       <td class=demotd1>
+		  <div id=serialize_text>&nbsp;</div>
+	       </td>
+	    </tr>
+	    <tr>
+	       <td class=demotd1>
+		  <input name='t2' type='text' placeholder='Marital Status'>
+	       </td>
+	       <td class=demotd1>
+		  <div id=serialize>&nbsp;</div>
+	       </td>
+	    </tr>
+	    <tr>
+	       <td class=demotd1>
+		  <input name='t3' type='text' placeholder='State'>
+	       </td>
+	       <td class=demotd1>
+		  <div id=reserialize_text>&nbsp;</div>
+	       </td>
+	    </tr>
+	    <tr>
+	       <td class=demotd1>
+		  <input name='t4' type='text' placeholder='Phone'>
+	       </td>
+	       <td class=demotd1>
+		  <div id=re_serialize>&nbsp;</div>
+	       </td>
+	    </tr>
+	 </table>
+	<button class="a" tooltip="Click to see serialize results" id=btn>See results</button><br>
+	</form>
+	<br><br>
+   <div style="display:block; border:1px solid gray;text-align:left;">
+       <br />The code below takes the output from <span style='font-weight:bold'>serialize()</span> and turns
+       text values that the user selected into key codes.<br /><br />
+      <code>
+        var new_get_str = $('input[name=t3]').menuoptions('re_serialize', $('form#tst').serialize());
+      </code>
+      <h3>How it works:</h3>
+      <p>
+        MenuOptions select adds the attribute "value" to the input element when a user makes their selection, 
+        so if you chose "American Express" the input field would change from:<br /><br />
+        <code>
+        &lt;input name="t" type="text" placeholder="Pay Method" readonly=""&gt;
+        </code>
+        <br /><br />to this:<br /><br />
+        <code>
+        &lt;input name="t" value="1" type="text" placeholder="Pay Method" readonly=""&gt;
+        </code>
+        <p>
+        <span style='font-weight:bold'>serialize()</span> would grab the text "American Express".
+        </p>
+        <p>
+        <span style='font-weight:bold'>re_serialize</span> would grab the "value" field (1 in this case) and replace
+            "American Express" in the get string.
+        </p>
+        <p>
+            so this:<br><br> <span style='font-style:italic'>t=American+Express&t2=Co-habitating&t3=AZ&t4=</span>
+        </p>
+        <p>
+            becomes this:<br><br> <span style='font-style:italic'>t=1&t2=3&t3=AZ&t4=</span>
+        </p>
+      </p>
+      </div>
+   </div>
+     </div>
+     </body>
+</html>

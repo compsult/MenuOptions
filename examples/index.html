@@ -1,0 +1,104 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MenuOptions Examples</title>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.css">
+      
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.js"></script>
+      
+    <style>
+        div#wrapper {
+           margin-left: auto;
+           margin-right: auto;
+           width: 500px;
+           height: auto;
+           border: 1px solid silver;
+        }
+        td { color: green; }
+    </style>
+
+</head>
+<body>
+
+    <br />
+    <div id=wrapper>
+        <table id="examples" class="display">
+            <thead>
+                <tr>
+                    <th>
+                        Demo list
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr href_attr=MenusBottom.html>
+                    <td>
+                        Drop down menus
+                    </td>
+                </tr>
+                <tr href_attr=Dividers.html>
+                    <td>
+                        Example of using dividers
+                    </td>
+                </tr>
+                <tr href_attr=SelectWithImages.html>
+                    <td>
+                        Select with images
+                    </td>
+                </tr>
+                <tr href_attr=MenusRight.html>
+                    <td>
+                        Right side menus
+                    </td>
+                </tr>
+                <tr href_attr=QuickStartMenu.html>
+                    <td>
+                        Quick Start menu
+                    </td>
+                </tr>
+                <tr href_attr=QuickStartSelect.html>
+                    <td>
+                        Quick Start select
+                    </td>
+                </tr>
+                <tr href_attr=Serialize.html>
+                    <td>
+                        Serialize (re_serialize) demo
+                    </td>
+                </tr>
+                <tr href_attr=ReloadMenuOptions.html>
+                    <td>
+                        Dynamically reloading a MenuOptions select list
+                    </td>
+                </tr>
+                <tr href_attr=ReloadMenuOptions.html>
+                    <td>
+                        Reloading a MenuOptions select demo
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+      $(document).ready( function () {
+          $('#examples').DataTable({
+              "sDom":'<"H"f<"ExtraRowName">>t', 
+              "bJQueryUI":true
+          });
+          $('td').css({ 'text-align': 'center' });
+          $("div.ExtraRowName").html('MenuOptions demo pages');  
+          $('#examples tr').click(function() { 
+              window.open($(this).attr('href_attr'), '_blank');
+          });
+      } );
+    </script>
+
+	
+</body>
+</html>

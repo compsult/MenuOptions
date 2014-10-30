@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions select example </title>
+  
+   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+   <script src="../media/javascript/jquery.menuoptions.js"></script> 
+   <link rel="stylesheet" href="../media/style/menuoptions.css" type="text/css" media="all">
+   <style>
+        h1 { color: gray; font-size:24px; } 
+   </style>
+  
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+
+    $('input#selecttest').menuoptions({ 
+        "Data": [ "January","February","March","April","May", "June","July",
+                  "August","September","October","November","December" ],
+        "Sort": [] // don't sort
+    });  
+});
+</script>
+</head>
+<body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
+	<br><h1 >Examples of Menus positioned at bottom </h1>
+	 <table style="margin: 0 auto;">
+         <tr>
+             <td>
+                <div id=inputboxes>
+		            <input id='selecttest' type='text' >
+                </div>
+             </td>
+         </tr>
+	 </table>
+     </body>
+</html>
+
