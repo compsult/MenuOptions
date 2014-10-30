@@ -8,7 +8,7 @@
         "input",
         "menu"
     ],
-    "version":"1.5.0",
+    "version":"1.5.0-1",
     "author": {
         "name": "Michael Etts",
         "url": "https://github.com/compsult/menuoptions"
@@ -28,7 +28,7 @@
     ],
     "bugs": "https://github.com/compsult/menuoptions/issues",
     "homepage": "https://github.com/compsult/menuoptions",
-    "docs": "http://www.menuoptions.org",
+    "docs": "http://menuoptions.readthedocs.org/en/latest/",
     "download": "",
     "demo": "http://www.menuoptions.org",
     "dependencies": {

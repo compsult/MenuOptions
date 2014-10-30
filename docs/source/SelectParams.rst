@@ -3,7 +3,7 @@ Parameters specifications for select lists
 
 `Show me the select demo <http://www.menuoptions.org/examples/SelectWithImages.html>`_
 
-.. image:: _static/Select.jpg
+.. image:: _static/AutoCompWithImgs.jpg
    :alt: Select example
    :target: http://www.menuoptions.org/examples/SelectWithImages.html
 
