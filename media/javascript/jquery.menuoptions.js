@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
- * @version         Version 2.0.0
+ * @version         Version 1.5.0-2
  *
  ******************************************/
   //
@@ -622,8 +622,7 @@ _showDropDown : function (event) {
 
 _getAndSetDropDownWidth : function () {
     var $dd_span = this,
-        menu_width = parseInt($('span#SP_'+$dd_span.options._ID+' > table')
-                        .css('outerWidth'),10);
+        menu_width = parseInt($('span#SP_'+$dd_span.options._ID).css('width'),10);
     $dd_span.menu_start_loc = $dd_span.cached['.dropdownspan'].offset();
     $dd_span.options._width_adj.width_menu = menu_width;
     $dd_span.options._width_adj.width_after_adj = ( menu_width >  

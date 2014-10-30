@@ -11,7 +11,7 @@ span table.HdrFilter, table.CrEaTeDtAbLeStYlE {
 } 
 
 span table.HdrFilter td, th {
-            border: 1px solid silver;
+   border: 1px solid silver;
 }
 
 span table.CrEaTeDtAbLeStYlE tr.odd { 
