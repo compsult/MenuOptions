@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>MenuOptions Examples</title>
+	<title>MenuOptions jQuery ui widget for rapid data entry using autocomplete and mouseover filtering </title>
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.css">
@@ -13,21 +13,84 @@
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.js"></script>
       
     <style>
-        div#wrapper {
+        div.wrapper {
            margin-left: auto;
            margin-right: auto;
-           width: 500px;
            height: auto;
-           border: 1px solid silver;
+           width: 700px;
+           border: 1px solid white;
         }
-        td { color: green; }
+        body{ font: 16px/24px serif, sans-serif, monospace; }
+        pre{ font: 16px/24px serif, sans-serif, monospace; }
+        a, td { color: green; text-decoration:none; }
+        h1 { text-align:center; color: gray; font-size:28px; } 
+        li {
+                background: url(http://www.menuoptions.org/examples/images/bullet_green_alt.png) left center no-repeat; 
+                padding-left: 30px; 
+                margin-left: -40px;
+        }
     </style>
 
 </head>
 <body>
 
+    <div class=wrapper>
+        <h1>MenuOptions</h1> 
+
+        <ul style="list-style:none">
+        <li><p>a jQuery widget designed to optimize data entry speed for both keyboard and mouse users</p></li>
+        <li><p>using autocomplete and mouseover filtering                                       </p></li>
+        <li><p>can create menus that follow URLs or execute javascript functions            </p></li>
+        <li><p>has a select control that enables 1 click data entry                         </p></li>
+        <li><p>has a clear button that wipes the current value and opens the select list       </p></li>
+        <li><p>can optionally trigger an event (useful when updating another part of the page based on user selection) </p></li>
+        <li><p>is flexible, configurable and stays in the viewport  </p></li>
+    </ul>
+
+    <h3> (Note: <a href=https://github.com/compsult/MenuOptions>MenuOptions</a> documentation has been moved to <a href='http://menuoptions.readthedocs.org/en/latest/'>ReadTheDocs </a>)</h3>
+    <h2>Getting started with a simple select list</h2>
+
+    <p><a href="http://www.menuoptions.org/examples/QuickStartSelect.html">See the demo</a></p>
+
+    <pre>javascript
+    var Data = [ "January","February","March","April","May","June","July",
+                  "August","September","October","November","December" ];
+
+    $('input#selecttest').menuoptions({
+        "Data": Data
+    });
+    </pre>
+    <img src="http://www.menuoptions.org/examples/images/SimpleSelect.jpg" alt="alt text" title="select list image" />
+
+    <h2>Getting started with a simple menu</h2>
+
+    <p><a href="http://www.menuoptions.org/examples/QuickStartMenu.html">See the demo</a></p>
+
+    <pre>
+    var Data =  [ {"javascript": function() { alert('Run some javascript'); }},
+                  {"Google": "http://www.google.com"},
+                  {"Yahoo": "http://www.yahoo.com"}];
+
+       $('button[id$="menutest"]').menuoptions({
+                "Data": Data;
+                "MenuOptionsType": "Navigate", // Navigate is for menus
+            });
+    </pre>
+    <p><img src="http://www.menuoptions.org/examples/images/SimpleMenu.jpg" alt="alt text" title="SimpleMenu" /></p>
+
+    <h2>Autocomplete with images</h2>
+    <p><a href="http://www.menuoptions.org/examples/SelectWithImages.html">See the demo</a></p>
+
+    <p><img src="http://www.menuoptions.org/examples/images/AutoCompWithImgs.jpg" alt="alt text" title="autocomplete with images" /></p>
+
+
+    <h2>Mouseover filtering with dividers</h2>
+    <p><a href="http://www.menuoptions.org/examples/Dividers.html">See the demo</a></p>
+
+    <p><img src="http://www.menuoptions.org/examples/images/MenuWithMOandDivs.jpg" alt="alt text" title="mouseover with images" /></p>
+
     <br />
-    <div id=wrapper>
+    <h2> Listing of all demo pages</h2>
         <table id="examples" class="display">
             <thead>
                 <tr>
@@ -37,47 +100,47 @@
                 </tr>
             </thead>
             <tbody>
-                <tr href_attr=MenusBottom.html>
+                <tr href_attr=examples/MenusBottom.html>
                     <td>
                         Drop down menus
                     </td>
                 </tr>
-                <tr href_attr=Dividers.html>
+                <tr href_attr=examples/Dividers.html>
                     <td>
                         Example of using dividers
                     </td>
                 </tr>
-                <tr href_attr=SelectWithImages.html>
+                <tr href_attr=examples/SelectWithImages.html>
                     <td>
                         Select with images
                     </td>
                 </tr>
-                <tr href_attr=MenusRight.html>
+                <tr href_attr=examples/MenusRight.html>
                     <td>
                         Right side menus
                     </td>
                 </tr>
-                <tr href_attr=QuickStartMenu.html>
+                <tr href_attr=examples/QuickStartMenu.html>
                     <td>
                         Quick Start menu
                     </td>
                 </tr>
-                <tr href_attr=QuickStartSelect.html>
+                <tr href_attr=examples/QuickStartSelect.html>
                     <td>
                         Quick Start select
                     </td>
                 </tr>
-                <tr href_attr=Serialize.html>
+                <tr href_attr=examples/Serialize.html>
                     <td>
                         Serialize (re_serialize) demo
                     </td>
                 </tr>
-                <tr href_attr=ReloadMenuOptions.html>
+                <tr href_attr=examples/ReloadMenuOptions.html>
                     <td>
                         Dynamically reloading a MenuOptions select list
                     </td>
                 </tr>
-                <tr href_attr=ReloadMenuOptions.html>
+                <tr href_attr=examples/ReloadMenuOptions.html>
                     <td>
                         Reloading a MenuOptions select demo
                     </td>
@@ -85,6 +148,9 @@
             </tbody>
         </table>
     </div>
+    <a href="https://github.com/compsult/MenuOptions"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+    <br />
+    <br />
     <script>
       $(document).ready( function () {
           $('#examples').DataTable({
