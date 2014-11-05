@@ -13,7 +13,11 @@
 6. can optionally trigger an event (useful when updating another part of the page
    based on user selection)                               
                                                                                    
-7. is flexible, configurable and stays in the viewport  
+7. source data can be dynamically reloaded (no destroy-create required)
+
+8. is flexible, configurable and stays in the viewport  
+
+[(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 
 ### Getting started with a simple select list
 [See the demo](http://www.menuoptions.org/examples/QuickStartSelect.html).
