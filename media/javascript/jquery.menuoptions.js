@@ -606,6 +606,7 @@ _addDropDownToDOM : function () {
 _showDropDown : function (event) {
     var $dd_span = this;
 
+    $('body span[id^="SP_menuoption"]').remove()
     this._addDropDownToDOM(); 
 
     $('span#SP_'+$dd_span.options._ID).css({  zIndex: 9999 });  
