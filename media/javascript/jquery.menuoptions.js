@@ -38,6 +38,7 @@ $.widget( 'mre.menuoptions', {
     _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
     _prev_event : '',
     _prev_target : '',
+    _prevXY : { X : 0, Y : 0 },
     _CurrentFilter: '',
     _orig_bg : '',
     _event_ns : '',
@@ -151,7 +152,7 @@ $.widget( 'mre.menuoptions', {
   _processMatches : function ( event, StrToCheck, colorBorder ) {
       var matching = '';
       // if the user hits Enter while doing autocomplete, click() first match
-      if ( event.originalEvent.keyIdentifier === "Enter" ) {
+      if ( event.originalEvent === 13 || event.originalEvent.keyCode === 13 ) {
           $('table.CrEaTeDtAbLeStYlE').find('td:first').click();
           return;
       }
@@ -253,7 +254,7 @@ $.widget( 'mre.menuoptions', {
         'click': function(e) {
             $(this.element).val('');
             $(this.element).prop('value','');
-            this._buildWholeDropDown( event );
+            this._buildWholeDropDown( e );
         }
     });
     // bind events to this.element
@@ -504,10 +505,13 @@ $.widget( 'mre.menuoptions', {
 _choiceSelected : function (e) {
     // dup click event sent (???), screen out 2nd
      if ( $(e.currentTarget).text() === this._prev_target && 
-          e.type === this.options._prev_event ) { 
+          e.pageX === this.options._prevXY.X && 
+          e.pageY === this.options._prevXY.Y ) { 
           return; 
      } 
     this._prev_target=$(e.currentTarget).text();
+    this.options._prevXY.X=e.pageX;
+    this.options._prevXY.Y=e.pageY;
     this.options._prev_event=e.type;
     var $dd_span = this;
     if ( $dd_span.options.MenuOptionsType === 'Select' ) { 
