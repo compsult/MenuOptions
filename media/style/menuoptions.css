@@ -40,6 +40,7 @@ div.clear_btn {
                  width:18px; 
                  display:inline-block; 
                  vertical-align:middle;
+                 margin-bottom: 3px;
               }
 div.clear_btn.ClearButtonMO { 
    border-color: #95C256;

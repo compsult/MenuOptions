@@ -83,7 +83,11 @@ $.widget( 'mre.menuoptions', {
 
     this._bindUIActions();
 
+    this._detect_destroyed_input();
+
     this._refresh();
+
+    $(this.element).addClass('ui-menuoptions');
   },
 
   refreshData : function ( RefreshCfg ) {
@@ -98,6 +102,12 @@ $.widget( 'mre.menuoptions', {
       });
       this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
       this._buildDropDown( this.orig_objs ); 
+  },
+
+  _detect_destroyed_input: function ( ) {
+      $(this.element).bind('remove', function(e) {
+           this._destroy();
+      });
   },
 
   _buildWholeDropDown: function ( event ) {
@@ -253,7 +263,7 @@ $.widget( 'mre.menuoptions', {
         'mouseenter': '_hiLiteOnOff',
         'click': function(e) {
             $(this.element).val('');
-            $(this.element).prop('value','');
+            $(this.element).prop('menu_opt_key','');
             this._buildWholeDropDown( e );
         }
     });
@@ -364,9 +374,9 @@ $.widget( 'mre.menuoptions', {
       $.each(serialize_str.split('&'), function(k,v) {
           $.each(v.split('='), function (k2, v2) {
               if ( $('input[name="'+v2+'"]') && 
-                  $('input[name="'+v2+'"]').attr('value') ) {
+                  $('input[name="'+v2+'"]').attr('menu_opt_key') ) {
                   new_get_str += v2+'='
-                      +$('input[name="'+v2+'"]').attr('value')+'&';  
+                      +$('input[name="'+v2+'"]').attr('menu_opt_key')+'&';  
               } else {
                   new_get_str += v2+'='+$('input[name="'+v2+'"]').val()+'&'; 
               }
@@ -378,6 +388,8 @@ $.widget( 'mre.menuoptions', {
 
   _destroy : function () {
       $(this.element).css({'background-color': this.options._orig_bg });
+      $(this.element).removeClass('ui-menuoptions');
+      $('span#SP_'+this.options._ID).remove();  
       this._super();
   },
 
@@ -423,13 +435,13 @@ $.widget( 'mre.menuoptions', {
                 // for menu's, a non clickable divider row (for categories, etc)
                 return  '\t<td class='+obj.ky +'>'+obj.val+'</td>\n'; 
             } else {
-                return  '\t<td class=dflt value="'+obj.ky
+                return  '\t<td class=dflt menu_opt_key="'+obj.ky
                             +'">'+obj.val+'</td>\n'; 
             }
         });
         // pad with empty cells (if necessary) to match TD count of other rows
         for ( i=subary.length+1; i <= this.options.ColumnCount; i += 1) {
-            TDary.push('<td class=dflt value="">&nbsp;</td>');
+            TDary.push('<td class=dflt menu_opt_key="">&nbsp;</td>');
         }
         buffer += '<tr>\n'+TDary.join('')+'</tr>\n';
         RowCnt += 1;
@@ -504,11 +516,11 @@ $.widget( 'mre.menuoptions', {
 
 _choiceSelected : function (e) {
     // dup click event sent (???), screen out 2nd
-     if ( $(e.currentTarget).text() === this._prev_target && 
-          e.pageX === this.options._prevXY.X && 
-          e.pageY === this.options._prevXY.Y ) { 
-          return; 
-     } 
+    if ( $(e.currentTarget).text() === this._prev_target && 
+        e.pageX === this.options._prevXY.X && 
+        e.pageY === this.options._prevXY.Y ) { 
+        return; 
+    } 
     this._prev_target=$(e.currentTarget).text();
     this.options._prevXY.X=e.pageX;
     this.options._prevXY.Y=e.pageY;
@@ -519,7 +531,7 @@ _choiceSelected : function (e) {
         if ( $dd_span.options.TriggerEvent.length ) {
             $dd_span.element.triggerHandler($dd_span.options.TriggerEvent); 
         }
-        $dd_span.element.attr('value',$(e.target).attr('value'));  
+        $dd_span.element.attr('menu_opt_key',$(e.target).attr('menu_opt_key'));  
         e.target.className=e.target.className.replace(/ mo/,'');
     } else {
         this._runMenuItem (e);
@@ -592,10 +604,10 @@ _resetOffsetOfDropDown: function () {
 
 _addDropDownToDOM : function () {
     var $dd_span = this;
-    // create the select or menu and hide it.
-    if ( $('span#SP_'+this.options._ID).length ) {  
-        $('span#SP_'+this.options._ID).remove();   
-    }  
+
+    // only one dropdown at a time
+    $('body span[id^="SP_menuoption"]').remove()
+
     this.dropdownbox
             .appendTo('body')  
             .hide(1)  
@@ -610,9 +622,7 @@ _addDropDownToDOM : function () {
 _showDropDown : function (event) {
     var $dd_span = this;
 
-    $('body span[id^="SP_menuoption"]').remove()
     this._addDropDownToDOM(); 
-
     $('span#SP_'+$dd_span.options._ID).css({  zIndex: 9999 });  
     this._getAndSetDropDownWidth();
     // show the menu

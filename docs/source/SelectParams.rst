@@ -135,12 +135,12 @@ UseValueForKey
     options: **true or false**
 
     UseValueForKey = true means that the visible option will be the same as the 
-    `value`. So if the visible option were "CA", the html built would look
+    `menu_opt_key`. So if the visible option were "CA", the html built would look
     like:
 
 .. code-block:: html
 
-    <td value="CA">"CA"</td>. 
+    <td menu_opt_key"CA">"CA"</td>. 
 
 Width
 ^^^^^
