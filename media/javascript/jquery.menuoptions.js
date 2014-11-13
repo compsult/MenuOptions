@@ -74,6 +74,7 @@ $.widget( 'mre.menuoptions', {
     // make sure incoming data is in required format
     this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
     if ( this.orig_objs === false ) {
+        alert ('Invalid Data format supplied to menuoptions');
         this.destroy();
         return;
     }
@@ -102,6 +103,14 @@ $.widget( 'mre.menuoptions', {
       });
       this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
       this._buildDropDown( this.orig_objs ); 
+  },
+
+  add_meuoption_key : function ( ) {
+     matchedRec = $.grep ( this.ary_of_objs, function(rec) { 
+         return rec.val === $(this).val(); });
+     if ( matchedRec.length > 0 ) {
+         $(this).attr('menu_opt_key', matchedRec[0].ky);
+     }
   },
 
   _detect_destroyed_input: function ( ) {
