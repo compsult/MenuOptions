@@ -18,12 +18,11 @@ I pasted data into a MenuOptions select list and now have errors when saving
 
 MenuOptions expects that you have either clicked a selection or 
 typed one in and pressed enter.  When you paste data into a MenuOptions 
-select list, you need to run the `add_meuoption_key` method
+select list, you need to run the `add_menuoption_key` method
 
 .. code-block:: javascript
 
-      $(YourSelector + ' .ui-menuoptions').menuoptions('add_meuoption_key' );
+      $(YourSelector + ' .ui-menuoptions').menuoptions('add_menuoption_key' );
 
-This will populate the attribute menu_opt_key that 
-`re_serialize() <http://menuoptions.readthedocs.org/en/latest/Serialize.html>`_
-to get the value that corresponds with the text the user sees.
+This will populate the attribute menu_opt_key that `re_serialize() <http://menuoptions.readthedocs.org/en/latest/Serialize.html>`_ 
+uses to get the value that corresponds with the text the user sees.

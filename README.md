@@ -4,18 +4,20 @@
                                                                                 
 2. uses autocomplete and mouseover filtering                                       
                                                                                 
-3. can create menus that follow URLs or execute javascript functions            
+3. just like the  &lt;select&gt; element, uses visible text and values
+
+4. can create menus that follow URLs or execute javascript functions            
                                                                                 
-4. has a select control that enables 1 click data entry                         
+5. has a select control that enables 1 click data entry                         
                                                                                 
-5. has a clear button that wipes the current value and opens the select list       
+6. has a clear button that wipes the current value and opens the select list       
                                                                                    
-6. can optionally trigger an event (useful when updating another part of the page
+7. can optionally trigger an event (useful when updating another part of the page
    based on user selection)                               
                                                                                    
-7. source data can be dynamically reloaded (no destroy-create required)
+8. source data can be dynamically reloaded (no destroy-create required)
 
-8. is flexible, configurable and stays in the viewport  
+9. is flexible, configurable and stays in the viewport  
 
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 

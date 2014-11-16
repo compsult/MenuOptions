@@ -67,7 +67,7 @@ $(document).ready(function() {
 <body>
     <div id="wrapper" >
 	<h1 style='border:0px solid gray'>Using re_serialize()</h1>
-	<h2 style='border:0px solid gray'>(serialize() will not pick up "value" information from input=text)</h2>
+	<h2 style='border:0px solid gray'>(serialize() will not pick up "menu_opt_key" information)</h2>
 	<h2 style='border:0px solid gray'>Choose from the drop downs and click "See results"</h2>
 	<form id=tst>
 	 <table id=serial_demo align=center style="margin-top:10px;text-align:left;">
@@ -115,20 +115,20 @@ $(document).ready(function() {
       </code>
       <h3>How it works:</h3>
       <p>
-        MenuOptions select adds the attribute "value" to the input element when a user makes their selection, 
+        MenuOptions select adds the attribute "menu_opt_key" to the input element when a user makes their selection, 
         so if you chose "American Express" the input field would change from:<br /><br />
         <code>
         &lt;input name="t" type="text" placeholder="Pay Method" readonly=""&gt;
         </code>
         <br /><br />to this:<br /><br />
         <code>
-        &lt;input name="t" value="1" type="text" placeholder="Pay Method" readonly=""&gt;
+        &lt;input name="t" menu_opt_key="1" type="text" placeholder="Pay Method" readonly=""&gt;
         </code>
         <p>
         <span style='font-weight:bold'>serialize()</span> would grab the text "American Express".
         </p>
         <p>
-        <span style='font-weight:bold'>re_serialize</span> would grab the "value" field (1 in this case) and replace
+        <span style='font-weight:bold'>re_serialize</span> would grab the "menu_opt_key" field (1 in this case) and replace
             "American Express" in the get string.
         </p>
         <p>
