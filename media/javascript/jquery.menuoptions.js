@@ -169,7 +169,8 @@ $.widget( 'mre.menuoptions', {
   },
 
   _processMatches : function ( event, StrToCheck, colorBorder ) {
-      var matching = '';
+      var matching = '',
+          no_img_val = '';
       // if the user hits Enter while doing autocomplete, click() first match
       if ( event.originalEvent === 13 || event.originalEvent.keyCode === 13 ) {
           $('table.CrEaTeDtAbLeStYlE').find('td:first').click();
@@ -177,7 +178,8 @@ $.widget( 'mre.menuoptions', {
       }
       if ( StrToCheck !== '' ) {
          matching = $.grep(this.orig_objs, function(obj, idx) { 
-             if ( obj.val.match(new RegExp(StrToCheck,'i')) ) 
+             no_img_val = obj.val.replace(/<img.*>/, '');
+             if ( no_img_val.match(new RegExp(StrToCheck,'i')) ) 
                 { return obj;}
          });
       }

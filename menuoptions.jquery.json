@@ -1,14 +1,14 @@
 {
     "name": "menuoptions",
     "title": "Menu Options",
-    "description": "A jQuery widget designed to optimize data entry speed for both keyboard and mouse users. MenuOptions uses autocomplete and mouseover filtering to accomplish this. Menus can be created that follow URLs or execute a javascript function. Select lists can be created under any input=text element. Select lists can be filtered by running the mouse over a filter (see demos) or by the use of the built in autocomplete. A user selection can optionally trigger an event (useful when updating another part of the page based on user selection). Both menus and select lists can have separators (for readability) and images.",
+    "description": "A jQuery widget designed to optimize data entry speed for both keyboard and mouse users. MenuOptions uses autocomplete and mouseover filtering to accomplish this. Menus can be created that follow URLs or execute javascript functions.",
     "keywords": [
         "ui",
         "form",
         "input",
         "menu"
     ],
-    "version":"1.5.0-10",
+    "version":"1.5.0-11",
     "author": {
         "name": "Michael Etts",
         "url": "https://github.com/compsult/menuoptions"

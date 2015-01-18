@@ -4,9 +4,9 @@
                                                                                 
 2. uses autocomplete and mouseover filtering                                       
                                                                                 
-3. just like the  &lt;select&gt; element, uses visible text and values
+3. just like the  &lt;select&gt; element, uses visible text and hidden values
 
-4. can create menus that follow URLs or execute javascript functions            
+4. can create menus (with dividers) that follow URLs or execute javascript functions            
                                                                                 
 5. has a select control that enables 1 click data entry                         
                                                                                 
