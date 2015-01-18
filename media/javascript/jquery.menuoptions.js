@@ -173,7 +173,9 @@ $.widget( 'mre.menuoptions', {
           no_img_val = '';
       // if the user hits Enter while doing autocomplete, click() first match
       if ( event.originalEvent === 13 || event.originalEvent.keyCode === 13 ) {
-          $('table.CrEaTeDtAbLeStYlE').find('td:first').click();
+          this.element.val($('table.CrEaTeDtAbLeStYlE').find('td:first').text());
+          this.element.attr('menu_opt_key', $('table.CrEaTeDtAbLeStYlE').find('td:first').attr('menu_opt_key'));
+          this.cached['.dropdownspan'].remove();
           return;
       }
       if ( StrToCheck !== '' ) {
@@ -361,6 +363,7 @@ $.widget( 'mre.menuoptions', {
           this._setOption('ShowAt','left bottom');
       }
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {
+          this.options._menu_box.overlap = -3;
           this._setOption('ShowAt','right top');
       }
       if ( this.options.SelectOnly ) {
