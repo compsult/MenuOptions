@@ -64,25 +64,26 @@ $(document).ready(function() {
     $('input#starttime' ).on("change", function(event){
           var start = $(this);
           var end_time = $('input#endtime');
-          /*--  dynamically adjust end time array  --*/
+          /*--  clear out the existing end time array  --*/
           $("body").data("endtimes", []);
-          for (var t = 0; t <= 100; t += 5) { 
+          /*--  change end time choices to be up to 90 minutes later   --*/
+          for (var t = 0; t <= 90; t += 5) { 
             $("body").data("endtimes").push(AddApptMins(start.val(), t)); 
           } 
+          /*--  refresh the Data for the endtime and remove filters (AM|PM)   --*/
 	      $('input#endtime').menuoptions( 'refreshData',  
                 { 'Data'    : $("body").data("endtimes"),
                   'Filters' : [],
                   'ColumnCount' : 4,
                   'Width' : 300 });
-          /*--  end_time.val( AddApptMins( start.val(),60) ); // initialize  --*/
      });
 });
 </script>
 </head>
 <body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
-	<br><h1 >Example of reloading a MenuOptions select</h1>
-    <h2>When you change the Start time, the end time select list will change to <br /> 
-        show thirty 5 minute intervals after the start time</h2><br />
+	/*--  <br><h1 >Example of dynamic reloading a MenuOptions select</h1>  --*/
+    <h2>When you change the Start time, the end time select list will modified to <br /> 
+        only display the start time plus 1 hour and 30 minutes </h2><br />
 	 <table style="margin: 0 auto;">
 	    <tr>
 	       <td class=demotd1>

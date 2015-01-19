@@ -59,4 +59,14 @@ $('button[id$="menutest"]').menuoptions({
 ###Mouseover filtering with dividers###
 [See the demo](http://www.menuoptions.org/examples/Dividers.html)
 
-![alt text](http://www.menuoptions.org/examples/images/MenuWithMOandDivs.jpg "mouseover with images")
+![alt text](http://www.menuoptions.org/examples/images/MenuWithMOandDivs.jpg "mouseover filtering with dividers")
+
+
+###Dynamic reloading of a MenuOptions select list###
+[See the demo](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
+
+In this case, the user selects a start time and the end time will be modified to only display<br />
+the start time plus 1 hour and 30 minutes later<br />
+
+![alt text](http://www.menuoptions.org/examples/images/Reload.png "dynamic reload of MenuOptions select list")
+
