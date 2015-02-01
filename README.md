@@ -50,19 +50,19 @@ $('button[id$="menutest"]').menuoptions({
 ```
 ![alt text](http://www.menuoptions.org/examples/images/SimpleMenu.jpg "simple menu image")
 
-###Autocomplete with images###
+### Autocomplete with images
 [See the demo](http://www.menuoptions.org/examples/SelectWithImages.html)
 
 ![alt text](http://www.menuoptions.org/examples/images/AutoCompWithImgs.jpg "autocomplete with images")
 
 
-###Mouseover filtering with dividers###
+### Mouseover filtering with dividers
 [See the demo](http://www.menuoptions.org/examples/Dividers.html)
 
 ![alt text](http://www.menuoptions.org/examples/images/MenuWithMOandDivs.jpg "mouseover filtering with dividers")
 
 
-###Dynamic reloading of a MenuOptions select list###
+### Dynamic reloading of a MenuOptions select list
 [See the demo](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
 
 In this case, the user selects a start time and the end time will be modified to only display<br />
@@ -70,3 +70,15 @@ the start time plus 1 hour and 30 minutes later<br />
 
 ![alt text](http://www.menuoptions.org/examples/images/Reload.png "dynamic reload of MenuOptions select list")
 
+### Using MenuOptions with jQuery's serialize
+[See the demo](http://www.menuoptions.org/examples/Serialize.html)
+
+If you load MenuOptions select list using an object, the value will be written into the 'menu_opt_key'
+attribute.  jQuery's serialize will not pick up the value of a MenuOptions select list (menu_opt_key)<br />
+To account for this, wrap serialize() with re_serialize, like this:<br />
+
+```javascript
+$('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').serialize());
+```
+
+![alt text](http://www.menuoptions.org/examples/images/re_serialize.png "using MenuOptions with serialize() ")

@@ -12,6 +12,7 @@
    <style>
    h1 { color: gray; font-size:26px; } 
    h2 { color: gray; font-size:16px; } 
+   button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:170px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
    </style>
   
 
@@ -49,7 +50,8 @@ $(document).ready(function() {
                                     "ShowAt": 'bottom',
                                     "ColumnCount": 4,
                                     "Width": 300,
-                                    "TriggerEvent": "change" 
+                                    "TriggerEvent": "change",
+                                    /*--  "UseValueForKey" : true  --*/
                                     });
     $('input#endtime').menuoptions({
                                     "Data": $("body").data("alltimes"),
@@ -59,7 +61,8 @@ $(document).ready(function() {
                                     "ShowAt": 'bottom',
                                     "ColumnCount": 4,
                                     "Width": 300,
-                                    "TriggerEvent": "change" 
+                                    "TriggerEvent": "change",
+                                    /*--  "UseValueForKey" : true  --*/
                                     });
     $('input#starttime' ).on("change", function(event){
           var start = $(this);
@@ -77,17 +80,22 @@ $(document).ready(function() {
                   'ColumnCount' : 4,
                   'Width' : 300 });
      });
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#starttime').menuoptions('re_serialize',$('form#tst').serialize()); 
+        alert (tst);
+    });
 });
 </script>
 </head>
 <body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
-	/*--  <br><h1 >Example of dynamic reloading a MenuOptions select</h1>  --*/
+	<br><h1 >Example of dynamic reloading a MenuOptions select</h1> 
     <h2>When you change the Start time, the end time select list will modified to <br /> 
         only display the start time plus 1 hour and 30 minutes </h2><br />
+    <form id=tst>
 	 <table style="margin: 0 auto;">
 	    <tr>
 	       <td class=demotd1>
-		      <input id='starttime' type='text' >
+		      <input name=t1 id='starttime' type='text' >
 	       </td>
 	    </tr>
 	    <tr>
@@ -97,10 +105,21 @@ $(document).ready(function() {
 	    </tr>
 	    <tr>
 	       <td class=demotd1>
-		      <input id='endtime' type='text' >
+		      <input name=t2 id='endtime' type='text' >
+	       </td>
+	    </tr>
+	    <tr>
+	       <td class=demotd1>
+		      &nbsp;
+	       </td>
+	    </tr>
+	    <tr>
+	       <td class=demotd1>
+            <button class=a type="button" id="menutest" >Show serialize values</button>
 	       </td>
 	    </tr>
 	 </table>
-     </body>
+    </form>
+    </body>
 </html>
 

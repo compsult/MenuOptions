@@ -11,6 +11,7 @@
    <link rel="stylesheet" href="../media/style/menuoptions.css" type="text/css" media="all">
    <style>
         h1 { color: gray; font-size:24px; } 
+        button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:170px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
    </style>
   
 
@@ -22,20 +23,27 @@ $(document).ready(function() {
                   "August","September","October","November","December" ],
         "Sort": [] // don't sort
     });  
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#selecttest').menuoptions('re_serialize',$('form#tst').serialize()); 
+        alert (tst);
+    });
 });
 </script>
 </head>
 <body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
 	<br><h1 >Examples of simple select list with autocomplete </h1>
+    <form id=tst>
 	 <table style="margin: 0 auto;">
          <tr>
              <td>
                 <div id=inputboxes>
-		            <input id='selecttest' type='text' >
+		            <input name =t1 id='selecttest' type='text' >
                 </div>
              </td>
          </tr>
-	 </table>
+     </table><br /><br />
+    <button class=a type="button" id="menutest" >Show serialize values</button>
+    </form>
      </body>
 </html>
 

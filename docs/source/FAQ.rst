@@ -26,3 +26,21 @@ select list, you need to run the `add_menuoption_key` method
 
 This will populate the attribute menu_opt_key that `re_serialize() <http://menuoptions.readthedocs.org/en/latest/Serialize.html>`_ 
 uses to get the value that corresponds with the text the user sees.
+
+How do I display text and have a hidden value, like the HTML select control?
+----------------------------------------------------------------------------
+When creating your MenuOptions select control, pass it an object, like the code below:
+
+.. code-block:: javascript
+
+     PayMethod   = { 1: "American Express", 2: "Visa", 3: "Mastercard", 4:"Discover", 5:"Check", 
+                     6:"PayPal", 7:"Cash", 8:"Money Order"}
+
+     $('input[name="t"]').menuoptions({  "Data": PayMethod, 
+                                            "SelectOnly": true, 
+                                            "ClearBtn": true, 
+                                            "PlaceHolder": "Pay Method", 
+                                            "ColumnCount": 2,
+                                            'Width': 225 });
+
+For more details, see `re_serialize() <http://menuoptions.readthedocs.org/en/latest/Serialize.html>`_ 

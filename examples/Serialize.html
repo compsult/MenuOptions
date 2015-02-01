@@ -107,23 +107,41 @@ $(document).ready(function() {
 	<button class="a" tooltip="Click to see serialize results" id=btn>See results</button><br>
 	</form>
 	<br><br>
-   <div style="display:block; border:1px solid gray;text-align:left;">
-       <br />The code below takes the output from <span style='font-weight:bold'>serialize()</span> and turns
-       text values that the user selected into key codes.<br /><br />
-      <code>
-        var new_get_str = $('input[name=t3]').menuoptions('re_serialize', $('form#tst').serialize());
-      </code>
-      <h3>How it works:</h3>
+   <div style="display:block; border:1px solid silver;text-align:left;margin:10px;">
+       <p>
+        <br />The code below takes the output from <span style='font-weight:bold'>serialize()</span> and turns
+        text values that the user selected into key codes.<br /><br />
+        <code>
+            var new_get_str = $('input[name=t3]').menuoptions('re_serialize', $('form#tst').serialize());
+        </code>
+      </p>
+       <p>
+      <h3 style='margin-left:10px;'> How it works:</h3>
       <p>
-        MenuOptions select adds the attribute "menu_opt_key" to the input element when a user makes their selection, 
-        so if you chose "American Express" the input field would change from:<br /><br />
-        <code>
+      If you load a MenuOptions select control with an object, like the code below:<br>
+        <pre>
+        PayMethod   = { 1: "American Express", 2: "Visa", 3: "Mastercard", 4:"Discover", 5:"Check", 
+                        6:"PayPal", 7:"Cash", 8:"Money Order"}
+        $('input[name="t"]').menuoptions({  "Data": PayMethod, 
+                                            "SelectOnly": true, 
+                                            "ClearBtn": true, 
+                                            "PlaceHolder": "Pay Method", 
+                                            "ColumnCount": 2,
+                                            'Width': 225 });
+        </pre>
+        <p>
+        MenuOptions will write an attribute into the input element called 'menu_opt_key'<br>
+        So if you chose "American Express" the input field would change from:
+        </p>
+        <pre>
         &lt;input name="t" type="text" placeholder="Pay Method" readonly=""&gt;
-        </code>
-        <br /><br />to this:<br /><br />
-        <code>
+        </pre>
+        <p>
+        to this:
+        </p>
+        <pre>
         &lt;input name="t" menu_opt_key="1" type="text" placeholder="Pay Method" readonly=""&gt;
-        </code>
+        </pre>
         <p>
         <span style='font-weight:bold'>serialize()</span> would grab the text "American Express".
         </p>
