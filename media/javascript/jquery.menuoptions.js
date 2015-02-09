@@ -290,6 +290,7 @@ $.widget( 'mre.menuoptions', {
         'click':  '_buildWholeDropDown',
         'mouseenter':  '_buildWholeDropDown',
         'focus':  '_buildWholeDropDown',
+        'search':  '_buildWholeDropDown',
         'mouseleave':  '_removeDropDown',
         'blur': '_removeDropDown'
     });

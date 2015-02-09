@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.css">
       
     <!-- jQuery -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.js"></script>
@@ -20,8 +20,8 @@
            width: 700px;
            border: 1px solid white;
         }
-        body{ font: 16px/24px serif, sans-serif, monospace; }
-        pre{ font: 16px/24px serif, sans-serif, monospace; }
+        body{ font: 16px/24px  Arial, Helvetica, sans-serif; }
+        pre{ font: 12px/18px Consolas, "Lucida Console", Monaco, monospace }
         a, td { color: green; text-decoration:none; }
         h1 { text-align:center; color: gray; font-size:28px; } 
         li {
@@ -29,6 +29,8 @@
                 padding-left: 30px; 
                 margin-left: -40px;
         }
+        img { border: 0px; }
+        tr:hover { cursor: pointer; font-weight:bold;}
     </style>
 
 </head>
@@ -37,13 +39,13 @@
     <div class=wrapper>
         <h1>MenuOptions</h1> 
 
-        <ul style="list-style:none">
+     <ul style="list-style:none">
         <li><p>a jQuery widget designed to optimize data entry speed for both keyboard and mouse users</p></li>
         <li><p>using autocomplete and mouseover filtering                                       </p></li>
-        <li><p>can create menus that follow URLs or execute javascript functions            </p></li>
+        <li><p>just like the select element, uses visible text and hidden values </p></li>
+        <li><p>can create menus (with dividers) that follow URLs or execute javascript functions            </p></li>
         <li><p>has a select control that enables 1 click data entry                         </p></li>
         <li><p>has a clear button that wipes the current value and opens the select list       </p></li>
-        <li><p>can optionally trigger an event (useful when updating another part of the page based on user selection) </p></li>
         <li><p>is flexible, configurable and stays in the viewport  </p></li>
     </ul>
 
@@ -60,7 +62,8 @@
         "Data": Data
     });
     </pre>
-    <img src="http://www.menuoptions.org/examples/images/SimpleSelect.jpg" alt="alt text" title="select list image" />
+    <a href="http://www.menuoptions.org/examples/QuickStartSelect.html">
+    <img src="http://www.menuoptions.org/examples/images/SimpleSelect.jpg" alt="simple select list example" title="simple select list example" /></a>
 
     <h2>Getting started with a simple menu</h2>
 
@@ -76,18 +79,41 @@
                 "MenuOptionsType": "Navigate", // Navigate is for menus
             });
     </pre>
-    <p><img src="http://www.menuoptions.org/examples/images/SimpleMenu.jpg" alt="alt text" title="SimpleMenu" /></p>
+    <a href="http://www.menuoptions.org/examples/QuickStartMenu.html">
+    <img src="http://www.menuoptions.org/examples/images/SimpleMenu.jpg" alt="simple menu example" title="simple menu example" /></a>
 
     <h2>Autocomplete with images</h2>
     <p><a href="http://www.menuoptions.org/examples/SelectWithImages.html">See the demo</a></p>
 
-    <p><img src="http://www.menuoptions.org/examples/images/AutoCompWithImgs.jpg" alt="alt text" title="autocomplete with images" /></p>
+    <a href="http://www.menuoptions.org/examples/SelectWithImages.html"><img src="http://www.menuoptions.org/examples/images/AutoCompWithImgs.jpg" alt="autocomplete with images" title="autocomplete with images" /></a>
 
 
     <h2>Mouseover filtering with dividers</h2>
     <p><a href="http://www.menuoptions.org/examples/Dividers.html">See the demo</a></p>
 
-    <p><img src="http://www.menuoptions.org/examples/images/MenuWithMOandDivs.jpg" alt="alt text" title="mouseover with images" /></p>
+    <a href="http://www.menuoptions.org/examples/Dividers.html"><img src="http://www.menuoptions.org/examples/images/MenuWithMOandDivs.jpg" alt="mouseover with dividers" title="mouseover with dividers" /></a>
+
+    <h3>Dynamic reloading of a MenuOptions select list</h3>
+    
+    <p><a href="http://www.menuoptions.org/examples/ReloadMenuOptions.html">See the demo</a></p>
+    
+    <p>In this case, the user selects a start time and the end time will be modified to only display<br />
+    the start time plus 1 hour and 30 minutes later<br /></p>
+    
+    <a href="http://www.menuoptions.org/examples/ReloadMenuOptions.html"><img src="http://www.menuoptions.org/examples/images/Reload.png" alt="dynamic reload of MenuOptions select list" title="dynamic reload of MenuOptions select list" /></a>
+    <h3>Using MenuOptions with jQuery's serialize</h3>
+    
+    <p><a href="http://www.menuoptions.org/examples/Serialize.html">See the demo</a></p>
+    
+    <p>If you load MenuOptions select list using an object, the value will be written into the 'menu_opt_key'
+    attribute.  jQuery's serialize will not pick up the value of a MenuOptions select list (menu_opt_key).<br /><br />
+    To account for this, wrap serialize() with re_serialize, like this:<br /></p>
+    
+    <pre>
+        $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').serialize());
+
+    </pre>
+    <a href="http://www.menuoptions.org/examples/Serialize.html"><img src="http://www.menuoptions.org/examples/images/re_serialize.png" alt="re_serialize" title="using MenuOptions with serialize() " /></a>
 
     <br />
     <h2> Listing of all demo pages</h2>
@@ -138,11 +164,6 @@
                 <tr href_attr=ReloadMenuOptions.html>
                     <td>
                         Dynamically reloading a MenuOptions select list
-                    </td>
-                </tr>
-                <tr href_attr=ReloadMenuOptions.html>
-                    <td>
-                        Reloading a MenuOptions select demo
                     </td>
                 </tr>
             </tbody>
