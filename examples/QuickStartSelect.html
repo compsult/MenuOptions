@@ -21,10 +21,16 @@ $(document).ready(function() {
     $('input#selecttest').menuoptions({ 
         "Data": [ "January","February","March","April","May", "June","July",
                   "August","September","October","November","December" ],
+        "onSelect": function(mo, data) { 
+            if ( data.type == "EnterKey" ) {
+                /*--  $("form#tst").submit();  --*/
+            }
+            console.log(mo, data.newVal, data.type ); 
+        }, 
         "Sort": [] // don't sort
     });  
     $('button#menutest').on('click', function (e) {
-        var tst = $('input#selecttest').menuoptions('re_serialize',$('form#tst').serialize()); 
+        var tst = $('input#selecttest').val();
         alert (tst);
     });
 });
@@ -37,7 +43,7 @@ $(document).ready(function() {
          <tr>
              <td>
                 <div id=inputboxes>
-		            <input name =t1 id='selecttest' type='text' >
+		            <input id='selecttest' type='text' >
                 </div>
              </td>
          </tr>

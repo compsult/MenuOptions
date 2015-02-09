@@ -19,7 +19,7 @@ in a call like the one below:
         with a MenuOptions call (initialization example below).
 
     2 - The data passed in with the `Data <http://menuoptions.readthedocs.org/en/latest/SelectParams.html>`_
-        parameter must be an object
+        parameter must be an object or an array of objects
 
 .. code-block:: javascript
 

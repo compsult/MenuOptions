@@ -20,12 +20,12 @@ Parameter list for select list
     DisableHiLiting,boolean, "true or false", false, false
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     MenuOptionsType,string,'Select' or 'Navigate','Select',false
+    onSelect, function,function(),none,false
     PlaceHolder,"placeholder (HTML5)",text,none,false
     SelectOnly,boolean,"true or false",false,false
     ShowAt,string,'Bottom' or 'Right','Bottom',false
     Sort,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
-    TriggerEvent, text,"event name to be triggered",none,false
-    UseValueForKey ,oolean,"true or false",false,false
+    UseValueForKey,boolean,"true or false",false,false
     Width,integer,positive integer, width of parent, false
 
 Parameters explained for MenuOption select
@@ -88,6 +88,27 @@ MenuOptionsType
 
     'MenuOptionsType': 'Navigate'
 
+onSelect
+^^^^^^^^
+    options: **function(<MenuOptions instance>, data)**  
+
+    When user selects an option, either by clicking or by pressing enter while
+    in the text box, this function will be executed
+
+    data has 2 values
+
+     1. newVal (the new value that was selected)
+     2. type (this tells you if the selection was made by "Click" or "EnterKey")
+
+.. code-block:: javascript
+
+    "onSelect": function(mo, data) { 
+        if ( data.type == "EnterKey" ) {
+            $("form#tst").submit();
+        }
+        console.log(mo, data.newVal, data.type ); 
+    }, 
+
 PlaceHolder
 ^^^^^^^^^^^
     options: **'placeholder text'**
@@ -118,17 +139,6 @@ ShowAt
 
     "Bottom" means that the select list will appear underneath
     "Right" means that the select list will appear to the right
-
-TriggerEvent
-^^^^^^^^^^^^
-    options: **<event name>**  
-
-    When user selects an option, either by clicking or by pressing enter while
-    in the text box, this event will be triggered (example below):
-
-.. code-block:: javascript
-
-    "TriggerEvent": "change"
 
 UseValueForKey
 ^^^^^^^^^^^^^^

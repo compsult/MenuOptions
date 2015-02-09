@@ -47,11 +47,13 @@ $(document).ready(function() {
                                     "Filters": [{'AM':'AM'},{'PM':'PM'}],
                                     "ClearBtn": true,
                                     "PlaceHolder": "Start time",
+                                    "onSelect": function(e, data) { 
+                                        ResetEndTimeData(data.newVal); 
+                                    }, 
                                     "ShowAt": 'bottom',
                                     "ColumnCount": 4,
                                     "Width": 300,
                                     "TriggerEvent": "change",
-                                    /*--  "UseValueForKey" : true  --*/
                                     });
     $('input#endtime').menuoptions({
                                     "Data": $("body").data("alltimes"),
@@ -62,16 +64,14 @@ $(document).ready(function() {
                                     "ColumnCount": 4,
                                     "Width": 300,
                                     "TriggerEvent": "change",
-                                    /*--  "UseValueForKey" : true  --*/
                                     });
-    $('input#starttime' ).on("change", function(event){
-          var start = $(this);
+    function ResetEndTimeData( startTime ) {
           var end_time = $('input#endtime');
           /*--  clear out the existing end time array  --*/
           $("body").data("endtimes", []);
           /*--  change end time choices to be up to 90 minutes later   --*/
           for (var t = 0; t <= 90; t += 5) { 
-            $("body").data("endtimes").push(AddApptMins(start.val(), t)); 
+            $("body").data("endtimes").push(AddApptMins(startTime, t)); 
           } 
           /*--  refresh the Data for the endtime and remove filters (AM|PM)   --*/
 	      $('input#endtime').menuoptions( 'refreshData',  
@@ -79,7 +79,7 @@ $(document).ready(function() {
                   'Filters' : [],
                   'ColumnCount' : 4,
                   'Width' : 300 });
-     });
+    }
     $('button#menutest').on('click', function (e) {
         var tst = $('input#starttime').menuoptions('re_serialize',$('form#tst').serialize()); 
         alert (tst);

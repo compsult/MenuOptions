@@ -31,7 +31,6 @@ $.widget( 'mre.menuoptions', {
     Width: '', // let user specify the exact width they want
     ShowAt: 'bottom', // 'bottom' or 'right' are the options
     Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
-    TriggerEvent: '', // lets user trigger an event upon selection
     Filters: [], // header filters (pass mouse over them & they filter choices)
     MenuOptionsType: 'Select', //other option is Navigate (run JS,follow href)
     DisableHiLiting : false, // set to true to disable autocomplete highlighting
@@ -41,7 +40,7 @@ $.widget( 'mre.menuoptions', {
     _prevXY : { X : 0, Y : 0 },
     _CurrentFilter: '',
     _orig_bg : '',
-    _event_ns : '',
+    _event_ns : '', 
     _menu_box : { 
                         top : 0,
                         bottom : 0,
@@ -89,6 +88,7 @@ $.widget( 'mre.menuoptions', {
     this._refresh();
 
     $(this.element).addClass('ui-menuoptions');
+    $(this.element).attr('autocomplete', 'off');
   },
 
   refreshData : function ( RefreshCfg ) {
@@ -173,9 +173,14 @@ $.widget( 'mre.menuoptions', {
           no_img_val = '';
       // if the user hits Enter while doing autocomplete, click() first match
       if ( event.originalEvent === 13 || event.originalEvent.keyCode === 13 ) {
-          this.element.val($('table.CrEaTeDtAbLeStYlE').find('td:first').text());
-          this.element.attr('menu_opt_key', $('table.CrEaTeDtAbLeStYlE').find('td:first').attr('menu_opt_key'));
+          var firstMenuItem = $('table.CrEaTeDtAbLeStYlE').find('td:first');
+          this.element.val(firstMenuItem.text());
+          this.element.attr('menu_opt_key', firstMenuItem.attr('menu_opt_key'));
           this.cached['.dropdownspan'].remove();
+          $(this.element).css({'border-color': this.options._orig_bg });
+          this._trigger("onSelect", this, { 
+                                            "newVal" : firstMenuItem.text(),
+                                            "type": "EnterKey" }); 
           return;
       }
       if ( StrToCheck !== '' ) {
@@ -284,6 +289,7 @@ $.widget( 'mre.menuoptions', {
     this._on( { 
         'click':  '_buildWholeDropDown',
         'mouseenter':  '_buildWholeDropDown',
+        'focus':  '_buildWholeDropDown',
         'mouseleave':  '_removeDropDown',
         'blur': '_removeDropDown'
     });
@@ -305,12 +311,19 @@ $.widget( 'mre.menuoptions', {
 
     // allow user to filter viewable choices
     this._on( this.cached['.txtbox'], {
-      keyup: '_autocomplete'
+       keypress: '_autocomplete',
+       keyup: '_autocomplete'  
     })
   },
 
   _autocomplete: function(event) {
-      this._processMatches( event, this.cached['.txtbox'].val(), true );
+      if ( event.originalEvent === 13 || event.originalEvent.keyCode === 13 ) {
+          // pressing return inside this input element will not submit form
+          event.preventDefault();
+      }
+      if ( event.type == 'keyup') {
+          this._processMatches( event, this.cached['.txtbox'].val(), true );
+      }
   },
 
   _hiLiteOnOff : function (event) {
@@ -401,7 +414,7 @@ $.widget( 'mre.menuoptions', {
   },
 
   _destroy : function () {
-      $(this.element).css({'background-color': this.options._orig_bg });
+      /*--  $(this.element).css({'background-color': this.options._orig_bg });  --*/
       $(this.element).removeClass('ui-menuoptions');
       $('span#SP_'+this.options._ID).remove();  
       this._super();
@@ -541,10 +554,12 @@ _choiceSelected : function (e) {
     this.options._prev_event=e.type;
     var $dd_span = this;
     if ( $dd_span.options.MenuOptionsType === 'Select' ) { 
-        $dd_span.element.val($.trim($(e.target).text())); 
-        if ( $dd_span.options.TriggerEvent.length ) {
-            $dd_span.element.triggerHandler($dd_span.options.TriggerEvent); 
-        }
+        var newVal = $.trim($(e.target).text());
+        $dd_span.element.val(newVal);
+        $dd_span._trigger("onSelect", $dd_span, { 
+              "newVal" : newVal,
+              "type": "Click"
+        }); 
         $dd_span.element.attr('menu_opt_key',$(e.target).attr('menu_opt_key'));  
         e.target.className=e.target.className.replace(/ mo/,'');
     } else {

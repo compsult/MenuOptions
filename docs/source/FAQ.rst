@@ -44,3 +44,28 @@ When creating your MenuOptions select control, pass it an object, like the code 
                                             'Width': 225 });
 
 For more details, see `re_serialize() <http://menuoptions.readthedocs.org/en/latest/Serialize.html>`_ 
+
+When I hit enter in a  MenuOptions select, it does not submit the form
+----------------------------------------------------------------------
+That's correct. MenuOptions uses the Enter key to select the first dropdown 
+element. If you want to submit the form when a user presses Enter, you
+can do so in the onSelect option,  which returns the MenuOptions instance and 
+the newVal and type (EnterKey|Click).
+
+For more detals on onSelect `see the docs <SelectParams.html#onselect>`_
+
+.. code-block:: javascript
+
+    $('input#selecttest').menuoptions({ 
+        "Data": [ "January","February","March","April","May", "June","July",
+                  "August","September","October","November","December" ],
+        "onSelect": function(mo, data) { 
+            if ( data.type == "EnterKey" ) {
+                $("form#tst").submit();
+            }
+            console.log(mo, data.newVal, data.type ); 
+        }, 
+        "Sort": [] // don't sort
+    });  
+
+This code is in `quick start select demo <http://www.menuoptions.org/examples/QuickStartSelect.html>`_
