@@ -12,12 +12,9 @@
                                                                                 
 6. has a clear button that wipes the current value and opens the select list       
                                                                                    
-7. can optionally trigger an event (useful when updating another part of the page
-   based on user selection)                               
-                                                                                   
-8. source data can be dynamically reloaded (no destroy-create required)
+7. source data can be dynamically reloaded (no destroy-create required)
 
-9. is flexible, configurable and stays in the viewport  
+8. is flexible, configurable and stays in the viewport  
 
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 
