@@ -105,7 +105,7 @@ $.widget( 'mre.menuoptions', {
       this._buildDropDown( this.orig_objs ); 
   },
 
-  add_meuoption_key : function ( ) {
+  add_menuoption_key : function ( ) {
      matchedRec = $.grep ( this.ary_of_objs, function(rec) { 
          return rec.val === $(this).val(); });
      if ( matchedRec.length > 0 ) {
@@ -172,7 +172,8 @@ $.widget( 'mre.menuoptions', {
       var matching = '',
           no_img_val = '';
       // if the user hits Enter while doing autocomplete, click() first match
-      if ( event.originalEvent === 13 || event.originalEvent.keyCode === 13 ) {
+      if ( event.originalEvent === $.ui.keyCode.ENTER || 
+              event.originalEvent.keyCode === $.ui.keyCode.ENTER ) {
           var firstMenuItem = $('table.CrEaTeDtAbLeStYlE').find('td:first');
           this.element.val(firstMenuItem.text());
           this.element.attr('menu_opt_key', firstMenuItem.attr('menu_opt_key'));
@@ -204,7 +205,6 @@ $.widget( 'mre.menuoptions', {
   _runHeaderFilters : function (event) {
      if ( this.cached['.txtbox'].val().length ) {
          // disable mouseover filters if user started autocomplete
-         this.cached['.txtbox'].blur(); 
          return;
      }
       // hack, believe this is a jquery widget bug...TBD
@@ -301,7 +301,7 @@ $.widget( 'mre.menuoptions', {
     });
 
     // when user chooses (clicks), insert text into input box
-    ky = 'click span#SP_'+this.options._ID+' table.CrEaTeDtAbLeStYlE td ';
+    ky = 'mousedown span#SP_'+this.options._ID+' table.CrEaTeDtAbLeStYlE td ';
     Sel[ky]='_choiceSelected';
     this._on($('body'), Sel );
 
@@ -318,7 +318,8 @@ $.widget( 'mre.menuoptions', {
   },
 
   _autocomplete: function(event) {
-      if ( event.originalEvent === 13 || event.originalEvent.keyCode === 13 ) {
+      if ( event.originalEvent === $.ui.keyCode.ENTER || 
+              event.originalEvent.keyCode === $.ui.keyCode.ENTER ) {
           // pressing return inside this input element will not submit form
           event.preventDefault();
       }
@@ -377,7 +378,7 @@ $.widget( 'mre.menuoptions', {
           this._setOption('ShowAt','left bottom');
       }
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {
-          this.options._menu_box.overlap = -3;
+          this.options._menu_box.overlap = -4;
           this._setOption('ShowAt','right top');
       }
       if ( this.options.SelectOnly ) {
@@ -607,7 +608,7 @@ _removeDropDown : function (e) {
     // is the mouse over the drop down? If not, remove it from DOM
   if ( $('span#SP_'+this.options._ID).length ) {  
     if ( this._didMouseExitDropDown(e) === true ) {
-                this.cached['.dropdownspan'].remove();
+         this.cached['.dropdownspan'].remove();
     }
   }
 },

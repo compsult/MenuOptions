@@ -30,7 +30,7 @@ $(document).ready(function() {
         "Sort": [] // don't sort
     });  
     $('button#menutest').on('click', function (e) {
-        var tst = $('input#selecttest').val();
+        var tst = $('form#tst').serialize();
         alert (tst);
     });
 });
@@ -43,7 +43,7 @@ $(document).ready(function() {
          <tr>
              <td>
                 <div id=inputboxes>
-		            <input type=search id='selecttest' type='text' >
+		            <input type=search name =t1 id='selecttest' type='text' >
                 </div>
              </td>
          </tr>

@@ -25,6 +25,7 @@ Parameter list for select list
     SelectOnly,boolean,"true or false",false,false
     ShowAt,string,'Bottom' or 'Right','Bottom',false
     Sort,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
+    TriggerEvent, <deleted>,<as of v1.5.1>,--,--
     UseValueForKey,boolean,"true or false",false,false
     Width,integer,positive integer, width of parent, false
 
