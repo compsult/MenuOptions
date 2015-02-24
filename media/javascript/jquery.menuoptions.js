@@ -61,8 +61,12 @@ $.widget( 'mre.menuoptions', {
     var tablehtml='';
 
     if ( this.options.Data.toString() === '' ) { 
-        alert ('You must populate Data to use menuoptions');
-        this._destroy();
+        this._validation_fail ( err_msg );
+        return;
+    }
+
+    if ( this.options.ColumnCount < 1 ) { 
+        this._validation_fail ( err_msg );
         return;
     }
 
@@ -91,6 +95,11 @@ $.widget( 'mre.menuoptions', {
     $(this.element).attr('autocomplete', 'off');
   },
 
+  _validation_fail : function ( err_msg ) {
+    alert (err_msg);
+    this._destroy();
+  },
+
   refreshData : function ( RefreshCfg ) {
       // re-create drop down select
       // Note: you have to use same option names
@@ -106,8 +115,9 @@ $.widget( 'mre.menuoptions', {
   },
 
   add_menuoption_key : function ( ) {
+     var input_val = this.element.val();
      matchedRec = $.grep ( this.ary_of_objs, function(rec) { 
-         return rec.val === $(this).val(); });
+         return rec.val === input_val; });
      if ( matchedRec.length > 0 ) {
          $(this).attr('menu_opt_key', matchedRec[0].ky);
      }
@@ -169,7 +179,7 @@ $.widget( 'mre.menuoptions', {
   },
 
   _processMatches : function ( event, StrToCheck, colorBorder ) {
-      var matching = '',
+      var matching = [],
           no_img_val = '';
       // if the user hits Enter while doing autocomplete, click() first match
       if ( event.originalEvent === $.ui.keyCode.ENTER || 
@@ -180,16 +190,25 @@ $.widget( 'mre.menuoptions', {
           this.cached['.dropdownspan'].remove();
           $(this.element).css({'border-color': this.options._orig_bg });
           this._trigger("onSelect", this, { 
+                                            "newCode": $(event.target).attr('menu_opt_key'),
                                             "newVal" : firstMenuItem.text(),
                                             "type": "EnterKey" }); 
           return;
       }
       if ( StrToCheck !== '' ) {
-         matching = $.grep(this.orig_objs, function(obj, idx) { 
-             no_img_val = obj.val.replace(/<img.*>/, '');
-             if ( no_img_val.match(new RegExp(StrToCheck,'i')) ) 
-                { return obj;}
-         });
+         var tmp = this.orig_objs;
+         for (i = 0; i < tmp.length; i++) { 
+             no_img_val = tmp[i].val.replace(/<img.*>/, '');
+             if ( no_img_val.toLowerCase() == StrToCheck.toLowerCase() ) {
+                 // for exact match, only return that record
+                 while ( matching.length > 0 ) { matching.pop(); }
+                 matching.push(tmp[i]);
+                 break;
+             } else if ( no_img_val.match(new RegExp(StrToCheck,'i')) ) {
+                 // return all partial matches
+                 matching.push(tmp[i]);
+             }
+         }
       }
       this.cached['.dropdownspan'].remove();
       if (matching) {
@@ -378,7 +397,7 @@ $.widget( 'mre.menuoptions', {
           this._setOption('ShowAt','left bottom');
       }
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {
-          this.options._menu_box.overlap = -4;
+          this.options._menu_box.overlap = -3;
           this._setOption('ShowAt','right top');
       }
       if ( this.options.SelectOnly ) {
@@ -491,28 +510,45 @@ $.widget( 'mre.menuoptions', {
      }
  },
 
+ _obj_create : function ( ary_of_objs, value ) {
+     if ( $.isArray(value) == true ) {
+         ary_of_objs.push({ ky: value[0], val: value[1] });
+     } else {
+        for (var p in value) {
+            if (value.hasOwnProperty(p)) {
+                ary_of_objs.push({ ky: p, val: value[p] });  
+            } else { 
+                alert("Data error: Key with no value error"
+                +" in incoming Data parameter");
+                return false;
+            }
+        }
+     }
+     return true;
+ },
+
  _build_array_of_objs : function ( ) {
      var $dd_span = this,
          ary_of_objs=[];
      if ( typeof $dd_span.options.Data[0] === 'string' ) {
-        /*--  take array and make array of objs  --*/
+        /*--  take 1 dimensional array and make array of objs  --*/
          ary_of_objs=$.map($dd_span.options.Data, function (k,v) { 
              return { ky: k, val: k }; });
      } else {
         $.each($dd_span.options.Data, function(key, value) {
             if ( ! $.isArray($dd_span.options.Data) ) {
+                // handle single object
                 ary_of_objs.push({ ky: key, val: value });
             } 
             else if ( $.isPlainObject($dd_span.options.Data[0]) ) {
-                for (var p in value) {
-                   if (value.hasOwnProperty(p)) {
-                      ary_of_objs.push({ ky: p, val: value[p] });  
-                   } else { 
-                      alert("Data error: Key with no value error"
-                        +" in incoming Data parameter");
-                      return false;
-                   }
+                // handle array of objects
+                if ( $dd_span._obj_create(ary_of_objs, value) === false ) {
+                    return false;
                 }
+            }
+            else if ( $.isArray($dd_span.options.Data[0]) ) {
+                // handle array of arrays
+                $dd_span._obj_create(ary_of_objs, value);
             }
             $dd_span.total_rec_cnt += 1;
         });
@@ -559,6 +595,7 @@ _choiceSelected : function (e) {
         var newVal = $.trim($(e.target).text());
         $dd_span.element.val(newVal);
         $dd_span._trigger("onSelect", $dd_span, { 
+              "newCode" : $(e.target).attr('menu_opt_key'),
               "newVal" : newVal,
               "type": "Click"
         }); 
@@ -582,7 +619,7 @@ _calcDropBoxCoordinates : function () {
           - this.options._menu_box.overlap;
       this.options._menu_box.bottom = this.options._menu_box.top 
           + this.cached['.dropdownspan'].height() + this.options._menu_box.overlap;
-      this.options._menu_box.left = this.cached['.dropdownspan'].position().left ;
+      this.options._menu_box.left = this.cached['.dropdownspan'].position().left - 3;
       this.options._menu_box.right = this.options._menu_box.left 
           + this.cached['.dropdownspan'].width();
 }, 

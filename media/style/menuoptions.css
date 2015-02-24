@@ -15,10 +15,10 @@ span table.HdrFilter td, th {
 }
 
 span table.CrEaTeDtAbLeStYlE tr.odd { 
-    background-color: #DFD;
+   background-color: #DFD;
 }
 span table.CrEaTeDtAbLeStYlE tr.even { 
-   background-color: #EFE;
+    background-color: white;
 } 
 span table.HdrFilter, table.CrEaTeDtAbLeStYlE td.dflt { 
    border: 1px solid silver; 

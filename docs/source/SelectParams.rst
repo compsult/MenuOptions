@@ -16,7 +16,7 @@ Parameter list for select list
 
     ClearBtn,boolean,"true or false",true,false
     ColumnCount,integer,"positive integer",1,false
-    Data,JSON object, "array, object or array of objects", none, true
+    Data,JSON object, (see Data section below), none, true
     DisableHiLiting,boolean, "true or false", false, false
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     MenuOptionsType,string,'Select' or 'Navigate','Select',false
@@ -49,13 +49,14 @@ ColumnCount
 
 Data
 ^^^^
-    options: **[] or {} or [ {}, {}, ... ]** 
+    options: **[] or [ [], [], ...], {} or [ {}, {}, ... ]** 
 
     MenuOptions accepts the following in `Data`
 
     1. an array
-    2. a single object
-    3. an array of objects
+    2. an array of arrays
+    3. a single object
+    4. an array of objects
 
 DisableHiLiting
 ^^^^^^^^^^^^^^^
@@ -96,10 +97,11 @@ onSelect
     When user selects an option, either by clicking or by pressing enter while
     in the text box, this function will be executed
 
-    data has 2 values
+    data has 3 values
 
      1. newVal (the new value that was selected)
-     2. type (this tells you if the selection was made by "Click" or "EnterKey")
+     2. newCode (the code that corresponds to new value that was selected)
+     3. type (this tells you if the selection was made by "Click" or "EnterKey")
 
 .. code-block:: javascript
 
@@ -107,7 +109,7 @@ onSelect
         if ( data.type == "EnterKey" ) {
             $("form#tst").submit();
         }
-        console.log(mo, data.newVal, data.type ); 
+        console.log(mo, data.newVal, data.newCode, data.type ); 
     }, 
 
 PlaceHolder

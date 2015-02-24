@@ -19,8 +19,7 @@ MenuOptions can create menus and select lists which:
 
 - can be dynamically reloaded with new values (without destroying & recreating).
 
-- has an option to trigger an event upon user selection (useful when resetting
-  other parts of the page based on user selection).
+- has an onSelect option that returns the selected value and it's hidden value
 
 Prerequisites:
 --------------
