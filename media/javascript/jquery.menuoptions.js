@@ -182,8 +182,9 @@ $.widget( 'mre.menuoptions', {
       var matching = [],
           no_img_val = '';
       // if the user hits Enter while doing autocomplete, click() first match
-      if ( event.originalEvent === $.ui.keyCode.ENTER || 
-              event.originalEvent.keyCode === $.ui.keyCode.ENTER ) {
+      // only want to check this for keyboard (not mouseover filtering)
+      if ( event.type === 'keyup' && (event.originalEvent === $.ui.keyCode.ENTER || 
+              event.originalEvent.keyCode === $.ui.keyCode.ENTER ) ) {
           var firstMenuItem = $('table.CrEaTeDtAbLeStYlE').find('td:first');
           this.element.val(firstMenuItem.text());
           this.element.attr('menu_opt_key', firstMenuItem.attr('menu_opt_key'));
