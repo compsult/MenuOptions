@@ -119,7 +119,7 @@ $.widget( 'mre.menuoptions', {
      matchedRec = $.grep ( this.ary_of_objs, function(rec) { 
          return rec.val === input_val; });
      if ( matchedRec.length > 0 ) {
-         $(this).attr('menu_opt_key', matchedRec[0].ky);
+         $(this.element).attr('menu_opt_key', matchedRec[0].ky);
      }
   },
 
