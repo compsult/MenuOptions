@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
- * @version         Version 1.5.0-7
+ * @version         Version 1.5.0-8
  *
  ******************************************/
   //
@@ -209,9 +209,9 @@ $.widget( 'mre.menuoptions', {
                  matching.push(tmp[i]);
              }
          }
+         this.cached['.dropdownspan'].remove();
       }
-      this.cached['.dropdownspan'].remove();
-      if (matching) {
+      if (matching.length > 0) {
         // re-create drop down select
         this.ary_of_objs = matching;
         this._buildFilteredDropDown( event );
