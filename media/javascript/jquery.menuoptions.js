@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
- * @version         Version 1.5.0-2
+ * @version         Version 1.5.0-7
  *
  ******************************************/
   //
@@ -61,12 +61,12 @@ $.widget( 'mre.menuoptions', {
     var tablehtml='';
 
     if ( this.options.Data.toString() === '' ) { 
-        this._validation_fail ( err_msg );
+        this._validation_fail ('MenuOptions requires the Data parameter to be populated');
         return;
     }
 
     if ( this.options.ColumnCount < 1 ) { 
-        this._validation_fail ( err_msg );
+        this._validation_fail ('MenuOptions requires ColumnCount parameter be > 0');
         return;
     }
 
@@ -77,8 +77,7 @@ $.widget( 'mre.menuoptions', {
     // make sure incoming data is in required format
     this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
     if ( this.orig_objs === false ) {
-        alert ('Invalid Data format supplied to menuoptions');
-        this.destroy();
+        this._validation_fail ('Invalid Data format supplied to menuoptions');
         return;
     }
 
