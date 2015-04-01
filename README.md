@@ -1,17 +1,17 @@
 ## MenuOptions ##
 
 1. a jQuery widget designed to optimize data entry speed for both keyboard and mouse users
-                                                                                
+
 2. uses autocomplete and mouseover filtering                                       
-                                                                                
+
 3. just like the  &lt;select&gt; element, uses visible text and hidden values
 
 4. can create menus (with dividers) that follow URLs or execute javascript functions            
-                                                                                
+
 5. has a select control that enables 1 click data entry                         
-                                                                                
+
 6. has a clear button that wipes the current value and opens the select list       
-                                                                                   
+
 7. source data can be dynamically reloaded (no destroy-create required)
 
 8. is flexible, configurable and stays in the viewport  
@@ -23,10 +23,10 @@
 
 ```javascript
 var Data = [ "January","February","March","April","May","June","July",
-              "August","September","October","November","December" ];
+"August","September","October","November","December" ];
 
 $('input#selecttest').menuoptions({
-    "Data": Data
+"Data": Data
 });
 ```
 ![alt text](http://www.menuoptions.org/examples/images/SimpleSelect.jpg "select list image")
@@ -37,12 +37,12 @@ $('input#selecttest').menuoptions({
 
 ```javascript
 var Data =  [ {"javascript": function() { alert('Run some javascript'); }},
-              {"Google": "http://www.google.com"},
-              {"Yahoo": "http://www.yahoo.com"}];
+{"Google": "http://www.google.com"},
+{"Yahoo": "http://www.yahoo.com"}];
 
 $('button[id$="menutest"]').menuoptions({
-    "Data": Data;
-    "MenuOptionsType": "Navigate", // Navigate is for menus
+"Data": Data;
+"MenuOptionsType": "Navigate", // Navigate is for menus
 });
 ```
 ![alt text](http://www.menuoptions.org/examples/images/SimpleMenu.jpg "simple menu image")
@@ -79,7 +79,6 @@ $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').seria
 ```
 
 ![alt text](http://www.menuoptions.org/examples/images/re_serialize.png "using MenuOptions with serialize() ")
-[![re_serialize](http://www.menuoptions.org/examples/images/re_serialize.png "using MenuOptions with serialize() ")](http://www.menuoptions.org/examples/Serialize.html)
 ### Multiple select lists on a page demo
 
 [See the demo](http://www.menuoptions.org/examples/MultiSelect.html)
@@ -89,3 +88,4 @@ In this demo, type the first letter of your selection and hit tab
 (a good test for how long it takes to fill out all 5 options):  
 
 [![Multiple Selects](http://www.menuoptions.org/examples/images/MultiSelects.png "using MenuOptions with multiple select lists ")](http://www.menuoptions.org/examples/MultiSelect.html)
+
