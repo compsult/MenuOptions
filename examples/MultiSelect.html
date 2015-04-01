@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions multiple select lists example </title>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+   <script src="../media/javascript/jquery.menuoptions.js"></script> 
+   <link rel="stylesheet" href="../media/style/menuoptions.css" type="text/css" media="all">
+   <style>
+        h1 { color: gray; font-size:26px; } 
+        h2 { color: gray; font-size:16px; } 
+        button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:170px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
+   </style>
+  
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+
+    $('input#pizzatype').menuoptions({ 
+        "Data": { 1: "Sicilian", 2: "Neoplolitan"},
+        "PlaceHolder": "Pizza type",
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('input#toppings').menuoptions({ 
+        "Data": { 1:"Anchovie",2:"Green pepper", 3:"Pepperoni", 
+                  4:"Meat", 5:"Mushroom"},
+        "PlaceHolder": "Toppings",
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('input#cheese').menuoptions({ 
+        "Data": { 1:"Light",2:"Regular", 3:"Extra"},
+        "PlaceHolder": "Cheese amount",
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('input#crust').menuoptions({ 
+        "PlaceHolder": "Crust thickness",
+        "Data": { 1:"Thin",2:"Regular", 3:"Thick"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('input#cooked').menuoptions({ 
+        "PlaceHolder": "Bake instructions",
+        "Data": { 1: "Lightly baked", 2:"Regular", 3: "Well done"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#cooked').menuoptions('re_serialize', 
+                $('form#tst').serialize());
+        alert (tst);
+    });
+});
+</script>
+</head>
+<body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
+	<br><h1 >Example of multiple select lists with autocomplete </h1>
+    <h2>Type the first letter of the choice you want, then press TAB </h2>
+    <h2>MenuOptions will use the first matching item</h2>
+    <h2>(no mouse required)</h2><br />
+    <form id=tst>
+	 <table style="margin: 0 auto;">
+         <tr>
+             <td>
+		            <input type=search name=pizzatype id='pizzatype' type='text' >
+             </td>
+         </tr>
+         <tr>
+             <td>
+		            <input type=search name=toppings id='toppings' type='text' >
+             </td>
+         </tr>
+         <tr>
+             <td>
+		            <input type=search name=crust id='crust' type='text' >
+             </td>
+         </tr>
+         <tr>
+             <td>
+		            <input type=search name=cheese id='cheese' type='text' >
+             </td>
+         </tr>
+         <tr>
+             <td>
+		            <input type=search name=cooked id='cooked' type='text' >
+             </td>
+         </tr>
+     </table><br /><br />
+    <button class=a type="button" id="menutest" >Show serialize values</button>
+    </form>
+     </body>
+</html>
+

@@ -44,4 +44,3 @@ You can create a select drop down with a simple array:
         "Data": Data
     });  
 
-

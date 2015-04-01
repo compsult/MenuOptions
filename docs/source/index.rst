@@ -28,6 +28,10 @@ Prerequisites:
 - jQuery ui version >= 1.10
 - download `MenuOptions <https://github.com/compsult/MenuOptions>`_
 
+See the live examples
+---------------------
+`at MenuOptions.org <http://www.menuoptions.org>`_
+
 Contents:
 
 .. toctree::

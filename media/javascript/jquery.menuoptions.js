@@ -177,38 +177,41 @@ $.widget( 'mre.menuoptions', {
       }
   },
 
+  __triggerChoice : function ( event ) {
+      var firstMenuItem = $('table.CrEaTeDtAbLeStYlE').find('td:first');
+      this.element.val(firstMenuItem.text());
+      this.element.attr('menu_opt_key', firstMenuItem.attr('menu_opt_key'));
+      $(this.element).css({'border-color': this.options._orig_bg });
+      this._trigger("onSelect", this, { 
+                                       "newCode": $(event.target).attr('menu_opt_key'),
+                                       "newVal" : firstMenuItem.text(),
+                                       "type": "EnterKey" }); 
+      this.cached['.dropdownspan'].remove();
+  },
+
+  __buildMatchAry : function ( event, StrToCheck, no_img ) {
+      var matching = [],
+          tmp = this.orig_objs;
+      for (i = 0; i < tmp.length; i++) { 
+         no_img_val = tmp[i].val.replace(/<img.*>/, '');
+         if ( no_img_val.toLowerCase() == StrToCheck.toLowerCase() ) {
+            // for exact match, only return that record
+            while ( matching.length > 0 ) { matching.pop(); }
+            matching.push( no_img ? no_img_val : tmp[i] );
+            break;
+         } else if ( no_img_val.match(new RegExp(StrToCheck,'i')) ) {
+            // return all partial matches
+            matching.push( no_img ? no_img_val : tmp[i] );
+         }
+      }
+      return matching;
+  },
+
   _processMatches : function ( event, StrToCheck, colorBorder ) {
       var matching = [],
           no_img_val = '';
-      // if the user hits Enter while doing autocomplete, click() first match
-      // only want to check this for keyboard (not mouseover filtering)
-      if ( event.type === 'keyup' && (event.originalEvent === $.ui.keyCode.ENTER || 
-              event.originalEvent.keyCode === $.ui.keyCode.ENTER ) ) {
-          var firstMenuItem = $('table.CrEaTeDtAbLeStYlE').find('td:first');
-          this.element.val(firstMenuItem.text());
-          this.element.attr('menu_opt_key', firstMenuItem.attr('menu_opt_key'));
-          this.cached['.dropdownspan'].remove();
-          $(this.element).css({'border-color': this.options._orig_bg });
-          this._trigger("onSelect", this, { 
-                                            "newCode": $(event.target).attr('menu_opt_key'),
-                                            "newVal" : firstMenuItem.text(),
-                                            "type": "EnterKey" }); 
-          return;
-      }
       if ( StrToCheck !== '' ) {
-         var tmp = this.orig_objs;
-         for (i = 0; i < tmp.length; i++) { 
-             no_img_val = tmp[i].val.replace(/<img.*>/, '');
-             if ( no_img_val.toLowerCase() == StrToCheck.toLowerCase() ) {
-                 // for exact match, only return that record
-                 while ( matching.length > 0 ) { matching.pop(); }
-                 matching.push(tmp[i]);
-                 break;
-             } else if ( no_img_val.match(new RegExp(StrToCheck,'i')) ) {
-                 // return all partial matches
-                 matching.push(tmp[i]);
-             }
-         }
+         matching = this.__buildMatchAry ( event, StrToCheck, false );
          this.cached['.dropdownspan'].remove();
       }
       if (matching.length > 0) {
@@ -332,19 +335,50 @@ $.widget( 'mre.menuoptions', {
     // allow user to filter viewable choices
     this._on( this.cached['.txtbox'], {
        keypress: '_autocomplete',
-       keyup: '_autocomplete'  
+       keyup: '_autocomplete',
+       keydown: '_autocomplete'  
     })
   },
 
   _autocomplete: function(event) {
-      if ( event.originalEvent === $.ui.keyCode.ENTER || 
-              event.originalEvent.keyCode === $.ui.keyCode.ENTER ) {
-          // pressing return inside this input element will not submit form
-          event.preventDefault();
+      if ( event.type === 'keyup' ) {
+          if  ( event.originalEvent === $.ui.keyCode.ENTER || 
+                event.originalEvent.keyCode === $.ui.keyCode.ENTER ) {
+            this.__triggerChoice ( event );
+            return;
+          }
+          if ( event.originalEvent === $.ui.keyCode.TAB || 
+             event.originalEvent.keyCode === $.ui.keyCode.TAB ) {
+            var matching = this.__buildMatchAry (event, this.cached['.txtbox'].val(), true);
+            if ( matching[0] == this.cached['.txtbox'].val()) {
+                return;
+            }
+          }
       }
-      if ( event.type == 'keyup') {
-          this._processMatches( event, this.cached['.txtbox'].val(), true );
+      if ( ( event.type == 'keydown') && this.cached['.txtbox'].val() != "" && 
+           ( event.originalEvent === $.ui.keyCode.TAB || 
+             event.originalEvent.keyCode === $.ui.keyCode.TAB ) ) {
+           /*--  
+              if user "Tabs out" of input and there is some text in the input element,
+              choose the first match to that text  
+            --*/
+            var matching = this.__buildMatchAry (event, this.cached['.txtbox'].val(), true);
+            if ( matching.length > 0 ) {
+                this.__triggerChoice ( event );
+            }
+            return;
       }
+      if ( event.type == 'keypress' && this.cached['.txtbox'].val() != "" ) {
+            var matching = this.__buildMatchAry (event, this.cached['.txtbox'].val(), true);
+           /*--  
+              if the text in the input element is an exact match with an element
+              from the select list, do nothing
+            --*/
+            if ( matching[0] == this.cached['.txtbox'].val()) {
+                return;
+            }
+      }
+      this._processMatches( event, this.cached['.txtbox'].val(), true );
   },
 
   _hiLiteOnOff : function (event) {
