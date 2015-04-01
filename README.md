@@ -79,3 +79,13 @@ $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').seria
 ```
 
 ![alt text](http://www.menuoptions.org/examples/images/re_serialize.png "using MenuOptions with serialize() ")
+[![re_serialize](http://www.menuoptions.org/examples/images/re_serialize.png "using MenuOptions with serialize() ")](http://www.menuoptions.org/examples/Serialize.html)
+### Multiple select lists on a page demo
+
+[See the demo](http://www.menuoptions.org/examples/MultiSelect.html)
+
+This demo illustrates using the keyboard for rapid data entry  
+In this demo, type the first letter of your selection and hit tab  
+(a good test for how long it takes to fill out all 5 options):  
+
+[![Multiple Selects](http://www.menuoptions.org/examples/images/MultiSelects.png "using MenuOptions with multiple select lists ")](http://www.menuoptions.org/examples/MultiSelect.html)
