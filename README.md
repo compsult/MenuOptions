@@ -16,6 +16,8 @@
 
 8. is flexible, configurable and stays in the viewport  
 
+9. tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0
+
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 
 ### Getting started with a simple select list
@@ -83,9 +85,7 @@ $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').seria
 
 [See the demo](http://www.menuoptions.org/examples/MultiSelect.html)
 
-This demo illustrates using the keyboard for rapid data entry  
-In this demo, type the first letter of your selection and hit tab  
-(a good test for how long it takes to fill out all 5 options):  
+This demo illustrates using the keyboard for rapid data entry.
 
 [![Multiple Selects](http://www.menuoptions.org/examples/images/MultiSelects.png "using MenuOptions with multiple select lists ")](http://www.menuoptions.org/examples/MultiSelect.html)
 

@@ -8,11 +8,11 @@
  *  mouseover filtering
  *
  * @author          Mike Etts
- * @copyright       Copyright (c) 2014 
+ * @copyright       Copyright (c) 2014-2015
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
- * @version         Version 1.5.0-8
+ * @version         Version 1.5.3-0
  *
  ******************************************/
   //
@@ -109,6 +109,7 @@ $.widget( 'mre.menuoptions', {
              $dd_span._setOption(key, RefreshCfg[key] ); 
           }
       });
+      this._set_options();
       this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
       this._buildDropDown( this.orig_objs ); 
   },
@@ -129,6 +130,9 @@ $.widget( 'mre.menuoptions', {
   },
 
   _buildWholeDropDown: function ( event ) {
+      if ( event.type === 'search'){ // clear menu_opt_key when input is cleared
+         $(this.element).attr('menu_opt_key','');
+      }
       // prevents 2 consecutive calls when bringing focus to input
       if ( event.type === 'click' && this.options._prev_event === 'mouseenter' ) { 
          return;
@@ -136,10 +140,10 @@ $.widget( 'mre.menuoptions', {
       this.options._prev_event = event.type;
       this.ary_of_objs = this.orig_objs;
       // if there is text in input, filter results accordingly
-      if ( this.cached['.txtbox'].val().length ) {
-         this._processMatches( event, this.cached['.txtbox'].val(), true );
-         return;
-      }
+      if ( this.cached['.txtbox'].val().length ) { 
+          this._processMatches( event, this.cached['.txtbox'].val(), true ); 
+          return; 
+      } 
       this._buildDropDown( this.orig_objs ); 
       this._showDropDown(event);
   },
@@ -191,18 +195,24 @@ $.widget( 'mre.menuoptions', {
 
   __buildMatchAry : function ( event, StrToCheck, no_img ) {
       var matching = [],
-          tmp = this.orig_objs;
+          tmp = this.orig_objs,
+          no_matches=true;
       for (i = 0; i < tmp.length; i++) { 
          no_img_val = tmp[i].val.replace(/<img.*>/, '');
          if ( no_img_val.toLowerCase() == StrToCheck.toLowerCase() ) {
             // for exact match, only return that record
             while ( matching.length > 0 ) { matching.pop(); }
             matching.push( no_img ? no_img_val : tmp[i] );
+            no_matches=false;
             break;
          } else if ( no_img_val.match(new RegExp(StrToCheck,'i')) ) {
             // return all partial matches
             matching.push( no_img ? no_img_val : tmp[i] );
+            no_matches=false;
          }
+      }
+      if ( no_matches == true ) {
+          this.cached['.txtbox'].val(this.cached['.txtbox'].val().slice(0,-1));
       }
       return matching;
   },
@@ -303,7 +313,7 @@ $.widget( 'mre.menuoptions', {
         'mouseenter': '_hiLiteOnOff',
         'click': function(e) {
             $(this.element).val('');
-            $(this.element).prop('menu_opt_key','');
+            $(this.element).attr('menu_opt_key','');
             this._buildWholeDropDown( e );
         }
     });
@@ -341,18 +351,23 @@ $.widget( 'mre.menuoptions', {
   },
 
   _autocomplete: function(event) {
-      if ( event.type === 'keyup' ) {
+      if ( $(this.options)[0].MenuOptionsType.match(/Navigate/i) ) {
+          return;
+      }
+      if ( event.type.match(/keyup|keydown/) ) {
           if  ( event.originalEvent === $.ui.keyCode.ENTER || 
                 event.originalEvent.keyCode === $.ui.keyCode.ENTER ) {
+            event.preventDefault();
+            this._processMatches( event, this.cached['.txtbox'].val(), true );
             this.__triggerChoice ( event );
             return;
           }
-          if ( event.originalEvent === $.ui.keyCode.TAB || 
-             event.originalEvent.keyCode === $.ui.keyCode.TAB ) {
-            var matching = this.__buildMatchAry (event, this.cached['.txtbox'].val(), true);
-            if ( matching[0] == this.cached['.txtbox'].val()) {
-                return;
-            }
+          if ( ( event.originalEvent === $.ui.keyCode.TAB || 
+             event.originalEvent.keyCode === $.ui.keyCode.TAB ) &&
+             this.cached['.txtbox'].val() != '' ) {
+            this._processMatches( event, this.cached['.txtbox'].val(), true );
+            this.__triggerChoice ( event );
+            return;
           }
       }
       if ( ( event.type == 'keydown') && this.cached['.txtbox'].val() != "" && 
@@ -428,6 +443,7 @@ $.widget( 'mre.menuoptions', {
 
   _set_options : function ( ) {
       if ( this.options.ShowAt.match(/^ *bottom *$/i) ) {
+          this.options._menu_box.overlap = 3;
           this._setOption('ShowAt','left bottom');
       }
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {

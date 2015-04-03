@@ -22,10 +22,7 @@ $(document).ready(function() {
         "Data": [ "January","February","March","April","May", "June","July",
                   "August","September","October","November","December" ],
         "onSelect": function(mo, data) { 
-            if ( data.type == "EnterKey" ) {
-                /*--  $("form#tst").submit();  --*/
-            }
-            /*--  console.log(mo, data.newVal, data.type );   --*/
+             console.log(mo, data.newVal, data.type );  
         }, 
         "Sort": [] // don't sort
     });  
@@ -43,7 +40,7 @@ $(document).ready(function() {
          <tr>
              <td>
                 <div id=inputboxes>
-		            <input type=search name =t1 id='selecttest' type='text' >
+		            <input type=search name=month id='selecttest' type='text' >
                 </div>
              </td>
          </tr>
