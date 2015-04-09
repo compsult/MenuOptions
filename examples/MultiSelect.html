@@ -38,23 +38,31 @@ function resetMO( instruct ) {
         $('input#crust').menuoptions('refreshData', {'ColumnCount' : 2 });
         $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 2 });
     }
+    if (instruct.match(/width/i)) { 
+        $('input#pizzatype').menuoptions('refreshData', {'Width' : 100 });
+        $('input#toppings').menuoptions('refreshData', {'Width' : 100 });
+        $('input#cheese').menuoptions('refreshData', {'Width' : 100 });
+        $('input#crust').menuoptions('refreshData', {'Width' : 100 });
+        $('input#cooked').menuoptions('refreshData', {'Width' : 100 });
+    }
     if (instruct.match(/default/i)) { 
         $('input#pizzatype').menuoptions('refreshData', {'ColumnCount' : 1,
-            "ShowAt" : "bottom"});
+            'Width' : 0, "ShowAt" : "bottom"});
         $('input#toppings').menuoptions('refreshData', {'ColumnCount' : 1,
-            "ShowAt" : "bottom"});
-        $('input#cheese').menuoptions('refreshData', {'ColumnCount' : 1,
-            "ShowAt" : "bottom"});
-        $('input#crust').menuoptions('refreshData', {'ColumnCount' : 1,
-            "ShowAt" : "bottom"});
-        $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 1,
-            "ShowAt" : "bottom"});
+            'Width' : 0,"ShowAt" : "bottom"});
+        $('input#cheese').menuoptions('refreshData', {'ColumnCount' : 1, 
+            'Width' : 0,"ShowAt" : "bottom"});
+        $('input#crust').menuoptions('refreshData', {'ColumnCount' : 1, 
+            'Width' : 0,"ShowAt" : "bottom"});
+        $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 1, 
+            'Width' : 0,"ShowAt" : "bottom"});
     }
 }
     $('button#cfg').menuoptions({ 
         "Data": [{ "Select list on right": function() { resetMO ("right"); } }, 
                 { "2 columns": function() { resetMO ("colcnt");} },
-                { "Reset to default": function() { resetMO ("default");} } ],
+                { "Custom width (100px)": function() { resetMO ("width");} },
+                { "Reset to default": function() { resetMO ("default");} }],
         "PlaceHolder": "configure ",
         "MenuOptionsType":"Navigate",
         "onSelect": function(mo, data) { 
@@ -126,7 +134,7 @@ function resetMO( instruct ) {
                  </div>
              </td>
          </tr>
-         <tr style='height:40px'>
+         <tr style='height:90px'>
              <td>
 		            &nbsp;
              </td>

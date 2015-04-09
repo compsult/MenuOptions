@@ -204,6 +204,7 @@ $.widget( 'mre.menuoptions', {
             while ( matching.length > 0 ) { matching.pop(); }
             matching.push( no_img ? no_img_val : tmp[i] );
             no_matches=false;
+            this.cached['.txtbox'].val(no_img_val);
             break;
          } else if ( no_img_val.match(new RegExp(StrToCheck,'i')) ) {
             // return all partial matches
@@ -211,7 +212,7 @@ $.widget( 'mre.menuoptions', {
             no_matches=false;
          }
       }
-      if ( no_matches == true ) {
+      if ( no_matches == true ) { // cut chars not in any of the choices
           this.cached['.txtbox'].val(this.cached['.txtbox'].val().slice(0,-1));
       }
       return matching;
@@ -760,7 +761,7 @@ _getAndSetDropDownWidth : function () {
     $dd_span.options._width_adj.width_menu = menu_width;
     $dd_span.options._width_adj.width_after_adj = ( menu_width >  
             $(this.element).width()) ?  menu_width : $(this.element).outerWidth();  
-    if ( $dd_span.options.Width !== '' ) {  
+    if ( $dd_span.options.Width !== '' && $dd_span.options.Width !== 0) {  
         // if user specified width, use that width
         $dd_span.options._width_adj.width_after_adj = (parseInt($dd_span.options.Width));  
     }  
