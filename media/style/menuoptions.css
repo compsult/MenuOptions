@@ -1,3 +1,5 @@
+input.ui-menuoptions { outline: none; } /* Safari */
+.ui-menuoptions::-ms-clear { display: none; } /* IE */
 
 span table.HdrFilter, table.CrEaTeDtAbLeStYlE { 
     border-collapse:collapse; 
@@ -23,6 +25,7 @@ span table.CrEaTeDtAbLeStYlE tr.even {
 span table.HdrFilter, table.CrEaTeDtAbLeStYlE td.dflt { 
    border: 1px solid silver; 
    padding: 4px; 
+   min-width: 30px;
 } 
 span table.CrEaTeDtAbLeStYlE td.mo { 
    background: #ECD872; 

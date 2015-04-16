@@ -46,7 +46,7 @@ $.widget( 'mre.menuoptions', {
                         bottom : 0,
                         left : 0,
                         right : 0,
-                        overlap : 3
+                        overlap : 8
                     },
     _width_adj : { 
                         width_menu : 0, 
@@ -133,10 +133,13 @@ $.widget( 'mre.menuoptions', {
       if ( event.type === 'search'){ // clear menu_opt_key when input is cleared
          $(this.element).attr('menu_opt_key','');
       }
-      // prevents 2 consecutive calls when bringing focus to input
-      if ( event.type === 'click' && this.options._prev_event === 'mouseenter' ) { 
+      // prevents multiple consecutive calls - Firefox is bad here
+      if ( ( event.type === 'click' && this.options._prev_event === 'mouseenter' ) ||
+           ( event.type === 'mousedown' && this.options._prev_event === 'mouseenter' ) ||
+           ( event.type === 'mouseenter' && this.options._prev_event === 'mouseenter' ) ) { 
          return;
       };
+      console.log(event.type);   
       this.options._prev_event = event.type;
       this.ary_of_objs = this.orig_objs;
       // if there is text in input, filter results accordingly
@@ -196,24 +199,23 @@ $.widget( 'mre.menuoptions', {
   __buildMatchAry : function ( event, StrToCheck, no_img ) {
       var matching = [],
           tmp = this.orig_objs,
-          no_matches=true;
-      for (i = 0; i < tmp.length; i++) { 
-         no_img_val = tmp[i].val.replace(/<img.*>/, '');
-         if ( no_img_val.toLowerCase() == StrToCheck.toLowerCase() ) {
-            // for exact match, only return that record
-            while ( matching.length > 0 ) { matching.pop(); }
-            matching.push( no_img ? no_img_val : tmp[i] );
-            no_matches=false;
-            this.cached['.txtbox'].val(no_img_val);
-            break;
-         } else if ( no_img_val.match(new RegExp(StrToCheck,'i')) ) {
-            // return all partial matches
-            matching.push( no_img ? no_img_val : tmp[i] );
-            no_matches=false;
-         }
-      }
-      if ( no_matches == true ) { // cut chars not in any of the choices
-          this.cached['.txtbox'].val(this.cached['.txtbox'].val().slice(0,-1));
+          no_img ="";
+      var lastChar = StrToCheck.charAt(StrToCheck.length - 1);
+      /*--  console.log(StrToCheck.length+" "+lastChar+" "+StrToCheck);  --*/
+      if ( StrToCheck.match(/\{|\}|\\|\*|\(|\)|\./) && ! 
+           ( $(this.options)[0].MenuOptionsType.match(/Navigate/i) ) ) {
+        var newStr = [StrToCheck.slice(0,(StrToCheck.length-1)), '\\', lastChar].join('');
+        StrToCheck = newStr;
+      } 
+      var RegExStr = new RegExp(StrToCheck.toLowerCase());
+      matching = $.grep(this.orig_objs, function(o) { 
+          no_img = o.val.replace(/<img.*>/, ''); 
+          return no_img.toLowerCase().match(RegExStr); 
+      });
+      if ( matching.length === 1 && matching[0].val.toLowerCase() === RegExStr) {
+          this.cached['.txtbox'].val(no_img_val);
+      } else if ( matching.length === 0 ) { // cut chars not in any of the choices
+            this.cached['.txtbox'].val(this.cached['.txtbox'].val().slice(0,-1));
       }
       return matching;
   },
@@ -320,6 +322,7 @@ $.widget( 'mre.menuoptions', {
     });
     // bind events to this.element
     this._on( { 
+        'mousedown':  '_buildWholeDropDown',
         'click':  '_buildWholeDropDown',
         'mouseenter':  '_buildWholeDropDown',
         'focus':  '_buildWholeDropDown',
@@ -346,55 +349,34 @@ $.widget( 'mre.menuoptions', {
     // allow user to filter viewable choices
     this._on( this.cached['.txtbox'], {
        keypress: '_autocomplete',
+       keydown: '_autocomplete',
        keyup: '_autocomplete',
-       keydown: '_autocomplete'  
     })
   },
 
   _autocomplete: function(event) {
+      /*--  console.log(event.type);    --*/
       if ( $(this.options)[0].MenuOptionsType.match(/Navigate/i) ) {
           return;
       }
-      if ( event.type.match(/keyup|keydown/) ) {
-          if  ( event.originalEvent === $.ui.keyCode.ENTER || 
+      if ( event.originalEvent === $.ui.keyCode.ENTER ||
                 event.originalEvent.keyCode === $.ui.keyCode.ENTER ) {
             event.preventDefault();
+      }
+      if ( event.type.match(/keydown/) ) {
+          if ( ( event.originalEvent === $.ui.keyCode.ENTER || 
+                 event.originalEvent.keyCode === $.ui.keyCode.ENTER ) || 
+               ( ( event.originalEvent === $.ui.keyCode.TAB || 
+                   event.originalEvent.keyCode === $.ui.keyCode.TAB ) &&
+                   this.cached['.txtbox'].val() != '' ) ) {
             this._processMatches( event, this.cached['.txtbox'].val(), true );
             this.__triggerChoice ( event );
             return;
           }
-          if ( ( event.originalEvent === $.ui.keyCode.TAB || 
-             event.originalEvent.keyCode === $.ui.keyCode.TAB ) &&
-             this.cached['.txtbox'].val() != '' ) {
-            this._processMatches( event, this.cached['.txtbox'].val(), true );
-            this.__triggerChoice ( event );
-            return;
-          }
       }
-      if ( ( event.type == 'keydown') && this.cached['.txtbox'].val() != "" && 
-           ( event.originalEvent === $.ui.keyCode.TAB || 
-             event.originalEvent.keyCode === $.ui.keyCode.TAB ) ) {
-           /*--  
-              if user "Tabs out" of input and there is some text in the input element,
-              choose the first match to that text  
-            --*/
-            var matching = this.__buildMatchAry (event, this.cached['.txtbox'].val(), true);
-            if ( matching.length > 0 ) {
-                this.__triggerChoice ( event );
-            }
-            return;
+      if ( event.type.match(/keyup|keypress/) ) {
+        this._processMatches( event, this.cached['.txtbox'].val(), true );
       }
-      if ( event.type == 'keypress' && this.cached['.txtbox'].val() != "" ) {
-            var matching = this.__buildMatchAry (event, this.cached['.txtbox'].val(), true);
-           /*--  
-              if the text in the input element is an exact match with an element
-              from the select list, do nothing
-            --*/
-            if ( matching[0] == this.cached['.txtbox'].val()) {
-                return;
-            }
-      }
-      this._processMatches( event, this.cached['.txtbox'].val(), true );
   },
 
   _hiLiteOnOff : function (event) {
@@ -444,7 +426,7 @@ $.widget( 'mre.menuoptions', {
 
   _set_options : function ( ) {
       if ( this.options.ShowAt.match(/^ *bottom *$/i) ) {
-          this.options._menu_box.overlap = 3;
+          this.options._menu_box.overlap = 8;
           this._setOption('ShowAt','left bottom');
       }
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {

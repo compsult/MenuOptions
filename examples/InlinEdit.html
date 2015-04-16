@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>InlineEdit | Rapid data editing of a table cell </title>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css?v_2339">
+    <link rel="stylesheet" type="text/css" href="../media/style/menuoptions.css?v_2359">
+      
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.js"></script>
+    <script type="text/javascript" charset="utf8" src="javascript/InlineEdit.js?V_{DT}"></script>
+    <script type="text/javascript" charset="utf8" src="javascript/data.js"></script>
+    <script type="text/javascript" charset="utf8" src="javascript/Scroller.js"></script>
+    <script type="text/javascript" charset="utf8" src="../media/javascript/jquery.menuoptions.js?v_2359"></script>
+      
+
+</head>
+<body>
+
+ <div class=wrapper>
+     <h1>Inline Edit Demo </h1>
+     <h3>(using <a target=_blank class=underl href='http://datatables.net/'>Datatables</a> for table display)</h3> 
+   <ul class=hdr>
+       <li>Click on blue cells to edit inline</li>
+       <li>The <span class=hdr>Hire Date</span> uses <a target=_blank class=underl href='https://jqueryui.com/datepicker/'>jQuery UI datepicker</a></li>
+       <li>The <span class=hdr>Marital Status</span> uses <a target=_blank class=underl href='https://jqueryui.com/autocomplete/'>jQuery UI autocomplete</a>  </li>
+       <li>The <span class=hdr>Employee Type</span> and <span class=hdr>Start Time</span> use <a target=_blank class=underl href='http://www.menuoptions.org/'>MenuOptions select</a></li>
+    </ul>
+ </div>
+ <div id=ValidationErr class=dispbox><div><button>X</button></div></div>
+	
+</body>
+</html>

@@ -45,8 +45,8 @@ When creating your MenuOptions select control, pass it an object, like the code 
 
 For more details, see `re_serialize() <http://menuoptions.readthedocs.org/en/latest/Serialize.html>`_ 
 
-When I hit enter in a  MenuOptions select, it does not submit the form
-----------------------------------------------------------------------
+When I hit enter in a MenuOptions select, it does not submit the form
+---------------------------------------------------------------------
 That's correct. MenuOptions uses the Enter key to select the first dropdown 
 element. If you want to submit the form when a user presses Enter, you
 can do so in the onSelect option,  which returns the MenuOptions instance and 
@@ -69,3 +69,11 @@ For more detals on onSelect `see the docs <SelectParams.html#onselect>`_
     });  
 
 This code is in `quick start select demo <http://www.menuoptions.org/examples/QuickStartSelect.html>`_
+
+When I enter certain characters in a MenuOptions select listm they disappear, why?
+----------------------------------------------------------------------------------
+It only disappears when you enter a character that is not in any of the select list options
+
+Can I use 'special' characters in a MenuOptions select list ( parens, curly braces )?
+-------------------------------------------------------------------------------------
+Yes, if those characters are in your select list options, your can use them in the 
