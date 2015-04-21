@@ -194,8 +194,8 @@ te.saveInlineEdit = function ( TblObj, td ) {
     var newVal = td.children('input').attr('menu_opt_key') ? 
                     td.children('input').attr('menu_opt_key') : 
                     td.children('input').attr('newid');
-    var OrigVal = td.children('input').attr('value')
-    var ShowVal = td.children('input').attr('newid')
+    var OrigVal = td.children('input').attr('value');
+    var ShowVal = td.children('input').attr('newid');
     if ( te.settings[td.index()]['type'] == "float" ) {
        ShowVal = te.commaSeparateNumber(parseFloat(ShowVal).toFixed(2));
     }

@@ -1,12 +1,13 @@
 ## MenuOptions ##
-
+> New in version 1.6+, arrow key enabled to allow pure keyboard interaction
 1. a jQuery widget designed to optimize data entry speed for both keyboard and mouse users
 
-2. uses autocomplete and mouseover filtering                                       
+2. Intelligent autocomplete that automatically removes invalid characters and 
+   can utilize multicolumn select lists.
 
-3. just like the  &lt;select&gt; element, uses visible text and hidden values
+3. Menus built from JSON that follow URLs or execute javascript functions and allow dividers    
 
-4. can create menus (with dividers) that follow URLs or execute javascript functions            
+4. just like the  &lt;select&gt; element, uses visible text and hidden values
 
 5. has a select control that enables 1 click data entry                         
 
