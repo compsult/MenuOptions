@@ -514,7 +514,7 @@ $.widget( 'mre.menuoptions', {
 
   _set_options : function ( ) {
       if ( this.options.ShowAt.match(/^ *bottom *$/i) ) {
-          this._setOption('ShowAt','left bottom');
+          this._setOption('ShowAt','left bottom-1');
       }
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {
           this._setOption('ShowAt','left top');
