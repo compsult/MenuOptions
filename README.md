@@ -1,5 +1,6 @@
 ## MenuOptions ##
 > New in version 1.6+, arrow key enabled to allow pure keyboard interaction
+
 1. a jQuery widget designed to optimize data entry speed for both keyboard and mouse users
 
 2. Intelligent autocomplete that automatically removes invalid characters and 

@@ -10,9 +10,11 @@
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
    <link rel="stylesheet" href="../media/style/menuoptions.css?v_2359">
    <style>
-   h1 { color: gray; font-size:26px; } 
-   h2 { color: gray; font-size:16px; } 
-   button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:170px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
+        h1 { color: gray; font-size:26px; } 
+        h2 { color: gray; font-size:16px; } 
+        button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:170px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
+        a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
+        a:hover { color: #6B696B; background:antiquewhite;  }
    </style>
   
 
@@ -91,6 +93,12 @@ $(document).ready(function() {
 </head>
 <body style="background:white; text-align:center; overflow:hidden; margin: 0px auto;  padding: 0px; width: 920px;">
 	<br><h1 >Example of dynamic reloading a MenuOptions select</h1> 
+     <table style='margin-left:auto;margin-right:auto;font-size:18px;margin-top:-10px;'>
+            <tr>
+                <td><a target=_blank class=underl href='/index.html#menuoptions_examples'>all examples</a></td>
+                <td><a target=_blank class=underl style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>documentation</a></td>
+            </tr>
+     </table>
     <h2>When you change the Start time, the end time select list will modified to <br /> 
         only display the start time plus 1 hour and 30 minutes </h2><br />
     <form id=tst>

@@ -25,6 +25,8 @@
      div#serialize, div#re_serialize { width:500px; } 
      h1 { color: gray; font-size:26px; } 
      h2 { color: gray; font-size:16px; } 
+        a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
+        a:hover { color: #6B696B; background:antiquewhite;  }
   </style>
 
 <script type='text/javascript'>//<![CDATA[ 
@@ -66,6 +68,12 @@ $(document).ready(function() {
 <body>
     <div id="wrapper" >
 	<h1 style='border:0px solid gray'>Using re_serialize()</h1>
+     <table style='margin-left:auto;margin-right:auto;font-size:18px;margin-top:-10px;'>
+            <tr>
+                <td><a target=_blank class=underl href='/index.html#menuoptions_examples'>all examples</a></td>
+                <td><a target=_blank class=underl style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>documentation</a></td>
+            </tr>
+     </table>
 	<h2 style='border:0px solid gray'>(serialize() will not pick up "menu_opt_key" information)</h2>
 	<h2 style='border:0px solid gray'>Choose from the drop downs and click "See results"</h2>
 	<form id=tst>
