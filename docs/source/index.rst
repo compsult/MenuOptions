@@ -8,18 +8,30 @@ Welcome to MenuOptions
 
 MenuOptions is a jQuery widget designed to optimize the speed of data entry
 for both mouse and keyboard users.
-MenuOptions can create menus and select lists which:
+It has:
 
-- have divider headings to break the menu or select list down into subsections. 
+- a select control that enables 1 click data entry
 
-- have mouseover filtering that allows users to see a subset of the menu just by 
+- intelligent autocomplete that automatically removes invalid characters and 
+  can utilize multicolumn select lists.
+
+- like the select element, MenuOptions uses visible labels and hidden values
+
+- menus built from JSON that follow URLs or execute javascript functions and allow dividers
+
+- mouseover filtering that allows users to see a subset of choices just by 
   passing the mouse over a filter.
 
-- has autocomplete functionality as part of its select list control.
+- a clear button that wipes the current value and opens the select list
+  (most useful in FireFox).
 
-- can be dynamically reloaded with new values (without destroying & recreating).
+- the ability to be dynamically reloaded with new values (without destroying & recreating).
 
-- has an onSelect option that returns the selected value and it's hidden value
+- an onSelect option that returns the selected value and it's hidden value
+
+- is flexible, configurable and stays in the viewport
+
+- been tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0
 
 Prerequisites:
 --------------

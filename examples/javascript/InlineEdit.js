@@ -17,17 +17,20 @@ $.fn.CustSelect = function( TblObj, instructs ) {
       var optionData = te.settings[this.parentNode.cellIndex].options,
           colName = te.settings[this.parentNode.cellIndex]['name'],
           colCnt = 1,
+          width = 120,
           Filters = [];
 
       if ( colName.match(/StartTime/i) ) {
           optionData = $("body").data("start_times");
           colCnt = 4;
+          width = 300,
           Filters = [ {'PM':'PM'}];
       }
       instructs.td = this.parentNode;
 	  $(this).menuoptions({ "PlaceHolder": "Start time", "Data": optionData,
                                 "ColumnCount" : colCnt, 
                                 'Filters': Filters, 
+                                'Width': width, 
                                 "UseValueForKey":true, 
                                 "onSelect": function(mo, data) {
                                     te.SaveCustomSelect ( TblObj, mo, data, instructs );

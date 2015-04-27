@@ -141,8 +141,9 @@ $.widget( 'mre.menuoptions', {
          return; // Firefox
       }
       if ( /Navigate/.test($(this.options)[0].MenuOptionsType) &&
-             ( /mouseenter/.test(e.type) ) ) {
-            $(this.options)[0]._curr_img = $(e.currentTarget);
+             ( /mouseenter/.test(e.type) ) ) { 
+          // detect mouseover menu for keypress detection
+          $(this.options)[0]._curr_img = $(e.currentTarget);
       }
       /* if wholeDropDown is already visible and this is not 
          a mouseover filtering operation, just return */
@@ -343,6 +344,7 @@ $.widget( 'mre.menuoptions', {
         'click':  '_buildWholeDropDown',
         'mouseenter':  '_buildWholeDropDown',
         'focus':  '_buildWholeDropDown',
+        'input':  '_buildWholeDropDown',
         'search':  '_buildWholeDropDown',
         'mouseleave':  '_removeDropDown',
         'blur': '_removeDropDown',
@@ -385,11 +387,13 @@ $.widget( 'mre.menuoptions', {
       if ( /keydown|keyup/.test(event.type) ) {
           if ( /keydown/.test(event.type) && 
                ( kc === $rt || kc === $lt || kc === $up || kc === $dwn)) { 
+              event.preventDefault();
               return true; 
           }
           var arr_key_pressed=false,
               row = this.options._currTD[0],
-              col = this.options._currTD[1];
+              col = this.options._currTD[1],
+              highlited = $('.CrEaTeDtAbLeStYlE tr td.mo');
           switch ( event.keyCode ) {
                 case $.ui.keyCode.TAB:
                     return false; break;
@@ -418,10 +422,12 @@ $.widget( 'mre.menuoptions', {
                     arr_key_pressed=true;
                     break;
                 case $.ui.keyCode.ENTER:
-                    var highlited = $('.CrEaTeDtAbLeStYlE tr td.mo');
-                    if ( highlited.length > 0 ) {
+                     if (/divider/.test($(highlited).prop('class'))) {  
+                        arr_key_pressed=false;
+                     }  else if ( highlited.length > 0 ) {
                         highlited.trigger('mousedown');
-                    } 
+                     } 
+                     event.preventDefault();
                     break;
                 case $.ui.keyCode.DELETE:
                     if ( $(this.options)[0].MenuOptionsType.match(/Select/i) &&
@@ -596,7 +602,7 @@ $.widget( 'mre.menuoptions', {
         start_ofs = RowCnt === 0 ? 0 : (RowCnt * this.options.ColumnCount);
         subary=ary_of_objs.slice(start_ofs, start_ofs+this.options.ColumnCount);
         TDary=$.map(subary, function (obj,idx) { 
-            if ( ! $.isFunction(obj.ky) && obj.ky.match(/divider/i) && 
+            if ( ! $.isFunction(obj.ky) && obj.ky.match(/^ *divider *$/i) && 
                  $dd_span.options.MenuOptionsType === 'Navigate') { 
                 // for menu's, a non clickable divider row (for categories, etc)
                 return  '\t<td class='+obj.ky +'>'+obj.val+'</td>\n'; 
@@ -622,9 +628,16 @@ $.widget( 'mre.menuoptions', {
  },
 
  _add_clear_btn : function ( ) {
-     if (this.options.ClearBtn && this.options.MenuOptionsType === 'Select') {
+     if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType) ) {
          ClrBtn = '<div class=clear_btn id=CB_'+this.eventNamespace.replace(/^\./,'')+'></div>';
          $(this.element).after(ClrBtn); 
+     }
+     if (/Navigate/.test(this.options.MenuOptionsType) ) {
+         if ( /button/i.test(this.element.prop('tagName')) ) {
+             this.element.html(this.element.html()+"&nbsp;&#x25BE;");
+         } else {
+             $(this.element).after("&nbsp;&#x25BE;"); 
+         }
      }
  },
 
@@ -690,7 +703,7 @@ $.widget( 'mre.menuoptions', {
         if ( $.isFunction(MatchedObjects[0].ky) ) {
             MatchedObjects[0].ky.call();
         } else {
-            if ( ! $(e.target).attr('class').match(/divider/i) ) {
+            if ( ! $(e.target).attr('class').match(/^ *divider *$/i) ) {
                window.open(MatchedObjects[0].ky);
             }
         }

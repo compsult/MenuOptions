@@ -8,12 +8,17 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.css">
+    <link rel="stylesheet" type="text/css" href="../media/style/menuoptions.css?v_2126">
       
     <!-- jQuery -->
     <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.js"></script>
+    <script type="text/javascript" charset="utf8" src="../media/javascript/jquery.menuoptions.js?v_2126"></script>
+    <script> var te = te || {}; te.root=""; </script>
+    <script type="text/javascript" charset="utf8" src="javascript/examples.js"></script>
       
     <style>
         div.wrapper {
@@ -25,16 +30,19 @@
         }
         body{ font: 16px/24px  Arial, Helvetica, sans-serif; }
         pre{ font: 12px/18px Consolas, "Lucida Console", Monaco, monospace }
-        a, td { color: green; text-decoration:none; }
+        #examples td, a.gr { color: green; text-decoration:none; }
         h1 { text-align:center; color: gray; font-size:28px; } 
         h4 { text-align:center; color: gray; font-size:14px;  font-style: italic;} 
+        h3 { color: gray; font-size:16px;  font-style: italic;} 
         li {
                 background: url(http://www.menuoptions.org/examples/images/bullet_green_alt.png) left center no-repeat; 
                 padding-left: 30px; 
                 margin-left: -40px;
         }
         img { border: 0px; }
-        tr:hover { cursor: pointer; font-weight:bold;}
+        #examples tr:hover { cursor: pointer; font-weight:bold;}
+        a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
+        a:hover { color: #6B696B; background:antiquewhite;  }
     </style>
 
 </head>
@@ -55,9 +63,9 @@
         <li><p>tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0 </p></li>
     </ul>
 
-    <h3> Notes: </h3>
-    <h4> 1 - <a href=https://github.com/compsult/MenuOptions>MenuOptions</a> documentation has been moved to <a href='http://menuoptions.readthedocs.org/en/latest/'>ReadTheDocs </a></h4>
-    <h4> 2 - It is strongly advised to use the latest release of MenuOptions, for latest features and bug fixes</h4>
+    <h2> Notes: </h2>
+    <h3> 1 - <a class=gr href=https://github.com/compsult/MenuOptions>MenuOptions</a> documentation has been moved to <a class=gr href='http://menuoptions.readthedocs.org/en/latest/'>ReadTheDocs </a></h4>
+    <h3> 2 - It is strongly advised to use the latest release of MenuOptions, for latest features and bug fixes</h4>
     <h2>Getting started with a simple select list</h2>
 
     <p><a href="http://www.menuoptions.org/examples/QuickStartSelect.html">See the demo</a></p>
@@ -140,86 +148,10 @@
     <a href="http://www.menuoptions.org/examples/MultiSelect.html"><img src="http://www.menuoptions.org/examples/images/MultiSelects.png" alt="Multiple Selects" title="using MenuOptions with multiple select lists " /></a>
 
     <br />
-    <a name="menuoptions_examples"></a> 
-    <h2> Listing of all demo pages</h2>
-        <table id="examples" class="display">
-            <thead>
-                <tr>
-                    <th>
-                        Demo list
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr href_attr=InlinEdit.html>
-                    <td>
-                        Inline edit using MenuOptions
-                    </td>
-                </tr>
-                <tr href_attr=MenusBottom.html>
-                    <td>
-                        Drop down menus
-                    </td>
-                </tr>
-                <tr href_attr=Dividers.html>
-                    <td>
-                        Example of using dividers
-                    </td>
-                </tr>
-                <tr href_attr=SelectWithImages.html>
-                    <td>
-                        Select with images
-                    </td>
-                </tr>
-                <tr href_attr=MenusRight.html>
-                    <td>
-                        Right side menus
-                    </td>
-                </tr>
-                <tr href_attr=QuickStartMenu.html>
-                    <td>
-                        Quick Start menu
-                    </td>
-                </tr>
-                <tr href_attr=QuickStartSelect.html>
-                    <td>
-                        Quick Start select
-                    </td>
-                </tr>
-                <tr href_attr=Serialize.html>
-                    <td>
-                        Serialize (re_serialize) demo
-                    </td>
-                </tr>
-                <tr href_attr=ReloadMenuOptions.html>
-                    <td>
-                        Dynamically reloading a MenuOptions select list
-                    </td>
-                </tr>
-                <tr href_attr=MultiSelect.html>
-                    <td>
-                        Multiple MenuOptions select lists
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
     <a href="https://github.com/compsult/MenuOptions"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
     <br />
     <br />
-    <script>
-      $(document).ready( function () {
-          $('#examples').DataTable({
-              "sDom":'<"H"f<"ExtraRowName">>t', 
-              "bJQueryUI":true
-          });
-          $('td').css({ 'text-align': 'center' });
-          $("div.ExtraRowName").html('MenuOptions demo pages');  
-          $('#examples tbody tr').click(function() { 
-              window.open($(this).attr('href_attr'), '_blank');
-          });
-      } );
-    </script>
 
 	
 </body>

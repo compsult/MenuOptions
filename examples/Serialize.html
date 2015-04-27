@@ -7,8 +7,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
-   <script src="../media/javascript/jquery.menuoptions.js?v_2359"></script> 
-   <link rel="stylesheet" href="../media/style/menuoptions.css?v_2359">
+   <script src="../media/javascript/jquery.menuoptions.js?v_2126"></script> 
+   <script> var te = te || {}; te.root=""; </script>
+   <script src="javascript/examples.js"></script>
+   <link rel="stylesheet" href="../media/style/menuoptions.css?v_2126">
 
   
   <style>
@@ -68,19 +70,13 @@ $(document).ready(function() {
 <body>
     <div id="wrapper" >
 	<h1 style='border:0px solid gray'>Using re_serialize()</h1>
-     <table style='margin-left:auto;margin-right:auto;font-size:18px;margin-top:-10px;'>
-            <tr>
-                <td><a target=_blank class=underl href='/index.html#menuoptions_examples'>all examples</a></td>
-                <td><a target=_blank class=underl style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>documentation</a></td>
-            </tr>
-     </table>
 	<h2 style='border:0px solid gray'>(serialize() will not pick up "menu_opt_key" information)</h2>
 	<h2 style='border:0px solid gray'>Choose from the drop downs and click "See results"</h2>
 	<form id=tst>
 	 <table id=serial_demo align=center style="margin-top:10px;text-align:left;">
 	    <tr>
 	       <td class=demotd1>
-		  <input name='t' type='text' placeholder='pay method'>
+		  <input name='t' type='search' placeholder='pay method'>
 	       </td>
 	       <td class=demotd1>
 		  <div id=serialize_text>&nbsp;</div>
@@ -88,7 +84,7 @@ $(document).ready(function() {
 	    </tr>
 	    <tr>
 	       <td class=demotd1>
-		  <input name='t2' type='text' placeholder='Marital Status'>
+		  <input name='t2' type='search' placeholder='Marital Status'>
 	       </td>
 	       <td class=demotd1>
 		  <div id=serialize>&nbsp;</div>
@@ -96,7 +92,7 @@ $(document).ready(function() {
 	    </tr>
 	    <tr>
 	       <td class=demotd1>
-		  <input name='t3' type='text' placeholder='State'>
+		  <input name='t3' type='search' placeholder='State'>
 	       </td>
 	       <td class=demotd1>
 		  <div id=reserialize_text>&nbsp;</div>
@@ -104,7 +100,7 @@ $(document).ready(function() {
 	    </tr>
 	    <tr>
 	       <td class=demotd1>
-		  <input name='t4' type='text' placeholder='Phone'>
+		  <input name='t4' type='search' placeholder='Phone'>
 	       </td>
 	       <td class=demotd1>
 		  <div id=re_serialize>&nbsp;</div>
@@ -147,7 +143,7 @@ $(document).ready(function() {
         to this:
         </p>
         <pre>
-        &lt;input name="t" menu_opt_key="1" type="text" placeholder="Pay Method" readonly=""&gt;
+        &lt;input name="t" menu_opt_key="1" type="search" placeholder="Pay Method" readonly=""&gt;
         </pre>
         <p>
         <span style='font-weight:bold'>serialize()</span> would grab the text "American Express".

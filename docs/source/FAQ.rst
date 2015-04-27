@@ -2,6 +2,36 @@ FAQ
 ===
 
 
+Why do we need another input widget?
+------------------------------------
+MenuOptions was created for one reason.
+    To reduce - to an absolute minimum - the number of keystrokes and mouse clicks for data entry.
+
+
+It enables:
+
+- 1 click data entry
+- if the item is at the top of the list, you only need to press the enter key (one keypress)
+- it uses intelligent autocomplete 
+  (characters not in any select list item are automatically removed, saving keystrokes)
+- mouseover filtering lets user reduce choices by moving their mouse over a filter element
+- mulitcolumn display of choices, allowing more data to be presented at one time
+
+Other benefits:
+
+- it can use data from a variety of JSON types (array, array of arrays, single object, array of objects)
+- the value associated with with the label string is saved in the input element automatically
+  (in the menu_opt_key - no need to manually update a hidden field)
+- since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
+
+
+What browsers has it been tested on?
+------------------------------------
+| on Win 8.1: IE10 and Safari 5.17
+| on Ubuntu: Chrome 41.0.2272 and Firefox 37.0
+| 
+
+
 When I use jQuery.empty(), the widget does not get removed. How do I fix this?
 ------------------------------------------------------------------------------
 
@@ -70,10 +100,10 @@ For more detals on onSelect `see the docs <SelectParams.html#onselect>`_
 
 This code is in `quick start select demo <http://www.menuoptions.org/examples/QuickStartSelect.html>`_
 
-When I enter certain characters in a MenuOptions select listm they disappear, why?
+When I enter certain characters in a MenuOptions select list they disappear, why?
 ----------------------------------------------------------------------------------
 It only disappears when you enter a character that is not in any of the select list options
 
 Can I use 'special' characters in a MenuOptions select list ( parens, curly braces )?
 -------------------------------------------------------------------------------------
-Yes, if those characters are in your select list options, your can use them in the 
+Yes

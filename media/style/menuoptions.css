@@ -1,5 +1,7 @@
-input.ui-menuoptions { outline: none; } /* Safari */
-.ui-menuoptions::-ms-clear { display: none; } /* IE */
+/* Safari */
+/*--  input.ui-menuoptions { outline: none; }   --*/
+/* IE */
+/*--  .ui-menuoptions::-ms-clear { display: none; }   --*/
 
 span table.HdrFilter, table.CrEaTeDtAbLeStYlE { 
     border-collapse:collapse; 
