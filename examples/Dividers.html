@@ -49,12 +49,13 @@
 
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
-    var Menu_w_Dividers =[ {  'Search'  :'divider' }, 
-                {  'Google'  :'http://www.google.com' }, 
-                {  'Yahoo'  :'http://www.yahoo.com' }, 
-                {  'Business'  :'divider' }, 
-                {  'CNBC'  :'http://www.cnbc.com' }, 
-                {  'MarketWatch' :'http://www.MarketWatch.com' } ];
+    /*--  here, a single object is used as Data  --*/
+    var Menu_w_Dividers ={  'Search'  :'divider' , 
+                  'Google'  :'http://www.google.com' , 
+                  'Yahoo'  :'http://www.yahoo.com' , 
+                  'Business'  :'divider' , 
+                  'CNBC'  :'http://www.cnbc.com' , 
+                  'MarketWatch' :'http://www.MarketWatch.com' } ;
 
     $('button[id="menu_divs_filts"]').menuoptions({ 
         'MenuOptionsType': 'Navigate', 

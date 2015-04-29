@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
- * @version         Version 1.5.3-0
+ * @version         Version 1.6.0-4
  *
  ******************************************/
   //
@@ -34,6 +34,7 @@ $.widget( 'mre.menuoptions', {
     Filters: [], // header filters (pass mouse over them & they filter choices)
     MenuOptionsType: 'Select', //other option is Navigate (run JS,follow href)
     DisableHiLiting : false, // set to true to disable autocomplete highlighting
+    ShowDownArrow : true, // set to false to hide down arrow on menus
     _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
     _prev_event : '',
     _prev_target : '',
@@ -632,8 +633,8 @@ $.widget( 'mre.menuoptions', {
          ClrBtn = '<div class=clear_btn id=CB_'+this.eventNamespace.replace(/^\./,'')+'></div>';
          $(this.element).after(ClrBtn); 
      }
-     if (/Navigate/.test(this.options.MenuOptionsType) ) {
-         if ( /button/i.test(this.element.prop('tagName')) ) {
+     if (/Navigate/.test(this.options.MenuOptionsType) && this.options.ShowDownArrow ) {
+         if ( /button|img|div/i.test(this.element.prop('tagName')) ) {
              this.element.html(this.element.html()+"&nbsp;&#x25BE;");
          } else {
              $(this.element).after("&nbsp;&#x25BE;"); 

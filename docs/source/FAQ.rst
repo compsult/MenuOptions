@@ -5,13 +5,13 @@ FAQ
 Why do we need another input widget?
 ------------------------------------
 MenuOptions was created for one reason.
-    To reduce - to an absolute minimum - the number of keystrokes and mouse clicks for data entry.
+    To reduce - to an absolute minimum - the number of keystrokes and clicks required for data entry.
 
 
 It enables:
 
 - 1 click data entry
-- if the item is at the top of the list, you only need to press the enter key (one keypress)
+- if an item is at the top of the list, only one key needs to be pressed (the enter key)
 - it uses intelligent autocomplete 
   (characters not in any select list item are automatically removed, saving keystrokes)
 - mouseover filtering lets user reduce choices by moving their mouse over a filter element

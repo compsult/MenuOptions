@@ -28,7 +28,7 @@
            width: 700px;
            border: 1px solid white;
         }
-        body{ font: 16px/24px  Arial, Helvetica, sans-serif; }
+        body{ font: 17px/24px  Georgia, Arial, Helvetica, sans-serif; }
         pre{ font: 12px/18px Consolas, "Lucida Console", Monaco, monospace }
         #examples td, a.gr { color: green; text-decoration:none; }
         h1 { text-align:center; color: gray; font-size:28px; } 
@@ -49,18 +49,27 @@
 <body>
 
     <div class=wrapper>
-        <h1>MenuOptions</h1> 
-        <h4>New in version 1.6+, arrow key enabled to allow pure keyboard interaction</h4>
+     <h1>MenuOptions</h1> 
+     <h2 style="text-align:left;font-size:20px"> MenuOptions was created for one reason.</h2>
+     <p style="margin-left:30px;font-size:16px">To reduce - <span style='font-style: italic'>to an absolute minimum</span> - the # of keystrokes and clicks required for data entry.</p>
+
+     <p style="text-align:left;font-weight:bold">Benefits:</p>
+     <ul style="list-style:none">
+         <li><p>1 click data entry</p></li>
+        <li><p>if an item is at the top of the list, only one key needs to be pressed (the enter key)</p></li>
+        <li><p>it uses intelligent autocomplete 
+        (characters not in any select list item are automatically removed, saving keystrokes)</p></li>
+        <li><p>mouseover filtering lets user reduce choices by moving their mouse over a filter element</p></li>
+        <li><p>mulitcolumn display of choices, allowing more data to be presented at one time</p></li>
+        <li><p>tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0 </p></li>
+    </ul>
+     <p style="text-align:left;font-weight:bold">Other benefits:</p>
 
      <ul style="list-style:none">
-        <li><p>a jQuery widget designed to optimize data entry speed for both keyboard and mouse users</p></li>
-        <li><p>intelligent autocomplete that automatically removes invalid characters and <br>can utilize multicolumn select lists. </p></li>
-        <li><p>Menus built from JSON that follow URLs or execute javascript functions and allow dividers</p></li>
-        <li><p>just like the select element, uses visible text and hidden values </p></li>
-        <li><p>has a select control that enables 1 click data entry                         </p></li>
-        <li><p>has a clear button that wipes the current value and opens the select list       </p></li>
-        <li><p>is flexible, configurable and stays in the viewport  </p></li>
-        <li><p>tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0 </p></li>
+        <li><p>it can utilize data from a variety of JSON types (array, array of arrays, single object, array of objects)</p></li>
+        <li><p>the value associated with with the label string is saved in the input element automatically
+        (in the menu_opt_key - no need to manually update a hidden field)</p></li>
+        <li><p>since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.</p></li>
     </ul>
 
     <h2> Notes: </h2>
@@ -149,7 +158,6 @@
 
     <br />
     </div>
-    <a href="https://github.com/compsult/MenuOptions"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
     <br />
     <br />
 

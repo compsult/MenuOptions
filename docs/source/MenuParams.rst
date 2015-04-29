@@ -21,6 +21,7 @@ Parameter list for menus
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     MenuOptionsType,string,'Select' or 'Navigate','Select',false
     ShowAt,string,'Bottom' or 'Right','Bottom',false
+    ShowDownArrow,boolean, "true or false",true,false 
     Sort,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
     Width,integer,positive integer,width of parent,false
 
@@ -36,13 +37,13 @@ ColumnCount
 
 Data
 ^^^^
-    options: **[] or {} or  [ {}, {}, ... ]**
+    options: **{}, [ [], [], ...], or [ {}, {}, ... ]** 
 
-    MenuOptions accepts the following in `Data`
+    MenuOptions menus accept the following in `Data`
 
-    1. an array
-    #. a single object 
-    #. an array of objects.
+    1. a single object
+    #. a array of objects
+    #. an array of arrays
 
 Filters
 ^^^^^^^
@@ -76,6 +77,14 @@ ShowAt
 
     "Bottom" means that the menu will appear underneath
     "Right" means that the menu will appear to the right
+
+ShowDownArrow
+^^^^^^^^^^^^^
+     options: **true or false**                                                  
+
+     ShowDownArrow defaults to true, meaning a down arrow will automatically 
+     be appended to the end of a menu drop down. Set ShowDownArrow to false
+     if you would rather not see this arrow.
 
 Sort
 ^^^^
