@@ -1,24 +1,25 @@
 ## MenuOptions ##
-> New in version 1.6+, arrow key enabled to allow pure keyboard interaction
+### MenuOptions was created for one reason.
 
-1. a jQuery widget designed to optimize data entry speed for both keyboard and mouse users
+> To reduce - *to an absolute minimum* - the number of keystrokes and clicks required for data entry.
 
-2. Intelligent autocomplete that automatically removes invalid characters and 
-   can utilize multicolumn select lists.
+#### Benefits
 
-3. Menus built from JSON that follow URLs or execute javascript functions and allow dividers    
 
-4. just like the  &lt;select&gt; element, uses visible text and hidden values
+*   1 click data entry
+*   if an item is at the top of the list, only one key needs to be pressed (the enter key)
+*   it uses intelligent autocomplete (characters not in any select list item are automatically removed, saving keystrokes)
+*   mouseover filtering lets user reduce choices by moving their mouse over a filter element
+*   mulitcolumn display of choices, allowing more data to be presented at one time
+*   has a clear button that wipes the current value and opens the select list (this saves keystrokes in browsers that don't support clear button in input=search e.g., FireFox) 
 
-5. has a select control that enables 1 click data entry                         
+#### Other benefits:
 
-6. has a clear button that wipes the current value and opens the select list       
-
-7. source data can be dynamically reloaded (no destroy-create required)
-
-8. is flexible, configurable and stays in the viewport  
-
-9. tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0
+*   it can use data from a variety of JSON types (array, array of arrays, single object, array of objects)
+*   the value associated with with the label string is saved in the input element automatically (in the menu_opt_key - no need to manually update a hidden field)
+*   since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
+*   source data can be dynamically reloaded (no destroy-create required)
+*   is flexible, configurable and stays in the viewport  
 
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 
@@ -96,6 +97,3 @@ $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').seria
 [See the demo](http://www.menuoptions.org/examples/MultiSelect.html)
 
 This demo illustrates using the keyboard for rapid data entry.
-
-[![Multiple Selects](http://www.menuoptions.org/examples/images/MultiSelects.png "using MenuOptions with multiple select lists ")](http://www.menuoptions.org/examples/MultiSelect.html)
-

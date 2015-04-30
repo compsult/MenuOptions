@@ -276,7 +276,7 @@ te.clearInlineEdit = function ( td ) {
     $('body').data('SelectedFromList',false);
     /*--  $("div#ui-datepicker-div").hide();   --*/
     if ( te.settings[cellidx]['type'].match(/custselect/i) ) {
-       $('.ui-menuoptions').menuoptions('destroy');
+       $('table#Example .ui-menuoptions').menuoptions('destroy');
     }
 }
 /*------------------------------------------------------------------------------------------------------*/
