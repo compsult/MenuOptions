@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
- * @version         Version 1.6.0-5
+ * @version         Version 1.6.0-6
  *
  ******************************************/
   //
@@ -206,6 +206,10 @@ $.widget( 'mre.menuoptions', {
 
   __triggerChoice : function ( event ) {
       var firstMenuItem = $('table.CrEaTeDtAbLeStYlE').find('td:first');
+      var hilited = $('.CrEaTeDtAbLeStYlE tr td.mo');
+      if ( hilited.length > 0 ) {
+          firstMenuItem = hilited;
+      }
       this.element.val(firstMenuItem.text());
       this.element.attr('menu_opt_key', firstMenuItem.attr('menu_opt_key'));
       $(this.element).css({'border-color': this.options._orig_bg });
@@ -426,7 +430,11 @@ $.widget( 'mre.menuoptions', {
                      if (/divider/.test($(highlited).prop('class'))) {  
                         arr_key_pressed=false;
                      }  else if ( highlited.length > 0 ) {
-                        highlited.trigger('mousedown');
+                        if ( /Select/.test($(this.options)[0].MenuOptionsType) ) {
+                            this.__triggerChoice ( event ); 
+                        } else {
+                            this._runMenuItem( event ); 
+                        }
                      } 
                      event.preventDefault();
                     break;
@@ -696,7 +704,11 @@ $.widget( 'mre.menuoptions', {
 
  _runMenuItem : function (e) {
     // the replace below is to strip out images
-    var SelectedCellValue = $(e.target).text().replace(/^<.*>/, '');
+    var SelectedCellValue = $(e.target).text();
+    var hilited = $('.CrEaTeDtAbLeStYlE tr td.mo');
+    if ( hilited.length > 0 ) {
+        SelectedCellValue = hilited.text();
+    }
     var MatchedObjects = $.grep(this.ary_of_objs, function(rec){ 
                         return SelectedCellValue === 
                             rec.val.replace(/^< *img.*?>/, ''); });
