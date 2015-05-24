@@ -27,7 +27,6 @@ $.widget( 'mre.menuoptions', {
     Data: '',  // pass in your array, object or array of objects here
     ColumnCount: 1, // display data in this number of columns
     UseValueForKey: false, // if user wants value = text()
-    PlaceHolder: '', // placeholder attribute
     Width: '', // let user specify the exact width they want
     ShowAt: 'bottom', // 'bottom' or 'right' are the options
     Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
@@ -35,6 +34,7 @@ $.widget( 'mre.menuoptions', {
     MenuOptionsType: 'Select', //other option is Navigate (run JS,follow href)
     DisableHiLiting : false, // set to true to disable autocomplete highlighting
     ShowDownArrow : true, // set to false to hide down arrow on menus
+    RockerControl : false, // for binary choices, allow use of rocker image control
     _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
     _prev_event : '',
     _prev_target : '',
@@ -74,7 +74,6 @@ $.widget( 'mre.menuoptions', {
 
     this._set_options( );
     
-    this._add_clear_btn();
 
     // make sure incoming data is in required format
     this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
@@ -83,17 +82,22 @@ $.widget( 'mre.menuoptions', {
         return;
     }
 
-    // create the select box
-    this._buildDropDown( this.orig_objs ); 
-
-    this._bindUIActions();
+    if ( this.options.RockerControl == true ) { 
+        if ( this._rockerMain() == false ) {
+            return;
+        }
+    } else {
+        this._add_clear_btn();
+        this._buildDropDown( this.orig_objs ); 
+        this._bindUIActions();
+        $(this.element).attr('autocomplete', 'off');
+    }
 
     this._detect_destroyed_input();
 
     this._refresh();
 
     $(this.element).addClass('ui-menuoptions');
-    $(this.element).attr('autocomplete', 'off');
   },
 
   _validation_fail : function ( err_msg ) {
@@ -101,19 +105,79 @@ $.widget( 'mre.menuoptions', {
     this._destroy();
   },
 
+  _rockerMain : function ( ary_of_objs ) {
+     if ( this.orig_objs.length != 2 ) {
+        this._validation_fail ('When using the rocker control, exactly 2 elements need to be supplied to menuoptions');
+        return false;
+     }
+     if ( $('div.rocker[id=RK_'+this._event_ns+']').length ) { 
+        $('div.rocker[id=RK_'+this._event_ns+']').remove(); 
+     } 
+     this._create_rocker();
+     this._bind_rocker();
+  },
+
+  _bind_rocker: function() {
+    this._on( $('div[id$=T_'+this._event_ns+']'), { 
+        'click':  '_rocker_click' });
+  },
+
+  _create_rocker : function (event) {
+      $(this.element).hide();
+      $(this.element).next('div.clear_btn').hide()
+      this._event_ns = this.eventNamespace.replace(/^\./,'')
+      $(this.element).parent().append("<div class=rocker id=RK_"+this._event_ns+">"+
+            "<div id=RK_LT_"+this._event_ns+" class=ltup menu_opt_key="+this.orig_objs[0].ky+"></div>"+
+            "<div id=RK_RT_"+this._event_ns+" class=rtup menu_opt_key="+this.orig_objs[1].ky+"></div>"+
+            "</div></div>")
+      $('div#RK_LT_'+this._event_ns)
+         .append('<span class=innertext style="padding-left:10px">'+this.orig_objs[0].val+'</span>');
+      $('div#RK_RT_'+this._event_ns)
+         .append('<span class=innertext style="padding-right:10px">'+this.orig_objs[1].val+'</span>');
+  },
+
+  _rocker_click : function (event) {
+      var tgt = $(event.target).is('[menu_opt_key]') ? $(event.target) : $(event.target.parentElement);
+      $(this.element)
+          .attr('menu_opt_key', tgt.attr('menu_opt_key'));
+      if ( /ltup/.test(tgt.attr('class') ) ) {
+          $('div#RK_LT_'+this._event_ns).attr('class', 'ltdown');
+          $('div#RK_RT_'+this._event_ns).attr('class', 'rtup');
+      } else if ( /rtup/.test(tgt.attr('class') ) ) {
+          $('div#RK_LT_'+this._event_ns).attr('class', 'ltup');
+          $('div#RK_RT_'+this._event_ns).attr('class', 'rtdown');
+      }
+  },
+
   refreshData : function ( RefreshCfg ) {
       // re-create drop down select
       // Note: you have to use same option names
       var $dd_span = this;
+      $(this.element).attr('menu_opt_key','');
       $(this.element).val(''); // in case there was text there before refresh
       $.each(RefreshCfg, function(key, value) {
           if ( $dd_span.options.hasOwnProperty(key) ) {
-             $dd_span._setOption(key, RefreshCfg[key] ); 
+            if ( $dd_span.options.RockerControl == true ) {
+                if ( /RockerControl|Data/i.test(key) ) { 
+                    $dd_span._setOption(key, RefreshCfg[key] ); 
+                }
+            } else {
+               $dd_span._setOption(key, RefreshCfg[key] ); 
+            }
           }
       });
       this._set_options();
       this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
-      this._buildDropDown( this.orig_objs ); 
+      if ( this.options.RockerControl == true ) { 
+         this._rockerMain();
+      } else {
+          if ( $('div.rocker[id=RK_'+this._event_ns+']').length ) {
+              $('div.rocker[id=RK_'+this._event_ns+']').remove();
+              $(this.element).show();
+              $(this.element).next('div.clear_btn').show()
+          }
+          this._buildDropDown( this.orig_objs );  
+      }
   },
 
   add_menuoption_key : function ( ) {
@@ -131,7 +195,7 @@ $.widget( 'mre.menuoptions', {
       });
   },
 
-  _buildWholeDropDown: function ( e ) {
+  _buildWholeDropDown : function ( e ) {
 
       if ( e.type === 'search'){ // clear menu_opt_key when input is cleared
          $(this.element).attr('menu_opt_key','');
@@ -149,7 +213,7 @@ $.widget( 'mre.menuoptions', {
       /* if wholeDropDown is already visible and this is not 
          a mouseover filtering operation, just return */
       if ( $('table.CrEaTeDtAbLeStYlE').is(':visible') &&
-           this.cached['.txtbox'].val().length === 0  && 
+           this.cached['.mo_elem'].val().length === 0  && 
            $(this.options)[0]._CurrentFilter.length === 0 &&
             /Navigate/.test($(this.options)[0].MenuOptionsType)) { 
          return;
@@ -158,13 +222,13 @@ $.widget( 'mre.menuoptions', {
       if ( ( e.type === 'click' && this.options._prev_event === 'mouseenter' ) ||
            ( e.type === 'mousedown' && this.options._prev_event === 'mouseenter' ) ) {
          return;
-      };
+      }
       this.options._currTD = [0, 1];
       this.options._prev_event = e.type;
       this.ary_of_objs = this.orig_objs;
       // if there is text in input, filter results accordingly
-      if ( this.cached['.txtbox'].val().length ) { 
-          this._processMatches( e, this.cached['.txtbox'].val(), true ); 
+      if ( this.cached['.mo_elem'].val().length ) { 
+          this._processMatches( e, this.cached['.mo_elem'].val(), true ); 
           return; 
       } 
       this._buildDropDown( this.orig_objs ); 
@@ -236,9 +300,9 @@ $.widget( 'mre.menuoptions', {
           return no_img.toLowerCase().match(RegExStr); 
       });
       if ( matching.length === 1 && matching[0].val.toLowerCase() === RegExStr) {
-          this.cached['.txtbox'].val(no_img_val);
+          this.cached['.mo_elem'].val(no_img_val);
       } else if ( matching.length === 0 ) { // cut chars not in any of the choices
-            this.cached['.txtbox'].val(this.cached['.txtbox'].val().slice(0,-1));
+            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().slice(0,-1));
       }
       return matching;
   },
@@ -261,7 +325,7 @@ $.widget( 'mre.menuoptions', {
   },
 
   _runHeaderFilters : function (event) {
-     if ( this.cached['.txtbox'].val().length ) {
+     if ( this.cached['.mo_elem'].val().length ) {
          // disable mouseover filters if user started autocomplete
          return;
      }
@@ -371,22 +435,15 @@ $.widget( 'mre.menuoptions', {
     this._on($('body'), Sel );
 
     // allow user to filter viewable choices
-    this._on( this.cached['.txtbox'], {
+    this._on( this.cached['.mo_elem'], {
        keypress: '_autocomplete',
        keydown: '_autocomplete',
        keyup: '_autocomplete',
     });
     
-    //catch menu arrow keys
-    $(document).keydown(function(e) {
-        if ( /Navigate/.test($($elem.options)[0].MenuOptionsType) && 
-                e.which == 13 && $($elem.options)[0]._curr_img ) {
-            $elem._arrow_keys(e);
-        }
-    });
   },
 
-  _arrow_keys: function(event) {
+  _arrow_keys : function(event) {
       var kc = event.keyCode;
       var $rt=39, $lt=37,$up=38,$dwn=40;
       if ( /keydown|keyup/.test(event.type) ) {
@@ -432,7 +489,7 @@ $.widget( 'mre.menuoptions', {
                      }  else if ( highlited.length > 0 ) {
                         if ( /Select/.test($(this.options)[0].MenuOptionsType) ) {
                             this.__triggerChoice ( event ); 
-                        } else {
+                        } else if ( /keydown/.test(event.type) ) {
                             this._runMenuItem( event ); 
                         }
                      } 
@@ -440,8 +497,8 @@ $.widget( 'mre.menuoptions', {
                     break;
                 case $.ui.keyCode.DELETE:
                     if ( $(this.options)[0].MenuOptionsType.match(/Select/i) &&
-                         this.cached['.txtbox'].length === 0 ) {
-                            /*--  this.cached['.txtbox'].val('');  --*/
+                         this.cached['.mo_elem'].length === 0 ) {
+                            /*--  this.cached['.mo_elem'].val('');  --*/
                             this.cached['.dropdownspan'].remove();
                             $('.CrEaTeDtAbLeStYlE tr td').removeClass('mo');
                             this._buildWholeDropDown(event);
@@ -468,17 +525,17 @@ $.widget( 'mre.menuoptions', {
             e.preventDefault();
       }
       if ( /keydown/.test(e.type) ) {
-          if ( this.cached['.txtbox'].is(':visible') && 
+          if ( this.cached['.mo_elem'].is(':visible') && 
                e.keyCode === $.ui.keyCode.ENTER ||
                ( e.keyCode === $.ui.keyCode.TAB && 
-                 this.cached['.txtbox'].val().length > 0 ) ) {
-            this._processMatches( e, this.cached['.txtbox'].val(), true );
+                 this.cached['.mo_elem'].val().length > 0 ) ) {
+            this._processMatches( e, this.cached['.mo_elem'].val(), true );
             this.__triggerChoice ( e );
             return;
           }
       }
       if ( /keyup/.test(e.type) || e.keyCode == $.ui.keyCode.BACKSPACE) {
-        this._processMatches( e, this.cached['.txtbox'].val(), true );
+        this._processMatches( e, this.cached['.mo_elem'].val(), true );
       }
   },
 
@@ -496,20 +553,20 @@ $.widget( 'mre.menuoptions', {
   },
 
   // called when created, and later when changing options
-  _refresh: function() {
+  _refresh : function() {
   },
 
-  _cacheElements: function() {
+  _cacheElements : function() {
     var $dd_span = this.dropdownbox,
         $dropdowncells = this.dropdownbox.find('td'),
-        $txtbox = this.element,
+        $menuoptions_elem = this.element,
         $clearBtn = $( 'div#CB_'+this._event_ns);
 
     this.cached = {
       '.dropdownspan': $dd_span,
       '.dropdowncells': $dropdowncells,
       '.clearBtn': $clearBtn,
-      '.txtbox': $txtbox
+      '.mo_elem': $menuoptions_elem
     };  
 
   },
@@ -536,9 +593,6 @@ $.widget( 'mre.menuoptions', {
       }
       if ( this.options.SelectOnly ) {
           $(this.element).prop('readonly', true);
-      }
-      if ( this.options.PlaceHolder !== '' ) {
-          $(this.element).prop('placeholder', this.options.PlaceHolder);
       }
       this._setOption('Data', this.options.Data); 
       this._setOption('_ID', this.eventNamespace.replace(/^\./,'')); 
@@ -724,6 +778,7 @@ $.widget( 'mre.menuoptions', {
  },
 
 _choiceSelected : function (e) {
+      this.cached['.dropdownspan'].remove();
     // dup click event sent (???), screen out 2nd
     if ( $(e.currentTarget).text() === this._prev_target && 
         e.pageX === this.options._prevXY.X && 
@@ -769,10 +824,10 @@ _calcDropBoxCoordinates : function () {
 
 _didMouseExitDropDown: function (e) {
     // this is where mouse is inside drop down 
-    if ( e.pageX + 1 > this.options._menu_box.left  && 
-         e.pageX < this.options._menu_box.right && 
+    if ( e.pageX  > this.options._menu_box.left  && 
+         e.pageX  < this.options._menu_box.right && 
          e.pageY + 1 > this.options._menu_box.top && 
-         e.pageY < this.options._menu_box.bottom ) {
+         e.pageY  < this.options._menu_box.bottom - 1 ) {
             return false;
     } else { // mouse is outside drop down
             return true;
@@ -788,8 +843,8 @@ _removeDropDown : function (e) {
    // prevent 2 calls in a row (we trigger one by calling .blur() )
    if ( e.type === 'blur' && this.options._prev_event === 'mouseleave' ) { 
        return;
-   };
-    // is the mouse over the drop down? If not, remove it from DOM
+   }
+  // is the mouse over the drop down? If not, remove it from DOM
   if ( $('span#SP_'+this.options._ID).length ) {  
     if ( this._didMouseExitDropDown(e) === true ) {
          this.cached['.dropdownspan'].remove();

@@ -21,8 +21,9 @@ Parameter list for select list
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     MenuOptionsType,string,'Select' or 'Navigate','Select',false
     onSelect, function,function(),none,false
-    PlaceHolder,"placeholder (HTML5)",text,none,false
+    PlaceHolder,<deleted>,<as of v1.6.1>,--,--
     SelectOnly,boolean,"true or false",false,false
+    RockerControl,boolean,"true or false",false,false
     ShowAt,string,'Bottom' or 'Right','Bottom',false
     Sort,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
     TriggerEvent, <deleted>,<as of v1.5.1>,--,--
@@ -114,10 +115,23 @@ onSelect
 
 PlaceHolder
 ^^^^^^^^^^^
-    options: **'placeholder text'**
+    <deleted> as of version 1.6.1
 
-    PlaceHolder enables placeholder text (HTML5) to be inserted into 
-    input=text element
+    Due to the whimsical nature of IE, (triggering an input event
+    when placeholder is changed), this feature was removed
+
+RockerControl
+^^^^^^^^^^^^^
+    options: **true or false**
+
+    If you have a binary choice, (e.g., true/false, male/female, etd.)
+    the RockerControl displays that as a rocker switch. This can be a
+    more efficient way to input binary choices that a plain select list.
+
+.. code-block:: javascript
+
+   $('input#true_false').menuoptions({"Sort": [],                               
+         "Data": { 'T': "True", 'F':"False" }, "RockerControl": true });   
 
 Sort
 ^^^^

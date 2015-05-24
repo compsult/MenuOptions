@@ -29,6 +29,8 @@ It has:
 
 - an onSelect option that returns the selected value and it's hidden value
 
+- has a rocker control for binary choices (yes/no, true/false, etc)
+
 - is flexible, configurable and stays in the viewport
 
 - been tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0

@@ -27,7 +27,7 @@ $.fn.CustSelect = function( TblObj, instructs ) {
           Filters = [ {'PM':'PM'}];
       }
       instructs.td = this.parentNode;
-	  $(this).menuoptions({ "PlaceHolder": "Start time", "Data": optionData,
+	  $(this).menuoptions({ "Data": optionData,
                                 "ColumnCount" : colCnt, 
                                 'Filters': Filters, 
                                 'Width': width, 

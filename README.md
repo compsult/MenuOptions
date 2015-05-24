@@ -20,6 +20,7 @@
 *   since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
 *   source data can be dynamically reloaded (no destroy-create required)
 *   is flexible, configurable and stays in the viewport  
+*   has a rocker control, convenient for binary choices (true/false, yes/no, etc)
 
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 
@@ -96,4 +97,6 @@ $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').seria
 
 [See the demo](http://www.menuoptions.org/examples/MultiSelect.html)
 
-This demo illustrates using the keyboard for rapid data entry.
+This demo illustrates using the using multiple MenuOptions controls, including the rocker control 
+
+![alt text](http://www.menuoptions.org/examples/images/MultiSelects.png "using multiple menuoptions on a page ")

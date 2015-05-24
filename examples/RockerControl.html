@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"> 
+<head> 
+<title>Simplest jQuery Slideshow</title> 
+ 
+<style> 
+body {font-family:Arial, Helvetica, sans-serif; font-size:12px;}
+</style> 
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+<script src="../media/javascript/jquery.menuoptions.js?v_1633"></script> 
+<link rel="stylesheet" href="../media/style/menuoptions.css?v_1633">
+<script> var te = te || {}; te.root=""; </script>
+<script src="javascript/examples.js?v_1633"></script>
+   <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font: 15px/20px  Georgia, Arial, Helvetica, sans-serif; 
+        }
+        h1 { color: gray; font-size:26px; } 
+        h2 { color: gray; font-size:16px; } 
+        button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:170px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
+        a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
+        a:hover { color: #6B696B; background:antiquewhite;  }
+        tr.tall { line-height: 44px; }
+   </style>
+
+<script>
+$(document).ready(function () {
+   $('input#on_off').menuoptions({"Sort": [], 
+        "Data": { 1: "On", 2:"Off" }, "RockerControl": true }); 
+   $('input#MaleFemale').menuoptions({"Sort": [], 
+        "Data": { 'M': "Male", 'F':"Female" }, "RockerControl": true }); 
+   $('input#TrueFalse').menuoptions({"Sort": [], 
+        "Data": { 'T': "True", 'F':"False" }, "RockerControl": true }); 
+   $('input#YesNo').menuoptions({"Sort": [], 
+        "Data": { 'Y': "Yes", 'N':"No" }, "RockerControl": true }); 
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#YesNo').menuoptions('re_serialize', 
+                $('form#tst').serialize());
+        alert (tst);
+    });
+});
+</script>
+ 
+</head> 
+<body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
+    <br><h1 >Example using the rocker switch</h1>
+    <form id=tst>
+	 <table border=0 style="margin: 0 auto;margin-top:50px;">
+         <tr >
+             <td width=110>
+	            True or False 
+             </td>
+             <td >
+                  <input type=search name=TrueFalse id='TrueFalse' >
+             </td>
+         </tr>
+         <tr class=tall>
+             <td>
+	            Yes or No
+             </td>
+             <td>
+		            <input type=search name=YesNo id='YesNo' >
+             </td>
+         </tr>
+         <tr class=tall>
+             <td>
+	            Male Female
+             </td>
+             <td>
+		            <input type=search name=MaleFemale id='MaleFemale' >
+             </td>
+         </tr>
+         <tr class=tall>
+             <td>
+	            On Off
+             </td>
+             <td>
+		            <input type=search name=on_off id='on_off' >
+             </td>
+         </tr>
+     </table><br /><br />
+    <button class=a type="button" id="menutest" >Show serialize values</button>
+    </form>
+     </body>
+</html>

@@ -7,20 +7,22 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
-   <script src="../media/javascript/jquery.menuoptions.js?v_2126"></script> 
-   <link rel="stylesheet" href="../media/style/menuoptions.css?v_2126">
+   <script src="../media/javascript/jquery.menuoptions.js?v_1633"></script> 
+   <link rel="stylesheet" href="../media/style/menuoptions.css?v_1633">
    <script> var te = te || {}; te.root=""; </script>
-   <script src="javascript/examples.js"></script>
+   <script src="javascript/examples.js?v_1633"></script>
    <style>
         html, body {
             height: 100%;
             overflow: hidden;
+            font: 15px/20px  Georgia, Arial, Helvetica, sans-serif; 
         }
         h1 { color: gray; font-size:26px; } 
         h2 { color: gray; font-size:16px; } 
         button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:170px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
         a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
         a:hover { color: #6B696B; background:antiquewhite;  }
+        tr.tall { line-height: 34px; }
    </style>
   
 
@@ -34,6 +36,7 @@ function resetMO( instruct ) {
         $('input#cheese').menuoptions('refreshData', {"ShowAt" : "right"});
         $('input#crust').menuoptions('refreshData', {"ShowAt" : "right"});
         $('input#cooked').menuoptions('refreshData', {"ShowAt" : "right"});
+        $('input#delivery').menuoptions('refreshData', {"ShowAt" : "right"});
     }
     if (instruct.match(/colcnt/i)) { 
         $('input#pizzatype').menuoptions('refreshData', {'ColumnCount' : 2 });
@@ -41,6 +44,7 @@ function resetMO( instruct ) {
         $('input#cheese').menuoptions('refreshData', {'ColumnCount' : 2 });
         $('input#crust').menuoptions('refreshData', {'ColumnCount' : 2 });
         $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 2 });
+        $('input#delivery').menuoptions('refreshData', {'ColumnCount' : 2 });
     }
     if (instruct.match(/width/i)) { 
         $('input#pizzatype').menuoptions('refreshData', {'Width' : 100 });
@@ -48,10 +52,19 @@ function resetMO( instruct ) {
         $('input#cheese').menuoptions('refreshData', {'Width' : 100 });
         $('input#crust').menuoptions('refreshData', {'Width' : 100 });
         $('input#cooked').menuoptions('refreshData', {'Width' : 100 });
+        $('input#delivery').menuoptions('refreshData', {'Width' : 100 });
+    }
+    if (instruct.match(/rocker/i)) { 
+        $('input#pizzatype').menuoptions('refreshData', {"RockerControl": true, "Sort": [],
+            "Data": { 1: "Sicilian", 2: "Neopolitan"} });
+        $('input#delivery').menuoptions('refreshData', {"RockerControl": true, "Sort": [],
+            "Data": { 1: "Deliver", 2:"Pick up" } });
     }
     if (instruct.match(/default/i)) { 
-        $('input#pizzatype').menuoptions('refreshData', {'ColumnCount' : 1,
-            'Width' : 0, "ShowAt" : "bottom"});
+        $('input#pizzatype').menuoptions('refreshData', {"Sort": [],
+                "Data": { 1: "Sicilian", 2: "Neopolitan"},
+                "RockerControl": false ,
+                "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0});
         $('input#toppings').menuoptions('refreshData', {'ColumnCount' : 1,
             'Width' : 0,"ShowAt" : "bottom"});
         $('input#cheese').menuoptions('refreshData', {'ColumnCount' : 1, 
@@ -60,32 +73,32 @@ function resetMO( instruct ) {
             'Width' : 0,"ShowAt" : "bottom"});
         $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 1, 
             'Width' : 0,"ShowAt" : "bottom"});
+        $('input#delivery').menuoptions('refreshData', {"Sort": [],
+                "Data": { 1: "Deliver", 2:"Pick up" },
+                "RockerControl": false,
+                "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0});
     }
 }
+function init( ) {
     $('button#cfg').menuoptions({ 
         "Data": [{ "Select list on right": function() { resetMO ("right"); } }, 
                 { "2 columns": function() { resetMO ("colcnt");} },
                 { "Custom width (100px)": function() { resetMO ("width");} },
-                { "Reset to default": function() { resetMO ("default");} }],
-        "PlaceHolder": "configure ",
+                { "Use rocker control for binary choices": function() { resetMO ("rocker");}},
+                { "Reset to default": function() { resetMO ("default");} } ],
         "MenuOptionsType":"Navigate",
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
         "Sort": [] // don't sort
     });  
-    $('input#pizzatype').menuoptions({ 
-        "Data": { 1: "Sicilian", 2: "Neoplolitan"},
-        "PlaceHolder": "Pizza type",
-        "onSelect": function(mo, data) { 
-             console.log(mo, data.newVal, data.type );  
-        }, 
+    $('#pizzatype').menuoptions({ 
+        "Data": { 1: "Sicilian", 2: "Neopolitan"},
         "Sort": [] // don't sort
     });  
     $('input#toppings').menuoptions({ 
         "Data": { 1:"Anchovie",2:"Green pepper", 3:"Pepperoni", 
                   4:"Meat", 5:"Mushroom"},
-        "PlaceHolder": "Toppings",
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
@@ -93,14 +106,12 @@ function resetMO( instruct ) {
     });  
     $('input#cheese').menuoptions({ 
         "Data": { 1:"Light",2:"Regular", 3:"Extra"},
-        "PlaceHolder": "Cheese amount",
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
         "Sort": [] // don't sort
     });  
     $('input#crust').menuoptions({ 
-        "PlaceHolder": "Crust thickness",
         "Data": { 1:"Thin",2:"Regular", 3:"Thick"},
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
@@ -108,11 +119,14 @@ function resetMO( instruct ) {
         "Sort": [] // don't sort
     });  
     $('input#cooked').menuoptions({ 
-        "PlaceHolder": "Bake instructions",
         "Data": { 1: "Lightly baked", 2:"Regular", 3: "Well done"},
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
+        "Sort": [] // don't sort
+    });  
+    $('#delivery').menuoptions({ 
+        "Data": { 1: "Deliver", 2:"Pick up"},
         "Sort": [] // don't sort
     });  
     $('button#menutest').on('click', function (e) {
@@ -121,51 +135,73 @@ function resetMO( instruct ) {
         alert (tst);
     });
     $("div#buttons").buttonset().css({"padding":"5px" });
+}
+init();
 });
 </script>
 </head>
 <body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
 	<br><h1 >Example of multiple select lists with autocomplete </h1>
-    <h2>Type the first letter of the choice you want, then press TAB </h2>
-    <h2>MenuOptions will use the first matching item</h2>
-    <h2>(no mouse required)</h2><br />
     <form id=tst>
-	 <table style="margin: 0 auto;">
-         <tr>
-             <td>
+	 <table border=0 style="margin: 0 auto;margin-top:-10px;">
+         <tr >
+             <td colspan=2>
                  <div id=buttons>
                      <button type="button" id="cfg" >Change MenuOptions Configuration</button>
                  </div>
              </td>
          </tr>
-         <tr style='height:90px'>
+         <tr style='height:120px'>
              <td>
 		            &nbsp;
              </td>
          </tr>
-         <tr>
+         <tr >
              <td>
-		            <input type=search name=pizzatype id='pizzatype' type='text' >
+	            Pizza Type
+             </td>
+             <td class=pizzatype>
+                  <input type=search name=pizzatype id='pizzatype' placeholder='Pizza type'>
              </td>
          </tr>
-         <tr>
+         <tr class=tall>
              <td>
-		            <input type=search name=toppings id='toppings' type='text' >
+	            Toppings
+             </td>
+             <td>
+		            <input type=search name=toppings id='toppings' placeholder='Toppings'>
              </td>
          </tr>
-         <tr>
+         <tr class=tall>
              <td>
-		            <input type=search name=crust id='crust' type='text' >
+	            Crust thickness            
+             </td>
+             <td>
+		            <input type=search name=crust id='crust' placeholder='Crust'>
              </td>
          </tr>
-         <tr>
+         <tr class=tall>
              <td>
-		            <input type=search name=cheese id='cheese' type='text' >
+	            Cheese Amount
+             </td>
+             <td>
+		            <input type=search name=cheese id='cheese' placeholder='Cheese'>
              </td>
          </tr>
-         <tr>
+         <tr class=tall>
              <td>
-		            <input type=search name=cooked id='cooked' type='text' >
+	            Bake Instructions
+             </td>
+             <td>
+		            <input type=search name=cooked id='cooked' placeholder='Cooked'>
+             </td>
+         </tr>
+         <tr >
+             <td>
+	            Delivery Instructions
+             </td>
+             <td class=delivery>
+                  <input type=search name=delivery id='delivery' placeholder='Delivery type'>
              </td>
          </tr>
      </table><br /><br />
