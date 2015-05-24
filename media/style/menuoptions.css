@@ -9,7 +9,7 @@ div.rtup { float:right; text-align:center; font-size:14px;
 div.rtdown { float:right; text-align:center; font-size:14px;
     background: url(../images/rocker_rt_down.png); width:76px; height:31px; }
 div.rocker span.innertext { line-height:31px;}
-div.rocker div.ltup:hover, div.rtup:hover { color: green }
+div.rocker div.ltup:hover, div.rtup:hover { color: palegreen; font-style:italic; font-weight:bold;}
 
 span table.HdrFilter, table.CrEaTeDtAbLeStYlE { 
     border-collapse:collapse; 
