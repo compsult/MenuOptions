@@ -824,8 +824,8 @@ _calcDropBoxCoordinates : function () {
 
 _didMouseExitDropDown: function (e) {
     // this is where mouse is inside drop down 
-    if ( e.pageX  > this.options._menu_box.left  && 
-         e.pageX  < this.options._menu_box.right && 
+    if ( e.pageX + 1  > this.options._menu_box.left  && 
+         e.pageX  < this.options._menu_box.right - 1 && 
          e.pageY + 1 > this.options._menu_box.top && 
          e.pageY  < this.options._menu_box.bottom - 1 ) {
             return false;
