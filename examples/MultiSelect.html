@@ -55,14 +55,21 @@ function resetMO( instruct ) {
         $('input#delivery').menuoptions('refreshData', {'Width' : 100 });
     }
     if (instruct.match(/rocker/i)) { 
-        $('input#pizzatype').menuoptions('refreshData', {"RockerControl": true, "Sort": [],
-            "Data": { 1: "Sicilian", 2: "Neopolitan"} });
+        $('input#pizzatype').menuoptions('refreshData', {"RockerControl": true, "Sort": []});
+            /*--  "Data": { 1: "Sicilian", 2: "Neopolitan"} });  --*/
         $('input#delivery').menuoptions('refreshData', {"RockerControl": true, "Sort": [],
             "Data": { 1: "Deliver", 2:"Pick up" } });
     }
+    if (instruct.match(/setvalue/i)) { 
+        $('input#pizzatype').menuoptions('set_select_value', 'Sicilian');
+        $('input#toppings').menuoptions('set_select_value', 'Green pepper');
+        $('input#cheese').menuoptions('set_select_value', 'Extra');
+        $('input#crust').menuoptions('set_select_value', 'Thick');
+        $('input#cooked').menuoptions('set_select_value', 'Regular');
+        $('input#delivery').menuoptions('set_select_value', 'Pick up');  
+    }
     if (instruct.match(/default/i)) { 
         $('input#pizzatype').menuoptions('refreshData', {"Sort": [],
-                "Data": { 1: "Sicilian", 2: "Neopolitan"},
                 "RockerControl": false ,
                 "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0});
         $('input#toppings').menuoptions('refreshData', {'ColumnCount' : 1,
@@ -74,7 +81,6 @@ function resetMO( instruct ) {
         $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 1, 
             'Width' : 0,"ShowAt" : "bottom"});
         $('input#delivery').menuoptions('refreshData', {"Sort": [],
-                "Data": { 1: "Deliver", 2:"Pick up" },
                 "RockerControl": false,
                 "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0});
     }
@@ -85,6 +91,7 @@ function init( ) {
                 { "2 columns": function() { resetMO ("colcnt");} },
                 { "Custom width (100px)": function() { resetMO ("width");} },
                 { "Use rocker control for binary choices": function() { resetMO ("rocker");}},
+                { "Programatically set all values": function() { resetMO ("setvalues");}},
                 { "Reset to default": function() { resetMO ("default");} } ],
         "MenuOptionsType":"Navigate",
         "onSelect": function(mo, data) { 

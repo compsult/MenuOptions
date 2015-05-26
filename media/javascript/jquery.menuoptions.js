@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://www.menuoptions.org
- * @version         Version 1.6.0-6
+ * @version         Version 1.6.1-3
  *
  ******************************************/
   //
@@ -34,6 +34,7 @@ $.widget( 'mre.menuoptions', {
     MenuOptionsType: 'Select', //other option is Navigate (run JS,follow href)
     DisableHiLiting : false, // set to true to disable autocomplete highlighting
     ShowDownArrow : true, // set to false to hide down arrow on menus
+    InitialValue : '', // allows initial value ot be set
     RockerControl : false, // for binary choices, allow use of rocker image control
     _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
     _prev_event : '',
@@ -72,9 +73,6 @@ $.widget( 'mre.menuoptions', {
         return;
     }
 
-    this._set_options( );
-    
-
     // make sure incoming data is in required format
     this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
     if ( this.orig_objs === false ) {
@@ -82,8 +80,10 @@ $.widget( 'mre.menuoptions', {
         return;
     }
 
+    this._set_options( );
+
     if ( this.options.RockerControl == true ) { 
-        if ( this._rockerMain() == false ) {
+        if ( this._rockerMain('') == false ) {
             return;
         }
     } else {
@@ -105,7 +105,7 @@ $.widget( 'mre.menuoptions', {
     this._destroy();
   },
 
-  _rockerMain : function ( ary_of_objs ) {
+  _rockerMain : function ( orig_val ) {
      if ( this.orig_objs.length != 2 ) {
         this._validation_fail ('When using the rocker control, exactly 2 elements need to be supplied to menuoptions');
         return false;
@@ -115,6 +115,9 @@ $.widget( 'mre.menuoptions', {
      } 
      this._create_rocker();
      this._bind_rocker();
+     if ( orig_val.length > 0 ) {
+        this.set_select_value( orig_val );
+     }
   },
 
   _bind_rocker: function() {
@@ -138,12 +141,16 @@ $.widget( 'mre.menuoptions', {
 
   _rocker_click : function (event) {
       var tgt = $(event.target).is('[menu_opt_key]') ? $(event.target) : $(event.target.parentElement);
+      this._change_rocker( tgt );
+  },
+
+  _change_rocker: function ( target ) {
       $(this.element)
-          .attr('menu_opt_key', tgt.attr('menu_opt_key'));
-      if ( /ltup/.test(tgt.attr('class') ) ) {
+          .attr('menu_opt_key', target.attr('menu_opt_key'));
+      if ( /ltup/.test(target.attr('class') ) ) {
           $('div#RK_LT_'+this._event_ns).attr('class', 'ltdown');
           $('div#RK_RT_'+this._event_ns).attr('class', 'rtup');
-      } else if ( /rtup/.test(tgt.attr('class') ) ) {
+      } else if ( /rtup/.test(target.attr('class') ) ) {
           $('div#RK_LT_'+this._event_ns).attr('class', 'ltup');
           $('div#RK_RT_'+this._event_ns).attr('class', 'rtdown');
       }
@@ -152,7 +159,8 @@ $.widget( 'mre.menuoptions', {
   refreshData : function ( RefreshCfg ) {
       // re-create drop down select
       // Note: you have to use same option names
-      var $dd_span = this;
+      var $dd_span = this,
+          orig_val = $(this.element).val();
       $(this.element).attr('menu_opt_key','');
       $(this.element).val(''); // in case there was text there before refresh
       $.each(RefreshCfg, function(key, value) {
@@ -169,7 +177,7 @@ $.widget( 'mre.menuoptions', {
       this._set_options();
       this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
       if ( this.options.RockerControl == true ) { 
-         this._rockerMain();
+         this._rockerMain( orig_val );
       } else {
           if ( $('div.rocker[id=RK_'+this._event_ns+']').length ) {
               $('div.rocker[id=RK_'+this._event_ns+']').remove();
@@ -180,12 +188,23 @@ $.widget( 'mre.menuoptions', {
       }
   },
 
+  set_select_value : function ( val ) {
+     if ( this.options.RockerControl == true ) { 
+        this._change_rocker($(this.element).parent().find('span:contains('+val+')').parent());
+     } else {
+        this.element.val( val );
+        this.add_menuoption_key();
+     }
+  },
+
   add_menuoption_key : function ( ) {
      var input_val = this.element.val();
-     matchedRec = $.grep ( this.ary_of_objs, function(rec) { 
+     var  matchedRec = $.grep ( this.ary_of_objs, function(rec) { 
          return rec.val === input_val; });
      if ( matchedRec.length > 0 ) {
          $(this.element).attr('menu_opt_key', matchedRec[0].ky);
+     } else {
+         alert (input_val + " was not found in select list");
      }
   },
 
@@ -590,6 +609,10 @@ $.widget( 'mre.menuoptions', {
       }
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {
           this._setOption('ShowAt','left top');
+      }
+      if ( this.options.InitialValue != '' ) {
+          $(this.element).val(this.options.InitialValue);
+          this.add_menuoption_key();
       }
       if ( this.options.SelectOnly ) {
           $(this.element).prop('readonly', true);

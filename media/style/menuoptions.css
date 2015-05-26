@@ -1,15 +1,15 @@
 /*--  rocker css  --*/
-div.rocker { height:31px; width:152px;overflow: hidden; }
+div.rocker { height:31px; width:168px;overflow: hidden; }
 div.ltup { float:left; text-align:center; font-size:14px;
-    background: url(../images/rocker_lt_up.png); width:76px; height:31px; }
+    background: url(../images/rocker_lt_up.png); width:84px; height:31px; }
 div.ltdown { float:left; text-align:center; font-size:14px;
-    background: url(../images/rocker_lt_down.png); width:76px; height:31px; }
+    background: url(../images/rocker_lt_down.png); width:84px; height:31px; }
 div.rtup { float:right; text-align:center; font-size:14px; 
-    background: url(../images/rocker_rt_up.png); width:76px; height:31px; }
+    background: url(../images/rocker_rt_up.png); width:84px; height:31px; }
 div.rtdown { float:right; text-align:center; font-size:14px;
-    background: url(../images/rocker_rt_down.png); width:76px; height:31px; }
+    background: url(../images/rocker_rt_down.png); width:84px; height:31px; }
 div.rocker span.innertext { line-height:31px;}
-div.rocker div.ltup:hover, div.rtup:hover { color: palegreen; font-style:italic; font-weight:bold;}
+div.rocker div.ltup:hover, div.rtup:hover { color: yellow; font-style:italic; }
 
 span table.HdrFilter, table.CrEaTeDtAbLeStYlE { 
     border-collapse:collapse; 

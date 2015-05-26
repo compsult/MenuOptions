@@ -54,6 +54,7 @@ Contents:
    QuickStart
    MenuParams
    SelectParams
+   UserMethods
    Serialize
    Dividers
    Filters

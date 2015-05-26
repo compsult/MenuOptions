@@ -19,6 +19,7 @@ Parameter list for select list
     Data,JSON object, (see Data section below), none, true
     DisableHiLiting,boolean, "true or false", false, false
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
+    InitialValue,string,string, none, false
     MenuOptionsType,string,'Select' or 'Navigate','Select',false
     onSelect, function,function(),none,false
     PlaceHolder,<deleted>,<as of v1.6.1>,--,--
