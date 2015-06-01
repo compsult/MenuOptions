@@ -126,12 +126,24 @@ $.widget( 'mre.menuoptions', {
   },
 
   _create_rocker : function (event) {
+      var rtclass = "rtup",
+          ltclass = "ltup";
       $(this.element).hide();
       $(this.element).next('div.clear_btn').hide()
       this._event_ns = this.eventNamespace.replace(/^\./,'')
+      if ( this.options.InitialValue != '' ) {
+          if ( new RegExp($(this.element).val()).test(this.orig_objs[0].val) ) {
+              ltclass = "ltdown";
+          }
+          if ( new RegExp($(this.element).val()).test(this.orig_objs[1].val) ) {
+              rtclass = "rtdown";
+          }
+      }
       $(this.element).parent().append("<div class=rocker id=RK_"+this._event_ns+">"+
-            "<div id=RK_LT_"+this._event_ns+" class=ltup menu_opt_key="+this.orig_objs[0].ky+"></div>"+
-            "<div id=RK_RT_"+this._event_ns+" class=rtup menu_opt_key="+this.orig_objs[1].ky+"></div>"+
+            "<div id=RK_LT_"+this._event_ns+" class="+ltclass+
+                " menu_opt_key="+this.orig_objs[0].ky+"></div>"+
+            "<div id=RK_RT_"+this._event_ns+" class="+rtclass+
+                " menu_opt_key="+this.orig_objs[1].ky+"></div>"+
             "</div></div>")
       $('div#RK_LT_'+this._event_ns)
          .append('<span class=innertext style="padding-left:10px">'+this.orig_objs[0].val+'</span>');
@@ -189,6 +201,7 @@ $.widget( 'mre.menuoptions', {
   },
 
   set_select_value : function ( val ) {
+     this.ary_of_objs = this.orig_objs;
      if ( this.options.RockerControl == true ) { 
         this._change_rocker($(this.element).parent().find('span:contains('+val+')').parent());
      } else {

@@ -22,7 +22,7 @@
         button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:170px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
         a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
         a:hover { color: #6B696B; background:antiquewhite;  }
-        tr.tall { line-height: 34px; }
+        tr.tall { line-height: 40px; }
    </style>
   
 
@@ -56,9 +56,7 @@ function resetMO( instruct ) {
     }
     if (instruct.match(/rocker/i)) { 
         $('input#pizzatype').menuoptions('refreshData', {"RockerControl": true, "Sort": []});
-            /*--  "Data": { 1: "Sicilian", 2: "Neopolitan"} });  --*/
-        $('input#delivery').menuoptions('refreshData', {"RockerControl": true, "Sort": [],
-            "Data": { 1: "Deliver", 2:"Pick up" } });
+        $('input#delivery').menuoptions('refreshData', {"RockerControl": true, "Sort": [] });
     }
     if (instruct.match(/setvalue/i)) { 
         $('input#pizzatype').menuoptions('set_select_value', 'Sicilian');
@@ -71,17 +69,18 @@ function resetMO( instruct ) {
     if (instruct.match(/default/i)) { 
         $('input#pizzatype').menuoptions('refreshData', {"Sort": [],
                 "RockerControl": false ,
-                "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0});
+                "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0,
+                "InitialValue":''});
         $('input#toppings').menuoptions('refreshData', {'ColumnCount' : 1,
-            'Width' : 0,"ShowAt" : "bottom"});
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":''});
         $('input#cheese').menuoptions('refreshData', {'ColumnCount' : 1, 
-            'Width' : 0,"ShowAt" : "bottom"});
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":''});
         $('input#crust').menuoptions('refreshData', {'ColumnCount' : 1, 
-            'Width' : 0,"ShowAt" : "bottom"});
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":''});
         $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 1, 
-            'Width' : 0,"ShowAt" : "bottom"});
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":''});
         $('input#delivery').menuoptions('refreshData', {"Sort": [],
-                "RockerControl": false,
+                "RockerControl": false, "InitialValue":'',
                 "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0});
     }
 }
@@ -150,7 +149,7 @@ init();
 <body style="background:white; text-align:center;    margin: 0px auto;  padding: 0px; width: 920px;">
 	<br><h1 >Example of multiple select lists with autocomplete </h1>
     <form id=tst>
-	 <table border=0 style="margin: 0 auto;margin-top:-10px;">
+	 <table border=0 style="margin: 0 auto;margin-top:-14px;">
          <tr >
              <td colspan=2>
                  <div id=buttons>

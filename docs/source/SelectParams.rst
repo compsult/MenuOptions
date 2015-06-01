@@ -81,6 +81,20 @@ Filters
 
     'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ],
 
+InitialValue
+^^^^^^^^^^^^
+    options: **'' or '<value>'**
+
+    You can use InitialValue to set an initial value (note: that value is 
+    always the text tha is visible to user, not the key code) or to clear 
+    out a select list value
+    (`see a demo that uses InitialValue to clear a select list <http://www.menuoptions.org/examples/MultiSelect.html>`_ ) 
+
+.. code-block:: html
+
+    'InitialValue': 'Sicilian',
+
+
 MenuOptionsType
 ^^^^^^^^^^^^^^^
     options: **'Select' or 'Navigate'**
