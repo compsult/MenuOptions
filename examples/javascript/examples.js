@@ -14,6 +14,7 @@ te.examplelist = function ( ) {
                 {  'Quick start menu'  : te.root+'QuickStartMenu.html'}, 
                 {  'Drop down menus'  : te.root+'MenusBottom.html' },
                 {  'Menu with dividers'  : te.root+'Dividers.html' }, 
+                {  'Right side menus'  : te.root+'RightMenu.html' }, 
                 {  'Select list examples'  : 'divider' }, 
                 {  'Quick Start select' : te.root+'QuickStartSelect.html'}, 
                 {  'Inline edit'  : te.root+'InlinEdit.html' }, 

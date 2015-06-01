@@ -608,7 +608,7 @@ $.widget( 'mre.menuoptions', {
           this._setOption('ShowAt','left bottom-1');
       }
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {
-          this._setOption('ShowAt','left top');
+          this._setOption('ShowAt','right top');
       }
       if ( this.options.InitialValue != '' ) {
           $(this.element).val(this.options.InitialValue);
@@ -903,13 +903,7 @@ _addDropDownToDOM : function () {
 
     this.dropdownbox
             .appendTo('body')  
-            .hide(1)  
-            .position ({      
-                of:  this.element,
-                my: 'left top',  
-                at : $dd_span.options.ShowAt,
-                collision: 'flipfit'  
-            });  
+            .hide(1);
 },
 
 _showDropDown : function (event) {
@@ -921,7 +915,13 @@ _showDropDown : function (event) {
     // show the menu
     $dd_span.cached['.dropdownspan']
         .stop(true,false)
-        .show();
+        .show()
+        .position ({      
+                of:  this.element,
+                my: 'left top',  
+                at : $dd_span.options.ShowAt,
+                collision: 'flipfit'  
+            });  
     $('table.CrEaTeDtAbLeStYlE').find('tr:even').addClass('even');
     $('table.CrEaTeDtAbLeStYlE').find('tr:odd').addClass('odd');
     this._refresh(); 
