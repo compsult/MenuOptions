@@ -8,10 +8,10 @@ from SeleniumUtils import MO_Test_Utils
 class testMO(MO_Test_Utils):
 
     def setUp(self):
-        #--- self.browser = webdriver.Chrome() ---#
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(30) # seconds
-        self.url='http://menuoptions/examples/QuickStartSelect.html'
+        self.browser = webdriver.Chrome()
+        #--- self.browser = webdriver.Firefox() ---#
+        #--- self.browser.implicitly_wait(30) # seconds ---#
+        self.url='http://www.menuoptions.org/examples/QuickStartSelect.html'
 
     def test02_chk_inp(self):
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
@@ -30,7 +30,7 @@ class testMO(MO_Test_Utils):
                                   'inv_key': 'x' })
 
     def test04_select_w_imgs(self):
-        self.url='http://menuoptions/examples/SelectWithImages.html'
+        self.url='http://www.menuoptions.org/examples/SelectWithImages.html'
         self.open_n_tst_title({'url': self.url, 'title': 'Select'} )
         self.check_autocomplete({ 'xpath': '//*[@id="CustSel"]',
                          'filt_rslts': '//*[@id="SP_menuoptions3"]',

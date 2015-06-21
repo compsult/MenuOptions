@@ -8,10 +8,10 @@ from SeleniumUtils import MO_Test_Utils
 class testMO(MO_Test_Utils):
 
     def setUp(self):
-        #--- self.browser = webdriver.Chrome() ---#
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(30) # seconds
-        self.url='http://menuoptions/examples/MenusBottom.html'
+        self.browser = webdriver.Chrome()
+        #--- self.browser = webdriver.Firefox() ---#
+        #--- self.browser.implicitly_wait(30) # seconds ---#
+        self.url='http://www.menuoptions.org/examples/MenusBottom.html'
 
     def test02_js(self):
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
