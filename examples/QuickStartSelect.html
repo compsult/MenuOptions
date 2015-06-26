@@ -34,7 +34,7 @@ $(document).ready(function() {
         "ShowAt": 'bottom',
         "Sort": []
     });  
-    $('input#selecttest').menuoptions('set_select_value', 'December');
+    $('input#selecttest').menuoptions('set_select_value', {'val':'December'});
     $('button#menutest').on('click', function (e) {
         var tst = $('form#tst').serialize();
         alert (tst);

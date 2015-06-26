@@ -8,10 +8,10 @@ from SeleniumUtils import MO_Test_Utils
 class testMO(MO_Test_Utils):
 
     def setUp(self):
-        self.browser = webdriver.Chrome()
         #--- self.browser = webdriver.Firefox() ---#
-        #--- self.browser.implicitly_wait(30) # seconds ---#
-        self.url='http://www.menuoptions.org/examples/MenusBottom.html'
+        self.browser = webdriver.Firefox()
+        self.browser.implicitly_wait(30) # seconds
+        self.url='http://127.0.0.1/examples/MenusBottom.html'
 
     def test02_js(self):
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
@@ -51,7 +51,8 @@ class testMO(MO_Test_Utils):
 
     def test07_google(self):
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
-        self.click_menu_item({ 'menu': '//button[@id="menu_divs_filts"]',
+        self.hover_over({ 'menu': '//button[@id="menu_divs_filts"]'})
+        self.click_menu_item({ 'menu': '//span/following::table[@class="HdrFilter"]//tr//td[contains(.,"Search")]',
                           'xpath': '//td[text()="Google"]',
                           'sleep': 1 })
         self.find_tab('Google')

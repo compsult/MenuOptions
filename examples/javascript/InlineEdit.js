@@ -243,7 +243,7 @@ te.inlineBlurActions = function ( TblObj, td ) {
         te.getFloat ( TblObj, $(td).children('input').attr('value'), td); 
         return;   
     }
-    if ( $(td).children().length > 0 ) { //&& $('body').data('SelectedFromList') == false) {
+    if ( $(td).children().length > 0 && ! ( new RegExp(colType).test('date')) ) {
         te.closeInlineEdit ( TblObj, td, "use_cur_val" ); 
     }
 }

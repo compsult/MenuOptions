@@ -105,6 +105,36 @@ $.widget( 'mre.menuoptions', {
     this._destroy();
   },
 
+  set_select_value : function ( new_rec_obj ) {
+     this.ary_of_objs = this.orig_objs;
+     if ( 'ky' in new_rec_obj ) {
+         var matchedRec = $.grep ( this.ary_of_objs, function(rec) { 
+            return parseInt(rec.ky) === parseInt(new_rec_obj.ky); });
+         val = matchedRec[0].val;
+     } else {
+         val = new_rec_obj.val;
+     }
+     if ( this.options.RockerControl == true ) { 
+         this._change_rocker($(this.element).parent()
+                 .find('span:contains('+val+')').parent());
+     } else {
+         this.element.val( val );
+         this.add_menuoption_key();
+     }
+  },
+
+  _change_rocker: function ( target ) {
+      $(this.element)
+          .attr('menu_opt_key', target.attr('menu_opt_key'));
+      if ( /ltup/.test(target.attr('class') ) ) {
+          $('div#RK_LT_'+this._event_ns).attr('class', 'ltdown');
+          $('div#RK_RT_'+this._event_ns).attr('class', 'rtup');
+      } else if ( /rtup/.test(target.attr('class') ) ) {
+          $('div#RK_LT_'+this._event_ns).attr('class', 'ltup');
+          $('div#RK_RT_'+this._event_ns).attr('class', 'rtdown');
+      }
+  },
+
   _rockerMain : function ( orig_val ) {
      if ( this.orig_objs.length != 2 ) {
         this._validation_fail ('When using the rocker control, exactly 2 elements need to be supplied to menuoptions');
@@ -156,18 +186,6 @@ $.widget( 'mre.menuoptions', {
       this._change_rocker( tgt );
   },
 
-  _change_rocker: function ( target ) {
-      $(this.element)
-          .attr('menu_opt_key', target.attr('menu_opt_key'));
-      if ( /ltup/.test(target.attr('class') ) ) {
-          $('div#RK_LT_'+this._event_ns).attr('class', 'ltdown');
-          $('div#RK_RT_'+this._event_ns).attr('class', 'rtup');
-      } else if ( /rtup/.test(target.attr('class') ) ) {
-          $('div#RK_LT_'+this._event_ns).attr('class', 'ltup');
-          $('div#RK_RT_'+this._event_ns).attr('class', 'rtdown');
-      }
-  },
-
   refreshData : function ( RefreshCfg ) {
       // re-create drop down select
       // Note: you have to use same option names
@@ -198,16 +216,6 @@ $.widget( 'mre.menuoptions', {
           }
           this._buildDropDown( this.orig_objs );  
       }
-  },
-
-  set_select_value : function ( val ) {
-     this.ary_of_objs = this.orig_objs;
-     if ( this.options.RockerControl == true ) { 
-        this._change_rocker($(this.element).parent().find('span:contains('+val+')').parent());
-     } else {
-        this.element.val( val );
-        this.add_menuoption_key();
-     }
   },
 
   add_menuoption_key : function ( ) {

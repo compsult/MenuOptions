@@ -28,18 +28,21 @@ set_select_value
 ^^^^^^^^^^^^^^^^
 
 allows the select list field to be set programmatically.
+Pass in an object with either 'ky' or 'val' as the key
+and the actual value.
 
 Usage:
 ::
 
-    $(<selector>).menuoptions('set_select_value', 'value');
+    $(<selector>).menuoptions('set_select_value', { 'ky'|'val': <value>});
 
-This example shows using `set_select_value`
+These examples show using both forms of `set_select_value`
 
 .. code-block:: javascript
 
-    $('input#delivery').menuoptions('set_select_value', 'Delivered');
-
+    $('input#delivery').menuoptions('set_select_value', {'val': 'Delivered'});
+    $('input#crust').menuoptions('set_select_value', {'ky': '3'}); // Thick
+ 
 refreshData
 ^^^^^^^^^^^
 

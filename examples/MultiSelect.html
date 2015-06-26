@@ -59,12 +59,12 @@ function resetMO( instruct ) {
         $('input#delivery').menuoptions('refreshData', {"RockerControl": true, "Sort": [] });
     }
     if (instruct.match(/setvalue/i)) { 
-        $('input#pizzatype').menuoptions('set_select_value', 'Sicilian');
-        $('input#toppings').menuoptions('set_select_value', 'Green pepper');
-        $('input#cheese').menuoptions('set_select_value', 'Extra');
-        $('input#crust').menuoptions('set_select_value', 'Thick');
-        $('input#cooked').menuoptions('set_select_value', 'Regular');
-        $('input#delivery').menuoptions('set_select_value', 'Pick up');  
+        $('input#pizzatype').menuoptions('set_select_value', {'val': 'Sicilian'});
+        $('input#toppings').menuoptions('set_select_value', {'val': 'Green pepper'});
+        $('input#cheese').menuoptions('set_select_value', {'ky': '3'});
+        $('input#crust').menuoptions('set_select_value', {'ky': '3'});
+        $('input#cooked').menuoptions('set_select_value', {'val': 'Regular'});
+        $('input#delivery').menuoptions('set_select_value', {'val': 'Pick up'});  
     }
     if (instruct.match(/default/i)) { 
         $('input#pizzatype').menuoptions('refreshData', {"Sort": [],
