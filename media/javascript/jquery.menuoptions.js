@@ -184,6 +184,10 @@ $.widget( 'mre.menuoptions', {
   _rocker_click : function (event) {
       var tgt = $(event.target).is('[menu_opt_key]') ? $(event.target) : $(event.target.parentElement);
       this._change_rocker( tgt );
+      this._trigger("onSelect", this, { 
+                                       "newCode": tgt.attr('menu_opt_key'),
+                                       "newVal" : tgt.children().text(),
+                                       "type": "RockerClick" }); 
   },
 
   refreshData : function ( RefreshCfg ) {

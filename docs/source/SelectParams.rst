@@ -117,7 +117,7 @@ onSelect
 
      1. newVal (the new value that was selected)
      2. newCode (the code that corresponds to new value that was selected)
-     3. type (this tells you if the selection was made by "Click" or "EnterKey")
+     3. type (this tells you if the selection was made by "Click", "EnterKey" or "RockerClick")
 
 .. code-block:: javascript
 

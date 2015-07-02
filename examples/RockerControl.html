@@ -32,13 +32,21 @@ body {font-family:Arial, Helvetica, sans-serif; font-size:12px;}
 <script>
 $(document).ready(function () {
    $('input#on_off').menuoptions({"Sort": [], 
-        "Data": { 1: "On", 2:"Off" }, "RockerControl": true }); 
+        "Data": { 1: "On", 2:"Off" }, "RockerControl": true,
+        "onSelect": function(mo, data) {  console.log(data); }
+   }); 
    $('input#MaleFemale').menuoptions({"Sort": [], 
-        "Data": { 'M': "Male", 'F':"Female" }, "RockerControl": true }); 
+        "Data": { 'M': "Male", 'F':"Female" }, "RockerControl": true,                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
    $('input#TrueFalse').menuoptions({"Sort": [], 
-        "Data": { 'T': "True", 'F':"False" }, "RockerControl": true }); 
+        "Data": { 'T': "True", 'F':"False" }, "RockerControl": true,                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
    $('input#YesNo').menuoptions({"Sort": [], 
-        "Data": { 'Y': "Yes", 'N':"No" }, "RockerControl": true }); 
+        "Data": { 'Y': "Yes", 'N':"No" }, "RockerControl": true,                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
     $('button#menutest').on('click', function (e) {
         var tst = $('input#YesNo').menuoptions('re_serialize', 
                 $('form#tst').serialize());
