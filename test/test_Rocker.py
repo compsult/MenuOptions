@@ -7,8 +7,7 @@ from SeleniumUtils import MO_Test_Utils
 
 class test_set_vals(MO_Test_Utils):
 
-    def setUp(self):
-        #--- self.browser = webdriver.Firefox() ---#
+    def __init__(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(30) # seconds
         self.url='http://127.0.0.1/examples/MultiSelect.html'
@@ -31,6 +30,22 @@ class test_set_vals(MO_Test_Utils):
                              'inputtext': 'Regular'})
         self.check_content({ 'xpath': '//*[@id="delivery"]',
                              'inputtext': 'Pick up'})
+        self.hover_over({ 'menu': '//*[@id="cfg"]/span'})
+        self.click_menu_item({ 'menu': '//span/following::table[@class="CrEaTeDtAbLeStYlE"]',
+                          'xpath': '//td[text()="Use rocker control for binary choices"]',
+                          'sleep': 3 })
+        self.check_rocker({ 'xpath': '//*[@id="RK_LT_menuoptions4"]',
+                            'xpath_txt': '//*[@id="RK_LT_menuoptions4"]/span',
+                             'classnm': 'ltdown' })
+        self.check_rocker({ 'xpath': '//*[@id="RK_RT_menuoptions4"]',
+                            'xpath_txt': '//*[@id="RK_RT_menuoptions4"]/span',
+                             'classnm': 'rtup' })
+        self.check_rocker({ 'xpath': '//*[@id="RK_LT_menuoptions9"]',
+                            'xpath_txt': '//*[@id="RK_LT_menuoptions9"]/span',
+                             'classnm': 'ltup' })
+        self.check_rocker({ 'xpath': '//*[@id="RK_RT_menuoptions9"]',
+                            'xpath_txt': '//*[@id="RK_RT_menuoptions9"]/span',
+                             'classnm': 'rtdown' })
 
     def tearDown(self):
         self.browser.quit()

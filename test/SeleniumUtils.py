@@ -53,6 +53,13 @@ class MO_Test_Utils(object):
         print "Clicked clear, input value = " + input_text
         assert input_text == ''
 
+    def check_rocker (self, params ):
+        elem=self.browser.find_element_by_xpath(params['xpath'])
+        classnm=elem.get_attribute('class')
+        rkr_txt=self.browser.find_element_by_xpath(params['xpath_txt']).text
+        print "Rocker elem = " + str(rkr_txt) + " classnm = " + classnm
+        assert params['classnm'] == classnm
+
     def click_menu_item (self, params ):
         sleeptime = params['sleep'] if 'sleep' in params else 0
         self.hover_over({ 'menu': params['menu']})

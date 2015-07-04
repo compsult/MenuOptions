@@ -70,17 +70,17 @@ function resetMO( instruct ) {
         $('input#pizzatype').menuoptions('refreshData', {"Sort": [],
                 "RockerControl": false ,
                 "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0,
-                "InitialValue":''});
+                "InitialValue":{'val':''}});
         $('input#toppings').menuoptions('refreshData', {'ColumnCount' : 1,
-            'Width' : 0,"ShowAt" : "bottom", "InitialValue":''});
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
         $('input#cheese').menuoptions('refreshData', {'ColumnCount' : 1, 
-            'Width' : 0,"ShowAt" : "bottom", "InitialValue":''});
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
         $('input#crust').menuoptions('refreshData', {'ColumnCount' : 1, 
-            'Width' : 0,"ShowAt" : "bottom", "InitialValue":''});
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
         $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 1, 
-            'Width' : 0,"ShowAt" : "bottom", "InitialValue":''});
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
         $('input#delivery').menuoptions('refreshData', {"Sort": [],
-                "RockerControl": false, "InitialValue":'',
+            "RockerControl": false, "InitialValue":{'val':''},
                 "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0});
     }
 }

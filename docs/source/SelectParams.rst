@@ -19,7 +19,7 @@ Parameter list for select list
     Data,JSON object, (see Data section below), none, true
     DisableHiLiting,boolean, "true or false", false, false
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
-    InitialValue,string,string, none, false
+    InitialValue,object,{'ky'|'val': <value>}, {}, false
     MenuOptionsType,string,'Select' or 'Navigate','Select',false
     onSelect, function,function(),none,false
     PlaceHolder,<deleted>,<as of v1.6.1>,--,--
@@ -83,16 +83,19 @@ Filters
 
 InitialValue
 ^^^^^^^^^^^^
-    options: **'' or '<value>'**
+    options: **{ 'ky' or 'val' : <value> }**
 
     You can use InitialValue to set an initial value (note: that value is 
     always the text tha is visible to user, not the key code) or to clear 
     out a select list value
     (`see a demo that uses InitialValue to clear a select list <http://www.menuoptions.org/examples/MultiSelect.html>`_ ) 
 
-.. code-block:: html
+These examples show using both forms of `InitialValue`
 
-    'InitialValue': 'Sicilian',
+.. code-block:: javascript
+
+    'InitialValue': { 'val':'Sicilian' },
+    'InitialValue': { 'ky': 1 },
 
 
 MenuOptionsType

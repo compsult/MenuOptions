@@ -34,7 +34,7 @@ $.widget( 'mre.menuoptions', {
     MenuOptionsType: 'Select', //other option is Navigate (run JS,follow href)
     DisableHiLiting : false, // set to true to disable autocomplete highlighting
     ShowDownArrow : true, // set to false to hide down arrow on menus
-    InitialValue : '', // allows initial value ot be set
+    InitialValue : {}, // allows initial value ot be set
     RockerControl : false, // for binary choices, allow use of rocker image control
     _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
     _prev_event : '',
@@ -83,7 +83,7 @@ $.widget( 'mre.menuoptions', {
     this._set_options( );
 
     if ( this.options.RockerControl == true ) { 
-        if ( this._rockerMain('') == false ) {
+        if ( this._rockerMain({'val':''}) == false ) {
             return;
         }
     } else {
@@ -145,7 +145,7 @@ $.widget( 'mre.menuoptions', {
      } 
      this._create_rocker();
      this._bind_rocker();
-     if ( orig_val.length > 0 ) {
+     if ( orig_val.val.length > 0 ) {
         this.set_select_value( orig_val );
      }
   },
@@ -155,19 +155,32 @@ $.widget( 'mre.menuoptions', {
         'click':  '_rocker_click' });
   },
 
+  _initval_exists : function () {
+      var retval=false;
+      if ( ( 'val' in this.options.InitialValue &&
+              this.options.InitialValue.val.length > 0 ) ||
+           ( 'ky' in this.options.InitialValue &&
+              this.options.InitialValue.ky.length > 0 ) ) { 
+          retval=true;
+      }
+      return retval;
+  },
+
   _create_rocker : function (event) {
       var rtclass = "rtup",
-          ltclass = "ltup";
+          ltclass = "ltup",
+          currval = $(this.element).val();
       $(this.element).hide();
       $(this.element).next('div.clear_btn').hide()
       this._event_ns = this.eventNamespace.replace(/^\./,'')
-      if ( this.options.InitialValue != '' ) {
-          if ( new RegExp($(this.element).val()).test(this.orig_objs[0].val) ) {
+      if ( this._initval_exists() ) {
+          this.set_select_value(this.options.InitialValue);
+      } 
+      if ( currval.length > 0 && new RegExp(currval).test(this.orig_objs[0].val) ) {
               ltclass = "ltdown";
-          }
-          if ( new RegExp($(this.element).val()).test(this.orig_objs[1].val) ) {
+      }
+      if ( currval.length > 0 && new RegExp(currval).test(this.orig_objs[1].val) ) {
               rtclass = "rtdown";
-          }
       }
       $(this.element).parent().append("<div class=rocker id=RK_"+this._event_ns+">"+
             "<div id=RK_LT_"+this._event_ns+" class="+ltclass+
@@ -211,7 +224,7 @@ $.widget( 'mre.menuoptions', {
       this._set_options();
       this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
       if ( this.options.RockerControl == true ) { 
-         this._rockerMain( orig_val );
+         this._rockerMain({ 'val':orig_val });
       } else {
           if ( $('div.rocker[id=RK_'+this._event_ns+']').length ) {
               $('div.rocker[id=RK_'+this._event_ns+']').remove();
@@ -635,9 +648,8 @@ $.widget( 'mre.menuoptions', {
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {
           this._setOption('ShowAt','right top');
       }
-      if ( this.options.InitialValue != '' ) {
-          $(this.element).val(this.options.InitialValue);
-          this.add_menuoption_key();
+      if ( this._initval_exists() ) {
+          this.set_select_value(this.options.InitialValue);
       }
       if ( this.options.SelectOnly ) {
           $(this.element).prop('readonly', true);
@@ -875,7 +887,7 @@ _didMouseExitDropDown: function (e) {
     if ( e.pageX + 1  > this.options._menu_box.left  && 
          e.pageX  < this.options._menu_box.right - 1 && 
          e.pageY + 1 > this.options._menu_box.top && 
-         e.pageY  < this.options._menu_box.bottom - 1 ) {
+         e.pageY  < this.options._menu_box.bottom - 2 ) {
             return false;
     } else { // mouse is outside drop down
             return true;

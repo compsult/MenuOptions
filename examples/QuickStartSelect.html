@@ -29,12 +29,12 @@ $(document).ready(function() {
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
-        "InitialValue": 'October',
+        "InitialValue": { 'val': 'December'},
         "ClearBtn": true,
         "ShowAt": 'bottom',
         "Sort": []
     });  
-    $('input#selecttest').menuoptions('set_select_value', {'val':'December'});
+    /*--  $('input#selecttest').menuoptions('set_select_value', {'val':'December'});  --*/
     $('button#menutest').on('click', function (e) {
         var tst = $('form#tst').serialize();
         alert (tst);
