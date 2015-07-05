@@ -8,7 +8,6 @@ from SeleniumUtils import MO_Test_Utils
 class testMO(MO_Test_Utils):
 
     def setUp(self):
-        #--- self.browser = webdriver.Firefox() ---#
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(30) # seconds
         self.url='http://127.0.0.1/examples/QuickStartSelect.html'

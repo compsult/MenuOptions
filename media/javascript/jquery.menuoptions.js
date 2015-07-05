@@ -124,8 +124,10 @@ $.widget( 'mre.menuoptions', {
   },
 
   _change_rocker: function ( target ) {
+      /*--  set key and value for hidden input control  --*/
       $(this.element)
           .attr('menu_opt_key', target.attr('menu_opt_key'));
+      $(this.element).val(target.find('span').text());
       if ( /ltup/.test(target.attr('class') ) ) {
           $('div#RK_LT_'+this._event_ns).attr('class', 'ltdown');
           $('div#RK_RT_'+this._event_ns).attr('class', 'rtup');
