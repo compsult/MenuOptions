@@ -39,6 +39,27 @@ class MO_Test_Utils(object):
         print ' '.join(['New:',new_text,'Orig:',orig_text, 'Invalid key:',params['inv_key']])
         assert orig_text == new_text
 
+    def check_scrolling (self, params ):
+        elem =self.browser.find_element_by_xpath(params['xpath'])
+        elem.click()
+        elem.send_keys(params['keypress']*params['repeat'])
+        elem=self.browser.find_element_by_xpath('//*[@id="SP_menuoptions4"]/table/tbody/tr['+str(params['repeat'])+']')
+        rowtop=elem.location['y']
+        rowheight=elem.size['height']
+        elem=self.browser.find_element_by_xpath('//*[@id="SP_menuoptions4"]')
+        vistop=elem.location['y']
+        visheight=elem.size['height']
+        print ' '.join(['rowtop:',str(rowtop),'rowheight:',str(rowheight),
+                        'vistop:',str(vistop), 'visheight:',str(visheight)])
+        if params['keypress'] == Keys.ARROW_DOWN and \
+                  vistop+visheight < rowtop+rowheight:
+            assert False
+        elif params['keypress'] == Keys.ARROW_UP and \
+                vistop > rowtop:
+            assert False
+        else:
+            assert True
+
     def check_content (self, params ):
         elem=self.browser.find_element_by_xpath(params['xpath'])
         input_text=elem.get_attribute('value')
@@ -60,17 +81,26 @@ class MO_Test_Utils(object):
         print "Rocker elem = " + str(rkr_txt) + " classnm = " + classnm
         assert params['classnm'] == classnm
 
-    def click_menu_item (self, params ):
+    def _check_alert (self, params ):
         sleeptime = params['sleep'] if 'sleep' in params else 0
-        self.hover_over({ 'menu': params['menu']})
-        print "Clicking over = " + params['xpath']
-        elem =self.browser.find_element_by_xpath(params['xpath']).click()
         time.sleep(sleeptime)
         if 'alert' in params and params['alert']:
             alert_text = Alert(self.browser).text
             assert params['alerttext'] == alert_text
+            print ' '.join(["Expected alert = ",params['alerttext'],\
+                " Actual = ",alert_text])
             alert =self.browser.switch_to_alert()
             alert.dismiss()
+
+    def check_serialize (self, params ):
+        self.browser.find_element_by_xpath(params['xpath']).click()
+        self._check_alert( params )
+
+    def click_menu_item (self, params ):
+        self.hover_over({ 'menu': params['menu']})
+        print "Clicking over = " + params['xpath']
+        self.browser.find_element_by_xpath(params['xpath']).click()
+        self._check_alert( params )
 
     def close_last_tab(self):
         if (len(self.browser.window_handles) == 2):

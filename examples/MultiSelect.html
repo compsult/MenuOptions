@@ -138,6 +138,7 @@ function init( ) {
     $('button#menutest').on('click', function (e) {
         var tst = $('input#cooked').menuoptions('re_serialize', 
                 $('form#tst').serialize());
+        console.log(tst);
         alert (tst);
     });
     $("div#buttons").buttonset().css({"padding":"5px" });

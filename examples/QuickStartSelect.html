@@ -34,9 +34,20 @@ $(document).ready(function() {
         "ShowAt": 'bottom',
         "Sort": []
     });  
+    $('input#scrolltest').menuoptions({ 
+        "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                  8:"August",9:"September",10:"October",11:"November",12:"December" },
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "InitialValue": { 'val': 'December'},
+        "Height": 200,
+        "Sort": [] 
+    });  
+    /*--  $('input#selecttest').menuoptions('set_select_value', {'val':'December'});  --*/
     /*--  $('input#selecttest').menuoptions('set_select_value', {'val':'December'});  --*/
     $('button#menutest').on('click', function (e) {
-        var tst = $('form#tst').serialize();
+        var tst = $('input#selecttest').menuoptions('re_serialize',$('form#tst').serialize());
         alert (tst);
     });
 });
@@ -48,9 +59,22 @@ $(document).ready(function() {
     <form id=tst>
 	 <table style="margin: 0 auto;">
          <tr>
-             <td>
-                <div id=inputboxes>
-                    <input type=search name=month id='selecttest'  placeholder='Month'>
+             <td width=300>
+                 <h2>Select list with default height</h2>
+             </td>
+             <td width=300>
+                 <h2>Select list with height set (with scroll)</h2>
+             </td>
+         </tr>
+         <tr>
+             <td width=300>
+                <div id=inputbox1>
+                    <input type=search name=month1 id='selecttest'  placeholder='Month'>
+                </div>
+             </td>
+             <td width=300>
+                <div id=inputbox2>
+                    <input type=search name=month2 id='scrolltest'  placeholder='Month'>
                 </div>
              </td>
          </tr>

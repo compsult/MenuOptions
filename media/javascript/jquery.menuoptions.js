@@ -28,6 +28,7 @@ $.widget( 'mre.menuoptions', {
     ColumnCount: 1, // display data in this number of columns
     UseValueForKey: false, // if user wants value = text()
     Width: '', // let user specify the exact width they want
+    Height: '', // let user specify the exact width they want
     ShowAt: 'bottom', // 'bottom' or 'right' are the options
     Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
     Filters: [], // header filters (pass mouse over them & they filter choices)
@@ -37,6 +38,7 @@ $.widget( 'mre.menuoptions', {
     InitialValue : {}, // allows initial value ot be set
     RockerControl : false, // for binary choices, allow use of rocker image control
     _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
+    _vert_ofs:0,
     _prev_event : '',
     _prev_target : '',
     _prevXY : { X : 0, Y : 0 },
@@ -83,13 +85,13 @@ $.widget( 'mre.menuoptions', {
     this._set_options( );
 
     if ( this.options.RockerControl == true ) { 
-        if ( this._rockerMain({'val':''}) == false ) {
+        if ( this._rocker_main({'val':''}) == false ) {
             return;
         }
     } else {
         this._add_clear_btn();
-        this._buildDropDown( this.orig_objs ); 
-        this._bindUIActions();
+        this._build_dropdown( this.orig_objs ); 
+        this._bind_events();
         $(this.element).attr('autocomplete', 'off');
     }
 
@@ -137,7 +139,7 @@ $.widget( 'mre.menuoptions', {
       }
   },
 
-  _rockerMain : function ( orig_val ) {
+  _rocker_main : function ( orig_val ) {
      if ( this.orig_objs.length != 2 ) {
         this._validation_fail ('When using the rocker control, exactly 2 elements need to be supplied to menuoptions');
         return false;
@@ -226,14 +228,14 @@ $.widget( 'mre.menuoptions', {
       this._set_options();
       this.orig_objs = this.ary_of_objs = this._build_array_of_objs ();
       if ( this.options.RockerControl == true ) { 
-         this._rockerMain({ 'val':orig_val });
+         this._rocker_main({ 'val':orig_val });
       } else {
           if ( $('div.rocker[id=RK_'+this._event_ns+']').length ) {
               $('div.rocker[id=RK_'+this._event_ns+']').remove();
               $(this.element).show();
               $(this.element).next('div.clear_btn').show()
           }
-          this._buildDropDown( this.orig_objs );  
+          this._build_dropdown( this.orig_objs );  
       }
   },
 
@@ -287,27 +289,27 @@ $.widget( 'mre.menuoptions', {
       this.ary_of_objs = this.orig_objs;
       // if there is text in input, filter results accordingly
       if ( this.cached['.mo_elem'].val().length ) { 
-          this._processMatches( e, this.cached['.mo_elem'].val(), true ); 
+          this._process_matches( e, this.cached['.mo_elem'].val(), true ); 
           return; 
       } 
-      this._buildDropDown( this.orig_objs ); 
-      this._showDropDown(e);
+      this._build_dropdown( this.orig_objs ); 
+      this._show_drop_down(e);
   },
 
-  _buildFilteredDropDown: function ( event ) {
-      this._buildDropDown( this.ary_of_objs ); 
-      this._showDropDown(event);
+  _build_filtered_dropdown: function ( event ) {
+      this._build_dropdown( this.ary_of_objs ); 
+      this._show_drop_down(event);
   },
 
-  _buildDropDown: function ( ary_of_objs ) {
+  _build_dropdown: function ( ary_of_objs ) {
       this._event_ns = this.eventNamespace.replace(/^\./,'')
-      tablehtml=this._createHtmlTable( ary_of_objs );
+      tablehtml=this._create_table( ary_of_objs );
       this.dropdownbox = $( tablehtml );
-      this._cacheElements();
+      this._cache_elems();
       this._calcDropBoxCoordinates();
   },
 
-  _colorInputBorder : function ( StrToCheck, colorBorder ) {
+  _color_border : function ( StrToCheck, colorBorder ) {
       var select_str = '';
       if ( this.options.DisableHiLiting ) {
           return; 
@@ -366,7 +368,7 @@ $.widget( 'mre.menuoptions', {
       return matching;
   },
 
-  _processMatches : function ( event, StrToCheck, colorBorder ) {
+  _process_matches : function ( event, StrToCheck, colorBorder ) {
       var matching = [],
           no_img_val = '';
       if ( StrToCheck !== '' ) {
@@ -376,14 +378,14 @@ $.widget( 'mre.menuoptions', {
       if (matching.length > 0) {
         // re-create drop down select
         this.ary_of_objs = matching;
-        this._buildFilteredDropDown( event );
+        this._build_filtered_dropdown( event );
       } else {
         this._buildWholeDropDown( event); 
       }
-      this._colorInputBorder(StrToCheck, colorBorder); 
+      this._color_border(StrToCheck, colorBorder); 
   },
 
-  _runHeaderFilters : function (event) {
+  _run_header_filter : function (event) {
      if ( this.cached['.mo_elem'].val().length ) {
          // disable mouseover filters if user started autocomplete
          return;
@@ -399,7 +401,7 @@ $.widget( 'mre.menuoptions', {
      if ( $.isPlainObject(this.options.Filters[0]) ) { 
          if ( $(event.currentTarget).attr('menuopt_regex') ) {
              SearchStr = $(event.currentTarget).attr('menuopt_regex');
-             this._processMatches( event,  SearchStr, false );    
+             this._process_matches( event,  SearchStr, false );    
          } else if ( $(event.currentTarget).text().match(/\(all\)/i) ) {
              this._buildWholeDropDown( event );
          } else {
@@ -408,7 +410,7 @@ $.widget( 'mre.menuoptions', {
          }
      } else { // assume array of scalars
           if ( $.inArray(SearchStr, this.options.Filters) > -1 ) {
-              this._processMatches( event,  SearchStr, false );    
+              this._process_matches( event,  SearchStr, false );    
           } else {
                // if filter is not in list, user passed over ALL
                this._buildWholeDropDown( event );
@@ -437,11 +439,11 @@ $.widget( 'mre.menuoptions', {
              +TDary.join('')+'</tr>\n</table>\n'; 
   },
 
-  _clearHx: function(e) {
+  _clear_filter: function(e) {
     this.options._CurrentFilter = '';
   },
 
-  _bindUIActions: function() {
+  _bind_events: function() {
      var ky = '',
          Sel = {},
          $elem = this;
@@ -449,11 +451,11 @@ $.widget( 'mre.menuoptions', {
     // build selector : function() object for table.HdrFilter
     ky = 'mouseenter span#SP_'+this.options._ID+' table#HF_'
          +this._event_ns+' td.dflt'; 
-    Sel[ky]='_runHeaderFilters'; 
+    Sel[ky]='_run_header_filter'; 
     ky = 'click span#SP_'+this.options._ID+' table#HF_'+this._event_ns+' td.dflt'; 
-    Sel[ky]='_runHeaderFilters'; 
+    Sel[ky]='_run_header_filter'; 
     ky = 'mouseleave  span#SP_'+this.options._ID+' table#HF_'+this._event_ns+' td.dflt'; 
-    Sel[ky] = '_clearHx';
+    Sel[ky] = '_clear_filter';
     this._on($('body'), Sel );
 
     // highlight the clear button
@@ -485,7 +487,7 @@ $.widget( 'mre.menuoptions', {
 
     // when user chooses (clicks), insert text into input box
     ky = 'mousedown span#SP_'+this.options._ID+' table.CrEaTeDtAbLeStYlE td ';
-    Sel[ky]='_choiceSelected';
+    Sel[ky]='_choice_selected';
     this._on($('body'), Sel );
 
     // when mouse leaves the container, remove it from DOM
@@ -534,12 +536,14 @@ $.widget( 'mre.menuoptions', {
                     if ( row > 1 ) {
                        row = this.options._currTD[0] = this.options._currTD[0] - 1;
                     }
+                    this.__scroll(row);
                     arr_key_pressed=true;
                     break;
                 case $.ui.keyCode.DOWN:
                     if ( row < $('.CrEaTeDtAbLeStYlE tbody tr').length ) {
                        row = this.options._currTD[0] += 1;
                     }
+                    this.__scroll(row);
                     arr_key_pressed=true;
                     break;
                 case $.ui.keyCode.ENTER:
@@ -549,7 +553,7 @@ $.widget( 'mre.menuoptions', {
                         if ( /Select/.test($(this.options)[0].MenuOptionsType) ) {
                             this.__triggerChoice ( event ); 
                         } else if ( /keydown/.test(event.type) ) {
-                            this._runMenuItem( event ); 
+                            this._run_menu_item( event ); 
                         }
                      } 
                      event.preventDefault();
@@ -573,6 +577,20 @@ $.widget( 'mre.menuoptions', {
       return false;
   },
 
+  __scroll: function(row) {
+      var row_top=$('.CrEaTeDtAbLeStYlE tbody tr:nth-child('+row+')').offset().top,
+          row_ht=$('.CrEaTeDtAbLeStYlE tbody tr:nth-child('+row+')').height(),
+          vis_ht=$('span#SP_'+this.options._ID).height(),
+          vis_top=$('span#SP_'+this.options._ID).offset().top;
+      if ( vis_top > row_top ) {
+          this.options._vert_ofs -= row_ht;
+          $('span#SP_'+this.options._ID).scrollTop( this.options._vert_ofs );
+      } else if ( vis_top+vis_ht < row_top+row_ht ) {
+          this.options._vert_ofs += row_ht;
+          $('span#SP_'+this.options._ID).scrollTop( this.options._vert_ofs );
+      }
+  },
+
   _autocomplete: function(e) {
        if ( /keydown|keyup/.test(e.type) && this._arrow_keys(e) === true ) {  
           return;
@@ -588,13 +606,13 @@ $.widget( 'mre.menuoptions', {
                e.keyCode === $.ui.keyCode.ENTER ||
                ( e.keyCode === $.ui.keyCode.TAB && 
                  this.cached['.mo_elem'].val().length > 0 ) ) {
-            this._processMatches( e, this.cached['.mo_elem'].val(), true );
+            this._process_matches( e, this.cached['.mo_elem'].val(), true );
             this.__triggerChoice ( e );
             return;
           }
       }
       if ( /keyup/.test(e.type) || e.keyCode == $.ui.keyCode.BACKSPACE) {
-        this._processMatches( e, this.cached['.mo_elem'].val(), true );
+        this._process_matches( e, this.cached['.mo_elem'].val(), true );
       }
   },
 
@@ -615,7 +633,7 @@ $.widget( 'mre.menuoptions', {
   _refresh : function() {
   },
 
-  _cacheElements : function() {
+  _cache_elems : function() {
     var $dd_span = this.dropdownbox,
         $dropdowncells = this.dropdownbox.find('td'),
         $menuoptions_elem = this.element,
@@ -709,7 +727,7 @@ $.widget( 'mre.menuoptions', {
         }
     }
  },
- _createHtmlTable : function ( ary_of_objs ) {
+ _create_table : function ( ary_of_objs ) {
     var buffer= '', 
         TDary = [],
         RowCnt=0,
@@ -818,7 +836,7 @@ $.widget( 'mre.menuoptions', {
      return ary_of_objs;
  },
 
- _runMenuItem : function (e) {
+ _run_menu_item : function (e) {
     // the replace below is to strip out images
     var SelectedCellValue = $(e.target).text();
     var hilited = $('.CrEaTeDtAbLeStYlE tr td.mo');
@@ -839,7 +857,7 @@ $.widget( 'mre.menuoptions', {
     }
  },
 
-_choiceSelected : function (e) {
+_choice_selected : function (e) {
       this.cached['.dropdownspan'].remove();
     // dup click event sent (???), screen out 2nd
     if ( $(e.currentTarget).text() === this._prev_target && 
@@ -863,7 +881,7 @@ _choiceSelected : function (e) {
         $dd_span.element.attr('menu_opt_key',$(e.target).attr('menu_opt_key'));  
         e.target.className=e.target.className.replace(/ mo/,'');
     } else {
-        this._runMenuItem (e);
+        this._run_menu_item (e);
     }
     /*--  reset mouseover class in the cached elements  --*/
     $(this.cached['.dropdowncells']).removeClass('mo');
@@ -945,12 +963,12 @@ _addDropDownToDOM : function () {
             .hide(1);
 },
 
-_showDropDown : function (event) {
-    var $dd_span = this;
+_show_drop_down : function (event) {
+    var $dd_span = this,
+        final_width = 0;
 
     this._addDropDownToDOM(); 
-    $('span#SP_'+$dd_span.options._ID).css({  zIndex: 9999 });  
-    this._getAndSetDropDownWidth();
+    this._get_n_set_width();
     // show the menu
     $dd_span.cached['.dropdownspan']
         .stop(true,false)
@@ -961,15 +979,33 @@ _showDropDown : function (event) {
                 at : $dd_span.options.ShowAt,
                 collision: 'flipfit'  
             });  
+    final_width = parseInt($('span#SP_'+this.options._ID).css('width'));
+    $('span#SP_'+$dd_span.options._ID).css({ zIndex: 9999});
+    if ( this._use_scroller() ) {
+         $('span#SP_'+$dd_span.options._ID).css({'overflow-y': 'scroll',  
+           'overflow-x': 'hidden', 'width': final_width + 18, 
+           'height': parseInt($dd_span.options.Height) });
+        $('span#SP_'+$dd_span.options._ID)
+            .offset({left:$(this.element).offset().left-2});
+     } 
     $('table.CrEaTeDtAbLeStYlE').find('tr:even').addClass('even');
     $('table.CrEaTeDtAbLeStYlE').find('tr:odd').addClass('odd');
     this._refresh(); 
     this._calcDropBoxCoordinates();
  },
 
-_getAndSetDropDownWidth : function () {
+ _use_scroller : function () {
+    // is a scroll bar needed here? returns true or false
+    var final_ht = parseInt($('span#SP_'+this.options._ID).css('height'));
+    return /Select/i.test(this.options.MenuOptionsType)  
+          && /^\d+/.test(this.options.Height)  
+          && parseInt(this.options.Height) < final_ht ;
+ },
+
+_get_n_set_width : function () {
     var $dd_span = this,
-        menu_width = parseInt($('span#SP_'+$dd_span.options._ID).css('width'),10);
+        menu_width = parseInt($('span#SP_'+this.options._ID).css('width'),10),
+        final_ht = parseInt($('span#SP_'+this.options._ID).css('height'));
     $dd_span.menu_start_loc = $dd_span.cached['.dropdownspan'].offset();
     $dd_span.options._width_adj.width_menu = menu_width;
     $dd_span.options._width_adj.width_after_adj = ( menu_width >  
@@ -978,12 +1014,11 @@ _getAndSetDropDownWidth : function () {
         // if user specified width, use that width
         $dd_span.options._width_adj.width_after_adj = (parseInt($dd_span.options.Width));  
     }  
-    // set the width
    $('span#SP_'+$dd_span.options._ID+', span#SP_'+$dd_span.options._ID+ 
              ' > table').css({  'width': $dd_span.options._width_adj.width_after_adj });   
    if ( this.options.ShowAt.match(/left.*bottom.*/i) ) {
-       $('span#SP_'+$dd_span.options._ID)
-           .offset({left:$(this.element).offset().left});
+        $('span#SP_'+$dd_span.options._ID)
+            .offset({left:$(this.element).offset().left});
    } else {
        $('span#SP_'+$dd_span.options._ID)
            .offset({left:$(this.element).offset().left+$(this.element).outerWidth() });

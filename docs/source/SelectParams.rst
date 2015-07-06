@@ -19,6 +19,7 @@ Parameter list for select list
     Data,JSON object, (see Data section below), none, true
     DisableHiLiting,boolean, "true or false", false, false
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
+    Height,integer,positive integer, height of dropdown, false
     InitialValue,object,{'ky'|'val': <value>}, {}, false
     MenuOptionsType,string,'Select' or 'Navigate','Select',false
     onSelect, function,function(),none,false
@@ -29,7 +30,7 @@ Parameter list for select list
     Sort,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
     TriggerEvent, <deleted>,<as of v1.5.1>,--,--
     UseValueForKey,boolean,"true or false",false,false
-    Width,integer,positive integer, width of parent, false
+    Width,integer,positive integer, width of dropdown, false
 
 Parameters explained for MenuOption select
 ------------------------------------------
@@ -74,12 +75,26 @@ Filters
 
     Filters enable mouseover filtering of select items
     You can filter by plain text or by regular expression
-    Here is an example of using Filters with a RegExp
-    (`see a demo <http://www.menuoptions.org/examples/MenusBottom.html>`_ )
+    (`Example of using Filters with a RegExp <http://www.menuoptions.org/examples/MenusBottom.html>`_ )
 
 .. code-block:: html
 
     'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ],
+
+
+Height
+^^^^^^
+   options: **positive integer**
+
+   MenuOptions will default to the actual height of the select list. 
+   Using the Height parameter is useful to get the exact height you
+   want for your application. It is also useful for large list, since it will 
+   create a vertical scroll bar. 
+   (`Example of using Height to create a vertical scroll bar <http://www.menuoptions.org/examples/QuickStartSelect.html>`_ )
+
+.. code-block:: javascript
+    
+    'Height': 200
 
 InitialValue
 ^^^^^^^^^^^^

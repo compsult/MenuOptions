@@ -8,7 +8,7 @@ from SeleniumUtils import MO_Test_Utils
 class test_set_vals(MO_Test_Utils):
 
     def __init__(self):
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(30) # seconds
         self.url='http://127.0.0.1/examples/MultiSelect.html'
 
@@ -18,18 +18,6 @@ class test_set_vals(MO_Test_Utils):
         self.click_menu_item({ 'menu': '//span/following::table[@class="CrEaTeDtAbLeStYlE"]',
                           'xpath': '//td[text()="Programatically set all values"]',
                           'sleep': 3 })
-        self.check_content({ 'xpath': '//*[@id="pizzatype"]',
-                             'inputtext': 'Sicilian'})
-        self.check_content({ 'xpath': '//*[@id="toppings"]',
-                             'inputtext': 'Green pepper'})
-        self.check_content({ 'xpath': '//*[@id="crust"]',
-                             'inputtext': 'Thick'})
-        self.check_content({ 'xpath': '//*[@id="cheese"]',
-                             'inputtext': 'Extra'})
-        self.check_content({ 'xpath': '//*[@id="cooked"]',
-                             'inputtext': 'Regular'})
-        self.check_content({ 'xpath': '//*[@id="delivery"]',
-                             'inputtext': 'Pick up'})
         self.hover_over({ 'menu': '//*[@id="cfg"]/span'})
         self.click_menu_item({ 'menu': '//span/following::table[@class="CrEaTeDtAbLeStYlE"]',
                           'xpath': '//td[text()="Use rocker control for binary choices"]',
@@ -46,6 +34,10 @@ class test_set_vals(MO_Test_Utils):
         self.check_rocker({ 'xpath': '//*[@id="RK_RT_menuoptions9"]',
                             'xpath_txt': '//*[@id="RK_RT_menuoptions9"]/span',
                              'classnm': 'rtdown' })
+        self.check_serialize({ 'xpath': '//*[@id="menutest"]',
+                          'alert': True,
+                          'sleep': 1,
+                          'alerttext': 'pizzatype=1&toppings=2&crust=3&cheese=3&cooked=2&delivery=2' })
 
     def tearDown(self):
         self.browser.quit()

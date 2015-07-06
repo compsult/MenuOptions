@@ -109,6 +109,26 @@ For more detals on onSelect `see the docs <SelectParams.html#onselect>`_
 
 This code is in `quick start select demo <http://www.menuoptions.org/examples/QuickStartSelect.html>`_
 
+How can I create a vertical scroll bar for large lists?
+-------------------------------------------------------
+Below is an example. Whenever you speicfy a Height that is less than
+the height of the select list dropdown, a vertical scroll bar will be created.
+
+.. code-block:: javascript
+
+    $('input#scrolltest').menuoptions({ 
+        "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                  8:"August",9:"September",10:"October",11:"November",12:"December" },
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "InitialValue": { 'val': 'December'},
+        "Height": 200,
+        "Sort": []
+    });  
+
+This code is in `quick start select demo <http://www.menuoptions.org/examples/QuickStartSelect.html>`_
+
 When I enter certain characters in a MenuOptions select list they disappear, why?
 ----------------------------------------------------------------------------------
 It only disappears when you enter a character that is not in any of the select list options

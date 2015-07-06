@@ -13,6 +13,7 @@
 *   mulitcolumn display of choices, allowing more data to be presented at one time
 *   has a clear button that wipes the current value and opens the select list (this saves keystrokes in browsers that don't support clear button in input=search e.g., FireFox) 
 *   has a rocker control, convenient for binary choices (true/false, yes/no, etc)
+*   can scroll to accomodate large lists (using the Height parameter)
 
 #### Other benefits:
 
@@ -21,7 +22,7 @@
 *   since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
 *   source data can be dynamically reloaded (no destroy-create required)
 *   is flexible, configurable and stays in the viewport  
-*   has a suite of 14 automated tests
+*   has a suite of 15 automated tests
 
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 
