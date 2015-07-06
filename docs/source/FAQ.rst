@@ -16,14 +16,16 @@ It enables:
   (characters not in any select list item are automatically removed, saving keystrokes)
 - mouseover filtering lets user reduce choices by moving their mouse over a filter element
 - mulitcolumn display of choices, allowing more data to be presented at one time
+- convenient binary choices (true/false, yes/no, etc) using the Rocker control
 
 Other benefits:
 
 - it can use data from a variety of JSON types (array, array of arrays, single object, array of objects)
+- uses scrolling to accomodate large lists
 - the value associated with with the label string is saved in the input element automatically
   (in the menu_opt_key - no need to manually update a hidden field)
 - since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
-- has a rocker control, convenient for binary choices (true/false, yes/no, etc)
+- has a suite of 15 automated tests
 
 
 What browsers has it been tested on?
