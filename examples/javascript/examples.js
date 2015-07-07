@@ -3,6 +3,10 @@ var te = te || {};
 $(document).ready(function () {
 /*-----------------------------------------------------------------------*/
 te.examplelist = function ( ) {
+    if ( te.scroll == true ) {
+        $('body').css({ "background":"white", "margin": "0px auto", "height":"100%", "padding": "0px", "width": "920px", "overflow":"hidden"}); 
+        $('html').css({ "text-align":"center"}); 
+    }
     $('h1:first').after("<table style='margin-left:auto;margin-right:auto;font-size:18px;margin-top:-10px;'>"+
         "<tr>"+
            "<td><a target=_blank class='underl examplemenu' href='/index.html#menuoptions_examples'>all examples</a></td>"+

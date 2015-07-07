@@ -32,12 +32,14 @@
 [See the demo](http://www.menuoptions.org/examples/QuickStartSelect.html).
 
 ```javascript
-var Data = [ "January","February","March","April","May","June","July",
-"August","September","October","November","December" ];
-
-$('input#selecttest').menuoptions({
-"Data": Data
-});
+$('input#selecttest').menuoptions({                                         
+        "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                  8:"August",9:"September",10:"October",11:"November",12:"December" },
+        "onSelect": function(mo, data) {                                        
+             console.log(mo, data.newVal, data.type );                          
+        },                                                                                                               
+        "Sort": [] // don't sort                                                            
+    });           
 ```
 ![alt text](http://www.menuoptions.org/examples/images/SimpleSelect.jpg "select list image")
 
