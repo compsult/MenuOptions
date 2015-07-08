@@ -365,8 +365,8 @@ $.widget( 'mre.menuoptions', {
              if ( RegExStr.test(no_img) ) {
                 newval= no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">'+
                         no_img.match(RegExStr)+'</span>');
+             origImg = o.val.match(/<img.*>/); 
              if ( origImg ) { 
-                origImg = o.val.match(/<img.*>/); 
                 newval = origImg+newval;
              }
              return  { ky: o.ky, val: newval }; 
