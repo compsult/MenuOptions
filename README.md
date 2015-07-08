@@ -18,11 +18,12 @@
 #### Other benefits:
 
 *   it can use data from a variety of JSON types (array, array of arrays, single object, array of objects)
+*   uses color highlighting to show autocomplete matches 
 *   the value associated with with the label string is saved in the input element automatically (in the menu_opt_key - no need to manually update a hidden field)
 *   since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
 *   source data can be dynamically reloaded (no destroy-create required)
 *   is flexible, configurable and stays in the viewport  
-*   has a suite of 15 automated tests
+*   has a suite of 16 automated tests
 
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 

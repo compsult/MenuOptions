@@ -318,7 +318,7 @@ $.widget( 'mre.menuoptions', {
       if ( colorBorder ) {
         IsSearchStrValidAnsw = $.grep(this.ary_of_objs, function(rec){ 
                // the replace is to ignore images user may have used
-                select_str = rec.val.replace(/^ *<.*?>/, '');
+                select_str = rec.val.replace(/<.*?>/g, '');
                 return StrToCheck.match( new RegExp(select_str,'i'));
         });
         if ( IsSearchStrValidAnsw.length === 0 ) {
@@ -346,23 +346,37 @@ $.widget( 'mre.menuoptions', {
   },
 
   __buildMatchAry : function ( event, StrToCheck, no_img ) {
-      var matching = [],
-          tmp = this.orig_objs,
-          no_img ="";
+      var no_img ="";
+	      origImg="",
+          newval="", 
+          $dd=this;
       var lastChar = StrToCheck.charAt(StrToCheck.length - 1);
       if ( StrToCheck.match(/\{|\}|\\|\*|\(|\)|\./) && ! 
            ( $(this.options)[0].MenuOptionsType.match(/Navigate/i) ) ) {
         var newStr = [StrToCheck.slice(0,(StrToCheck.length-1)), '\\', lastChar].join('');
         StrToCheck = newStr;
       } 
-      var RegExStr = new RegExp(StrToCheck.toLowerCase());
-      matching = $.grep(this.orig_objs, function(o) { 
-          no_img = o.val.replace(/<img.*>/, ''); 
-          return no_img.toLowerCase().match(RegExStr); 
+      var RegExStr = new RegExp(StrToCheck,'i');
+      var matching = $.map(this.orig_objs, function(o) { 
+          if ( /Navigate/i.test($($dd.options)[0].MenuOptionsType) && RegExStr.test(o.val) ) {
+             return o;
+          } else {
+             no_img = o.val.replace(/<img.*>/, ''); 
+             if ( RegExStr.test(no_img) ) {
+                newval= no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">'+
+                        no_img.match(RegExStr)+'</span>');
+             if ( origImg ) { 
+                origImg = o.val.match(/<img.*>/); 
+                newval = origImg+newval;
+             }
+             return  { ky: o.ky, val: newval }; 
+          }
+	  }
       });
-      if ( matching.length === 1 && matching[0].val.toLowerCase() === RegExStr) {
-          this.cached['.mo_elem'].val(no_img_val);
-      } else if ( matching.length === 0 ) { // cut chars not in any of the choices
+      // if ( matching.length === 1 && matching[0].val.toLowerCase() === RegExStr) {
+      //  this.cached['.mo_elem'].val(no_img_val);
+      //} else 
+      if ( matching.length === 0 ) { // cut chars not in any of the choices
             this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().slice(0,-1));
       }
       return matching;

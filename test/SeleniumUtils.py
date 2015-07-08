@@ -20,6 +20,15 @@ class MO_Test_Utils(object):
         except NoSuchElementException, e: assert False
         assert True
 
+    def check_hilite (self, params ):
+        elem=self.browser.find_element_by_xpath(params['xpath'])
+        elem.click()
+        elem2=self.browser.find_element_by_xpath(params['cell'])
+        found=re.sub(r'\s+', '', elem2.get_attribute('innerHTML'))
+        params['expected']=re.sub(r'\s+', '', params['expected'])
+        print ' '.join(['Found:   ',found,'\nExpected:',params['expected']])
+        assert params['expected'] == found
+
     def check_autocomplete (self, params ):
         elem=self.browser.find_element_by_xpath(params['xpath'])
         elem.send_keys(params['test_key'])
@@ -93,6 +102,8 @@ class MO_Test_Utils(object):
             alert.dismiss()
 
     def check_serialize (self, params ):
+        self.browser.maximize_window();
+        time.sleep(2)
         self.browser.find_element_by_xpath(params['xpath']).click()
         self._check_alert( params )
 

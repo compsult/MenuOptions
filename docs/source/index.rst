@@ -33,11 +33,13 @@ It has:
 
 - uses scrolling to accomodate large lists
 
+- uses color highlighting to show autocomplete matches 
+
 - is flexible, configurable and stays in the viewport
 
 - been tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0
 
-- has a suite of 15 automated tests
+- has a suite of 16 automated tests
 
 Prerequisites:
 --------------
