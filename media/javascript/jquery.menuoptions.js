@@ -11,8 +11,8 @@
  * @copyright       Copyright (c) 2014-2015
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
- * @docs            http://www.menuoptions.org
- * @version         Version 1.6.1-7
+ * @docs            http://menuoptions.readthedocs.org/en/latest/
+ * @version         Version 1.7.0-4
  *
  ******************************************/
   //
@@ -363,19 +363,16 @@ $.widget( 'mre.menuoptions', {
           } else {
              no_img = o.val.replace(/<img.*>/, ''); 
              if ( RegExStr.test(no_img) ) {
-                newval= no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">'+
+                newval= no_img.replace(RegExStr, '<span style="color:brown;font-size:114%;">'+
                         no_img.match(RegExStr)+'</span>');
-             origImg = o.val.match(/<img.*>/); 
-             if ( origImg ) { 
-                newval = origImg+newval;
+                origImg = o.val.match(/<img.*>/); 
+                if ( origImg ) { 
+                    newval = origImg+newval;
+                }
+                return  { ky: o.ky, val: newval }; 
              }
-             return  { ky: o.ky, val: newval }; 
-          }
-	  }
+	     }
       });
-      // if ( matching.length === 1 && matching[0].val.toLowerCase() === RegExStr) {
-      //  this.cached['.mo_elem'].val(no_img_val);
-      //} else 
       if ( matching.length === 0 ) { // cut chars not in any of the choices
             this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().slice(0,-1));
       }
@@ -752,9 +749,10 @@ $.widget( 'mre.menuoptions', {
     // sort as per default or user specification
     this._runSort( ary_of_objs );
     // set val = key attr
-    if ( this.options.UseValueForKey === true ) {
+     if ( this.options.UseValueForKey === true &&
+          ary_of_objs.length == this.orig_objs.length ) { 
         $.each(ary_of_objs, function(k, v) { v.val = v.ky; });
-    } 
+     }  
     while ( RowCnt * this.options.ColumnCount < ary_of_objs.length ) {
         start_ofs = RowCnt === 0 ? 0 : (RowCnt * this.options.ColumnCount);
         subary=ary_of_objs.slice(start_ofs, start_ofs+this.options.ColumnCount);
@@ -777,7 +775,7 @@ $.widget( 'mre.menuoptions', {
     }
     buffer='<table class=CrEaTeDtAbLeStYlE cellpadding=4px>\n'
             + buffer + '</table>';
-    if ( this.options.Filters.length ) {
+    if ( this.options.Filters.length && $(this.element).val().length == 0 ) {
         buffer=this._createFilterHeader()+buffer;
     }
     html='<span id=SP_'+this.options._ID+'>'+buffer+'\n</span>'; 

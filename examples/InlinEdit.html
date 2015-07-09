@@ -15,11 +15,11 @@
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.js"></script>
-    <script type="text/javascript" charset="utf8" src="javascript/InlineEdit.js?v_{DT}"></script>
+    <script type="text/javascript" charset="utf8" src="javascript/InlineEdit.js?v_1820"></script>
     <script type="text/javascript" charset="utf8" src="javascript/data.js"></script>
     <script type="text/javascript" charset="utf8" src="javascript/Scroller.js"></script>
     <script type="text/javascript" charset="utf8" src="../media/javascript/jquery.menuoptions.js?v_1820"></script>
-   <script> var te = te || {}; te.root=""; te.scroll=true; </script>
+   <script> var te = te || {}; te.root=""; te.scroll=false; </script>
    <script src="javascript/examples.js?v_{DT}"></script>
     <style>  
         a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
@@ -33,7 +33,7 @@
  <div class=wrapper>
      <h1>Inline Edit Demo </h1>
      <h3 style='margin-top:-8px;' >(using <a target=_blank class=underl href='http://datatables.net/'>Datatables</a> for table display)</h3> 
-   <ul class=hdr>
+   <ul class=hdr style='text-align:left;'>
        <li>Click on blue cells to edit inline</li>
        <li>The <span class=hdr>Hire Date</span> uses <a target=_blank class=underl href='https://jqueryui.com/datepicker/'>jQuery UI datepicker</a></li>
        <li>The <span class=hdr>Marital Status</span> uses <a target=_blank class=underl href='https://jqueryui.com/autocomplete/'>jQuery UI autocomplete</a>  </li>
