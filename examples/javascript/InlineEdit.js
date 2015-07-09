@@ -31,7 +31,7 @@ $.fn.CustSelect = function( TblObj, instructs ) {
                                 "ColumnCount" : colCnt, 
                                 'Filters': Filters, 
                                 'Width': width, 
-                                /*--  'Height': 250,   --*/
+                                 'Height': 220,  
                                 "UseValueForKey":true, 
                                 "onSelect": function(mo, data) {
                                     te.SaveCustomSelect ( TblObj, mo, data, instructs );

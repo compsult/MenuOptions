@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.0-4
+ * @version         Version 1.7.0-6
  *
  ******************************************/
   //
@@ -363,7 +363,7 @@ $.widget( 'mre.menuoptions', {
           } else {
              no_img = o.val.replace(/<img.*>/, ''); 
              if ( RegExStr.test(no_img) ) {
-                newval= no_img.replace(RegExStr, '<span style="color:brown;font-size:114%;">'+
+                newval= no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">'+
                         no_img.match(RegExStr)+'</span>');
                 origImg = o.val.match(/<img.*>/); 
                 if ( origImg ) { 
@@ -572,7 +572,6 @@ $.widget( 'mre.menuoptions', {
                 case $.ui.keyCode.DELETE:
                     if ( $(this.options)[0].MenuOptionsType.match(/Select/i) &&
                          this.cached['.mo_elem'].length === 0 ) {
-                            /*--  this.cached['.mo_elem'].val('');  --*/
                             this.cached['.dropdownspan'].remove();
                             $('.CrEaTeDtAbLeStYlE tr td').removeClass('mo');
                             this._buildWholeDropDown(event);
@@ -628,15 +627,17 @@ $.widget( 'mre.menuoptions', {
   },
 
   _hiLiteOnOff : function (event) {
-     if ( $(event.target).attr('class').match(/clear_btn/) ) {
-         $(event.target).toggleClass('ClearButtonMO');
-     } 
-     if ( $(event.target).attr('class').match(/ *dflt */) ) {
-         if ( event.type === 'mouseenter' ) {
-            $(event.target).addClass('mo');
-         } else {
-            $(event.target).removeClass('mo');
-         }
+     if ( !!$(event.target).attr('class') ) { 
+        if ( $(event.target).attr('class').match(/clear_btn/) ) {
+            $(event.target).toggleClass('ClearButtonMO');
+        } 
+        if ( $(event.target).attr('class').match(/ *dflt */) ) {
+             if ( event.type === 'mouseenter' ) { 
+                 $(event.target).addClass('mo');   
+             } else { 
+                 $('span table.CrEaTeDtAbLeStYlE td.dflt').removeClass('mo');  
+             } 
+        } 
      } 
   },
 
@@ -883,7 +884,7 @@ _choice_selected : function (e) {
     this.options._prev_event=e.type;
     var $dd_span = this;
     if ( $dd_span.options.MenuOptionsType === 'Select' ) { 
-        var newVal = $.trim($(e.target).text());
+        var newVal = $.trim($(e.currentTarget).text());
         $dd_span.element.val(newVal);
         $dd_span._trigger("onSelect", $dd_span, { 
               "newCode" : $(e.target).attr('menu_opt_key'),
@@ -919,7 +920,7 @@ _didMouseExitDropDown: function (e) {
     if ( e.pageX + 1  > this.options._menu_box.left  && 
          e.pageX  < this.options._menu_box.right - 1 && 
          e.pageY + 1 > this.options._menu_box.top && 
-         e.pageY  < this.options._menu_box.bottom - 2 ) {
+         e.pageY  < this.options._menu_box.bottom  ) {
             return false;
     } else { // mouse is outside drop down
             return true;
@@ -997,8 +998,15 @@ _show_drop_down : function (event) {
          $('span#SP_'+$dd_span.options._ID).css({'overflow-y': 'scroll',  
            'overflow-x': 'hidden', 'width': final_width + 18, 
            'height': parseInt($dd_span.options.Height) });
-        $('span#SP_'+$dd_span.options._ID)
-            .offset({left:$(this.element).offset().left-2});
+        $dd_span.cached['.dropdownspan']
+            .stop(true,false)
+            .show()
+            .position ({      
+                    of:  this.element,
+                    my: 'left top',  
+                    at : $dd_span.options.ShowAt,
+                    collision: 'flipfit'  
+                });  
      } 
     $('table.CrEaTeDtAbLeStYlE').find('tr:even').addClass('even');
     $('table.CrEaTeDtAbLeStYlE').find('tr:odd').addClass('odd');
