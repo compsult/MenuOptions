@@ -20,11 +20,14 @@ class MO_Test_Utils(object):
         except NoSuchElementException, e: assert False
         assert True
 
-    def check_hilite (self, params ):
+    def check_html (self, params ):
         elem=self.browser.find_element_by_xpath(params['xpath'])
         elem.click()
-        elem2=self.browser.find_element_by_xpath(params['cell'])
-        found=re.sub(r'\s+', '', elem2.get_attribute('innerHTML'))
+        if 'cell' in params and params['cell']:
+            elem2=self.browser.find_element_by_xpath(params['cell'])
+            found=re.sub(r'\s+', '', elem2.get_attribute('innerHTML'))
+        else:
+            found=re.sub(r'\s+', '', elem.get_attribute('innerHTML'))
         params['expected']=re.sub(r'\s+', '', params['expected'])
         print ' '.join(['Found:   ',found,'\nExpected:',params['expected']])
         assert params['expected'] == found
