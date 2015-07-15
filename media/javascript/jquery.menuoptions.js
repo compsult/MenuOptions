@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.0-9
+ * @version         Version 1.7.0-10
  *
  ******************************************/
   //
@@ -676,10 +676,10 @@ $.widget( 'mre.menuoptions', {
 
   _set_options : function ( ) {
       if ( this.options.ShowAt.match(/^ *bottom *$/i) ) {
-          this._setOption('ShowAt','left bottom-1');
+          this._setOption('ShowAt','left bottom-2');
       }
       else if ( this.options.ShowAt.match(/^ *right *$/i) ) {
-          this._setOption('ShowAt','right top');
+          this._setOption('ShowAt','right-2 top');
       }
       if ( this._initval_exists() ) {
           this.set_select_value(this.options.InitialValue);
@@ -912,12 +912,12 @@ _calcDropBoxCoordinates : function () {
     // figure out the coords of the select box
     // ( the top & bottom adjustments provide overlap between 
     // element & drop down||right )
-      this.options._menu_box.top = this.cached['.dropdownspan'].position().top;
-      this.options._menu_box.bottom = this.options._menu_box.top 
-          + this.cached['.dropdownspan'].height();
-      this.options._menu_box.left = this.cached['.dropdownspan'].position().left;
-      this.options._menu_box.right = this.options._menu_box.left 
-          + this.cached['.dropdownspan'].width();
+    this.options._menu_box.top = this.cached['.dropdownspan'].position().top;
+    this.options._menu_box.bottom = this.options._menu_box.top 
+        + this.cached['.dropdownspan'].height();
+    this.options._menu_box.left = this.cached['.dropdownspan'].position().left;
+    this.options._menu_box.right = this.options._menu_box.left 
+        + this.cached['.dropdownspan'].width();
 }, 
 
 _didMouseExitDropDown: function (e) {
@@ -995,7 +995,7 @@ _show_drop_down : function (event) {
                 of:  this.element,
                 my: 'left top',  
                 at : $dd_span.options.ShowAt,
-                collision: 'flipfit'  
+                collision: 'flipfit'
             });  
     final_width = parseInt($('span#SP_'+this.options._ID).css('width'));
     $('span#SP_'+$dd_span.options._ID).css({ zIndex: 9999});
@@ -1010,7 +1010,7 @@ _show_drop_down : function (event) {
                     of:  this.element,
                     my: 'left top',  
                     at : $dd_span.options.ShowAt,
-                    collision: 'flipfit'  
+                    collision: 'flipfit'   
                 });  
      } 
     $('table.CrEaTeDtAbLeStYlE').find('tr:even').addClass('even');

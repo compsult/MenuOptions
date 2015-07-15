@@ -23,7 +23,7 @@
 *   since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
 *   source data can be dynamically reloaded (no destroy-create required)
 *   is flexible, configurable and stays in the viewport  
-*   has a suite of 16 automated tests
+*   has a suite of 17 automated tests
 
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 

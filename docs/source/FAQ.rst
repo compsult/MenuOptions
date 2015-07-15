@@ -5,7 +5,7 @@ FAQ
 Why do we need another input widget?
 ------------------------------------
 MenuOptions was created for one reason.
-    To reduce - to an absolute minimum - the number of keystrokes and clicks required for data entry.
+    To reduce - `to an absolute minimum` - the number of keystrokes and clicks required for data entry.
 
 
 It enables:

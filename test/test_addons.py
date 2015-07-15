@@ -24,9 +24,10 @@ class test_addons(MO_Test_Utils):
         self.url='http://127.0.0.1/examples/RightMenu.html'
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_html({ 'xpath': '//*[@id="menu_plain"]/span',
-                          'expected': u'Menu&nbsp;▸'})
+                          'expected': u'Menu&nbsp;▸'.encode('utf-8')})
         self.check_html({ 'xpath': '//*[@id="menu_w_imgs"]/span',
-                          'expected': u'Menuwithimages&nbsp;▸'})
+                          'expected': u'Menuwithimages&nbsp;▸'.encode('utf-8')})
 
     def tearDown(self):
         self.browser.quit()
+

@@ -28,8 +28,8 @@ class MO_Test_Utils(object):
             found=re.sub(r'\s+', '', elem2.get_attribute('innerHTML'))
         else:
             found=re.sub(r'\s+', '', elem.get_attribute('innerHTML'))
-        params['expected']=re.sub(r'\s+', '', params['expected'])
-        print ' '.join(['Found:   ',found,'\nExpected:',params['expected']])
+        params['expected']=re.sub(r'\s+', '', params['expected'].decode('utf-8'))
+        print ' '.join(['Found:   ',found.encode('utf-8'),'\nExpected:',params['expected'].encode('utf-8')])
         assert params['expected'] == found
 
     def check_autocomplete (self, params ):
