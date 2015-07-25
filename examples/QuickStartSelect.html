@@ -8,6 +8,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
    <script src="../media/javascript/jquery.menuoptions.js?v_1820"></script> 
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
    <script> var te = te || {}; te.root=""; te.scroll=true; </script>
    <script src="javascript/examples.js?v_1633"></script>
    <link rel="stylesheet" href="../media/style/menuoptions.css?v_1820">
@@ -27,7 +29,7 @@ $(document).ready(function() {
         "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                   8:"August",9:"September",10:"October",11:"November",12:"December" },
         "onSelect": function(mo, data) { 
-             console.log(mo, data.newVal, data.type );  
+            console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
         "InitialValue": { 'val': 'December'},
         "ClearBtn": true,
@@ -38,7 +40,7 @@ $(document).ready(function() {
         "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                   8:"August",9:"September",10:"October",11:"November",12:"December" },
         "onSelect": function(mo, data) { 
-             console.log(mo, data.newVal, data.type );  
+            console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
         "InitialValue": { 'val': 'December'},
         "Height": 200,
@@ -50,6 +52,10 @@ $(document).ready(function() {
         var tst = $('input#selecttest').menuoptions('re_serialize',$('form#tst').serialize());
         alert (tst);
     });
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
 });
 </script>
 </head>
@@ -81,6 +87,77 @@ $(document).ready(function() {
      </table><br /><br />
     <button class=a type="button" id="menutest" >Show serialize values</button>
     </form>
+    <br /> <br />
+    <h1>Code</h1>
+    <div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Javascript</a></li>
+    <li><a href="#tabs-2">HTML </a></li>
+    <li><a href="#tabs-3">includes </a></li>
+  </ul>
+  <div id="tabs-1">
+      <pre><code class="javascript" style='text-align:left'>
+$('input#selecttest').menuoptions({ 
+    "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                8:"August",9:"September",10:"October",11:"November",12:"December" },
+    "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+    }, 
+    "InitialValue": { 'val': 'December'},
+    "ClearBtn": true,
+    "ShowAt": 'bottom',
+    "Sort": []
+});  
+$('input#scrolltest').menuoptions({ 
+    "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                8:"August",9:"September",10:"October",11:"November",12:"December" },
+    "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+    }, 
+    "InitialValue": { 'val': 'December'},
+    "Height": 200, // height less than 'natural' height creates scroll bar
+    "Sort": [] 
+});  
+    </code></pre>
+  </div>
+  <div id="tabs-2">
+    <pre><code class="html" style='text-align:left'>
+&lt;form id=tst&gt;
+    &lt;table style="margin: 0 auto;"&gt;
+        &lt;tr&gt;
+            &lt;td width=300&gt;
+                &lt;h2&gt;Select list with default height&lt;/h2&gt;
+            &lt;/td&gt;
+            &lt;td width=300&gt;
+                &lt;h2&gt;Select list with height set (with scroll)&lt;/h2&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td width=300&gt;
+            &lt;div id=inputbox1&gt;
+                &lt;input type=search name=month1 id='selecttest'  placeholder='Month'&gt;
+            &lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td width=300&gt;
+            &lt;div id=inputbox2&gt;
+                &lt;input type=search name=month2 id='scrolltest'  placeholder='Month'&gt;
+            &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;button class=a type="button" id="menutest" &gt;Show serialize values&lt;/button&gt;
+&lt;/form&gt;
+    </code></pre>
+  </div>
+  <div id="tabs-3">
+    <pre><code class="html" style='text-align:left'>
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
+&lt;script src="../media/javascript/jquery.menuoptions.js"&gt;&lt;/script&gt; 
+    </code></pre>
+  </div>
+</div>
      </body>
 </html>
 

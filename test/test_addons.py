@@ -10,7 +10,7 @@ from selenium.webdriver.common.keys import Keys
 class test_addons(MO_Test_Utils):
 
     def __init__(self):
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(30) # seconds
         self.url='http://127.0.0.1/examples/QuickStartSelect.html'
 
