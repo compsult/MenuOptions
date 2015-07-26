@@ -4,13 +4,17 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title> MenuOptions re_serialize demo</title>
   
+  <!--  START_INCLUDES  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+   <link rel="stylesheet" href="../media/style/menuoptions.css?v_1820">
    <script src="../media/javascript/jquery.menuoptions.js?v_1820"></script> 
+   <!--  END_INCLUDES  -->
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
    <script> var te = te || {}; te.root=""; te.scroll=true; </script>
    <script src="javascript/examples.js?v_1633"></script>
-   <link rel="stylesheet" href="../media/style/menuoptions.css?v_1820">
 
   
   <style>
@@ -33,6 +37,7 @@
 
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
      var us_states  = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME',
                                    'MD','MA','MI', 'MN','MS','MO','MT','NE','NV','NH','NJ','NM', 'NY','NC','ND','OH','OK','OR','PA',
 				   'RI','SC','SD','TN','TX','UT', 'VT','VA','WA','WV','WI','WY'], 
@@ -62,6 +67,12 @@ $(document).ready(function() {
        $('div#re_serialize').html(new_get_str);
        e.preventDefault();
     });
+   /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 });
 </script>
 </head>
@@ -71,6 +82,7 @@ $(document).ready(function() {
 	<h2 style='border:0px solid gray'>(serialize() will not pick up "menu_opt_key" information)</h2>
 	<h2 style='border:0px solid gray'>Choose from the drop downs and click "See results"</h2>
 	<form id=tst>
+                <!--  START_HTML  -->
 	 <table id=serial_demo align=center style="margin-top:10px;text-align:left;">
 	    <tr>
 	       <td class=demotd1>
@@ -106,6 +118,7 @@ $(document).ready(function() {
 	    </tr>
 	 </table>
 	<button class="a" tooltip="Click to see serialize results" id=btn>See results</button><br>
+                <!--  END_HTML  -->
 	</form>
 	<br><br>
    <div style="display:block; border:1px solid silver;text-align:left;margin:10px;">
@@ -160,5 +173,104 @@ $(document).ready(function() {
       </div>
    </div>
      </div>
-     </body>
-</html>
+
+    <br /><br /><br /><br />
+        <h1>Code</h1>
+        <div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Javascript</a></li>
+        <li><a href="#tabs-2">HTML </a></li>
+        <li><a href="#tabs-3">includes </a></li>
+    </ul>
+    <div id="tabs-1">
+        <pre><code class="javascript" style='text-align:left'>
+            
+     var us_states  = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME',
+                                   'MD','MA','MI', 'MN','MS','MO','MT','NE','NV','NH','NJ','NM', 'NY','NC','ND','OH','OK','OR','PA',
+				   'RI','SC','SD','TN','TX','UT', 'VT','VA','WA','WV','WI','WY'], 
+        PayMethod   = { 1: "American Express", 2: "Visa", 3: "Mastercard", 4:"Discover", 5:"Check", 6:"PayPal", 7:"Cash", 8:"Money Order"},
+        MarStat   = { 1: "Single", 2: "Married", 3: "Co-habitating", 4:"Seperated", 5:"Divorced", 6:"Widowed"};
+
+    $('input[name="t"]').menuoptions({  "Data": PayMethod, 
+                                        "SelectOnly": true, 
+                                        "ClearBtn": true, 
+                                        "ColumnCount": 2,
+                                        'Width': 225 });
+    $('input[name="t2"]').menuoptions({ "Data": MarStat, 
+                                        "ClearBtn":true, 
+                                    });   
+    $('input[name="t3"]').menuoptions({ "Data": us_states, 
+                                        "ClearBtn":true, 
+                                        "ColumnCount":6, 
+                                        "UseValueForKey":true });   
+
+    $('button.a').off('click');
+    $('button.a').on('click', function(e) {
+       var res = $('form#tst').serialize(); 
+       var new_get_str = $('input[name=t3]').menuoptions('re_serialize', res);
+       $('div#serialize_text').html("serialize() result (below):").css({'color':'green'});
+       $('div#reserialize_text').html("re_serialize result (below):").css({'color':'green'});
+       $('div#serialize').html(res);
+       $('div#re_serialize').html(new_get_str);
+       e.preventDefault();
+    });
+   
+        </code></pre>
+    </div>
+            
+    <div id="tabs-2">
+        <pre><code class="html" style='text-align:left'>
+            
+	 &lt;table id=serial_demo align=center style="margin-top:10px;text-align:left;"&gt;
+	    &lt;tr&gt;
+	       &lt;td class=demotd1&gt;
+		  &lt;input name='t' type='search' placeholder='pay method'&gt;
+	       &lt;/td&gt;
+	       &lt;td class=demotd1&gt;
+		  &lt;div id=serialize_text&gt;&nbsp;&lt;/div&gt;
+	       &lt;/td&gt;
+	    &lt;/tr&gt;
+	    &lt;tr&gt;
+	       &lt;td class=demotd1&gt;
+		  &lt;input name='t2' type='search' placeholder='Marital Status'&gt;
+	       &lt;/td&gt;
+	       &lt;td class=demotd1&gt;
+		  &lt;div id=serialize&gt;&nbsp;&lt;/div&gt;
+	       &lt;/td&gt;
+	    &lt;/tr&gt;
+	    &lt;tr&gt;
+	       &lt;td class=demotd1&gt;
+		  &lt;input name='t3' type='search' placeholder='State'&gt;
+	       &lt;/td&gt;
+	       &lt;td class=demotd1&gt;
+		  &lt;div id=reserialize_text&gt;&nbsp;&lt;/div&gt;
+	       &lt;/td&gt;
+	    &lt;/tr&gt;
+	    &lt;tr&gt;
+	       &lt;td class=demotd1&gt;
+		  &lt;input name='t4' type='search' placeholder='Phone'&gt;
+	       &lt;/td&gt;
+	       &lt;td class=demotd1&gt;
+		  &lt;div id=re_serialize&gt;&nbsp;&lt;/div&gt;
+	       &lt;/td&gt;
+	    &lt;/tr&gt;
+	 &lt;/table&gt;
+	&lt;button class="a" tooltip="Click to see serialize results" id=btn&gt;See results&lt;/button&gt;&lt;br&gt;
+                
+        </code></pre>
+    </div>
+            
+    <div id="tabs-3">
+        <pre><code class="html" style='text-align:left'>
+            
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
+   &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
+   &lt;link rel="stylesheet" href="../media/style/menuoptions.css?v_1820"&gt;
+   &lt;script src="../media/javascript/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt; 
+   
+        </code></pre>
+    </div>
+    </body>
+    </html>
+            

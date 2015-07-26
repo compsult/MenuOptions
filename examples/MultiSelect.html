@@ -4,11 +4,15 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title> MenuOptions multiple select lists example </title>
   
+  <!--  START_INCLUDES  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
    <script src="../media/javascript/jquery.menuoptions.js?v_1820"></script> 
    <link rel="stylesheet" href="../media/style/menuoptions.css?v_1820">
+   <!--  END_INCLUDES  -->
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
    <script> var te = te || {}; te.root=""; te.scroll=true; </script>
    <script src="javascript/examples.js?v_1633"></script>
    <style>
@@ -83,6 +87,7 @@ function resetMO( instruct ) {
     }
 }
 function init( ) {
+   /*--  START_JAVASCRIPT  --*/
     $('button#cfg').menuoptions({ 
         "Data": [{ "Select list on right": function() { resetMO ("right"); } }, 
                 { "2 columns": function() { resetMO ("colcnt");} },
@@ -140,6 +145,12 @@ function init( ) {
         alert (tst);
     });
     $("div#buttons").buttonset().css({"padding":"5px" });
+   /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 }
 init();
 });
@@ -148,6 +159,7 @@ init();
 <body>
 	<br><h1 >Example of multiple select lists with autocomplete </h1>
     <form id=tst>
+                <!--  START_HTML  -->
 	 <table border=0 style="margin: 0 auto;margin-top:-14px;">
          <tr >
              <td colspan=2>
@@ -209,9 +221,165 @@ init();
                   <input type=search name=delivery id='delivery' placeholder='Delivery type'>
              </td>
          </tr>
-     </table><br /><br />
+     </table>
+                <!--  END_HTML  -->
+<br /><br />
     <button class=a type="button" id="menutest" >Show serialize values</button>
     </form>
-     </body>
-</html>
 
+
+    <br /><br /><br /><br />
+        <h1>Code</h1>
+        <div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Javascript</a></li>
+        <li><a href="#tabs-2">HTML </a></li>
+        <li><a href="#tabs-3">includes </a></li>
+    </ul>
+    <div id="tabs-1">
+        <pre><code class="javascript" style='text-align:left'>
+            
+    $('button#cfg').menuoptions({ 
+        "Data": [{ "Select list on right": function() { resetMO ("right"); } }, 
+                { "2 columns": function() { resetMO ("colcnt");} },
+                { "Custom width (100px)": function() { resetMO ("width");} },
+                { "Use rocker control for binary choices": function() { resetMO ("rocker");}},
+                { "Programatically set all values": function() { resetMO ("setvalues");}},
+                { "Reset to default": function() { resetMO ("default");} } ],
+        "MenuOptionsType":"Navigate",
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('#pizzatype').menuoptions({ 
+        "Data": { 1: "Sicilian", 2: "Neopolitan"},
+        "Sort": [] // don't sort
+    });  
+    $('input#toppings').menuoptions({ 
+        "Data": { 1:"Anchovie",2:"Green pepper", 3:"Pepperoni", 
+                  4:"Meat", 5:"Mushroom"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('input#cheese').menuoptions({ 
+        "Data": { 1:"Light",2:"Regular", 3:"Extra"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('input#crust').menuoptions({ 
+        "Data": { 1:"Thin",2:"Regular", 3:"Thick"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('input#cooked').menuoptions({ 
+        "Data": { 1: "Lightly baked", 2:"Regular", 3: "Well done"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('#delivery').menuoptions({ 
+        "Data": { 1: "Deliver", 2:"Pick up"},
+        "Sort": [] // don't sort
+    });  
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#cooked').menuoptions('re_serialize', 
+                $('form#tst').serialize());
+        console.log(tst);
+        alert (tst);
+    });
+    $("div#buttons").buttonset().css({"padding":"5px" });
+   
+        </code></pre>
+    </div>
+            
+    <div id="tabs-2">
+        <pre><code class="html" style='text-align:left'>
+            
+	 &lt;table border=0 style="margin: 0 auto;margin-top:-14px;"&gt;
+         &lt;tr &gt;
+             &lt;td colspan=2&gt;
+                 &lt;div id=buttons&gt;
+                     &lt;button type="button" id="cfg" &gt;Change MenuOptions Configuration&lt;/button&gt;
+                 &lt;/div&gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr style='height:120px'&gt;
+             &lt;td&gt;
+		            &nbsp;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr &gt;
+             &lt;td&gt;
+	            Pizza Type
+             &lt;/td&gt;
+             &lt;td class=pizzatype&gt;
+                  &lt;input type=search name=pizzatype id='pizzatype' placeholder='Pizza type'&gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            Toppings
+             &lt;/td&gt;
+             &lt;td&gt;
+		            &lt;input type=search name=toppings id='toppings' placeholder='Toppings'&gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            Crust thickness            
+             &lt;/td&gt;
+             &lt;td&gt;
+		            &lt;input type=search name=crust id='crust' placeholder='Crust'&gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            Cheese Amount
+             &lt;/td&gt;
+             &lt;td&gt;
+		            &lt;input type=search name=cheese id='cheese' placeholder='Cheese'&gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            Bake Instructions
+             &lt;/td&gt;
+             &lt;td&gt;
+		            &lt;input type=search name=cooked id='cooked' placeholder='Cooked'&gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            Delivery Instructions
+             &lt;/td&gt;
+             &lt;td class=delivery&gt;
+                  &lt;input type=search name=delivery id='delivery' placeholder='Delivery type'&gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+     &lt;/table&gt;
+                
+        </code></pre>
+    </div>
+            
+    <div id="tabs-3">
+        <pre><code class="html" style='text-align:left'>
+            
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
+   &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
+   &lt;script src="../media/javascript/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt; 
+   &lt;link rel="stylesheet" href="../media/style/menuoptions.css?v_1820"&gt;
+   
+        </code></pre>
+    </div>
+    </body>
+    </html>
+            

@@ -4,11 +4,15 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title> Reload MenuOptions Slelect demo</title>
   
+  <!--  START_INCLUDES  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
    <script src="../media/javascript/jquery.menuoptions.js?v_1820"></script> 
    <link rel="stylesheet" href="../media/style/menuoptions.css?v_1820">
+   <!--  END_INCLUDES  -->
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
    <script> var te = te || {}; te.root=""; te.scroll=true; </script>
    <script src="javascript/examples.js?v_1633"></script>
    <style>
@@ -26,6 +30,7 @@
 
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
     function get_hh_mm ( value ) {
         var hh = new Date(value).getHours(),
             ampm = "PM",
@@ -94,6 +99,12 @@ $(document).ready(function() {
                   'Width' : 300 });
     }
     init();
+   /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 });
 </script>
 </head>
@@ -102,6 +113,7 @@ $(document).ready(function() {
     <h2>When you change the Start time, the end time select list will modified to <br /> 
         only display the start time plus 1 hour and 30 minutes </h2><br />
     <form id=tst>
+                <!--  START_HTML  -->
 	 <table style="margin: 0 auto;">
          <tr class=tall>
 	       <td >
@@ -119,7 +131,128 @@ $(document).ready(function() {
 	       </td>
 	    </tr>
 	 </table>
+                <!--  END_HTML  -->
     </form>
-    </body>
-</html>
 
+
+    <br /><br /><br /><br />
+        <h1>Code</h1>
+        <div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Javascript</a></li>
+        <li><a href="#tabs-2">HTML </a></li>
+        <li><a href="#tabs-3">includes </a></li>
+    </ul>
+    <div id="tabs-1">
+        <pre><code class="javascript" style='text-align:left'>
+            
+    function get_hh_mm ( value ) {
+        var hh = new Date(value).getHours(),
+            ampm = "PM",
+            mm = new Date(value).getMinutes();
+        if ( hh &lt; 12 ) { ampm = "AM";
+        } else { hh -= 12; }
+        hh = ( hh === 0 ) ? "12" : hh;
+        hh = ( hh &lt; 10 ) ? "0" + hh : hh;
+        mm = ( mm &lt; 10 ) ? "0" + mm : mm;
+        return hh + ":" + mm + " " + ampm;
+    }
+    var AddApptMins = function ( StartTime, Duration ) {
+        var epoch_time = new Date("Jan 1, " + new Date().getFullYear() + " " + StartTime).getTime() + Duration * 60000;
+        return get_hh_mm ( epoch_time );
+    }
+    function init() {
+        var last_time = ""
+            earliest_time = '08:00 AM',
+            latest_time = '09:45 PM';
+        $("body").data("alltimes", [ earliest_time ]);
+        for (var t = 0; t &lt;= 80; t += 1) {  
+            last_time = AddApptMins($("body").data("alltimes")[$("body").data("alltimes").length-1], 15);
+            $("body").data("alltimes").push(last_time);   
+            if ( last_time === latest_time ) { break; }
+        }  
+        $('input#starttime').menuoptions({
+                                        "Data": $("body").data("alltimes"),
+                                        "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                        "ClearBtn": true,
+                                        "onSelect": function(e, data) { 
+                                            ResetEndTimeData(data.newVal); 
+                                        }, 
+                                        "ShowAt": 'bottom',
+                                        "ColumnCount": 4,
+                                        "Width": 300,
+                                        "Height": 200,
+                                        "Sort": []
+                                        });
+        $('input#endtime').menuoptions({
+                                        "Data": $("body").data("alltimes"),
+                                        "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                        "ClearBtn": true,
+                                        "ShowAt": 'bottom',
+                                        "ColumnCount": 4,
+                                        "Width": 300,
+                                        "Sort": []
+                                        });
+        $('button#menutest').off('click').on('click', function (e) {
+            var tst = $('input#starttime').menuoptions('re_serialize',$('form#tst').serialize()); 
+            alert (tst);
+        });
+    }
+    function ResetEndTimeData( startTime ) {
+          var end_time = $('input#endtime');
+          /*--  clear out the existing end time array  --*/
+          $("body").data("endtimes", []);
+          /*--  change end time choices to be up to 90 minutes later   --*/
+          for (var t = 0; t &lt;= 90; t += 5) { 
+            $("body").data("endtimes").push(AddApptMins(startTime, t)); 
+          } 
+          /*--  refresh the Data for the endtime and remove filters (AM|PM)   --*/
+	      $('input#endtime').menuoptions( 'refreshData',  
+                { 'Data'    : $("body").data("endtimes"),
+                  'Filters' : [],
+                  'ColumnCount' : 4,
+                  'Width' : 300 });
+    }
+    init();
+   
+        </code></pre>
+    </div>
+            
+    <div id="tabs-2">
+        <pre><code class="html" style='text-align:left'>
+            
+	 &lt;table style="margin: 0 auto;"&gt;
+         &lt;tr class=tall&gt;
+	       &lt;td &gt;
+              &lt;input type=search name=starttime id='starttime' placeholder='Start time' &gt;
+	       &lt;/td&gt;
+	    &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+	       &lt;td &gt;
+              &lt;input type=search name=endtime id='endtime'  placeholder='End time'&gt;
+	       &lt;/td&gt;
+	    &lt;/tr&gt;
+         &lt;tr &gt;
+	       &lt;td class=demotd1&gt;
+               &lt;button class="a" tooltip="see results" id=menutest&gt;Show values&lt;/button&gt;&lt;br&gt;
+	       &lt;/td&gt;
+	    &lt;/tr&gt;
+	 &lt;/table&gt;
+                
+        </code></pre>
+    </div>
+            
+    <div id="tabs-3">
+        <pre><code class="html" style='text-align:left'>
+            
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
+   &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
+   &lt;script src="../media/javascript/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt; 
+   &lt;link rel="stylesheet" href="../media/style/menuoptions.css?v_1820"&gt;
+   
+        </code></pre>
+    </div>
+    </body>
+    </html>
+            

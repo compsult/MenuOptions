@@ -8,11 +8,15 @@
 body {font-family:Arial, Helvetica, sans-serif; font-size:12px;}
 </style> 
  
+  <!--  START_INCLUDES  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
 <script src="../media/javascript/jquery.menuoptions.js?v_1820"></script> 
 <link rel="stylesheet" href="../media/style/menuoptions.css?v_1820">
+   <!--  END_INCLUDES  -->
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
 <script> var te = te || {}; te.root=""; te.scroll=true; </script>
 <script src="javascript/examples.js?v_1633"></script>
    <style>
@@ -29,6 +33,7 @@ body {font-family:Arial, Helvetica, sans-serif; font-size:12px;}
 
 <script>
 $(document).ready(function () {
+   /*--  START_JAVASCRIPT  --*/
    $('input#on_off').menuoptions({"Sort": [], 
         "Data": { 1: "On", 2:"Off" }, "RockerControl": true,
         "onSelect": function(mo, data) {  console.log(data); }
@@ -50,6 +55,12 @@ $(document).ready(function () {
                 $('form#tst').serialize());
         alert (tst);
     });
+   /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 });
 </script>
  
@@ -57,6 +68,7 @@ $(document).ready(function () {
 <body>
     <br><h1 >Example using the rocker switch</h1>
     <form id=tst>
+                <!--  START_HTML  -->
 	 <table border=0 style="margin: 0 auto;margin-top:50px;">
          <tr >
              <td width=110>
@@ -90,8 +102,100 @@ $(document).ready(function () {
 		            <input type=search name=on_off id='on_off' >
              </td>
          </tr>
-     </table><br /><br />
+     </table>
+                <!--  END_HTML  -->
+<br /><br />
     <button class=a type="button" id="menutest" >Show serialize values</button>
     </form>
-     </body>
-</html>
+
+    <br /><br /><br /><br />
+        <h1>Code</h1>
+        <div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Javascript</a></li>
+        <li><a href="#tabs-2">HTML </a></li>
+        <li><a href="#tabs-3">includes </a></li>
+    </ul>
+    <div id="tabs-1">
+        <pre><code class="javascript" style='text-align:left'>
+            
+   $('input#on_off').menuoptions({"Sort": [], 
+        "Data": { 1: "On", 2:"Off" }, "RockerControl": true,
+        "onSelect": function(mo, data) {  console.log(data); }
+   }); 
+   $('input#MaleFemale').menuoptions({"Sort": [], 
+        "Data": { 'M': "Male", 'F':"Female" }, "RockerControl": true,                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+   $('input#TrueFalse').menuoptions({"Sort": [], 
+        "Data": { 'T': "True", 'F':"False" }, "RockerControl": true,                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+   $('input#YesNo').menuoptions({"Sort": [], 
+        "Data": { 'Y': "Yes", 'N':"No" }, "RockerControl": true,                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#YesNo').menuoptions('re_serialize', 
+                $('form#tst').serialize());
+        alert (tst);
+    });
+   
+        </code></pre>
+    </div>
+            
+    <div id="tabs-2">
+        <pre><code class="html" style='text-align:left'>
+            
+	 &lt;table border=0 style="margin: 0 auto;margin-top:50px;"&gt;
+         &lt;tr &gt;
+             &lt;td width=110&gt;
+	            True or False 
+             &lt;/td&gt;
+             &lt;td &gt;
+                  &lt;input type=search name=TrueFalse id='TrueFalse' &gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            Yes or No
+             &lt;/td&gt;
+             &lt;td&gt;
+		            &lt;input type=search name=YesNo id='YesNo' &gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            Male Female
+             &lt;/td&gt;
+             &lt;td&gt;
+		            &lt;input type=search name=MaleFemale id='MaleFemale' &gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            On Off
+             &lt;/td&gt;
+             &lt;td&gt;
+		            &lt;input type=search name=on_off id='on_off' &gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+     &lt;/table&gt;
+                
+        </code></pre>
+    </div>
+            
+    <div id="tabs-3">
+        <pre><code class="html" style='text-align:left'>
+            
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
+&lt;script src="../media/javascript/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt; 
+&lt;link rel="stylesheet" href="../media/style/menuoptions.css?v_1820"&gt;
+   
+        </code></pre>
+    </div>
+    </body>
+    </html>
+            

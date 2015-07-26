@@ -4,14 +4,18 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title> MenuOptions menu example </title>
   
+  <!--  START_INCLUDES  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="../media/javascript/jquery.menuoptions.js?v_1820"></script> 
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" href="../media/style/menuoptions.css?v_1820">
+   <!--  END_INCLUDES  -->
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
   <script> var te = te || {}; te.root=""; te.scroll=true; </script>
   <script src="javascript/examples.js?v_1633"></script>
 
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
-  <link rel="stylesheet" href="../media/style/menuoptions.css?v_1820">
 
    <style>
         h1 { color: gray; font-size:24px; } 
@@ -23,6 +27,7 @@
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
 
+   /*--  START_JAVASCRIPT  --*/
     $('button[id$="menutest"]').menuoptions({ 
         "Data": [ {"javascript": function() { alert('Some javascript was run'); } },
                   {"Google": "http://www.google.com"},
@@ -30,6 +35,16 @@ $(document).ready(function() {
         "MenuOptionsType": "Navigate", 
         });  
     $("div#buttons").buttonset().css({"padding":"5px" });
+   /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
 });
 </script>
 </head>
@@ -38,12 +53,58 @@ $(document).ready(function() {
 	 <table style="margin: 0 auto;">
          <tr>
              <td>
+                <!--  START_HTML  -->
                 <div id=buttons>
                     <button type="button" id="menutest" >Menu</button>
                 </div>
+                <!--  END_HTML  -->
              </td>
          </tr>
 	 </table>
-     </body>
-</html>
 
+    <br /><br /><br /><br />
+        <h1>Code</h1>
+        <div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Javascript</a></li>
+        <li><a href="#tabs-2">HTML </a></li>
+        <li><a href="#tabs-3">includes </a></li>
+    </ul>
+    <div id="tabs-1">
+        <pre><code class="javascript" style='text-align:left'>
+            
+    $('button[id$="menutest"]').menuoptions({ 
+        "Data": [ {"javascript": function() { alert('Some javascript was run'); } },
+                  {"Google": "http://www.google.com"},
+                  {"Yahoo": "http://www.yahoo.com"}],
+        "MenuOptionsType": "Navigate", 
+        });  
+    $("div#buttons").buttonset().css({"padding":"5px" });
+   
+        </code></pre>
+    </div>
+            
+    <div id="tabs-2">
+        <pre><code class="html" style='text-align:left'>
+            
+                &lt;div id=buttons&gt;
+                    &lt;button type="button" id="menutest" &gt;Menu&lt;/button&gt;
+                &lt;/div&gt;
+                
+        </code></pre>
+    </div>
+            
+    <div id="tabs-3">
+        <pre><code class="html" style='text-align:left'>
+            
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
+  &lt;script src="../media/javascript/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt; 
+  &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
+  &lt;link rel="stylesheet" href="../media/style/menuoptions.css?v_1820"&gt;
+   
+        </code></pre>
+    </div>
+    </body>
+    </html>
+            

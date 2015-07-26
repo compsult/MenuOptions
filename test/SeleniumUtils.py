@@ -13,6 +13,7 @@ class MO_Test_Utils(object):
 
     def open_n_tst_title (self, params):
         self.browser.get(params['url'])
+        self.browser.refresh()
         assert params['title'] in self.browser.title
 
     def is_element_present(self, params):
