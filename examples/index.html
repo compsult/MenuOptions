@@ -4,7 +4,9 @@
 	<meta charset="utf-8">
 	<title>MenuOptions | jQuery ui widget for rapid data entry using autocomplete and mouseover filtering </title>
     <meta name="description" content="MenuOptions a jQuery ui widget to enable rapid data entry  using the mouse or keyboard">
-    <meta name="keywords"    content="jquery widget, input, ui, ux, single click data entry, multi-column data entry">
+    <meta name="keywords"    content="data entry jquery widget, input, ui, ux, single click data entry, multi-column data entry">
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.css">
@@ -19,86 +21,68 @@
     <script type="text/javascript" charset="utf8" src="../media/javascript/jquery.menuoptions.js?v_1820"></script>
     <script> var te = te || {}; te.root=""; te.scroll=false;</script>
     <script type="text/javascript" charset="utf8" src="javascript/examples.js?v_1633"></script>
+   <link rel="stylesheet" type="text/css" href="style/style.css?v_2339">
+    <script type='text/javascript'>//<![CDATA[ 
+    $(document).ready(function() {
+        $('pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+        });
+        $( "#tabs" ).tabs();
+    });
+    </script>
       
-    <style>
-        div.wrapper {
-           margin-left: auto;
-           margin-right: auto;
-           height: auto;
-           width: 700px;
-           border: 1px solid white;
-        }
-        body{ font: 17px/24px  Georgia, Arial, Helvetica, sans-serif; }
-        pre{ font: 12px/18px Consolas, "Lucida Console", Monaco, monospace }
-        #examples td, a.gr { color: green; text-decoration:none; }
-        h1 { text-align:center; color: gray; font-size:28px; } 
-        h4 { text-align:center; color: gray; font-size:14px;  font-style: italic;} 
-        h3 { color: gray; font-size:16px;  font-style: italic;} 
-        li {
-                background: url(http://www.menuoptions.org/examples/images/bullet_green_alt.png) left center no-repeat; 
-                padding-left: 30px; 
-                margin-left: -40px;
-        }
-        img { border: 0px; }
-        #examples tr:hover { cursor: pointer; font-weight:bold;}
-        a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
-        a:hover { color: #6B696B; background:antiquewhite;  }
-    </style>
-
 </head>
 <body>
 
-    <div class=wrapper>
      <h1>MenuOptions</h1> 
-     <h2 style="text-align:left;font-size:20px"> MenuOptions was created for one reason.</h2>
-     <p style="margin-left:30px;font-size:16px">To reduce - <span style='font-style: italic'>to an absolute minimum</span> - the # of keystrokes and clicks required for data entry.</p>
+     <h2 style="text-align:left;font-size:20px"> MenuOptions was created for one reason:</h2>
+     <p style="margin-left:30px;font-size:16px;text-align:center;">To reduce - <span style='font-style: italic'>to an absolute minimum</span> - the # of keystrokes and clicks required for data entry.</p>
 
      <p style="text-align:left;font-weight:bold">Benefits:</p>
      <ul style="list-style:none">
-         <li><p>1 click data entry</p></li>
-        <li><p>if an item is at the top of the list, only one key needs to be pressed (the enter key)</p></li>
-        <li><p>it uses intelligent autocomplete 
+        <li class=left_img><p>1 click data entry</p></li>
+        <li class=left_img><p>if an item is at the top of the list, only one key needs to be pressed (the enter key)</p></li>
+        <li class=left_img><p>it uses intelligent autocomplete 
         (characters not in any select list item are automatically removed, saving keystrokes)</p></li>
-        <li><p>mouseover filtering lets user reduce choices by moving their mouse over a filter element</p></li>
-        <li><p>mulitcolumn display of choices, allowing more data to be presented at one time</p></li>
-        <li><p>has a rocker control, convenient for binary choices (true/false, yes/no, etc)</p></li>
-        <li><p>uses scrolling to accomodate large lists</p</li>
+        <li class=left_img><p>mouseover filtering lets user reduce choices by moving their mouse over a filter element</p></li>
+        <li class=left_img><p>mulitcolumn display of choices, allowing more data to be presented at one time</p></li>
+        <li class=left_img><p>has a rocker control, convenient for binary choices (true/false, yes/no, etc)</p></li>
+        <li class=left_img><p>uses scrolling to accomodate large lists</p</li>
     </ul>
      <p style="text-align:left;font-weight:bold">Other benefits:</p>
 
      <ul style="list-style:none">
-        <li><p>uses color highlighting to show autocomplete matches </p></li>
-        <li><p>it can utilize data from a variety of JSON types (array, array of arrays, single object, array of objects)</p></li>
-        <li><p>the value associated with with the label string is saved in the input element automatically
+        <li class=left_img><p>uses color highlighting to show autocomplete matches </p></li>
+        <li class=left_img><p>it can utilize data from a variety of JSON types (array, array of arrays, single object, array of objects)</p></li>
+        <li class=left_img><p>the value associated with with the label string is saved in the input element automatically
         (in the menu_opt_key - no need to manually update a hidden field)</p></li>
-        <li><p>since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.</p></li>
-        <li><p>tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0 </p></li>
-        <li><p>has a suite of 17 automated tests</p</li>
+        <li class=left_img><p>since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.</p></li>
+        <li class=left_img><p>tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0 </p></li>
+        <li class=left_img><p>has a suite of 17 automated tests</p</li>
     </ul>
 
-    <h2> Notes: </h2>
-    <h3> 1 - <a class=gr href=https://github.com/compsult/MenuOptions>MenuOptions</a> documentation has been moved to <a class=gr href='http://menuoptions.readthedocs.org/en/latest/'>ReadTheDocs </a></h4>
-    <h3> 2 - It is strongly advised to use the latest release of MenuOptions, for latest features and bug fixes</h4>
-    <h2>Getting started with a simple select list</h2>
+    <h3 style='text-align:left;'> 1 - <a class=gr href=https://github.com/compsult/MenuOptions>MenuOptions</a> documentation has been moved to <a class=gr href='http://menuoptions.readthedocs.org/en/latest/'>ReadTheDocs </a></h4>
+    <h3 style='text-align:left;'> 2 - It is strongly advised to use the latest release of MenuOptions, for latest features and bug fixes</h4>
+    <h3>Getting started with a simple select list</h3>
 
     <p><a href="http://www.menuoptions.org/examples/QuickStartSelect.html">See the demo</a></p>
 
-    <pre>javascript
+    <pre><code class="javascript" style='text-align:left'>
     var Data = [ "January","February","March","April","May","June","July",
                   "August","September","October","November","December" ];
 
     $('input#selecttest').menuoptions({
         "Data": Data
     });
-    </pre>
+    </code></pre>
     <a href="http://www.menuoptions.org/examples/QuickStartSelect.html">
     <img src="http://www.menuoptions.org/examples/images/SimpleSelect.jpg" alt="simple select list example" title="simple select list example" /></a>
 
-    <h2>Getting started with a simple menu</h2>
+    <h3>Getting started with a simple menu</h3>
 
     <p><a href="http://www.menuoptions.org/examples/QuickStartMenu.html">See the demo</a></p>
 
-    <pre>
+    <pre><code class="javascript" style='text-align:left'>
     var Data =  [ {"javascript": function() { alert('Run some javascript'); }},
                   {"Google": "http://www.google.com"},
                   {"Yahoo": "http://www.yahoo.com"}];
@@ -107,11 +91,11 @@
                 "Data": Data,
                 "MenuOptionsType": "Navigate", // Navigate is for menus
             });
-    </pre>
+    </code></pre>
     <a href="http://www.menuoptions.org/examples/QuickStartMenu.html">
     <img src="http://www.menuoptions.org/examples/images/SimpleMenu.jpg" alt="simple menu example" title="simple menu example" /></a>
 
-    <h2> Using MenuOptions with in line editing of Table cells</h2>
+    <h3> Using MenuOptions with in line editing of Table cells</h3>
     <p><a href='http://www.menuoptions.org/examples/InlinEdit.html'>See the demo</a></p>
     <p>An example of using MenuOptions select lists as part of in line editing for a table</p>
     <a href='http://www.menuoptions.org/examples/InlinEdit.html'>
@@ -119,13 +103,13 @@
     </a>
 
 
-    <h2>Autocomplete with images</h2>
+    <h3>Autocomplete with images</h3>
     <p><a href="http://www.menuoptions.org/examples/SelectWithImages.html">See the demo</a></p>
 
     <a href="http://www.menuoptions.org/examples/SelectWithImages.html"><img src="http://www.menuoptions.org/examples/images/AutoCompWithImgs.jpg" alt="autocomplete with images" title="autocomplete with images" /></a>
 
 
-    <h2>Mouseover filtering with dividers</h2>
+    <h3>Mouseover filtering with dividers</h3>
     <p><a href="http://www.menuoptions.org/examples/Dividers.html">See the demo</a></p> 
     <a href="http://www.menuoptions.org/examples/Dividers.html"><img src="http://www.menuoptions.org/examples/images/MenuWithMOandDivs.jpg" alt="mouseover with dividers" title="mouseover with dividers" /></a>
 
@@ -145,10 +129,10 @@
     attribute.  jQuery's serialize will not pick up the value of a MenuOptions select list (menu_opt_key).<br /><br />
     To account for this, wrap serialize() with re_serialize, like this:<br /></p>
     
-    <pre>
+    <pre><code class="javascript" style='text-align:left'>
         $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').serialize());
-
-    </pre>
+    </code></pre>
+    
     <a href="http://www.menuoptions.org/examples/Serialize.html"><img src="http://www.menuoptions.org/examples/images/re_serialize.png" alt="re_serialize" title="using MenuOptions with serialize() " /></a>
 
     <h3>Multiple select lists on a page demo </h3>
@@ -160,8 +144,9 @@
     <a href="http://www.menuoptions.org/examples/MultiSelect.html"><img src="http://www.menuoptions.org/examples/images/MultiSelects.png" alt="Multiple Selects" title="using MenuOptions with multiple select lists " /></a>
 
     <br />
-    </div>
+     </div>
     <br />
     <br />
-
+</body
+</html>>
 	

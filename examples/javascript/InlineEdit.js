@@ -181,8 +181,8 @@ te.validateInput = function ( regex, value, td, errmsg ) {
         $('#ValidationErr')
             .append("<span id=ErMsgInr>"+colnm+" '"+value+"'<br>"+errmsg+"</span>")
             .css({ 'display':'block', 
-                    'top': tdtop+20,
-                    'left': tdleft,
+                    'top': tdtop+40,
+                    'left': tdleft-360,
                     'color': 'red',
                     'border':'2px solid red',
             });
@@ -208,11 +208,11 @@ te.saveInlineEdit = function ( TblObj, td ) {
     $('#ValidationErr span#ErMsgInr').remove();
     $('#ValidationErr')
         .append("<span id=ErMsgInr>"+savemsg+"</span>")
-        .css({ 'display':'block', 
-                'top': tdtop+30,
-                'left': tdleft,
-                'color': 'blue',
-                'border':'2px solid green',
+         .css({ 'display':'block',  
+                 'top': tdtop+30, 
+                 'left': tdleft-360, 
+                 'color': 'blue', 
+                 'border':'2px solid green', 
         });
     $(td).html( ShowVal ); // keep user entry & "close" 
     te.clearInlineEdit (td);

@@ -4,16 +4,34 @@ $(document).ready(function () {
 /*-----------------------------------------------------------------------*/
 te.examplelist = function ( ) {
     if ( te.scroll == true ) {
-        $('body').css({ "background":"white", "margin": "0px auto", "height":"100%", "padding": "0px", "width": "920px", "height":"1700px"}); 
+        $('body').css({ "background":"white", "margin": "0px auto", "height":"100%", "padding": "0px", "width": "1200px", "height":"1700px"}); 
         $('html').css({ "text-align":"center"}); 
     }
     $('h1:first').after("<table style='margin-left:auto;margin-right:auto;font-size:18px;margin-top:-10px;'>"+
         "<tr>"+
-           "<td><a target=_blank class='underl examplemenu' href='/index.html#menuoptions_examples'>all examples</a></td>"+
-            "<td><a target=_blank class='underl docmenu' style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>documentation</a></td>"+
-            "<td><a target=_blank class='underl dwnldmenu' style='margin-left:20px;' href='https://www.npmjs.org/package/menuoptions'>download</a></td>"+
+           "<td><a class='underl examplemenu' href='/index.html#menuoptions_examples'>all examples</a></td>"+
+            "<td><a class='underl docmenu' style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>documentation</a></td>"+
+            "<td><a class='underl dwnldmenu' style='margin-left:20px;' href='https://www.npmjs.org/package/menuoptions'>download</a></td>"+
         "</tr>"+
     "</table><br />");
+    $('body').wrapInner('<div id="wrapper"></div>');
+    $('div#wrapper').wrapInner('<div id="rightcolumn"></div>');
+    $('div#rightcolumn').before('<div id="leftcolumn">'+
+            '<p class=menu_left>Menu Examples</p>'+
+            '<a class=underl_sm href='+te.root+'QuickStartMenu.html>Quick start menu</a><br>'+
+            '<a class=underl_sm href='+te.root+'MenusBottom.html>Drop down menus</a></br>'+
+            '<a class=underl_sm href='+te.root+'Dividers.html>Menu with dividers</a><br>'+
+            '<a class=underl_sm href='+te.root+'RightMenu.html>Right side menus</a>'+
+            '<p class=menu_left>Select Examples</p>'+
+            '<a class=underl_sm href='+te.root+'QuickStartSelect.html>Quick start select</a><br>'+
+            '<a class=underl_sm href='+te.root+'InlinEdit.html>Inline edit</a></br>'+
+            '<a class=underl_sm href='+te.root+'SelectWithImages.html>Select with images</a><br>'+
+            '<a class=underl_sm href='+te.root+'Serialize.html>Serialize (re_serialize)</a><br>'+
+            '<a class=underl_sm href='+te.root+'MultiSelect.html>Multiple select lists</a><br>'+
+            '<a class=underl_sm href='+te.root+'ReloadMenuOptions.html>Dynamically reloading</a><br>'+
+            '<p class=menu_left>Rocker Examples</p>'+
+            '<a class=underl_sm href='+te.root+'RockerControl.html>Rocker switch</a><br>'+
+            '</div>');
     var Menu_w_Dividers =[ {  'Menu examples'  :'divider' }, 
                 {  'Quick start menu'  : te.root+'QuickStartMenu.html'}, 
                 {  'Drop down menus'  : te.root+'MenusBottom.html' },

@@ -15,14 +15,7 @@
    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
    <script> var te = te || {}; te.root=""; te.scroll=true; </script>
    <script src="javascript/examples.js?v_1633"></script>
-   <style>
-        h1 { color: gray; font-size:24px; } 
-        h2 { color: gray; font-size:16px; } 
-        button.a { background-image:url('images/greenbutton.png') ; padding:2px; border:2px outset beige;cursor:pointer; width:170px; height:30px; -moz-border-radius: 9px; -webkit-border-radius: 9px; }
-        a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
-        a:hover { color: #6B696B; background:antiquewhite;  }
-   </style>
-  
+   <link rel="stylesheet" type="text/css" href="style/style.css?v_2339">
 
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
@@ -58,26 +51,21 @@ $(document).ready(function() {
             hljs.highlightBlock(block);
     });
     $( "#tabs" ).tabs();
-                
-    $('pre code').each(function(i, block) {
-            hljs.highlightBlock(block);
-    });
-    $( "#tabs" ).tabs();
 });
 </script>
 </head>
 <body>
 	<br><h1 >Example of simple select list with autocomplete </h1>
-    <h2 >(Note: the initial value was programmatically set to December)</h2>
+    <h3 >(Note: the initial value was programmatically set to December)</h3>
     <form id=tst>
                 <!--  START_HTML  -->
 	 <table style="margin: 0 auto;">
          <tr>
              <td width=300>
-                 <h2>Select list with default height</h2>
+                 <h3>Select list with default height</h3>
              </td>
-             <td width=300>
-                 <h2>Select list with height set (with scroll)</h2>
+             <td width=340>
+                 <h3>Select list with height set (with scroll)</h3>
              </td>
          </tr>
          <tr>
@@ -86,7 +74,7 @@ $(document).ready(function() {
                     <input type=search name=month1 id='selecttest'  placeholder='Month'>
                 </div>
              </td>
-             <td width=300>
+             <td width=340>
                 <div id=inputbox2>
                     <input type=search name=month2 id='scrolltest'  placeholder='Month'>
                 </div>
@@ -251,5 +239,4 @@ $('input#scrolltest').menuoptions({
         </code></pre>
     </div>
     </body>
-    </html>
-            
+</html>

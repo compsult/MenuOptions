@@ -1,3 +1,42 @@
+ /*--  body{ font: 15px/20px  Georgia, Arial, Helvetica, sans-serif; }    --*/
+ body{ font: 15px/20px;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;}
+pre{ font: 14px/18px Consolas, "Lucida Console", Monaco, monospace }
+h1 { color: gray; font-size:24px; text-align:center; } 
+h2 { color: gray; font-size:20px;  text-align:center;} 
+h2.lft { text-align:left; color: gray; font-size:20px;  }
+h3 { text-align:center; color: gray; font-size:16px;  text-align:center;}
+h4 { color: gray; font-size:12px; }
+/*--   left menu css  --*/
+#wrapper {
+width: 1160px;
+margin: 0 auto;
+position: relative;
+}
+#leftcolumn {
+margin-top:100px;
+width: 160px;
+text-align:left;
+/*--  border: 1px solid silver;  --*/
+position: fixed;
+}
+#leftcolumn > a { margin-left:12px; }
+#rightcolumn {
+width: 1000px;
+float: right;
+}
+p.menu_left { color: brown; font-size:14px; text-align:left; margin:4px;}
+/*------------------------------------------------------*/
+table#serial_demo tr { line-height:30px;  }
+table#serial_demo td { text-align:left; font-size:14px; border: 1px solid silver;}
+p { text-align:left;margin-left:20px; }
+div#serialize, div#re_serialize { width:500px; } 
+
+a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
+a.underl_sm { border-bottom:1px dotted gray; text-decoration:none; 
+               color:gray; font-size:12px;}
+a:hover { color: #6B696B; background:antiquewhite;  }
+
 div.wrapper {
     margin-left: auto;
     margin-right: auto;
@@ -21,32 +60,92 @@ span#ErMsgInr {
     color:red;
     display:none
 }
-button {
-    line-height: 12px;
-    width: 18px;
-    font-size: 9pt;
-    font-weight: bold;
-    font-family: tahoma;
-    position:absolute;
-    top:0;
-    right:0;
-    padding:0px;
-}
-button:hover { cursor:pointer;}
+/*----- button formatting  --------------------- */
+button#mini_cnr_x { line-height: 12px; width: 18px; font-size: 9pt; 
+                    font-weight: bold; font-family: tahoma; position:absolute; 
+                    top:0; right:0; padding:0px; } 
+button:hover { cursor:pointer;} 
+button.a { background-image:url('../images/greenbutton.png') ; padding:2px; 
+           border:2px outset beige;cursor:pointer; width:170px; height:30px; 
+          -moz-border-radius: 9px; -webkit-border-radius: 9px; }
 /*----- error message formatting  --------------------- */
-body{ font: 14px/18px  Arial, Helvetica, sans-serif; } 
-pre{ font: 12px/18px Consolas, "Lucida Console", Monaco, monospace }
 div.ExtraRowName { margin-left:340px; font-size:22px; }
-h1 { text-align:center; color: gray; font-size:28px; }
-h3 { text-align:center; color: gray; font-size:16px; }
-.hdr li { margin-left:300px; color: gray; font-size:16px; line-height:24px; } 
 span.hdr  { color: blue; } 
 img { border: 0px; }
 table.dataTable tbody tr:hover td { background-color:antiquewhite;}
-table.dataTable tbody tr td { text-align:center; }
+table.dataTable tbody tr td { text-align:center; font-size: 15px;}
 table.dataTable tbody tr td.editable { color:blue }
 table.dataTable tbody tr td.editable:hover { cursor:pointer; }
 table.dataTable tbody tr.odd { background-color: #CBE7CB }                      
 table.dataTable tbody tr.even { background-color: #FFF } 
-a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
-a:hover { color: #6B696B; background:antiquewhite;  }
+tr.tall { line-height: 40px; }
+/*---------------------------------------------- */
+#examples td, a.gr { color: green; text-decoration:none; }
+#examples tr:hover { cursor: pointer; font-weight:bold;}
+li.left_img { 
+        background: url(http://www.menuoptions.org/examples/images/bullet_green_alt.png) left center no-repeat; 
+        list-style: none;
+        padding-left: 30px; }
+li.ctr { margin-left:300px; color: gray; font-size:16px; line-height:24px; 
+        background: url(http://www.menuoptions.org/examples/images/bullet_green_alt.png) left center no-repeat; 
+        list-style: none;
+        padding-left: 30px;
+}
+/*-------    images   -------------------------- */
+img.cnn_img {
+width:16px;
+height:16px;
+background:url(../images/menuicons.png);
+float:left;
+background-position: -20px 0px;
+}
+img.js_img {
+width:16px;
+height:16px;
+background:url(../images/menuicons.png);
+float:left;
+background-position: 62px 0px;
+}
+img.goog_img {
+width:16px;
+height:16px;
+background:url(../images/menuicons.png);
+float:left;
+background-position: 43px -1px;
+}
+img.yahoo_img {
+width:16px;
+height:16px;
+background:url(../images/menuicons.png);
+float:left;
+background-position: 0px 0px;
+}
+img.cash {
+width:30px;
+height:16px;
+background:url(../images/payment_types.png);
+float:left;
+background-position: 30px 0px;
+}
+img.check {
+width:37px;
+height:16px;
+background:url(../images/payment_types.png);
+float:left;
+background-position: 0px 0px;
+}
+img.charge {
+width:30px;
+height:16px;
+background:url(../images/payment_types.png);
+float:left;
+background-position: 86px 0px;
+}
+img.paypal {
+width:26px;
+height:16px;
+background:url(../images/payment_types.png);
+float:left;
+background-position: 56px 0px;
+}
+/*---------------------------------------------- */
