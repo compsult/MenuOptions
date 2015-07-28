@@ -9,13 +9,13 @@ h3 { text-align:center; color: gray; font-size:16px;  text-align:center;}
 h4 { color: gray; font-size:12px; }
 /*--   left menu css  --*/
 #wrapper {
-width: 1160px;
+width: 1180px;
 margin: 0 auto;
 position: relative;
 }
 #leftcolumn {
 margin-top:100px;
-width: 160px;
+width: 180px;
 text-align:left;
 /*--  border: 1px solid silver;  --*/
 position: fixed;
@@ -34,7 +34,7 @@ div#serialize, div#re_serialize { width:500px; }
 
 a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
 a.underl_sm { border-bottom:1px dotted gray; text-decoration:none; 
-               color:gray; font-size:12px;}
+               color:gray; font-size:14px; line-height:22px;}
 a:hover { color: #6B696B; background:antiquewhite;  }
 
 div.wrapper {

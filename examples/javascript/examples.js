@@ -44,6 +44,7 @@ te.examplelist = function ( ) {
                 {  'Serialize (re_serialize)':  te.root+'Serialize.html' },
                 {  'Multiple select lists':  te.root+'MultiSelect.html' },
                 {  'Dynamically reloading':  te.root+'ReloadMenuOptions.html' },
+                {  'Rocker examples'  : 'divider' }, 
                 {  'Rocker switch':  te.root+'RockerControl.html' } ];
 
 	  $('a.examplemenu').menuoptions({ 
