@@ -14,10 +14,7 @@ te.examplelist = function ( ) {
             "<td><a class='underl dwnldmenu' style='margin-left:20px;' href='https://www.npmjs.org/package/menuoptions'>download</a></td>"+
         "</tr>"+
     "</table><br />");
-    $('body').wrapInner('<div id="wrapper"></div>');
-    $('div#wrapper').wrapInner('<div id="rightcolumn"></div>');
-    $('div#rightcolumn').before('<div id="leftcolumn">'+
-            '<p class=menu_left>Menu Examples</p>'+
+    $('div#leftcolumn').prepend('<p class=menu_left>Menu Examples</p>'+
             '<a class=underl_sm href='+te.root+'QuickStartMenu.html>Quick start menu</a><br>'+
             '<a class=underl_sm href='+te.root+'MenusBottom.html>Drop down menus</a></br>'+
             '<a class=underl_sm href='+te.root+'Dividers.html>Menu with dividers</a><br>'+

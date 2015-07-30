@@ -1,8 +1,13 @@
 ## MenuOptions ##
 ### MenuOptions was created for one reason.
 
-> To reduce - *to an absolute minimum* - the number of keystrokes and clicks required for data entry.
+> To reduce - *to an absolute minimum* - the number of keystrokes and clicks required for data entry & navigation.
 
+#### What it looks like:
+
+![alt text](http://www.menuoptions.org/examples/images/overview2.jpg "menu, select lists and rocker control")
+| [Menu ( with dividers and filters )](http://www.menuoptions.org/examples/Dividers.html)       | [Select list ( multi-column with mouse over filters )](http://www.menuoptions.org/examples/ReloadMenuOptions.html) |  [Rocker control](http://www.menuoptions.org/examples/RockerControl.html)     |
+|:-------------    |--------------------------------------- |---    |
 #### Benefits
 
 
@@ -105,3 +110,4 @@ $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').seria
 This demo illustrates using the using multiple MenuOptions controls, including the rocker control 
 
 ![alt text](http://www.menuoptions.org/examples/images/MultiSelects.png "using multiple menuoptions on a page ")
+
