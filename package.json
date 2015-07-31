@@ -1,6 +1,6 @@
 {
     "name": "menuoptions",
-    "version":"1.7.0-16",
+    "version":"1.7.0-17",
     "title": "Menu Options",
     "description": "A jQuery widget designed to optimize data entry speed for both keyboard and mouse users. MenuOptions uses autocomplete and mouseover filtering to accomplish this. Menus can be created that follow URLs or execute javascript functions.",
     "keywords": [
@@ -29,6 +29,10 @@
     },
     "engines": {
             "node": ">=0.10.0"
+    },
+    "scripts" : 
+    {  
+        "test" : "make" 
     },
     "doc": "http://menuoptions.readthedocs.org/en/latest/",
     "examples": "http://www.menuoptions.org",
