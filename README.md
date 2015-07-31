@@ -1,7 +1,7 @@
 ## MenuOptions ##
 ### MenuOptions was created for one reason.
 
-> To reduce - *to an absolute minimum* - the number of keystrokes and clicks required for data entry & navigation.
+> To reduce - *to an absolute minimum* - the # of keystrokes and clicks required for data entry & navigation.
 
 #### What it looks like:
 
