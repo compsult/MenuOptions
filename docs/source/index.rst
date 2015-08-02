@@ -6,47 +6,57 @@
 Welcome to MenuOptions
 =====================================================
 
-MenuOptions is a jQuery widget designed to optimize the speed of data entry
-for both mouse and keyboard users.
-It has:
+MenuOptions was created for one reason:
+---------------------------------------
 
-- a select control that enables 1 click data entry
+To reduce - `to an absolute minimum` - the # of keystrokes and clicks required for data entry & navigation.
 
-- intelligent autocomplete that automatically removes invalid characters and 
+What it looks like:
+-------------------
+.. image:: _static/overview2.jpg
+   :alt: What it looks like
+   :target: http://www.menuoptions.org
+
+Benefits:
+
+- 1 click data entry
+
+- it uses intelligent autocomplete (characters not in any select list item 
+  are automatically removed, saving keystrokes)
   can utilize multicolumn select lists.
 
-- like the select element, MenuOptions uses visible labels and hidden values
+- mouseover filtering lets user reduce choices by moving their mouse over a filter element
 
-- menus built from JSON that follow URLs or execute javascript functions and allow dividers
+- mulitcolumn display of choices, allowing more data to be presented at one time
 
-- mouseover filtering that allows users to see a subset of choices just by 
-  passing the mouse over a filter.
-
-- a clear button that wipes the current value and opens the select list
-  (most useful in FireFox).
-
-- the ability to be dynamically reloaded with new values (without destroying & recreating).
-
-- an onSelect option that returns the selected value and it's hidden value
-
-- has a rocker control for binary choices (yes/no, true/false, etc)
+- has a rocker control, convenient for binary choices (true/false, yes/no, etc)
 
 - uses scrolling to accomodate large lists
 
-- uses color highlighting to show autocomplete matches 
+Other benefits:
 
-- is flexible, configurable and stays in the viewport
+- uses color highlighting to show autocomplete matches
 
-- been tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0
+- it can utilize data from a variety of JSON types (array, array of arrays, 
+  single object, array of objects)
+
+- the value associated with with the label string is saved in the input element 
+  automatically (in the menu_opt_key - no need to manually update a hidden field)
+
+- since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
+
+- tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0
 
 - has a suite of 17 automated tests
+
 
 Prerequisites:
 --------------
 
 - jQuery version >=1.9
 - jQuery ui version >= 1.10
-- download `MenuOptions <https://github.com/compsult/MenuOptions>`_
+- download `MenuOptions from git <https://github.com/compsult/MenuOptions>`_
+- download `MenuOptions from npm <https://www.npmjs.com/package/menuoptions>`_
 
 See the live examples
 ---------------------

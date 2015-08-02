@@ -5,7 +5,8 @@ FAQ
 Why do we need another input widget?
 ------------------------------------
 MenuOptions was created for one reason.
-    To reduce - `to an absolute minimum` - the number of keystrokes and clicks required for data entry.
+    To reduce - `to an absolute minimum` - the # of keystrokes and clicks 
+    required for data entry as well as navigation.
 
 
 It enables:
@@ -92,21 +93,20 @@ When I hit enter in a MenuOptions select, it does not submit the form
 ---------------------------------------------------------------------
 That's correct. MenuOptions uses the Enter key to select the first dropdown 
 element. If you want to submit the form when a user presses Enter, you
-can do so in the onSelect option,  which returns the MenuOptions instance and 
-the newVal and type (EnterKey|Click).
+can do so in the onSelect option,  which returns the MenuOptions instance,
+newVal, newCode and type (EnterKey|Click|RockerClick).
 
 For more detals on onSelect `see the docs <SelectParams.html#onselect>`_
 
 .. code-block:: javascript
 
     $('input#selecttest').menuoptions({ 
-        "Data": [ "January","February","March","April","May", "June","July",
-                  "August","September","October","November","December" ],
+        "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                  8:"August",9:"September",10:"October",11:"November",12:"December" },
         "onSelect": function(mo, data) { 
             if ( data.type == "EnterKey" ) {
                 $("form#tst").submit();
             }
-            console.log(mo, data.newVal, data.type ); 
         }, 
         "Sort": [] // don't sort
     });  
@@ -115,7 +115,7 @@ This code is in `quick start select demo <http://www.menuoptions.org/examples/Qu
 
 How can I create a vertical scroll bar for large lists?
 -------------------------------------------------------
-Below is an example. Whenever you speicfy a Height that is less than
+Below is an example. Whenever you specify a Height that is less than
 the height of the select list dropdown, a vertical scroll bar will be created.
 
 .. code-block:: javascript
@@ -124,7 +124,7 @@ the height of the select list dropdown, a vertical scroll bar will be created.
         "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                   8:"August",9:"September",10:"October",11:"November",12:"December" },
         "onSelect": function(mo, data) { 
-             console.log(mo, data.newVal, data.type );  
+            console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
         "InitialValue": { 'val': 'December'},
         "Height": 200,
