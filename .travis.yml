@@ -10,7 +10,7 @@ before_install:
 sudo: required
 
 install:
-  - pip install selenium
+  - pip install selenium sauceclient
 
 addons:
   sauce_connect: true
