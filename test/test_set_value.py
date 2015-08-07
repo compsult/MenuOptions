@@ -35,4 +35,4 @@ class test_set_vals(SeleniumUtils, SetupByLocation):
 
     def tearDown(self):
         super(test_set_vals,self).tearDown()
-        self.browser.quit()
+        self.driver.quit()
