@@ -56,6 +56,7 @@ te.examplelist = function ( ) {
                 {  'Menu reference'  :'http://menuoptions.readthedocs.org/en/latest/MenuParams.html' },
                 {  'Select list  reference'  :'http://menuoptions.readthedocs.org/en/latest/SelectParams.html' },
                 {  'Re-serialize reference'  :'http://menuoptions.readthedocs.org/en/latest/Serialize.html' },
+                {  'User methods': 'http://menuoptions.readthedocs.org/en/latest/UserMethods.html' },
                 {  'I want to use scrolling': 'http://menuoptions.readthedocs.org/en/latest/FAQ.html/#how-can-i-create-a-vertical-scroll-bar-for-large-lists' },
                 {  'FAQ': 'http://menuoptions.readthedocs.org/en/latest/FAQ.html' } ];
 

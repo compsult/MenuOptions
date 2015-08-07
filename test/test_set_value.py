@@ -2,20 +2,23 @@
 
 import time, re, sys
 from selenium import webdriver
-from SeleniumUtils import MO_Test_Utils
+from SeleniumUtils import SeleniumUtils, SetupByLocation
 
 
-class test_set_vals(MO_Test_Utils):
+class test_set_vals(SeleniumUtils, SetupByLocation):
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        super(test_set_vals,self).setUp()
         self.browser.implicitly_wait(30) # seconds
-        self.url='http://127.0.0.1/examples/MultiSelect.html'
+        self.url='http://'+self.IP+'/examples/MultiSelect.html'
 
     def test02_chk_inp(self):
+        """
+           ckeck that MenuOptions select list set_select_value works
+        """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
-        self.hover_over({ 'menu': '//*[@id="cfg"]/span'})
-        self.click_menu_item({ 'menu': '//span/following::table[@class="CrEaTeDtAbLeStYlE"]',
+        self.hover_over({ 'menu': 'cfg'})
+        self.click_menu_item({ 'menu': 'cfg',
                           'xpath': '//td[text()="Programatically set all values"]',
                           'sleep': 3 })
         self.check_content({ 'xpath': '//*[@id="pizzatype"]',
@@ -32,4 +35,5 @@ class test_set_vals(MO_Test_Utils):
                              'inputtext': 'Pick up'})
 
     def tearDown(self):
+        super(test_set_vals,self).tearDown()
         self.browser.quit()

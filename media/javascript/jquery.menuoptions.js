@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.0-18
+ * @version         Version 1.7.0-19
  *
  *
  ******************************************/
@@ -447,11 +447,12 @@ $.widget('mre.menuoptions', {
                 p = $.map(value, function (v, i) {
                     return i;
                 });
-                TDary.push('\t<td class=dflt menuopt_regex="' + value[p[0]] + '">'
+                TDary.push('\t<td class=dflt id=hdr_fltr' + p[0] + 
+                        ' menuopt_regex="' + value[p[0]] + '">'
                             + p[0] + '</td>\n');
             });
             /*jslint unparam: false*/
-            TDary.unshift('\t<td class=dflt>(all)</td>\n');
+            TDary.unshift('\t<td class=dflt id=hdr_fltrAll>(all)</td>\n');
         }
         return '\n<table id=HF_' + this._event_ns + ' class=HdrFilter>\n<tr>\n'
                 + TDary.join('') + '</tr>\n</table>\n';

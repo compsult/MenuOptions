@@ -8,7 +8,7 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
-   <script src="../media/javascript/jquery.menuoptions.js?v_1820"></script> 
+   <script src="../media/javascript/jquery.menuoptions.min.js?v_1820"></script> 
    <link rel="stylesheet" href="../media/style/menuoptions.css?v_1820">
    <!--  END_INCLUDES  -->
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
@@ -20,8 +20,8 @@
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
    /*--  START_JAVASCRIPT  --*/
-    var TstFunction = function() { alert ("I just ran a javscript function 1 "); };
-    var Menu_w_Imgs = [{"<img class='js_img' src='images/Transparent.gif' width='1' height='1'>javascript": function() { TstFunction('javascript'); }}, 
+    var TstFunction = function() { $('div#fake_alert').html("<p>I just ran javscript from menu with images</p>"); };
+    var Menu_w_Imgs = [{"<img class='js_img' src='images/Transparent.gif' width='1' height='1'>javascript": function() { TstFunction(); }}, 
                 {"<img class='goog_img' src='images/Transparent.gif' width='1' height='1'>Google": "http://www.google.com"}, 
                 {"<img class='yahoo_img' src='images/Transparent.gif' width='1' height='1'>Yahoo": "http://www.yahoo.com"},
                 {"<img class='cnn_img' src='images/Transparent.gif' width='1' height='1'>CNN": "http://www.cnn.com"} ];
@@ -32,7 +32,7 @@ $(document).ready(function() {
         "ColumnCount" : 1, 
         "ShowAt":"bottom"});  
 
-    var TestFunction = function() { alert ("I just ran a javscript function 2"); };
+    var TestFunction = function() { $('div#fake_alert').html("<p>I just ran javscript from plain menu</p>"); };
     var SimpleMenu = [{"javascript": function() { TestFunction(); }}, 
         {"Google": "http://www.google.com"}, 
         {"Yahoo": "http://www.yahoo.com"},
@@ -94,7 +94,7 @@ $(document).ready(function() {
          </tr>
 	 </table>
                 <!--  END_HTML  -->
-
+                <div id=fake_alert></div>
 
     <br /><br /><br /><br />
         <h1>Code</h1>
@@ -107,8 +107,8 @@ $(document).ready(function() {
     <div id="tabs-1">
         <pre><code class="javascript" style='text-align:left'>
             
-    var TstFunction = function() { alert ("I just ran a javscript function 1 "); };
-    var Menu_w_Imgs = [{"&lt;img class='js_img' src='images/Transparent.gif' width='1' height='1'&gt;javascript": function() { TstFunction('javascript'); }}, 
+    var TstFunction = function() { $('div#fake_alert').html("&lt;p&gt;I just ran a javscript function from menu  with images&lt;/p&gt;"); };
+    var Menu_w_Imgs = [{"&lt;img class='js_img' src='images/Transparent.gif' width='1' height='1'&gt;javascript": function() { TstFunction(); }}, 
                 {"&lt;img class='goog_img' src='images/Transparent.gif' width='1' height='1'&gt;Google": "http://www.google.com"}, 
                 {"&lt;img class='yahoo_img' src='images/Transparent.gif' width='1' height='1'&gt;Yahoo": "http://www.yahoo.com"},
                 {"&lt;img class='cnn_img' src='images/Transparent.gif' width='1' height='1'&gt;CNN": "http://www.cnn.com"} ];
@@ -119,7 +119,7 @@ $(document).ready(function() {
         "ColumnCount" : 1, 
         "ShowAt":"bottom"});  
 
-    var TestFunction = function() { alert ("I just ran a javscript function 2"); };
+    var TestFunction = function() { $('div#fake_alert').html("&lt;p&gt;I just ran javscript from plain menu&lt;/p&gt;"); };
     var SimpleMenu = [{"javascript": function() { TestFunction(); }}, 
         {"Google": "http://www.google.com"}, 
         {"Yahoo": "http://www.yahoo.com"},
@@ -182,7 +182,7 @@ $(document).ready(function() {
    &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
    &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
    &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
-   &lt;script src="../media/javascript/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt; 
+   &lt;script src="../media/javascript/jquery.menuoptions.min.js?v_1820"&gt;&lt;/script&gt; 
    &lt;link rel="stylesheet" href="../media/style/menuoptions.css?v_1820"&gt;
    
         </code></pre>
