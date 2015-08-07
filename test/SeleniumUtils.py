@@ -9,8 +9,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.alert import Alert
 
 
-USERNAME=os.getenv("SAUCE_USER")
-SECRET_KEY=os.getenv("SAUCE_SECRET_KEY")
+USERNAME=os.getenv("SAUCE_USERNAME")
+SECRET_KEY=os.getenv("SAUCE_ACCESS_KEY")
 LOCAL_IP="127.0.0.1"
 
 class SetupByLocation(object):
