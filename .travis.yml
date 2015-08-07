@@ -4,6 +4,7 @@ python:
 
 install:
   - pip install selenium
+  - pip install chromedriver
 
 addons:
   sauce_connect: true
