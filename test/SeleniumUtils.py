@@ -43,7 +43,7 @@ class SetupByLocation(object):
         TST_VERSION=os.getenv("TST_VERSION")
         TST_NAME=os.getenv("TST_NAME")
         TST_PLATFORM=os.getenv("TST_PLATFORM") # linux, windows, mac
-        print '\n'.join([USERNAME,SE_HUB])
+        print '\n'.join([str(USERNAME),str(SE_HUB)])
         sauce_url = ''.join(["http://", USERNAME,":",SECRET_KEY,"@",SE_HUB])
         desired_capabilities = {
             'platform': TST_PLATFORM,
