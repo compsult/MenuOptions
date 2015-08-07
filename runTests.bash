@@ -3,6 +3,7 @@
 function runTest {
     TS=`date +%T`
     echo runTest "$@" 
+	export SAUCE_URL='localhost:4445/wd/hub'
 	export TST_LOCATION=$1
 	export TST_BROWSER=$2
 	export TST_PLATFORM=$3
