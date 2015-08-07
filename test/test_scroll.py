@@ -1,9 +1,8 @@
 #!/usr/bin/python 
 
 import time, re, sys
-from selenium import webdriver
-from SeleniumUtils import SeleniumUtils, SetupByLocation
 from selenium.webdriver.common.keys import Keys
+from SeleniumUtils import SeleniumUtils, SetupByLocation
 
 
 class test_scrolling(SeleniumUtils, SetupByLocation):

@@ -1,7 +1,6 @@
 #!/usr/bin/python 
 
 import time, re, sys
-from selenium import webdriver
 from SeleniumUtils import SeleniumUtils, SetupByLocation
 
 

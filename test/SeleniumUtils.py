@@ -31,11 +31,11 @@ class SetupByLocation(object):
         if self.TST_BROWSER is not None:
             self.IP=LOCAL_IP
             if re.search(r'chrome', self.TST_BROWSER, re.I):
-                self.browser = webdriver.Chrome()
+                self.driver = webdriver.Chrome()
             elif re.search(r'firefox', self.TST_BROWSER, re.I):
-                self.browser = webdriver.Firefox()
+                self.driver = webdriver.Firefox()
             elif re.search(r'internet explorer', self.TST_BROWSER, re.I):
-                self.browser = webdriver.Ie()
+                self.driver = webdriver.Ie()
 
     def cfg_sauce (self):
         self.IP="localhost"
@@ -50,7 +50,7 @@ class SetupByLocation(object):
             #--- 'version': TST_VERSION ---#
             'name': TST_NAME,
         }
-        self.browser = webdriver.Remote(desired_capabilities=desired_capabilities,
+        self.driver = webdriver.Remote(desired_capabilities=desired_capabilities,
                             command_executor=sauce_url)
 
     def tearDown (self):
@@ -157,7 +157,6 @@ class SeleniumUtils(object):
             self.hover_over({ 'menu': params['fltr']})
         time.sleep(2)
         print "Clicking over = " + params['xpath']
-        print self.driver.find_element_by_xpath(params['xpath']).text
         self.driver.find_element_by_xpath(params['xpath']).click()
         time.sleep(2)
         self._check_js_result( params )
@@ -200,7 +199,7 @@ class SeleniumUtils(object):
 
     def std_hover_over (self, params ):
         elem =self.driver.find_element_by_id(params['menu'])
-        hover = ActionChains(self.browser).move_to_element(elem)
+        hover = ActionChains(self.driver).move_to_element(elem)
         hover.perform()
         if 'filt_rslts' in params and params['filt_rslts']:
             txt=self.driver.find_element_by_xpath(params['filt_rslts']).text
@@ -214,7 +213,7 @@ class SeleniumUtils(object):
                 " Actual = ",js_result_txt])
             assert params['expected'] == js_result_txt
         elif 'alert' in params and params['alert']:
-            alert_text = Alert(self.browser).text
+            alert_text = Alert(self.driver).text
             assert params['alerttext'] == alert_text
             print ' '.join(["Expected alert = ",params['alerttext'],\
                 " Actual = ",alert_text])

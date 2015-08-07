@@ -30,7 +30,7 @@ function runSauce {
     runTest sauce chrome Linux "Chrome on linux"
 }
 
-runSauce
-#--- runLocal ---#
+#--- runSauce ---#
+runLocal
 #--- runTest sauce chrome Linux "Chrome on linux" ---#
 #--- runTest sauce "internet explorer" "Windows 8.1" "IE test" "11.0" test/test_Menus.py:testMO.test07_google ---#

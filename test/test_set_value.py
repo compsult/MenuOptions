@@ -1,7 +1,6 @@
 #!/usr/bin/python 
 
 import time, re, sys
-from selenium import webdriver
 from SeleniumUtils import SeleniumUtils, SetupByLocation
 
 
@@ -9,7 +8,7 @@ class test_set_vals(SeleniumUtils, SetupByLocation):
 
     def setUp(self):
         super(test_set_vals,self).setUp()
-        self.browser.implicitly_wait(30) # seconds
+        self.driver.implicitly_wait(30) # seconds
         self.url='http://'+self.IP+'/examples/MultiSelect.html'
 
     def test02_chk_inp(self):

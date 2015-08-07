@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import time, re, sys
-from selenium import webdriver
 from SeleniumUtils import SeleniumUtils, SetupByLocation
 from selenium.webdriver.common.keys import Keys
 
