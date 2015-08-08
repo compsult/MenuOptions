@@ -43,11 +43,20 @@ class SetupByLocation(object):
         TST_VERSION=os.getenv("TST_VERSION")
         TST_NAME=os.getenv("TST_NAME")
         TST_PLATFORM=os.getenv("TST_PLATFORM") # linux, windows, mac
+        TST_BUILD=os.getenv("TST_BUILD") # build id
+        TST_VERSION=os.getenv("TST_VERSION,") or ""
+        TST_DEVICE=os.getenv("TST_DEVICE") or ""
+        TST_DEVICE_ORIENT=os.getenv("TST_DEVICE_ORIENT") or ""
         sauce_url = ''.join(["http://", USERNAME,":",SECRET_KEY,"@",SE_HUB])
         desired_capabilities = {
             'platform': TST_PLATFORM,
             'browserName': self.TST_BROWSER,
-            #--- 'version': TST_VERSION ---#
+            "public": "public",
+            "passed": "true",
+            "build": TST_BUILD,
+            'version': TST_VERSION,
+            'deviceName': TST_DEVICE,
+            'deviceOrientation': TST_DEVICE_ORIENT,
             'name': TST_NAME,
         }
         self.driver = webdriver.Remote(desired_capabilities=desired_capabilities,

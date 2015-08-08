@@ -9,7 +9,8 @@ function runTest {
 	export TST_PLATFORM=$3
 	export TST_NAME="${4}_${TS}"
     export TST_VERSION=$5
-	nosetests --stop -v $6
+    export TST_BUILD=`grep version package.json | perl -ane '{ s/,|:|"|version| //g; print $_; }'`
+	nosetests --stop -v 
     if [[ $? -ne 0 ]]; then
         echo "nosetest failed (runTest $@)"
         exit 1
@@ -31,7 +32,10 @@ function runSauce {
     runTest sauce chrome Linux "Chrome on linux"
 }
 
-runSauce
-#--- runLocal ---#
+if [ $# -eq 0 ]; then
+    runSauce
+else
+    runLocal
+fi
 #--- runTest sauce chrome Linux "Chrome on linux" ---#
 #--- runTest sauce "internet explorer" "Windows 8.1" "IE test" "11.0" test/test_Menus.py:testMO.test07_google ---#
