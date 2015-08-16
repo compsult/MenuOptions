@@ -27,9 +27,12 @@ te.examplelist = function ( ) {
             '<a class=underl_sm href='+te.root+'MultiSelect.html>Multiple select lists</a><br>'+
             '<a class=underl_sm href='+te.root+'ReloadMenuOptions.html>Dynamically reloading</a><br>'+
             '<p class=menu_left>Rocker Examples</p>'+
-            '<a class=underl_sm href='+te.root+'RockerControl.html>Rocker switch</a><br><br>'+
-             '<a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-0"></a><br>'+ 
-             '<a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a>'+ 
+            '<a class=underl_sm href='+te.root+'RockerControl.html>Rocker switch</a><br>'+
+            '<p class=menu_left>Download</p>'+
+            '<a class=underl_sm href="https://github.com/compsult/MenuOptions">github</a><br>'+
+            '<a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br><br>'+ 
+            '<a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-0"></a><br>'+ 
+            '<a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a>'+ 
             '</div>');
     var Menu_w_Dividers =[ {  'Menu examples'  :'divider' }, 
                 {  'Quick start menu'  : te.root+'QuickStartMenu.html'}, 

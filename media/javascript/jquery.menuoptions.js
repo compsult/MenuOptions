@@ -12,12 +12,13 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-1
+ * @version         Version 1.7.1-2
  *
  *
  ******************************************/
 /*global $, alert, window*/
 /*jslint nomen: true*/
+/* jshint -W097 */
 "use strict";
 $.widget('mre.menuoptions', {
     options: {
@@ -447,15 +448,15 @@ $.widget('mre.menuoptions', {
                 p = $.map(value, function (v, i) {
                     return i;
                 });
-                TDary.push('\t<td class=dflt id=hdr_fltr' + p[0] + 
-                        ' menuopt_regex="' + value[p[0]] + '">'
-                            + p[0] + '</td>\n');
+                TDary.push('\t<td class=dflt id=hdr_fltr' + p[0] +
+                        ' menuopt_regex="' + value[p[0]] + '">' + 
+                        p[0] + '</td>\n');
             });
             /*jslint unparam: false*/
             TDary.unshift('\t<td class=dflt id=hdr_fltrAll>(all)</td>\n');
         }
-        return '\n<table id=HF_' + this._event_ns + ' class=HdrFilter>\n<tr>\n'
-                + TDary.join('') + '</tr>\n</table>\n';
+        return '\n<table id=HF_' + this._event_ns + ' class=HdrFilter>\n<tr>\n' + 
+            TDary.join('') + '</tr>\n</table>\n';
     },
 
     _clear_filter: function () {
@@ -467,8 +468,8 @@ $.widget('mre.menuoptions', {
             Sel = {};
 
         // build selector : function() object for table.HdrFilter
-        ky = 'mouseenter span#SP_' + this.options._ID + ' table#HF_'
-            + this._event_ns + ' td.dflt';
+        ky = 'mouseenter span#SP_' + this.options._ID + ' table#HF_' + 
+            this._event_ns + ' td.dflt';
         Sel[ky] = '_run_header_filter';
         ky = 'click span#SP_' + this.options._ID + ' table#HF_' + this._event_ns + ' td.dflt';
         Sel[ky] = '_run_header_filter';
@@ -713,8 +714,8 @@ $.widget('mre.menuoptions', {
             $.each(v.split('='), function (k2, v2) {
                 if ($('input[name="' + v2 + '"]') &&
                         $('input[name="' + v2 + '"]').attr('menu_opt_key')) {
-                    new_get_str += v2 + '='
-                        + $('input[name="' + v2 + '"]').attr('menu_opt_key') + '&';
+                    new_get_str += v2 + '=' + 
+                        $('input[name="' + v2 + '"]').attr('menu_opt_key') + '&';
                 } else {
                     new_get_str += v2 + '=' + $('input[name="' + v2 + '"]').val() + '&';
                 }
@@ -758,8 +759,8 @@ $.widget('mre.menuoptions', {
                 // for menu's, a non clickable divider row (for categories, etc)
                 return '\t<td class=' + obj.ky + '>' + obj.val + '</td>\n';
             }
-            return '\t<td class=dflt menu_opt_key="' + obj.ky
-                            + '">' + obj.val + '</td>\n';
+            return '\t<td class=dflt menu_opt_key="' + obj.ky + 
+                '">' + obj.val + '</td>\n';
         });
     },
     _create_table : function (ary_of_objs) {
@@ -791,8 +792,8 @@ $.widget('mre.menuoptions', {
             buffer += '<tr>\n' + TDary.join('') + '</tr>\n';
             RowCnt += 1;
         }
-        buffer = '<table class=CrEaTeDtAbLeStYlE cellpadding=4px>\n'
-                + buffer + '</table>';
+        buffer = '<table class=CrEaTeDtAbLeStYlE cellpadding=4px>\n' + 
+            buffer + '</table>';
         if (this.options.Filters.length && $(this.element).val().length === 0) {
             buffer = this._createFilterHeader() + buffer;
         }
@@ -832,8 +833,8 @@ $.widget('mre.menuoptions', {
             if (value.hasOwnProperty(p[0])) {
                 ary_of_objs.push({ ky: p[0], val: value[p[0]] });
             } else {
-                alert("Data error: Key with no value error"
-                    + " in incoming Data parameter");
+                alert("Data error: Key with no value error" + 
+                        " in incoming Data parameter");
                 return false;
             }
         }
@@ -938,11 +939,11 @@ $.widget('mre.menuoptions', {
         // ( the top & bottom adjustments provide overlap between 
         // element & drop down||right )
         this.options._menu_box.top = this.cached['.dropdownspan'].position().top;
-        this.options._menu_box.bottom = this.options._menu_box.top
-            + this.cached['.dropdownspan'].height();
+        this.options._menu_box.bottom = this.options._menu_box.top + 
+            this.cached['.dropdownspan'].height();
         this.options._menu_box.left = this.cached['.dropdownspan'].position().left;
-        this.options._menu_box.right = this.options._menu_box.left
-            + this.cached['.dropdownspan'].width();
+        this.options._menu_box.right = this.options._menu_box.left + 
+            this.cached['.dropdownspan'].width();
     },
 
     _didMouseExitDropDown: function (e) {
@@ -1044,9 +1045,9 @@ $.widget('mre.menuoptions', {
     _use_scroller : function () {
         // is a scroll bar needed here? returns true or false
         var final_ht = parseInt($('span#SP_' + this.options._ID).css('height'), 10);
-        return (/Select/i.test(this.options.MenuOptionsType)
-            && /^\d+/.test(this.options.Height)
-            && parseInt(this.options.Height, 10) < final_ht);
+        return (/Select/i.test(this.options.MenuOptionsType) && 
+                /^\d+/.test(this.options.Height) && 
+                parseInt(this.options.Height, 10) < final_ht);
     },
 
     _get_n_set_width : function () {
