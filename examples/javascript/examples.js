@@ -12,6 +12,7 @@ te.examplelist = function ( ) {
            "<td><a class='underl examplemenu' href='/index.html#menuoptions_examples'>all examples</a></td>"+
             "<td><a class='underl docmenu' style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>documentation</a></td>"+
             "<td><a class='underl dwnldmenu' style='margin-left:20px;' href='https://www.npmjs.org/package/menuoptions'>download</a></td>"+
+            "<td><a class='underl chglog' style='margin-left:20px;' href='"+te.root+"ChangeLog.html'>change log</a></td>"+
         "</tr>"+
     "</table><br />");
     $('div#leftcolumn').prepend('<p class=menu_left>Menu Examples</p>'+
@@ -64,7 +65,8 @@ te.examplelist = function ( ) {
                 {  'Re-serialize reference'  :'http://menuoptions.readthedocs.org/en/latest/Serialize.html' },
                 {  'User methods': 'http://menuoptions.readthedocs.org/en/latest/UserMethods.html' },
                 {  'I want to use scrolling': 'http://menuoptions.readthedocs.org/en/latest/FAQ.html/#how-can-i-create-a-vertical-scroll-bar-for-large-lists' },
-                {  'FAQ': 'http://menuoptions.readthedocs.org/en/latest/FAQ.html' } ];
+                {  'FAQ': 'http://menuoptions.readthedocs.org/en/latest/FAQ.html' },
+                {  'change log': 'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html' } ];
 
 	  $('a.docmenu').menuoptions({ 
            'Data': Docs,

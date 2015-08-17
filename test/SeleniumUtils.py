@@ -74,6 +74,7 @@ class SeleniumUtils(object):
 
     def open_n_tst_title (self, params):
         self.driver.get(params['url'])
+        time.sleep(2)
         assert params['title'] in self.driver.title
 
     def is_element_present(self, params):
