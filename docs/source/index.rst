@@ -6,7 +6,7 @@
 Welcome to MenuOptions
 =====================================================
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-0
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-3
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -80,6 +80,7 @@ Contents:
    Dividers
    Filters
    FAQ
+   ChangeLog
 
    
 

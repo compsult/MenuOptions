@@ -4,16 +4,16 @@ import time, re, sys
 from SeleniumUtils import SeleniumUtils, SetupByLocation
 
 
-class test_set_vals(SeleniumUtils, SetupByLocation):
+class test_rocker(SeleniumUtils, SetupByLocation):
 
     def __init__(self):
-        super(test_set_vals,self).setUp()
+        super(test_rocker,self).setUp()
         self.driver.implicitly_wait(30) # seconds
         self.url='http://'+self.IP+'/examples/MultiSelect.html'
 
-    def test02_chk_inp(self):
+    def test02_rocker(self):
         """
-           ckeck that the MenuOptions rocker control works
+           ckeck that the MenuOptions rocker control works on MultiSelect screen
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.hover_over({ 'menu': 'cfg'})
@@ -41,6 +41,33 @@ class test_set_vals(SeleniumUtils, SetupByLocation):
                           'sleep': 1,
                           'expected': 'pizzatype=1&toppings=2&crust=3&cheese=3&cooked=2&delivery=2' })
 
+    def test03_rocker(self):
+        """
+           ckeck that the MenuOptions rocker control works on Rocker only screen
+        """
+        self.url='http://'+self.IP+'/examples/RockerControl.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
+        self.check_rocker({ 'click': True,
+                            'xpath': '//*[@id="RK_LT_menuoptions5"]',
+                            'xpath_txt': '//*[@id="RK_LT_menuoptions5"]/span',
+                            'classnm': 'ltdown' })
+        self.check_rocker({ 'click': True,
+                            'xpath': '//*[@id="RK_RT_menuoptions6"]',
+                            'xpath_txt': '//*[@id="RK_RT_menuoptions6"]/span',
+                            'classnm': 'rtdown' })
+        self.check_rocker({ 'click': True,
+                            'xpath': '//*[@id="RK_LT_menuoptions4"]',
+                            'xpath_txt': '//*[@id="RK_LT_menuoptions4"]/span',
+                            'classnm': 'ltdown' })
+        self.check_rocker({ 'click': True,
+                            'xpath': '//*[@id="RK_RT_menuoptions3"]',
+                            'xpath_txt': '//*[@id="RK_RT_menuoptions3"]/span',
+                            'classnm': 'rtdown' })
+        self.check_serialize({ 'xpath': '//*[@id="menutest"]',
+                          'js_result': 'fake_alert',
+                          'sleep': 1,
+                          'expected': 'TrueFalse=T&YesNo=N&MaleFemale=M&on_off=2' })
+
     def tearDown(self):
-        super(test_set_vals,self).tearDown()
+        super(test_rocker,self).tearDown()
         self.driver.quit()

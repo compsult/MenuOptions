@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-2
+ * @version         Version 1.7.1-3
  *
  *
  ******************************************/
@@ -36,7 +36,6 @@ $.widget('mre.menuoptions', {
         DisableHiLiting : false, // set to true to disable autocomplete highlighting
         ShowDownArrow : true, // set to false to hide down arrow on menus
         InitialValue : {}, // allows initial value ot be set
-        RockerControl : false, // for binary choices, allow use of rocker image control
         _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
         _vert_ofs : 0,
         _prev_event : '',
@@ -82,7 +81,7 @@ $.widget('mre.menuoptions', {
 
         this._set_options();
 
-        if (this.options.RockerControl === true) {
+        if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
             if (this._rocker_main({'val' : ''}) === false) {
                 return;
             }
@@ -117,7 +116,7 @@ $.widget('mre.menuoptions', {
         } else {
             val = new_rec_obj.val;
         }
-        if (this.options.RockerControl === true) {
+        if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
             this._change_rocker($(this.element).parent()
                     .find('span:contains(' + val + ')').parent());
         } else {
@@ -219,18 +218,12 @@ $.widget('mre.menuoptions', {
         $(this.element).val(''); // in case there was text there before refresh
         $.each(RefreshCfg, function (key) {
             if ($dd_span.options.hasOwnProperty(key)) {
-                if ($dd_span.options.RockerControl === true) {
-                    if (/RockerControl|Data/i.test(key)) {
-                        $dd_span._setOption(key, RefreshCfg[key]);
-                    }
-                } else {
-                    $dd_span._setOption(key, RefreshCfg[key]);
-                }
+                $dd_span._setOption(key, RefreshCfg[key]);
             }
         });
         this._set_options();
         this.orig_objs = this.ary_of_objs = this._build_array_of_objs();
-        if (this.options.RockerControl === true) {
+        if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
             this._rocker_main({ 'val' : orig_val });
         } else {
             if ($('div.rocker[id=RK_' + this._event_ns + ']').length) {

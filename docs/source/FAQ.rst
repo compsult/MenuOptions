@@ -1,6 +1,14 @@
 FAQ
 ===
 
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-3
+   :target: https://travis-ci.org/compsult/MenuOptions
+
+.. image:: https://saucelabs.com/buildstatus/compsult
+   :target: https://saucelabs.com/u/compsult
+
+.. image:: https://readthedocs.org/projects/menuoptions/badge/?version=latest
+   :target: http://menuoptions.readthedocs.org/en/latest/
 
 Why do we need another input widget?
 ------------------------------------
@@ -27,23 +35,6 @@ Other benefits:
 - the value associated with with the label string is saved in the input element automatically
   (in the menu_opt_key - no need to manually update a hidden field)
 - since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
-- tested on Win 8.1 IE10 and Safari 5.17, on Ubuntu Chrome 41.0.2272 and Firefox 37.0 
-- has a suite of 17 automated tests
-
-
-What browsers has it been tested on?
-------------------------------------
-
-on Win 8.1: 
-
-- IE10 /11
-- Safari 5.17
-
-on Ubuntu: 
-
-- Chrome 41.0.2272 
-- Firefox 37.0
-
 
 
 When I use jQuery.empty(), the widget does not get removed. How do I fix this?

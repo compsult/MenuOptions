@@ -138,6 +138,8 @@ class SeleniumUtils(object):
 
     def check_rocker (self, params ):
         elem=self.driver.find_element_by_xpath(params['xpath'])
+        if 'click' in params and params['click'] == True:
+            elem.click()
         classnm=elem.get_attribute('class')
         rkr_txt=self.driver.find_element_by_xpath(params['xpath_txt']).text
         print "Rocker elem = " + str(rkr_txt) + " classnm = " + classnm

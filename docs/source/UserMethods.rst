@@ -58,7 +58,7 @@ type and removing any previous Sort instructions
 
 .. code-block:: javascript
 
-        $('input#pizzatype').menuoptions('refreshData', {"RockerControl": true, "Sort": []});
+        $('input#pizzatype').menuoptions('refreshData', {"MenuOptionsType":"RockerControl", "Sort": []});
 
 This example shows resetting a select list's Data
 
