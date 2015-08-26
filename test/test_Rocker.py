@@ -13,7 +13,7 @@ class test_rocker(SeleniumUtils, SetupByLocation):
 
     def test02_rocker(self):
         """
-           ckeck that the MenuOptions rocker control works on MultiSelect screen
+           check that the MenuOptions rocker control works on MultiSelect screen
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.hover_over({ 'menu': 'cfg'})
@@ -43,7 +43,7 @@ class test_rocker(SeleniumUtils, SetupByLocation):
 
     def test03_rocker(self):
         """
-           ckeck that the MenuOptions rocker control works on Rocker only screen
+           check that the MenuOptions rocker control works on Rocker only screen
         """
         self.url='http://'+self.IP+'/examples/RockerControl.html'
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})

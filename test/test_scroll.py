@@ -14,7 +14,7 @@ class test_scrolling(SeleniumUtils, SetupByLocation):
 
     def test02_chk_inp(self):
         """
-           ckeck that MenuOptions select list scrolling works
+           check that MenuOptions select list scrolling works
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_clr({ 'xpath': '//*[@id="CB_menuoptions4"]',

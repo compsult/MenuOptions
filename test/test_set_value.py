@@ -11,9 +11,9 @@ class test_set_vals(SeleniumUtils, SetupByLocation):
         self.driver.implicitly_wait(30) # seconds
         self.url='http://'+self.IP+'/examples/MultiSelect.html'
 
-    def test02_chk_inp(self):
+    def test02_set_value(self):
         """
-           ckeck that MenuOptions select list set_select_value works
+           check that MenuOptions select list set_select_value works
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.hover_over({ 'menu': 'cfg'})
@@ -33,6 +33,24 @@ class test_set_vals(SeleniumUtils, SetupByLocation):
         self.check_content({ 'xpath': '//*[@id="delivery"]',
                              'inputtext': 'Pick up'})
 
+    def test03_add_menu_opt_key(self):
+        """
+           check that MenuOptions add_menu_opt_key works
+        """
+        self.url='http://'+self.IP+'/examples/QuickStartSelect.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
+        self.check_add_menu_opt_key({ 'xpath': '//*[@id="scrolltest"]',
+                                      'clr_xpath': '//*[@id="CB_menuoptions4"]',
+                                      'inp_text': 'May',
+                                      'exp_key': '5',
+                                      'id': 'scrolltest' })
+        self.check_add_menu_opt_key({ 'xpath': '//*[@id="selecttest"]',
+                                      'clr_xpath': '//*[@id="CB_menuoptions3"]',
+                                      'inp_text': 'November',
+                                      'exp_key': '11',
+                                      'id': 'selecttest' })
+
+    
     def tearDown(self):
         super(test_set_vals,self).tearDown()
         self.driver.quit()

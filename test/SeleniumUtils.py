@@ -154,6 +154,17 @@ class SeleniumUtils(object):
         time.sleep(sleeptime)
         self._check_js_result( params )
 
+    def check_add_menu_opt_key (self, params ):
+        self.driver.find_element_by_xpath(params['clr_xpath']).click()
+        elem=self.driver.find_element_by_xpath(params['xpath'])
+        elem.send_keys(params['inp_text'])
+        js_script = ''.join(["$('input#", params['id'],
+            "').menuoptions('add_menuoption_key');"])
+        self.driver.execute_script(js_script)
+        menu_opt_key = elem.get_attribute('menu_opt_key')
+        print ' '.join(['Expected attr:',params['exp_key'],'Actual:',menu_opt_key])
+        assert menu_opt_key == params['exp_key']
+
     def check_autocomplete (self, params ):
         elem=self.driver.find_element_by_xpath(params['xpath'])
         elem.send_keys(params['test_key'])

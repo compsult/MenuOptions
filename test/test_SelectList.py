@@ -13,7 +13,7 @@ class testSL(SeleniumUtils, SetupByLocation):
 
     def test02_chk_inp(self):
         """
-           ckeck that MenuOptions select list InitialValue works
+           check that MenuOptions select list InitialValue works
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_content({ 'xpath': '//*[@id="selecttest"]',
@@ -21,7 +21,7 @@ class testSL(SeleniumUtils, SetupByLocation):
 
     def test03_clr_n_autocomplete(self):
         """
-           ckeck that MenuOptions select list autocomplete works and
+           check that MenuOptions select list autocomplete works and
            that any character not in select list is deleted
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
@@ -36,7 +36,7 @@ class testSL(SeleniumUtils, SetupByLocation):
 
     def test04_select_w_imgs(self):
         """
-           ckeck that MenuOptions select list autocomplete works with images
+           check that MenuOptions select list autocomplete works with images
         """
         self.url='http://www.menuoptions.org/examples/SelectWithImages.html'
         self.open_n_tst_title({'url': self.url, 'title': 'Select'} )
