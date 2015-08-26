@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-5
+ * @version         Version 1.7.1-6
  *
  *
  ******************************************/
@@ -22,19 +22,33 @@
 "use strict";
 $.widget('mre.menuoptions', {
     options: {
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
         ClearBtn: true,   // if set, will clear the input field to it's left
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
         SelectOnly: false,  // if true, will not allow user to type input
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         Data: '',  // pass in your array, object or array of objects here
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#columncount
         ColumnCount: 1, // display data in this number of columns
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#usevalueforkey
         UseValueForKey: false, // if user wants value = text()
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#width
         Width: '', // let user specify the exact width they want
-        Height: '', // let user specify the exact width they want
+        //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#height
+        Height: '', // let user specify the exact height they want
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#showat
         ShowAt: 'bottom', // 'bottom' or 'right' are the options
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
         Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
+        //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#filters
         Filters: [], // header filters (pass mouse over them & they filter choices)
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
         MenuOptionsType: 'Select', //other option is Navigate (run JS,follow href)
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
         DisableHiLiting : false, // set to true to disable autocomplete highlighting
+        // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
         ShowDownArrow : true, // set to false to hide down arrow on menus
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
         InitialValue : {}, // allows initial value ot be set
         _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
         _vert_ofs : 0,
