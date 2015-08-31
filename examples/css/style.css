@@ -66,7 +66,7 @@ button#mini_cnr_x { line-height: 12px; width: 18px; font-size: 9pt;
                     font-weight: bold; font-family: tahoma; position:absolute; 
                     top:0; right:0; padding:0px; } 
 button:hover { cursor:pointer;} 
-button.a { background-image:url('../images/greenbutton.png') ; padding:2px; 
+button.a { background-image:url('../imgs/greenbutton.png') ; padding:2px; 
            border:2px outset beige;cursor:pointer; width:170px; height:30px; 
           -moz-border-radius: 9px; -webkit-border-radius: 9px; }
 /*----- error message formatting  --------------------- */
@@ -84,11 +84,11 @@ tr.tall { line-height: 40px; }
 #examples td, a.gr { color: green; text-decoration:none; }
 #examples tr:hover { cursor: pointer; font-weight:bold;}
 li.left_img { 
-        background: url(http://www.menuoptions.org/examples/images/bullet_green_alt.png) left center no-repeat; 
+        background: url(http://www.menuoptions.org/examples/imgs/bullet_green_alt.png) left center no-repeat; 
         list-style: none;
         padding-left: 30px; }
 li.ctr { margin-left:300px; color: gray; font-size:16px; line-height:24px; 
-        background: url(http://www.menuoptions.org/examples/images/bullet_green_alt.png) left center no-repeat; 
+        background: url(http://www.menuoptions.org/examples/imgs/bullet_green_alt.png) left center no-repeat; 
         list-style: none;
         padding-left: 30px;
 }
@@ -96,56 +96,56 @@ li.ctr { margin-left:300px; color: gray; font-size:16px; line-height:24px;
 img.cnn_img {
 width:16px;
 height:16px;
-background:url(../images/menuicons.png);
+background:url(../imgs/menuicons.png);
 float:left;
 background-position: -20px 0px;
 }
 img.js_img {
 width:16px;
 height:16px;
-background:url(../images/menuicons.png);
+background:url(../imgs/menuicons.png);
 float:left;
 background-position: 62px 0px;
 }
 img.goog_img {
 width:16px;
 height:16px;
-background:url(../images/menuicons.png);
+background:url(../imgs/menuicons.png);
 float:left;
 background-position: 43px -1px;
 }
 img.yahoo_img {
 width:16px;
 height:16px;
-background:url(../images/menuicons.png);
+background:url(../imgs/menuicons.png);
 float:left;
 background-position: 0px 0px;
 }
 img.cash {
 width:30px;
 height:16px;
-background:url(../images/payment_types.png);
+background:url(../imgs/payment_types.png);
 float:left;
 background-position: 30px 0px;
 }
 img.check {
 width:37px;
 height:16px;
-background:url(../images/payment_types.png);
+background:url(../imgs/payment_types.png);
 float:left;
 background-position: 0px 0px;
 }
 img.charge {
 width:30px;
 height:16px;
-background:url(../images/payment_types.png);
+background:url(../imgs/payment_types.png);
 float:left;
 background-position: 86px 0px;
 }
 img.paypal {
 width:26px;
 height:16px;
-background:url(../images/payment_types.png);
+background:url(../imgs/payment_types.png);
 float:left;
 background-position: 56px 0px;
 }

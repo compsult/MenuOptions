@@ -21,7 +21,7 @@ Parameter list for menus
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     MenuOptionsType,string,'Select' or 'Navigate','Select',false
     ShowAt,string,'Bottom' or 'Right','Bottom',false
-    ShowDownArrow,boolean, "true or false",true,false 
+    ShowDownArrow,string, 'None or <color>','black',false 
     Sort,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
     Width,integer,positive integer,width of parent,false
 
@@ -80,11 +80,18 @@ ShowAt
 
 ShowDownArrow
 ^^^^^^^^^^^^^
-     options: **true or false**                                                  
+     options: **None or <color>**
 
-     ShowDownArrow defaults to true, meaning a down arrow will automatically 
-     be appended to the end of a menu drop down. Set ShowDownArrow to false
-     if you would rather not see this arrow.
+     ShowDownArrow defaults to "black:, meaning a down arrow will automatically 
+     be appended to the end of a menu drop down in the color black. 
+     Set ShowDownArrow to "None" if you would rather not see this arrow.
+     Set ShowDownArrow to "silver" if you would like the arrow color to be silver.
+
+
+.. code-block:: javascript
+
+    'ShowDownArrow': 'silver'
+
 
 Sort
 ^^^^

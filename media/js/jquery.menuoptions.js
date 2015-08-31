@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-6
+ * @version         Version 1.7.1-7
  *
  *
  ******************************************/
@@ -47,7 +47,7 @@ $.widget('mre.menuoptions', {
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
         DisableHiLiting : false, // set to true to disable autocomplete highlighting
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
-        ShowDownArrow : true, // set to false to hide down arrow on menus
+        ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
         InitialValue : {}, // allows initial value ot be set
         _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
@@ -814,15 +814,18 @@ $.widget('mre.menuoptions', {
             ClrBtn = '<div class=clear_btn id=CB_' + this.eventNamespace.replace(/^\./, '') + '></div>';
             $(this.element).after(ClrBtn);
         }
-        if (/Navigate/.test(this.options.MenuOptionsType) && this.options.ShowDownArrow) {
+        if (/Navigate/.test(this.options.MenuOptionsType) && ! /None/i.test(this.options.ShowDownArrow)) {
             if (/button|img|div/i.test(this.element.prop('tagName'))) {
                 if (/^right/i.test(this.options.ShowAt)) {
-                    this.element.html(this.element.html() + "&nbsp;&#x25B8;");
+                    this.element.html(this.element.html() + "&nbsp;<span class=right_arrow></span>");
+                    $('span.right_arrow').css('border-left', '4px solid ' + this.options.ShowDownArrow)
                 } else {
-                    this.element.html(this.element.html() + "&nbsp;&#x25BE;");
+                    this.element.html(this.element.html() + "&nbsp;<span class=down_arrow></span>");
+                    $('span.down_arrow').css('border-top', '4px solid ' + this.options.ShowDownArrow)
                 }
             } else {
-                $(this.element).after("&nbsp;&#x25BE;");
+                $(this.element).html(this.element.text() + "&nbsp;<span class=down_arrow></span>");
+                $('span.down_arrow').css('border-top', '4px solid ' + this.options.ShowDownArrow)
             }
         }
     },

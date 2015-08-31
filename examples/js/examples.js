@@ -2,6 +2,32 @@
 var te = te || {};
 $(document).ready(function () {
 /*-----------------------------------------------------------------------*/
+te.buildMenu = function ( ) {
+    var menu =  '<p class=menu_left>Menu Examples</p>'+
+        '<a class=underl_sm href='+te.root+'QuickStartMenu.html>Quick start menu</a><br>'+
+        '<a class=underl_sm href='+te.root+'MenusBottom.html>Drop down menus</a></br>'+
+        '<a class=underl_sm href='+te.root+'Dividers.html>Menu with dividers</a><br>'+
+        '<a class=underl_sm href='+te.root+'RightMenu.html>Right side menus</a><br>'+
+        '<a class=underl_sm href='+te.root+'bootstrap_ex.html>Bootstrap example</a>'+
+        '<p class=menu_left>Select Examples</p>'+
+        '<a class=underl_sm href='+te.root+'QuickStartSelect.html>Quick start select</a><br>'+
+        '<a class=underl_sm href='+te.root+'InlinEdit.html>Inline edit</a></br>'+
+        '<a class=underl_sm href='+te.root+'SelectWithImages.html>Select with images</a><br>'+
+        '<a class=underl_sm href='+te.root+'Serialize.html>Serialize (re_serialize)</a><br>'+
+        '<a class=underl_sm href='+te.root+'MultiSelect.html>Multiple select lists</a><br>'+
+        '<a class=underl_sm href='+te.root+'ReloadMenuOptions.html>Dynamically reloading</a><br>'+
+        '<p class=menu_left>Rocker Examples</p>'+
+        '<a class=underl_sm href='+te.root+'RockerControl.html>Rocker switch</a><br>'+
+        '<p class=menu_left>Download</p>'+
+        '<a class=underl_sm href="https://github.com/compsult/MenuOptions">github</a><br>'+
+        '<a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br><br>';
+    if ( /^MenuOptions$/.test($('body div#rightcolumn > h1').text()) ) { 
+         menu += '<a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-2"></a><br>';
+         menu += '<a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a><br>';
+         menu += '<a href="http://menuoptions.readthedocs.org/en/latest/"><img src="https://readthedocs.org/projects/menuoptions/badge/?version=latest" alt="ReadTheDocs Status"/></a>';
+    }
+    return menu;
+}
 te.examplelist = function ( ) {
     if ( te.scroll == true ) {
         $('body').css({ "background":"white", "margin": "0px auto", "height":"100%", "padding": "0px", "width": "1200px", "height":"1700px"}); 
@@ -9,38 +35,19 @@ te.examplelist = function ( ) {
     }
     $('h1:first').after("<table style='margin-left:auto;margin-right:auto;font-size:18px;margin-top:-10px;'>"+
         "<tr>"+
-           "<td><a class='underl examplemenu' href='/index.html#menuoptions_examples'>all examples</a></td>"+
+           "<td><a class='underl examplemenu' href='#'>all examples</a></td>"+
             "<td><a class='underl docmenu' style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>documentation</a></td>"+
             "<td><a class='underl dwnldmenu' style='margin-left:20px;' href='https://www.npmjs.org/package/menuoptions'>download</a></td>"+
-            "<td><a class='underl chglog' style='margin-left:20px;' href='"+te.root+"ChangeLog.html'>change log</a></td>"+
+            "<td><a class='underl chglog' style='margin-left:20px;' href='#'>Change log</a></td>"+
         "</tr>"+
     "</table><br />");
-    $('div#leftcolumn').prepend('<p class=menu_left>Menu Examples</p>'+
-            '<a class=underl_sm href='+te.root+'QuickStartMenu.html>Quick start menu</a><br>'+
-            '<a class=underl_sm href='+te.root+'MenusBottom.html>Drop down menus</a></br>'+
-            '<a class=underl_sm href='+te.root+'Dividers.html>Menu with dividers</a><br>'+
-            '<a class=underl_sm href='+te.root+'RightMenu.html>Right side menus</a>'+
-            '<p class=menu_left>Select Examples</p>'+
-            '<a class=underl_sm href='+te.root+'QuickStartSelect.html>Quick start select</a><br>'+
-            '<a class=underl_sm href='+te.root+'InlinEdit.html>Inline edit</a></br>'+
-            '<a class=underl_sm href='+te.root+'SelectWithImages.html>Select with images</a><br>'+
-            '<a class=underl_sm href='+te.root+'Serialize.html>Serialize (re_serialize)</a><br>'+
-            '<a class=underl_sm href='+te.root+'MultiSelect.html>Multiple select lists</a><br>'+
-            '<a class=underl_sm href='+te.root+'ReloadMenuOptions.html>Dynamically reloading</a><br>'+
-            '<p class=menu_left>Rocker Examples</p>'+
-            '<a class=underl_sm href='+te.root+'RockerControl.html>Rocker switch</a><br>'+
-            '<p class=menu_left>Download</p>'+
-            '<a class=underl_sm href="https://github.com/compsult/MenuOptions">github</a><br>'+
-            '<a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br><br>'+ 
-            '<a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-2"></a><br>'+ 
-            '<a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a><br>'+ 
-            '<a href="http://menuoptions.readthedocs.org/en/latest/"><img src="https://readthedocs.org/projects/menuoptions/badge/?version=latest" alt="ReadTheDocs Status"/></a>'+ 
-            '</div>');
+    $('div#leftcolumn').prepend( te.buildMenu() );
     var Menu_w_Dividers =[ {  'Menu examples'  :'divider' }, 
                 {  'Quick start menu'  : te.root+'QuickStartMenu.html'}, 
                 {  'Drop down menus'  : te.root+'MenusBottom.html' },
                 {  'Menu with dividers'  : te.root+'Dividers.html' }, 
                 {  'Right side menus'  : te.root+'RightMenu.html' }, 
+                {  'Bootstrap menu example' : te.root+'bootstrap_ex.html' },
                 {  'Select list examples'  : 'divider' }, 
                 {  'Quick Start select' : te.root+'QuickStartSelect.html'}, 
                 {  'Inline edit'  : te.root+'InlinEdit.html' }, 
@@ -83,6 +90,14 @@ te.examplelist = function ( ) {
            'MenuOptionsType': 'Navigate', 
            'Sort': []
       }); 
+    var ChangeLog =[ {  '1.7.3'  :'http://menuoptions.readthedocs.org/docs/build/html/ChangeLog.html#id1' },
+                     {  '1.7.7'  :'http://menuoptions.readthedocs.org/docs/build/html/ChangeLog.html#id2' } ];
+	  $('a.chglog').menuoptions({ 
+           'Data': ChangeLog,
+           'MenuOptionsType': 'Navigate', 
+           'Sort': []
+      }); 
+      $('body').append("<div id=page_loaded></div");
 }
 /*------------------------------------------------------------------------*/
   te.examplelist();

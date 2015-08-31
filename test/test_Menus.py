@@ -8,7 +8,6 @@ class testMO(SeleniumUtils, SetupByLocation):
 
     def setUp(self):
         super(testMO,self).setUp()
-        self.driver.implicitly_wait(30) # seconds
         self.url='http://'+self.IP+'/examples/MenusBottom.html'
 
     def test02_js(self):

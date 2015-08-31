@@ -37,6 +37,8 @@ if [ $# -eq 0 ]; then
     runSauce
 else
     runLocal
+    sleep 1
+    kill -TERM -$(pgrep -o runTests.bash)
 fi
 #--- runTest sauce chrome Linux "Chrome on linux" ---#
 #--- runTest sauce "internet explorer" "Windows 8.1" "IE test" "11.0" test/test_Menus.py:testMO.test07_google ---#

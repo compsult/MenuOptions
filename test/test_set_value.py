@@ -8,7 +8,6 @@ class test_set_vals(SeleniumUtils, SetupByLocation):
 
     def setUp(self):
         super(test_set_vals,self).setUp()
-        self.driver.implicitly_wait(30) # seconds
         self.url='http://'+self.IP+'/examples/MultiSelect.html'
 
     def test02_set_value(self):
@@ -40,12 +39,12 @@ class test_set_vals(SeleniumUtils, SetupByLocation):
         self.url='http://'+self.IP+'/examples/QuickStartSelect.html'
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_add_menu_opt_key({ 'xpath': '//*[@id="scrolltest"]',
-                                      'clr_xpath': '//*[@id="CB_menuoptions4"]',
+                                      'clr_xpath': '//*[@id="CB_menuoptions5"]',
                                       'inp_text': 'May',
                                       'exp_key': '5',
                                       'id': 'scrolltest' })
         self.check_add_menu_opt_key({ 'xpath': '//*[@id="selecttest"]',
-                                      'clr_xpath': '//*[@id="CB_menuoptions3"]',
+                                      'clr_xpath': '//*[@id="CB_menuoptions4"]',
                                       'inp_text': 'November',
                                       'exp_key': '11',
                                       'id': 'selecttest' })

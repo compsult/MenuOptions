@@ -74,7 +74,8 @@ class SeleniumUtils(object):
 
     def open_n_tst_title (self, params):
         self.driver.get(params['url'])
-        time.sleep(2)
+        WebDriverWait(self.driver, 30).until(
+              EC.presence_of_element_located((By.ID,'page_loaded')))
         assert params['title'] in self.driver.title
 
     def is_element_present(self, params):
@@ -91,8 +92,13 @@ class SeleniumUtils(object):
         else:
             found=re.sub(r'\s+', '', elem.get_attribute('innerHTML'))
         params['expected']=re.sub(r'\s+', '', params['expected'].decode('utf-8'))
-        print ' '.join(['Found:   ',found.encode('utf-8'),'\nExpected:',params['expected'].encode('utf-8')])
-        assert params['expected'] == found
+        if 'partial' in params and params['partial'] == True:
+            print ' '.join(['Partial check', 'Found:   ',found.encode('utf-8'),
+                '\nExpected:',params['expected'].encode('utf-8')])
+            assert re.search(params['expected'], found)
+        else:
+            print ' '.join(['Found:   ',found.encode('utf-8'),'\nExpected:',params['expected'].encode('utf-8')])
+            assert params['expected'] == found
 
     def check_invalid_key (self, params ):
         elem=self.driver.find_element_by_xpath(params['xpath'])
@@ -106,10 +112,10 @@ class SeleniumUtils(object):
         elem =self.driver.find_element_by_xpath(params['xpath'])
         elem.click()
         elem.send_keys(params['keypress']*params['repeat'])
-        elem=self.driver.find_element_by_xpath('//*[@id="SP_menuoptions4"]/table/tbody/tr['+str(params['repeat'])+']')
+        elem=self.driver.find_element_by_xpath('//*[@id="SP_menuoptions5"]/table/tbody/tr['+str(params['repeat'])+']')
         rowtop=elem.location['y']
         rowheight=elem.size['height']
-        elem=self.driver.find_element_by_xpath('//*[@id="SP_menuoptions4"]')
+        elem=self.driver.find_element_by_xpath('//*[@id="SP_menuoptions5"]')
         vistop=elem.location['y']
         visheight=elem.size['height']
         print ' '.join(['rowtop:',str(rowtop),'rowheight:',str(rowheight),
@@ -138,6 +144,7 @@ class SeleniumUtils(object):
         assert input_text == ''
 
     def check_rocker (self, params ):
+        self.driver.maximize_window();
         elem=self.driver.find_element_by_xpath(params['xpath'])
         if 'click' in params and params['click'] == True:
             elem.click()
@@ -147,11 +154,8 @@ class SeleniumUtils(object):
         assert params['classnm'] == classnm
 
     def check_serialize (self, params ):
-        self.driver.maximize_window();
-        sleeptime = params['sleep'] if 'sleep' in params else 0
-        time.sleep(sleeptime)
         self.driver.find_element_by_xpath(params['xpath']).click()
-        time.sleep(sleeptime)
+        time.sleep(2)
         self._check_js_result( params )
 
     def check_add_menu_opt_key (self, params ):
@@ -178,7 +182,8 @@ class SeleniumUtils(object):
         self.hover_over({ 'menu': params['menu']})
         if 'fltr' in params and params['fltr']:
             self.hover_over({ 'menu': params['fltr']})
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(
+              EC.presence_of_element_located((By.XPATH,params['xpath'])))
         print "Clicking over = " + params['xpath']
         self.driver.find_element_by_xpath(params['xpath']).click()
         time.sleep(2)

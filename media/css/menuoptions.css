@@ -1,16 +1,19 @@
 /*--  rocker css  --*/
 div.rocker { height:31px; width:168px;overflow: hidden; }
 div.ltup { float:left; text-align:center; font-size:14px;
-    background: url(../images/rocker_lt_up.png); width:84px; height:31px; }
+    background: url(../imgs/rocker_lt_up.png); width:84px; height:31px; }
 div.ltdown { float:left; text-align:center; font-size:14px;
-    background: url(../images/rocker_lt_down.png); width:84px; height:31px; }
+    background: url(../imgs/rocker_lt_down.png); width:84px; height:31px; }
 div.rtup { float:right; text-align:center; font-size:14px; 
-    background: url(../images/rocker_rt_up.png); width:84px; height:31px; }
+    background: url(../imgs/rocker_rt_up.png); width:84px; height:31px; }
 div.rtdown { float:right; text-align:center; font-size:14px;
-    background: url(../images/rocker_rt_down.png); width:84px; height:31px; }
+    background: url(../imgs/rocker_rt_down.png); width:84px; height:31px; }
 div.rocker span.innertext { line-height:31px; vertical-align: 50%; }
 div.rocker div.ltup:hover, div.rtup:hover { color: yellow; font-style:italic; }
 
+span table.CrEaTeDtAbLeStYlE { 
+   box-shadow: 2px 2px 2px #888888;
+}
 span table.HdrFilter, table.CrEaTeDtAbLeStYlE { 
     border-collapse:collapse; 
     font-size: 14px; 
@@ -37,16 +40,20 @@ span table.HdrFilter, table.CrEaTeDtAbLeStYlE td.dflt {
    padding: 4px; 
    min-width: 30px;
 } 
+span table.CrEaTeDtAbLeStYlE td { 
+    height: 22px;
+    color: black;
+}
 span table.CrEaTeDtAbLeStYlE td.mo { 
    background: #ECD872; 
    cursor: pointer; 
    border: 1px solid #999999 ;
-   background: #dadada url(../images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+   background: #dadada url(../imgs/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
    font-weight: normal;
    color: brown; 
 }
 div.clear_btn { 
-                 background-image:url('../images/clearRec.png') ; 
+                 background-image:url('../imgs/clearRec.png') ; 
                  border:2px outset lightgray;
                  cursor:pointer; 
                  height:18px; 
@@ -61,4 +68,24 @@ div.clear_btn.ClearButtonMO {
 
 span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr { 
     font-weight: bold;
+}
+.down_arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid silver;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+.right_arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-left: 4px solid silver;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
 }

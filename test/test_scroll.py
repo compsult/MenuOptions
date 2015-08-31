@@ -9,7 +9,6 @@ class test_scrolling(SeleniumUtils, SetupByLocation):
 
     def setUp(self):
         super(test_scrolling,self).setUp()
-        self.driver.implicitly_wait(30) # seconds
         self.url='http://'+self.IP+'/examples/QuickStartSelect.html'
 
     def test02_chk_inp(self):
@@ -17,7 +16,7 @@ class test_scrolling(SeleniumUtils, SetupByLocation):
            check that MenuOptions select list scrolling works
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
-        self.check_clr({ 'xpath': '//*[@id="CB_menuoptions4"]',
+        self.check_clr({ 'xpath': '//*[@id="CB_menuoptions5"]',
                          'input': '//*[@id="scrolltest"]' })
         self.check_scrolling({ 'xpath': '//*[@id="scrolltest"]',
                                'keypress': Keys.ARROW_DOWN,

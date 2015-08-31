@@ -27,3 +27,48 @@ The old format is demonstrated below ( will not work in versions > 1.7.1-2 ):
         "onSelect": function(mo, data) {  console.log(data); }
    }); 
 
+1.7.1-7
+^^^^^^^
+
+Path to static files has changed:
+---------------------------------
+
+.. csv-table:: Paramters for select list
+    :header: Old path, New path
+    :widths: 35,35
+
+    media/javascript, media/js
+    media/style, media/css
+    media/images, media/imgs
+        
+ShowDownArrow is no longer true or false
+----------------------------------------
+
+`ShowDownArrow` defaults to color black and allows that color to be
+overridden with any color you pass in.
+You can also pass in the "None" 
+keyword, indicating that no arrow will be added to the menu header element.
+
+The old format will now default to a black arrow being added to the menu header element.
+
+.. code-block:: javascript
+
+    $('button[id$="menutest"]').menuoptions({ 
+        "Data": [ {"javascript": function() { alert('Some javascript was run'); } },
+                  {"Google": "http://www.google.com"},
+                  {"Yahoo": "http://www.yahoo.com"}],
+        "MenuOptionsType": "Navigate", 
+        });  
+
+
+The new format (below), where arrow color is specified
+
+.. code-block:: javascript
+
+    $('button[id$="menutest"]').menuoptions({ 
+        "Data": [ {"javascript": function() { alert('Some javascript was run'); } },
+                  {"Google": "http://www.google.com"},
+                  {"Yahoo": "http://www.yahoo.com"}],
+        "MenuOptionsType": "Navigate", 
+        "ShowDownArrow": "silver" // color of arrow is now silver, not black
+        });  
