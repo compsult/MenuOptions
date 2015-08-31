@@ -35,9 +35,9 @@ te.examplelist = function ( ) {
     }
     $('h1:first').after("<table style='margin-left:auto;margin-right:auto;font-size:18px;margin-top:-10px;'>"+
         "<tr>"+
-           "<td><a class='underl examplemenu' href='#'>all examples</a></td>"+
-            "<td><a class='underl docmenu' style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>documentation</a></td>"+
-            "<td><a class='underl dwnldmenu' style='margin-left:20px;' href='https://www.npmjs.org/package/menuoptions'>download</a></td>"+
+           "<td><a class='underl examplemenu' href='#'>All examples</a></td>"+
+            "<td><a class='underl docmenu' style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>Documentation</a></td>"+
+            "<td><a class='underl dwnldmenu' style='margin-left:20px;' href='https://www.npmjs.org/package/menuoptions'>Download</a></td>"+
             "<td><a class='underl chglog' style='margin-left:20px;' href='#'>Change log</a></td>"+
         "</tr>"+
     "</table><br />");
@@ -90,8 +90,8 @@ te.examplelist = function ( ) {
            'MenuOptionsType': 'Navigate', 
            'Sort': []
       }); 
-    var ChangeLog =[ {  '1.7.3'  :'http://menuoptions.readthedocs.org/docs/build/html/ChangeLog.html#id1' },
-                     {  '1.7.7'  :'http://menuoptions.readthedocs.org/docs/build/html/ChangeLog.html#id2' } ];
+    var ChangeLog =[ {  '1.7.3'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id1' },
+                     {  '1.7.7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id2' } ];
 	  $('a.chglog').menuoptions({ 
            'Data': ChangeLog,
            'MenuOptionsType': 'Navigate', 

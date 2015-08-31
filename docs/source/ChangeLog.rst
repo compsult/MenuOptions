@@ -33,7 +33,7 @@ The old format is demonstrated below ( will not work in versions > 1.7.1-2 ):
 Path to static files has changed:
 ---------------------------------
 
-.. csv-table:: Paramters for select list
+.. csv-table:: New path for static files
     :header: Old path, New path
     :widths: 35,35
 

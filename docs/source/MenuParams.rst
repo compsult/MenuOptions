@@ -82,7 +82,7 @@ ShowDownArrow
 ^^^^^^^^^^^^^
      options: **None or <color>**
 
-     ShowDownArrow defaults to "black:, meaning a down arrow will automatically 
+     ShowDownArrow defaults to "black", meaning a down arrow will automatically 
      be appended to the end of a menu drop down in the color black. 
      Set ShowDownArrow to "None" if you would rather not see this arrow.
      Set ShowDownArrow to "silver" if you would like the arrow color to be silver.
