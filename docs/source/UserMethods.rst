@@ -53,12 +53,12 @@ Usage:
 
     $(<selector>).menuoptions('refreshData', { 'option': 'option value', ...});
 
-This example shows resetting a select list from input type to RockerControl 
+This example shows resetting a select list from input type to Rocker
 type and removing any previous Sort instructions
 
 .. code-block:: javascript
 
-        $('input#pizzatype').menuoptions('refreshData', {"MenuOptionsType":"RockerControl", "Sort": []});
+        $('input#pizzatype').menuoptions('refreshData', {"MenuOptionsType":"Rocker", "Sort": []});
 
 This example shows resetting a select list's Data
 

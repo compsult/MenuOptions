@@ -21,7 +21,7 @@ Parameter list for select list
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     Height,integer,positive integer, height of dropdown, false
     InitialValue,object,{'ky'|'val': <value>}, {}, false
-    MenuOptionsType,string,'Select' or 'Navigate' or 'RockerControl','Select',false
+    MenuOptionsType,string,'Select' or 'Navigate' or 'Rocker','Select',false
     onSelect, function,function(),none,false
     PlaceHolder,<deleted>,<as of v1.6.1>,--,--
     SelectOnly,boolean,"true or false",false,false
@@ -114,11 +114,11 @@ These examples show using both forms of `InitialValue`
 
 MenuOptionsType
 ^^^^^^^^^^^^^^^
-    options: **'Select' or 'Navigate' or 'RockerControl'**
+    options: **'Select' or 'Navigate' or 'Rocker'**
 
     MenuOptions defaults to "Select". To create a menu drop down, call 
     menuoptions with MenuOptionsType = "Navigate". To create a Rocker control,
-    call menuoptions with MenuOptionsType = "RockerControl"
+    call menuoptions with MenuOptionsType = "Rocker"
 
 
 .. code-block:: javascript

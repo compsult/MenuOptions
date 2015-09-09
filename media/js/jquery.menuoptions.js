@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-8
+ * @version         Version 1.7.1-9
  *
  *
  ******************************************/
@@ -43,7 +43,7 @@ $.widget('mre.menuoptions', {
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#filters
         Filters: [], // header filters (pass mouse over them & they filter choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
-        MenuOptionsType: 'Select', //other option is Navigate (run JS,follow href)
+        MenuOptionsType: 'Select', // or Navigate (run JS,follow href) or Rocker
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
         DisableHiLiting : false, // set to true to disable autocomplete highlighting
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 

@@ -8,7 +8,7 @@ te.buildMenu = function ( ) {
         '<a class=underl_sm href='+te.root+'MenusBottom.html>Drop down menus</a></br>'+
         '<a class=underl_sm href='+te.root+'Dividers.html>Menu with dividers</a><br>'+
         '<a class=underl_sm href='+te.root+'RightMenu.html>Right side menus</a><br>'+
-        '<a class=underl_sm href='+te.root+'bootstrap_ex.html>Bootstrap example</a>'+
+         '<a class=underl_sm href='+te.root+'bootstrap_ex.html>Bootstrap example</a>'+ 
         '<p class=menu_left>Select Examples</p>'+
         '<a class=underl_sm href='+te.root+'QuickStartSelect.html>Quick start select</a><br>'+
         '<a class=underl_sm href='+te.root+'InlinEdit.html>Inline edit</a></br>'+
@@ -47,7 +47,7 @@ te.examplelist = function ( ) {
                 {  'Drop down menus'  : te.root+'MenusBottom.html' },
                 {  'Menu with dividers'  : te.root+'Dividers.html' }, 
                 {  'Right side menus'  : te.root+'RightMenu.html' }, 
-                {  'Bootstrap menu example' : te.root+'bootstrap_ex.html' },
+                 {  'Bootstrap menu example' : te.root+'bootstrap_ex.html' }, 
                 {  'Select list examples'  : 'divider' }, 
                 {  'Quick Start select' : te.root+'QuickStartSelect.html'}, 
                 {  'Inline edit'  : te.root+'InlinEdit.html' }, 

@@ -1,4 +1,4 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-8)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-9)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 ### MenuOptions was created for one reason.
 
 > To reduce - *to an absolute minimum* - the # of keystrokes and clicks required for data entry & navigation.
@@ -7,7 +7,7 @@
 
 #### What it looks like:
 
-![alt text](http://www.menuoptions.org/examples/images/overview2.jpg "menu, select lists and rocker control")
+![alt text](http://www.menuoptions.org/examples/imgs/overview2.jpg "menu, select lists and rocker control")
 
 | [Menu ( with dividers and filters )](http://www.menuoptions.org/examples/Dividers.html)       | [Select list ( multi-column with mouse over filters )](http://www.menuoptions.org/examples/ReloadMenuOptions.html) |  [Rocker control](http://www.menuoptions.org/examples/RockerControl.html)     |
 
@@ -49,7 +49,7 @@ $('input#selecttest').menuoptions({
         "Sort": [] // don't sort                                                            
     });           
 ```
-![alt text](http://www.menuoptions.org/examples/images/SimpleSelect.jpg "select list image")
+![alt text](http://www.menuoptions.org/examples/imgs/SimpleSelect.jpg "select list image")
 
 ### Getting started with a simple menu
 
@@ -65,24 +65,24 @@ $('button[id$="menutest"]').menuoptions({
 "MenuOptionsType": "Navigate", // Navigate is for menus
 });
 ```
-![alt text](http://www.menuoptions.org/examples/images/SimpleMenu.jpg "simple menu image")
+![alt text](http://www.menuoptions.org/examples/imgs/SimpleMenu.jpg "simple menu image")
 
 ### Autocomplete with images
 [See the demo](http://www.menuoptions.org/examples/SelectWithImages.html)
 
-![alt text](http://www.menuoptions.org/examples/images/AutoCompWithImgs.jpg "autocomplete with images")
+![alt text](http://www.menuoptions.org/examples/imgs/AutoCompWithImgs.jpg "autocomplete with images")
 
 ### Using MenuOptions with in line editing of Table cells
 [See the demo](http://www.menuoptions.org/examples/InlinEdit.html)
 
 An example of using MenuOptions select lists as part of in line editing for a table
 
-![alt text](http://www.menuoptions.org/examples/images/InlineEditing.png "autocomplete with images")
+![alt text](http://www.menuoptions.org/examples/imgs/InlineEditing.png "autocomplete with images")
 
 ### Mouseover filtering with dividers
 [See the demo](http://www.menuoptions.org/examples/Dividers.html)
 
-![alt text](http://www.menuoptions.org/examples/images/MenuWithMOandDivs.jpg "mouseover filtering with dividers")
+![alt text](http://www.menuoptions.org/examples/imgs/MenuWithMOandDivs.jpg "mouseover filtering with dividers")
 
 
 ### Dynamic reloading of a MenuOptions select list
@@ -91,7 +91,7 @@ An example of using MenuOptions select lists as part of in line editing for a ta
 In this case, the user selects a start time and the end time will be modified to only display
 the start time plus 1 hour and 30 minutes later
 
-![alt text](http://www.menuoptions.org/examples/images/Reload.png "dynamic reload of MenuOptions select list")
+![alt text](http://www.menuoptions.org/examples/imgs/Reload.png "dynamic reload of MenuOptions select list")
 
 ### Using MenuOptions with jQuery's serialize
 [See the demo](http://www.menuoptions.org/examples/Serialize.html)
@@ -104,12 +104,12 @@ To account for this, wrap serialize() with re_serialize, like this:
 $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').serialize());
 ```
 
-![alt text](http://www.menuoptions.org/examples/images/re_serialize.png "using MenuOptions with serialize() ")
+![alt text](http://www.menuoptions.org/examples/imgs/re_serialize.png "using MenuOptions with serialize() ")
 ### Multiple select lists on a page demo
 
 [See the demo](http://www.menuoptions.org/examples/MultiSelect.html)
 
 This demo illustrates using the using multiple MenuOptions controls, including the rocker control 
 
-![alt text](http://www.menuoptions.org/examples/images/MultiSelects.png "using multiple menuoptions on a page ")
+![alt text](http://www.menuoptions.org/examples/imgs/MultiSelects.png "using multiple menuoptions on a page ")
 
