@@ -12,8 +12,41 @@ div.rocker span.innertext { line-height:31px; vertical-align: 50%; }
 div.rocker div.ltup:hover, div.rtup:hover { color: yellow; font-style:italic; }
 
 span table.CrEaTeDtAbLeStYlE { 
-   box-shadow: 2px 2px 2px #888888;
+   box-shadow: 1px 1px 1px #888888, 
+              -1px 1px 1px #888888, 
+               1px 1px 1px #888888;
 }
+/*--  arrow for right side menus  --*/
+span.Navigatert table.CrEaTeDtAbLeStYlE::after {
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent; 
+    border-left: 6px solid transparent; 
+    border-right: 6px solid #FFF; 
+    width: 0;
+    height: 0;
+
+    content: "";
+    display: block;
+    position: absolute;
+    right: 100%;
+    top: 1em;
+}
+
+/*--  arrow for bottom menus  --*/
+span.Navigatebot table.CrEaTeDtAbLeStYlE::after {
+  border-bottom: 6px solid #FFF;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  width: 0;
+  height: 0;
+
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  left: 2em;
+}
+
 span table.HdrFilter, table.CrEaTeDtAbLeStYlE { 
     border-collapse:collapse; 
     font-size: 14px; 
@@ -41,7 +74,7 @@ span table.HdrFilter, table.CrEaTeDtAbLeStYlE td.dflt {
    min-width: 30px;
 } 
 span table.CrEaTeDtAbLeStYlE td { 
-    height: 22px;
+    height: 20px;
     color: black;
 }
 span table.CrEaTeDtAbLeStYlE td.mo { 
@@ -67,8 +100,10 @@ div.clear_btn.ClearButtonMO {
 }
 
 span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr { 
+    height: 24px;
     font-weight: bold;
 }
+/*--  menu arrows  --*/
 .down_arrow {
     display: inline-block;
     width: 0;

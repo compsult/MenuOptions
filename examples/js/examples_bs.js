@@ -22,7 +22,7 @@ te.buildMenu = function ( ) {
            'Data': AllExamples,
            'Width':170,
            'MenuOptionsType': 'Navigate', 
-           "ShowDownArrow": "silver",
+           "ShowDownArrow": "orange",
            'Sort': []
       }); 
     var Docs =[ {  'Another input widget, really?'  :'http://menuoptions.readthedocs.org/en/latest/FAQ.html#why-do-we-need-another-input-widget' }, 
@@ -40,7 +40,7 @@ te.buildMenu = function ( ) {
            'Data': Docs,
            'Width':206,
            'MenuOptionsType': 'Navigate', 
-           "ShowDownArrow": "silver",
+           "ShowDownArrow": "blue",
            'Sort': []
       }); 
       
@@ -51,7 +51,15 @@ te.buildMenu = function ( ) {
            'Data': Downloads,
            'Width':100,
            'MenuOptionsType': 'Navigate', 
-           "ShowDownArrow": "silver",
+           "ShowDownArrow": "yellow",
+           'Sort': []
+      }); 
+    var ChangeLog =[ {  '1.7.3'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id1' },
+                     {  '1.7.7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id2' } ];
+	  $('a.changelog').menuoptions({ 
+           'Data': ChangeLog,
+           'MenuOptionsType': 'Navigate', 
+           "ShowDownArrow": "white",
            'Sort': []
       }); 
 }

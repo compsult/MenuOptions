@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-9
+ * @version         Version 1.7.1-10
  *
  *
  ******************************************/
@@ -43,7 +43,7 @@ $.widget('mre.menuoptions', {
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#filters
         Filters: [], // header filters (pass mouse over them & they filter choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
-        MenuOptionsType: 'Select', // or Navigate (run JS,follow href) or Rocker
+        MenuOptionsType: 'Select', //other option is Navigate (run JS,follow href)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
         DisableHiLiting : false, // set to true to disable autocomplete highlighting
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
@@ -693,7 +693,11 @@ $.widget('mre.menuoptions', {
 
     _set_options : function () {
         if (this.options.ShowAt.match(/^ *bottom *$/i)) {
-            this._setOption('ShowAt', 'left bottom-2');
+            if ( $('script[src*=bootstrap]').length > 0 ) {
+               this._setOption('ShowAt', 'left bottom' );
+            } else {
+               this._setOption('ShowAt', 'left bottom-2' );
+            }
         } else if (this.options.ShowAt.match(/^ *right *$/i)) {
             this._setOption('ShowAt', 'right-2 top');
         }
@@ -777,7 +781,8 @@ $.widget('mre.menuoptions', {
             RowCnt = 0,
             start_ofs = 0,
             html = '',
-            i = 0;
+            i = 0,
+            menu_pos = /bottom/.test($(this.options)[0].ShowAt) ? 'bot' : 'rt';
 
         // sort as per default or user specification
         this._runSort(ary_of_objs);
@@ -804,7 +809,8 @@ $.widget('mre.menuoptions', {
         if (this.options.Filters.length && $(this.element).val().length === 0) {
             buffer = this._createFilterHeader() + buffer;
         }
-        html = '<span id=SP_' + this.options._ID + '>' + buffer + '\n</span>';
+
+        html = '<span class=' + $(this.options)[0].MenuOptionsType + menu_pos + ' id=SP_' + this.options._ID + '>' + buffer + '\n</span>';
         return html;
     },
 
@@ -814,18 +820,22 @@ $.widget('mre.menuoptions', {
             ClrBtn = '<div class=clear_btn id=CB_' + this.eventNamespace.replace(/^\./, '') + '></div>';
             $(this.element).after(ClrBtn);
         }
+        this._show_menu_arrs();
+    },
+
+    _show_menu_arrs : function () {
         if (/Navigate/.test(this.options.MenuOptionsType) && ! /None/i.test(this.options.ShowDownArrow)) {
             if (/button|img|div/i.test(this.element.prop('tagName'))) {
                 if (/^right/i.test(this.options.ShowAt)) {
-                    this.element.html(this.element.html() + "&nbsp;<span class=right_arrow></span>");
-                    $('span.right_arrow').css('border-left', '4px solid ' + this.options.ShowDownArrow)
+                    this.element.html(this.element.html() + "&nbsp;<span id=arr_" + this.options._ID + " class=right_arrow></span>");
+                    $('#arr_' + this.options._ID + '.right_arrow').css('border-left', '4px solid ' + this.options.ShowDownArrow);
                 } else {
-                    this.element.html(this.element.html() + "&nbsp;<span class=down_arrow></span>");
-                    $('span.down_arrow').css('border-top', '4px solid ' + this.options.ShowDownArrow)
+                    this.element.html(this.element.html() + "&nbsp;<span id=arr_" + this.options._ID + " class=down_arrow></span>");
+                    $('#arr_' + this.options._ID + '.down_arrow').css('border-top', '4px solid ' + this.options.ShowDownArrow);
                 }
             } else {
-                $(this.element).html(this.element.text() + "&nbsp;<span class=down_arrow></span>");
-                $('span.down_arrow').css('border-top', '4px solid ' + this.options.ShowDownArrow)
+                $(this.element).html(this.element.text() + "&nbsp;<span id=arr_" + this.options._ID + " class=down_arrow></span>");
+                $('#arr_' + this.options._ID + '.down_arrow').css('border-top', '4px solid ' + this.options.ShowDownArrow);
             }
         }
     },
