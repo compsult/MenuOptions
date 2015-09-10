@@ -24,6 +24,7 @@ Parameter list for menus
     ShowDownArrow,string, 'None or <color>','black',false 
     Sort,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
     Width,integer,positive integer,width of parent,false
+    Window,string,"repl" or "new","repl",false
 
 Parameters explained for menus
 ------------------------------
@@ -108,4 +109,16 @@ Width
    MenuOptions will try to match the width of the parent element (it may be
    wider if the contents cannot fit). The Width parameter allows the user to 
    override the default width. 
+
+Window
+^^^^^^
+   options: **"repl" or "new"**
+
+   When a menu itme is clicked, you can opt to have a new browser window open by
+   using the "new" option. The default will be to replace the current URL with
+   the one that was just clicked.
+
+.. code-block:: javascript
+
+    'Window': 'new'
 

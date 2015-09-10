@@ -1,4 +1,4 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-10)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-11)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 ### MenuOptions was created for one reason.
 
 > To reduce - *to an absolute minimum* - the # of keystrokes and clicks required for data entry & navigation.
@@ -7,7 +7,7 @@
 
 #### What it looks like:
 
-![alt text](http://www.menuoptions.org/examples/imgs/overview2.jpg "menu, select lists and rocker control")
+![alt text](http://www.menuoptions.org/examples/imgs/overview2.gif "menu, select lists and rocker control")
 
 | [Menu ( with dividers and filters )](http://www.menuoptions.org/examples/Dividers.html)       | [Select list ( multi-column with mouse over filters )](http://www.menuoptions.org/examples/ReloadMenuOptions.html) |  [Rocker control](http://www.menuoptions.org/examples/RockerControl.html)     |
 
@@ -35,6 +35,16 @@
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 
 [(See live demos)](http://www.menuoptions.org)
+
+### Installation
+
+```bash
+npm install menuoptions
+   or
+git clone https://github.com/compsult/MenuOptions.git
+```
+
+[(more detailed install instructions)](http://menuoptions.readthedocs.org/en/latest/QuickStart.html)
 
 ### Getting started with a simple select list
 [See the demo](http://www.menuoptions.org/examples/QuickStartSelect.html).

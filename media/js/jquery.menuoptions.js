@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-10
+ * @version         Version 1.7.1-11
  *
  *
  ******************************************/
@@ -50,6 +50,8 @@ $.widget('mre.menuoptions', {
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
         InitialValue : {}, // allows initial value ot be set
+        // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#window
+        Window : "repl", // "repl" means replace current window, new mean open new browser window
         _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
         _vert_ofs : 0,
         _prev_event : '',
@@ -819,6 +821,9 @@ $.widget('mre.menuoptions', {
         if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType)) {
             ClrBtn = '<div class=clear_btn id=CB_' + this.eventNamespace.replace(/^\./, '') + '></div>';
             $(this.element).after(ClrBtn);
+            if ( $('script[src*=bootstrap]').length > 0 ) {
+                $('div.clear_btn').css({ 'width':'21px', 'height': '23px'});
+            }
         }
         this._show_menu_arrs();
     },
@@ -913,7 +918,11 @@ $.widget('mre.menuoptions', {
                 MatchedObjects[0].ky.call();
             } else {
                 if (!$(e.target).attr('class').match(/^ *divider *$/i)) {
-                    window.open(MatchedObjects[0].ky);
+                    if (/^new$/i.test(this.options.Window)) {
+                        window.open(MatchedObjects[0].ky);
+                    } else {
+                        window.open(MatchedObjects[0].ky, "_self");
+                    }
                 }
             }
         }

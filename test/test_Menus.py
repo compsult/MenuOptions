@@ -52,15 +52,6 @@ class testMO(SeleniumUtils, SetupByLocation):
                           'sleep': 1 })
         self.find_tab('Google')
 
-    def test06_js(self):
-        """
-           click javascript menu item and test if MO show javascript was run message
-        """
-        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
-        self.click_menu_item({ 'menu': 'menu_divs_filts',
-                          'xpath': '//td[text()="Search"]',
-                          'sleep': 1 })
-
     def test07_google(self):
         """
            click google menu (with dividers & filters) item and test if MO navigates there
@@ -112,6 +103,18 @@ class testMO(SeleniumUtils, SetupByLocation):
             'fltr' : 'hdr_fltrAll',
             'sleep': 3 })
         assert len(self.driver.window_handles) == 1
+
+    def test12_replace_window(self):
+        """
+           click menu item and make sure current window is replaced
+        """
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
+        self.click_menu_item({ 'menu': 'menu_divs_filts',
+                          'xpath': '//td[text()="Google"]',
+                          'fltr' : 'hdr_fltrAll',
+                          'sleep': 3 })
+        assert len(self.driver.window_handles) == 1
+
 
     def tearDown(self):
         super(testMO,self).tearDown()

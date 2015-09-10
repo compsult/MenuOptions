@@ -31,6 +31,7 @@ $(document).ready(function() {
         "Data": Menu_w_Imgs, 
         "MenuOptionsType": "Navigate", 
         "ColumnCount" : 1, 
+        "Window" : "new", 
         "ShowAt":"bottom"});  
 
     var TestFunction = function() { $('div#fake_alert').html("<p>I just ran javscript from plain menu</p>"); };
@@ -40,9 +41,10 @@ $(document).ready(function() {
         {"CNN": "http://www.cnn.com"} ];
 
     $('button[id$="menu_plain"]').menuoptions({ 
-        'Data': SimpleMenu, 
-        'MenuOptionsType': 'Navigate', 
-        'ColumnCount' : 1
+        "Data": SimpleMenu, 
+        "MenuOptionsType": "Navigate", 
+        "Window" : "new", 
+        "ColumnCount" : 1
     });  
 
     var Menu_w_Dividers =[ {  'Search'  :'divider' }, 
@@ -53,10 +55,10 @@ $(document).ready(function() {
                 {  'MarketWatch' :'http://www.MarketWatch.com' } ];
 
     $('button[id="menu_divs_filts"]').menuoptions({ 
-        'MenuOptionsType': 'Navigate', 
-        'Data': Menu_w_Dividers,
-        'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ], 
-        'Sort': [], 
+        "MenuOptionsType": "Navigate", 
+        "Data": Menu_w_Dividers,
+        "Filters": [{ "Biz" : "^(CNBC|MarketWatch)"}, {"Search" :"^(Google|Yahoo)"} ], 
+        "Sort": [], 
     }); 
 
     $("div#buttons").buttonset().css({"padding":"5px" });

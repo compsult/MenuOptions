@@ -60,6 +60,7 @@ te.buildMenu = function ( ) {
            'Data': ChangeLog,
            'MenuOptionsType': 'Navigate', 
            "ShowDownArrow": "white",
+           "Window":"new",
            'Sort': []
       }); 
 }

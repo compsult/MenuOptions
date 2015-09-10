@@ -1,7 +1,7 @@
 User methods
 ========================
 
-`(Cleick here to see demo that uses methods set_select_value & refreshData) <http://www.menuoptions.org/examples/SelectWithImages.html>`_
+`(Click here to see demo that uses methods set_select_value & refreshData) <http://menuoptions.org/examples/MultiSelect.html>`_
 
 add_menuoption_key
 ^^^^^^^^^^^^^^^^^^

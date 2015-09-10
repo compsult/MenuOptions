@@ -6,7 +6,7 @@
 Welcome to MenuOptions
 =====================================================
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-10
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-11
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -22,7 +22,7 @@ To reduce - `to an absolute minimum` - the # of keystrokes and clicks required f
 
 What it looks like:
 -------------------
-.. image:: _static/overview2.jpg
+.. image:: _static/overview2.gif
    :alt: What it looks like
    :target: http://www.menuoptions.org
 

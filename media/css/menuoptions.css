@@ -1,5 +1,5 @@
 /*--  rocker css  --*/
-div.rocker { height:31px; width:168px;overflow: hidden; }
+div.rocker { height:31px; width:168px;overflow: hidden; color: black;}
 div.ltup { float:left; text-align:center; font-size:14px;
     background: url(../imgs/rocker_lt_up.png); width:84px; height:31px; }
 div.ltdown { float:left; text-align:center; font-size:14px;
@@ -29,7 +29,7 @@ span.Navigatert table.CrEaTeDtAbLeStYlE::after {
     display: block;
     position: absolute;
     right: 100%;
-    top: 1em;
+    top: 1.5em;
 }
 
 /*--  arrow for bottom menus  --*/
