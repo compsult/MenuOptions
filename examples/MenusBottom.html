@@ -120,6 +120,7 @@ $(document).ready(function() {
         "Data": Menu_w_Imgs, 
         "MenuOptionsType": "Navigate", 
         "ColumnCount" : 1, 
+        "Window" : "new", 
         "ShowAt":"bottom"});  
 
     var TestFunction = function() { $('div#fake_alert').html("&lt;p&gt;I just ran javscript from plain menu&lt;/p&gt;"); };
@@ -131,6 +132,7 @@ $(document).ready(function() {
     $('button[id$="menu_plain"]').menuoptions({ 
         'Data': SimpleMenu, 
         'MenuOptionsType': 'Navigate', 
+        "Window" : "new", 
         'ColumnCount' : 1
     });  
 

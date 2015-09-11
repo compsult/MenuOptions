@@ -90,8 +90,8 @@ te.examplelist = function ( ) {
            'MenuOptionsType': 'Navigate', 
            'Sort': []
       }); 
-    var ChangeLog =[ {  '1.7.3'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id1' },
-                     {  '1.7.7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id2' } ];
+    var ChangeLog =[ {  '1.7.1-3'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id1' },
+                     {  '1.7.1-7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id2' } ];
 	  $('a.chglog').menuoptions({ 
            'Data': ChangeLog,
            'MenuOptionsType': 'Navigate', 
