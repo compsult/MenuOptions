@@ -3,6 +3,11 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    exec: {
+        html: {
+            command: 'cd docs; make clean; make html'
+        }
+    },
     uglify: {
       development: {
         options: {
@@ -22,9 +27,17 @@ module.exports = function(grunt) {
       jshint: {
         files: ['media/js/jquery.menuoptions.js'], // which files to watch
         tasks: [ 'jshint', 'uglify']
+      },
+      html: {
+        files: ['docs/source/*.rst'], // which files to watch
+        tasks: ['exec:html'],
+        options: {
+          nospawn: true
+        }
       }
     }
   });
+  grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');

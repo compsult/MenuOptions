@@ -19,8 +19,8 @@ span table.CrEaTeDtAbLeStYlE {
 /*--  arrow for right side menus  --*/
 span.Navigatert table.CrEaTeDtAbLeStYlE::after {
     border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent; 
-    border-left: 6px solid transparent; 
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid transparent;
     border-right: 6px solid #FFF; 
     width: 0;
     height: 0;

@@ -1,11 +1,6 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-12)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
-### MenuOptions was created for one reason.
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-13)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
-> To reduce - *to an absolute minimum* - the # of keystrokes and clicks required for data entry & navigation.
-
-#### [New: `see demo with MenuOptions in Bootstrap 3`](http://www.menuoptions.org/examples/bootstrap_ex.html)
-
-#### What it looks like:
+#### What it looks like (shown with Bootstrap 3):
 
 ![alt text](http://www.menuoptions.org/examples/imgs/overview2.gif "menu, select lists and rocker control")
 
