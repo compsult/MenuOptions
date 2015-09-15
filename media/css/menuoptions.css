@@ -19,8 +19,8 @@ span table.CrEaTeDtAbLeStYlE {
 /*--  arrow for right side menus  --*/
 span.Navigatert table.CrEaTeDtAbLeStYlE::after {
     border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent;
-    border-left: 6px solid transparent;
+    border-bottom: 6px solid transparent; 
+    border-left: 6px solid transparent; 
     border-right: 6px solid #FFF; 
     width: 0;
     height: 0;
@@ -73,7 +73,14 @@ span table.HdrFilter, table.CrEaTeDtAbLeStYlE td.dflt {
    padding: 4px; 
    min-width: 30px;
 } 
-span table.CrEaTeDtAbLeStYlE td { 
+table.CrEaTeDtAbLeStYlE td.divider {
+   line-height: 16px;
+   color: black;
+   background-color: #e7e7e7;
+}
+
+table.CrEaTeDtAbLeStYlE td.dflt {
+    line-height: 20px;
     height: 20px;
     color: black;
 }

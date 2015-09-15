@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-13
+ * @version         Version 1.7.1-14
  *
  *
  ******************************************/
@@ -770,7 +770,7 @@ $.widget('mre.menuoptions', {
             if (!$.isFunction(obj.ky) && obj.ky.match(/^ *divider *$/i) &&
                     dd_span.options.MenuOptionsType === 'Navigate') {
                 // for menu's, a non clickable divider row (for categories, etc)
-                return '\t<td class=' + obj.ky + '>' + obj.val + '</td>\n';
+                return '\t<td class="divider ' + obj.ky + '">' + obj.val + '</td>\n';
             }
             return '\t<td class=dflt menu_opt_key="' + obj.ky + 
                 '">' + obj.val + '</td>\n';

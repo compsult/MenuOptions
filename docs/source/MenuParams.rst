@@ -23,7 +23,7 @@ Parameter list for menus
     ShowDownArrow,string, 'None or <color>','black',false 
     Sort,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
     Width,integer,positive integer,width of parent,false
-    Window,string,"repl or new","repl",false
+    Window,string,'repl'or 'new',"repl",false
 
 Parameters explained for menus
 ------------------------------

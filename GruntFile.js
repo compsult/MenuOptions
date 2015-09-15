@@ -34,12 +34,23 @@ module.exports = function(grunt) {
         options: {
           nospawn: true
         }
-      }
+      },
+      cssmin: {
+          files: [ 'media/css/menuoptions.css' ],
+          tasks: ['cssmin'],
+      },
+    },
+    cssmin: {
+        minify: {
+            src: 'media/css/menuoptions.css',
+            dest: 'media/css/menuoptions.min.css'
+        }
     }
   });
   grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.registerTask('default', ['watch', 'jshint', 'uglify']); 
+  grunt.registerTask('default', ['watch', 'jshint', 'uglify', 'cssmin']); 
 };
