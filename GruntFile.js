@@ -7,6 +7,10 @@ module.exports = function(grunt) {
         html: {
             command: 'cd docs; make clean; make html'
         },
+        jscopy: {
+            command: 'cp media/js/jquery.menuoptions.js ~/Data/SoftwareDev/MenuOptions/dist/js; cp media/js/jquery.menuoptions.js ~/Data/SoftwareDev/TherapyAutomation/web/js; cp media/js/jquery.menuoptions.min.js ~/Data/SoftwareDev/TherapyAutomation/web/js; cp media/js/jquery.menuoptions.min.js ~/Data/SoftwareDev/MenuOptions/dist/js;'
+
+        }
     },
     uglify: {
       development: {
@@ -26,7 +30,7 @@ module.exports = function(grunt) {
     watch: {
       jshint: {
         files: ['media/js/jquery.menuoptions.js'], // which files to watch
-        tasks: [ 'jshint', 'uglify']
+        tasks: [ 'jshint', 'uglify', 'exec:jscopy']
       },
       html: {
         files: ['docs/source/*.rst'], // which files to watch
@@ -54,3 +58,4 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('default', ['watch', 'jshint', 'uglify', 'cssmin']); 
 };
+

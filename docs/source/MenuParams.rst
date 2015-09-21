@@ -15,6 +15,7 @@ Parameter list for menus
     :header: "Parameter","Type","Allowable Values","Default","Required"
     :widths: 22,22,35,35,25
 
+    BootMenuOfs,integer,positive integer,125,false
     ColumnCount,integer,positive integer,1,false
     Data,JSON object,"array, object or array of objects",none,true
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
@@ -27,6 +28,21 @@ Parameter list for menus
 
 Parameters explained for menus
 ------------------------------
+
+BootMenuOfs
+^^^^^^^^^^^
+
+   options: **positive integer**
+
+    BootMenuOfs is useful to control where the menu appears when
+    you have a 
+    `Bootstrap navbar menu <http://getbootstrap.com/components/#navbar>`_ 
+    that has been expanded from a collapsed state.
+    This allows control of how far left the menu will appear
+
+.. code-block:: javascript
+
+    'BootMenuOfs': 150,
 
 ColumnCount
 ^^^^^^^^^^^

@@ -61,6 +61,7 @@ te.buildMenu = function ( ) {
            'MenuOptionsType': 'Navigate', 
            "ShowDownArrow": "white",
            "Window":"new",
+           'Width':100,
            'Sort': []
       }); 
 }

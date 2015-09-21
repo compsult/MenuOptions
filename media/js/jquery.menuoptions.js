@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-16
+ * @version         Version 1.7.1-17
  *
  *
  ******************************************/
@@ -22,6 +22,8 @@
 "use strict";
 $.widget('mre.menuoptions', {
     options: {
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
+        BootMenuOfs: 125,   // how far to left of expanded menu should dropdown appear
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
         ClearBtn: true,   // if set, will clear the input field to it's left
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
@@ -1068,7 +1070,7 @@ $.widget('mre.menuoptions', {
         if ( $('button.navbar-toggle').length && 
              $('button.navbar-toggle').css('display') == "block" &&
              $(this.element).closest('ul.navbar-nav').length ) {
-             showAt = 'right-2 top';
+             showAt = 'left+' + this.options.BootMenuOfs + ' top';
         }
         // show the menu
         $dd_span.cached['.dropdownspan']
