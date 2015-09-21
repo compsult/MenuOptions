@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-15
+ * @version         Version 1.7.1-16
  *
  *
  ******************************************/
@@ -53,6 +53,7 @@ $.widget('mre.menuoptions', {
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#window
         Window : "repl", // "repl" means replace current window, new mean open new browser window
         _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
+        _bootstrap: false, // make changes if in bootstrap 3
         _vert_ofs : 0,
         _prev_event : '',
         _prev_target : '',
@@ -95,6 +96,8 @@ $.widget('mre.menuoptions', {
             return;
         }
 
+        this._check_for_bootstrap();
+
         this._set_options();
 
         if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
@@ -118,6 +121,12 @@ $.widget('mre.menuoptions', {
     _validation_fail : function (err_msg) {
         alert(err_msg);
         this._destroy();
+    },
+
+    _check_for_bootstrap : function (err_msg) {
+        if ( $('script[src*=bootstrap]').length > 0 ) {
+            this.options._bootstrap = true;
+        }
     },
 
     set_select_value : function (new_rec_obj) {
@@ -290,6 +299,7 @@ $.widget('mre.menuoptions', {
         if ($('table.CrEaTeDtAbLeStYlE').is(':visible') &&
                 this.cached['.mo_elem'].val().length === 0  &&
                 $(this.options)[0]._CurrentFilter.length === 0 &&
+                ! this.options._bootstrap &&
                 /Navigate/.test($(this.options)[0].MenuOptionsType)) {
             return;
         }
@@ -474,7 +484,7 @@ $.widget('mre.menuoptions', {
 
     _bind_events: function () {
         var ky = '',
-            Sel = {};
+             Sel = {}; 
 
         // build selector : function() object for table.HdrFilter
         ky = 'mouseenter span#SP_' + this.options._ID + ' table#HF_' + 
@@ -485,6 +495,11 @@ $.widget('mre.menuoptions', {
         ky = 'mouseleave  span#SP_' + this.options._ID + ' table#HF_' + this._event_ns + ' td.dflt';
         Sel[ky] = '_clear_filter';
         this._on($('body'), Sel);
+
+        Sel = {}; 
+        ky = 'click button.navbar-toggle'; 
+        Sel[ky] = '_removeDropDown';
+        this._on($('body'), Sel); 
 
         // highlight the clear button
         this._on(this.cached['.clearBtn'], {
@@ -498,6 +513,7 @@ $.widget('mre.menuoptions', {
         });
         // bind events to this.element
         this._on({
+            'touchend':  '_buildWholeDropDown',
             'mousedown':  '_buildWholeDropDown',
             'click':  '_buildWholeDropDown',
             'mouseenter':  '_buildWholeDropDown',
@@ -514,11 +530,13 @@ $.widget('mre.menuoptions', {
         });
 
         // when user chooses (clicks), insert text into input box
+        Sel = {};
         ky = 'mousedown span#SP_' + this.options._ID + ' table.CrEaTeDtAbLeStYlE td ';
         Sel[ky] = '_choice_selected';
         this._on($('body'), Sel);
 
         // when mouse leaves the container, remove it from DOM
+        Sel = {};
         ky = 'mouseleave span#SP_' + this.options._ID;
         Sel[ky] = '_removeDropDown';
         this._on($('body'), Sel);
@@ -680,22 +698,14 @@ $.widget('mre.menuoptions', {
 
     },
 
-    // _setOptions is called with a hash of all options that are changing
-    // always refresh when changing options
-    _setOptions: function () {
-        // _super and _superApply handle keeping the right this-context
-        this._superApply(arguments);
-        this._refresh();
-    },
-
     // _setOption is called for each individual option that is changing
     _setOption: function (key, value) {
         this._super(key, value);
     },
 
-    _set_options : function () {
+    _set_showat : function () {
         if (this.options.ShowAt.match(/^ *bottom *$/i)) {
-            if ( $('script[src*=bootstrap]').length > 0 ) {
+            if ( this.options._bootstrap ) { 
                this._setOption('ShowAt', 'left bottom' );
             } else {
                this._setOption('ShowAt', 'left bottom-2' );
@@ -703,6 +713,11 @@ $.widget('mre.menuoptions', {
         } else if (this.options.ShowAt.match(/^ *right *$/i)) {
             this._setOption('ShowAt', 'right-2 top');
         }
+    },
+
+    _set_options : function () {
+        this.options._orig_showat = this.options.ShowAt;
+        this._set_showat();
         if (this._initval_exists()) {
             this.set_select_value(this.options.InitialValue);
         }
@@ -811,7 +826,11 @@ $.widget('mre.menuoptions', {
         if (this.options.Filters.length && $(this.element).val().length === 0) {
             buffer = this._createFilterHeader() + buffer;
         }
-
+        if ( $('button.navbar-toggle').length && 
+             $('button.navbar-toggle').css('display') == "block" &&
+             $(this.element).closest('ul.navbar-nav').length ) {
+             menu_pos = "rt";
+        }
         html = '<span class=' + $(this.options)[0].MenuOptionsType + menu_pos + ' id=SP_' + this.options._ID + '>' + buffer + '\n</span>';
         return html;
     },
@@ -821,26 +840,30 @@ $.widget('mre.menuoptions', {
         if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType)) {
             ClrBtn = '<div class=clear_btn id=CB_' + this.eventNamespace.replace(/^\./, '') + '></div>';
             $(this.element).after(ClrBtn);
-            if ( $('script[src*=bootstrap]').length > 0 ) {
+            if ( this.options._bootstrap ) { 
                 $('div.clear_btn').css({ 'width':'21px', 'height': '23px'});
             }
         }
         this._show_menu_arrs();
     },
 
+    __set_arrow : function ( direction ) {
+        var arr_dir = /down/.test(direction) ? 'top' : 'left';
+        $('span[id="arr_' + this.options._ID + '"]').remove();
+        this.element.html(this.element.html() + "&nbsp;<span id=arr_" + this.options._ID + " class=" + direction + "_arrow></span>");
+        $('#arr_' + this.options._ID + '.' + direction + '_arrow').css('border-' + arr_dir, '4px solid ' + this.options.ShowDownArrow);
+    },
+
     _show_menu_arrs : function () {
         if (/Navigate/.test(this.options.MenuOptionsType) && ! /None/i.test(this.options.ShowDownArrow)) {
-            if (/button|img|div/i.test(this.element.prop('tagName'))) {
-                if (/^right/i.test(this.options.ShowAt)) {
-                    this.element.html(this.element.html() + "&nbsp;<span id=arr_" + this.options._ID + " class=right_arrow></span>");
-                    $('#arr_' + this.options._ID + '.right_arrow').css('border-left', '4px solid ' + this.options.ShowDownArrow);
-                } else {
-                    this.element.html(this.element.html() + "&nbsp;<span id=arr_" + this.options._ID + " class=down_arrow></span>");
-                    $('#arr_' + this.options._ID + '.down_arrow').css('border-top', '4px solid ' + this.options.ShowDownArrow);
-                }
+            if ( $('button.navbar-toggle').length && 
+                $('button.navbar-toggle').css('display') == "block" &&
+                $(this.element).closest('ul.navbar-nav').length ) {
+                this.__set_arrow( "right" );
+            } else if (/^right/i.test(this.options.ShowAt) ) {
+                this.__set_arrow( "right" );
             } else {
-                $(this.element).html(this.element.text() + "&nbsp;<span id=arr_" + this.options._ID + " class=down_arrow></span>");
-                $('#arr_' + this.options._ID + '.down_arrow').css('border-top', '4px solid ' + this.options.ShowDownArrow);
+                this.__set_arrow( "down" );
             }
         }
     },
@@ -931,6 +954,9 @@ $.widget('mre.menuoptions', {
     _choice_selected : function (e) {
         var $dd_span = this,
             newVal = '';
+        if (/^ *divider *$/i.test($(e.target).attr('class'))) {
+            return;
+        }
         this.cached['.dropdownspan'].remove();
         // dup click event sent (???), screen out 2nd
         if ($(e.currentTarget).text() === this._prev_target &&
@@ -1032,12 +1058,18 @@ $.widget('mre.menuoptions', {
                 .hide(1);
     },
 
-    _show_drop_down : function () {
+    _show_drop_down : function (e) {
         var $dd_span = this,
-            final_width = 0;
+            final_width = 0,
+            showAt = this.options.ShowAt;
 
         this._addDropDownToDOM();
         this._get_n_set_width();
+        if ( $('button.navbar-toggle').length && 
+             $('button.navbar-toggle').css('display') == "block" &&
+             $(this.element).closest('ul.navbar-nav').length ) {
+             showAt = 'right-2 top';
+        }
         // show the menu
         $dd_span.cached['.dropdownspan']
             .stop(true, false)
@@ -1045,7 +1077,7 @@ $.widget('mre.menuoptions', {
             .position({
                 of :  this.element,
                 my : 'left top',
-                at : $dd_span.options.ShowAt,
+                at : showAt,
                 collision : 'flipfit'
             });
         final_width = parseInt($('span#SP_' + this.options._ID).css('width'), 10);
@@ -1061,7 +1093,7 @@ $.widget('mre.menuoptions', {
                 .position({
                     of : this.element,
                     my : 'left top',
-                    at : $dd_span.options.ShowAt,
+                    at : showAt,
                     collision : 'flipfit'
                 });
         }

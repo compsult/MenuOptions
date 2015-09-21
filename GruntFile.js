@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     exec: {
         html: {
             command: 'cd docs; make clean; make html'
-        }
+        },
     },
     uglify: {
       development: {
