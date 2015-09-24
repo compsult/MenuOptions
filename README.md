@@ -1,8 +1,8 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-17)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-18)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
 #### What it looks like (shown with Bootstrap 3):
 
-![alt text](http://www.menuoptions.org/examples/imgs/overview2.gif "menu, select lists and rocker control")
+[![alt text](http://www.menuoptions.org/examples/imgs/overview2.gif "menu, select lists and rocker control")](http://menuoptions.org/examples/bootstrap_ex.html "Bootstrap example")
 
 | [Menu ( with dividers and filters )](http://www.menuoptions.org/examples/Dividers.html)       | [Select list ( multi-column with mouse over filters )](http://www.menuoptions.org/examples/ReloadMenuOptions.html) |  [Rocker control](http://www.menuoptions.org/examples/RockerControl.html)     |
 

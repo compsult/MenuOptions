@@ -74,6 +74,7 @@ class SeleniumUtils(object):
 
     def open_n_tst_title (self, params):
         self.driver.get(params['url'])
+        self.driver.maximize_window()
         WebDriverWait(self.driver, 30).until(
               EC.presence_of_element_located((By.ID,'page_loaded')))
         assert params['title'] in self.driver.title
@@ -84,8 +85,8 @@ class SeleniumUtils(object):
         assert True
 
     def check_html (self, params ):
-        elem=self.driver.find_element_by_xpath(params['xpath'])
-        elem.click()
+        #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
+        elem = self.click_item ( params )
         if 'cell' in params and params['cell']:
             elem2=self.driver.find_element_by_xpath(params['cell'])
             found=re.sub(r'\s+', '', elem2.get_attribute('innerHTML'))
@@ -109,8 +110,7 @@ class SeleniumUtils(object):
         assert orig_text == new_text
 
     def check_scrolling (self, params ):
-        elem =self.driver.find_element_by_xpath(params['xpath'])
-        elem.click()
+        elem = self.click_item ( params )
         elem.send_keys(params['keypress']*params['repeat'])
         elem=self.driver.find_element_by_xpath('//*[@id="SP_menuoptions5"]/table/tbody/tr['+str(params['repeat'])+']')
         rowtop=elem.location['y']
@@ -142,6 +142,10 @@ class SeleniumUtils(object):
         input_text=elem.get_attribute('value')
         print "Clicked clear, input value = " + input_text
         assert input_text == ''
+
+    def set_win_size (self, params ):
+        print ' '.join([ 'self.driver.set_window_size(',str(params['width']),',',str(params['height']) ])
+        self.driver.set_window_size(params['width'], params['height'])
 
     def check_rocker (self, params ):
         self.driver.maximize_window();
@@ -178,14 +182,19 @@ class SeleniumUtils(object):
             print ' '.join(['Found:',str_txt,'Expected:',params['expected']])
             assert str_txt == params['expected']
 
+    def click_item (self, params ):
+        print "Clicking over = " + params['xpath']
+        elem =  self.driver.find_element_by_xpath(params['xpath'])
+        elem.click()
+        return elem
+
     def click_menu_item (self, params ):
         self.hover_over({ 'menu': params['menu']})
         if 'fltr' in params and params['fltr']:
             self.hover_over({ 'menu': params['fltr']})
         WebDriverWait(self.driver, 10).until(
               EC.presence_of_element_located((By.XPATH,params['xpath'])))
-        print "Clicking over = " + params['xpath']
-        self.driver.find_element_by_xpath(params['xpath']).click()
+        self.click_item ( params )
         time.sleep(2)
         self._check_js_result( params )
 
@@ -211,6 +220,16 @@ class SeleniumUtils(object):
         else:
             print "Std Hovering over = " + params['menu']
             self.std_hover_over (params )
+
+    def check_bs_menu_offset (self, params ):
+        WebDriverWait(self.driver, 5).until(
+                EC.visibility_of_element_located((By.CSS_SELECTOR,'table.CrEaTeDtAbLeStYlE')))
+        print "Offset = " + str(params['menu_offset'])
+        main_ofs = self.driver.execute_script("return $('span[id^=\"SP_menuoptions\"]').offset()")
+        print "main offset = " + str(main_ofs['left'])
+        nav_ofs = self.driver.execute_script("return $('nav.navbar').offset()")
+        print "nav offset = " + str(nav_ofs['left'])
+        assert main_ofs['left'] - nav_ofs['left'] == int(params['menu_offset'])
 
     def js_hover_over (self, params ):
         js_script = ''.join(["var elem = document.getElementById('",

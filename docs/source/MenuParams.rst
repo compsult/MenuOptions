@@ -38,7 +38,7 @@ BootMenuOfs
     you have a 
     `Bootstrap navbar menu <http://getbootstrap.com/components/#navbar>`_ 
     that has been expanded from a collapsed state.
-    This allows control of how far left the menu will appear
+    This allows control of how far from the left that the menu will appear
 
 .. code-block:: javascript
 

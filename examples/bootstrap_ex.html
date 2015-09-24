@@ -8,7 +8,7 @@
     <meta name="author" content="Michael Etts">
     <link rel="icon" href="./imgs/favicon.ico">
 
-	<title>MenuOptions | jQuery ui widget for rapid data entry using autocomplete and mouseover filtering </title>
+	<title>MenuOptions | Testing with Bootstrap 3</title>
 
   <!--  START_INCLUDES  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -51,7 +51,6 @@ $(document).ready(function() {
             'MenuOptionsType': 'Navigate', 
             'Data': Menu_w_Dividers,
             'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ], 
-            'ShowAt': 'right',
             'ShowDownArrow': 'white',
             'Sort': [], 
         }); 
@@ -127,6 +126,11 @@ $(document).ready(function() {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
                 
 });
 </script>
@@ -145,14 +149,14 @@ $(document).ready(function() {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a href="#"><img style="display:block;" src="./imgs/menuoptions_inv.png"></a>
+              <a href="/"><img style="display:block;" src="./imgs/menuoptions_inv.png"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
               <ul class="nav navbar-nav">
-                <li><a class=examplemenu href="#">All examples</a></li>
-                <li><a class=docmenu href="#">Documentation</a></li>
-                <li><a class=dwnldmenu href="#">Download</a></li>
-                <li><a class=changelog href="#">Change log</a></li>
+                <li><a id=examplemenu class=examplemenu href="#">All examples</a></li>
+                <li><a id=docmenu class=docmenu href="#">Documentation</a></li>
+                <li><a id=dwnldmenu class=dwnldmenu href="#">Download</a></li>
+                <li><a id=changelog class=changelog href="#">Change log</a></li>
               </ul>
             </div>
           </div>
@@ -163,13 +167,13 @@ $(document).ready(function() {
 
       <div class="container" style='margin-top:40px;'>
       <div class="row">
-        <div class="col-xs-3">
+        <div class="col-md-3 col-xs-12" style="height:120px">
             <button type="button" id="menu_divs_filts" class="btn btn-primary">Menu with dividers & filters</button>
          </div>
-        <div class="col-xs-3">
+        <div class="col-md-3 col-xs-12" style="height:120px">
               <input type=search name=starttime id='starttime' placeholder='Start time' >
          </div>
-        <div class="col-xs-3">
+        <div class="col-md-3 col-xs-12" style="height:180px">
             <div style="height:50px;">
                 <input type=search name=YesNo id='YesNo'>
             </div>
@@ -184,12 +188,13 @@ $(document).ready(function() {
             </div>
          </div>
 	 </div>
-    </div><!-- /.container -->
     <!--  END_HTML  -->
 
             
 
- <div class="container" style='margin-top:40px;'>
+            
+
+    <br /><br /><br /><br />
         <h1>Code</h1>
         <div id="tabs">
     <ul>
@@ -214,7 +219,6 @@ $(document).ready(function() {
             'MenuOptionsType': 'Navigate', 
             'Data': Menu_w_Dividers,
             'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ], 
-            'ShowAt': 'right',
             'ShowDownArrow': 'white',
             'Sort': [], 
         }); 
@@ -298,14 +302,14 @@ $(document).ready(function() {
                 &lt;span class="icon-bar"&gt;&lt;/span&gt;
                 &lt;span class="icon-bar"&gt;&lt;/span&gt;
               &lt;/button&gt;
-              &lt;a href="#"&gt;&lt;img style="display:block;" src="./imgs/menuoptions_inv.png"&gt;&lt;/a&gt;
+              &lt;a href="/"&gt;&lt;img style="display:block;" src="./imgs/menuoptions_inv.png"&gt;&lt;/a&gt;
             &lt;/div&gt;
             &lt;div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;"&gt;
               &lt;ul class="nav navbar-nav"&gt;
                 &lt;li&gt;&lt;a class=examplemenu href="#"&gt;All examples&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a class=docmenu href="#"&gt;Documentation&lt;/a&gt;&lt;/li&gt;
                 &lt;li&gt;&lt;a class=dwnldmenu href="#"&gt;Download&lt;/a&gt;&lt;/li&gt;
-                &lt;li&gt;&lt;a class=changelog href="ChangeLog.html"&gt;Change log&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a class=changelog href="#"&gt;Change log&lt;/a&gt;&lt;/li&gt;
               &lt;/ul&gt;
             &lt;/div&gt;
           &lt;/div&gt;
@@ -316,13 +320,13 @@ $(document).ready(function() {
 
       &lt;div class="container" style='margin-top:40px;'&gt;
       &lt;div class="row"&gt;
-        &lt;div class="col-xs-3"&gt;
+        &lt;div class="col-lg-3 col-xs-12" style="height:120px"&gt;
             &lt;button type="button" id="menu_divs_filts" class="btn btn-primary"&gt;Menu with dividers & filters&lt;/button&gt;
          &lt;/div&gt;
-        &lt;div class="col-xs-3"&gt;
+        &lt;div class="col-lg-3 col-xs-12" style="height:120px"&gt;
               &lt;input type=search name=starttime id='starttime' placeholder='Start time' &gt;
          &lt;/div&gt;
-        &lt;div class="col-xs-3"&gt;
+        &lt;div class="col-lg-3 col-xs-12" style="height:180px"&gt;
             &lt;div style="height:50px;"&gt;
                 &lt;input type=search name=YesNo id='YesNo'&gt;
             &lt;/div&gt;
@@ -348,7 +352,7 @@ $(document).ready(function() {
     &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"&gt;&lt;/script&gt;
     &lt;link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"&gt;
     &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"&gt;&lt;/script&gt;
-    &lt;link rel="stylesheet" href="../media/css/menuoptions.css"&gt;
+     &lt;link rel="stylesheet" href="../media/css/menuoptions.css"&gt;
     &lt;script src="../media/js/jquery.menuoptions.js"&gt;&lt;/script&gt;
     &lt;script src="./js/bootstrap.min.js"&gt;&lt;/script&gt;
     &lt;!-- Just to make our placeholder images work. Don't actually copy the next line! --&gt;
@@ -356,7 +360,7 @@ $(document).ready(function() {
     &lt;script src="./js/ie10-viewport-bug-workaround.js"&gt;&lt;/script&gt;
     &lt;script&gt; var te = te || {}; te.root=""; te.scroll=false;&lt;/script&gt;
     &lt;!-- Bootstrap core CSS --&gt;
-    &lt;link href="./css/bootstrap.min.css" rel="stylesheet"&gt;
+     &lt;link href="./css/bootstrap.min.css" rel="stylesheet"&gt;
 
     &lt;!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --&gt;
     &lt;!--[if lt IE 9]&gt;
@@ -366,7 +370,7 @@ $(document).ready(function() {
    
         </code></pre>
     </div>
-  </div>
-</body>
-</html>
+    </div><!-- /.container -->
+    </body>
+    </html>
             

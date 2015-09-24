@@ -17,13 +17,11 @@ You will get a directory tree like this.
 .. code-block:: bash
 
     ├── css
-    │   └── menuoptions.css
+    │   ├── menuoptions.css
+    │   └── menuoptions.min.css
     ├── imgs
     │   ├── clearRec.png
-    │   ├── rocker_lt_down.png
-    │   ├── rocker_lt_up.png
-    │   ├── rocker_rt_down.png
-    │   ├── rocker_rt_up.png
+    │   ├── rocker.png
     │   └── ui-bg_glass_75_dadada_1x400.png
     └── js
         ├── jquery.menuoptions.js

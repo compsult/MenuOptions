@@ -64,6 +64,7 @@ te.buildMenu = function ( ) {
            'Width':100,
            'Sort': []
       }); 
+      $('body').append("<div id=page_loaded></div");
 }
 /*------------------------------------------------------------------------*/
   te.buildMenu();

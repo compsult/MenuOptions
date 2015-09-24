@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-17
+ * @version         Version 1.7.1-18
  *
  *
  ******************************************/
@@ -829,7 +829,7 @@ $.widget('mre.menuoptions', {
             buffer = this._createFilterHeader() + buffer;
         }
         if ( $('button.navbar-toggle').length && 
-             $('button.navbar-toggle').css('display') == "block" &&
+             /block/.test($('button.navbar-toggle').css('display')) && 
              $(this.element).closest('ul.navbar-nav').length ) {
              menu_pos = "rt";
         }
@@ -859,7 +859,7 @@ $.widget('mre.menuoptions', {
     _show_menu_arrs : function () {
         if (/Navigate/.test(this.options.MenuOptionsType) && ! /None/i.test(this.options.ShowDownArrow)) {
             if ( $('button.navbar-toggle').length && 
-                $('button.navbar-toggle').css('display') == "block" &&
+                 /block/.test($('button.navbar-toggle').css('display')) && 
                 $(this.element).closest('ul.navbar-nav').length ) {
                 this.__set_arrow( "right" );
             } else if (/^right/i.test(this.options.ShowAt) ) {
@@ -1068,7 +1068,7 @@ $.widget('mre.menuoptions', {
         this._addDropDownToDOM();
         this._get_n_set_width();
         if ( $('button.navbar-toggle').length && 
-             $('button.navbar-toggle').css('display') == "block" &&
+             /block/.test($('button.navbar-toggle').css('display')) && 
              $(this.element).closest('ul.navbar-nav').length ) {
              showAt = 'left+' + this.options.BootMenuOfs + ' top';
         }
