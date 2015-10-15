@@ -45,7 +45,8 @@ te.buildMenu = function ( ) {
       }); 
       
     var Downloads =[ {  'github'  :'https://github.com/compsult/MenuOptions' }, 
-                {  'npm'  :'https://www.npmjs.org/package/menuoptions' } ];
+                {  'npm'  :'https://www.npmjs.org/package/menuoptions' },
+                {  'atmosphere'  :'https://atmospherejs.com/compsult/menuoptions' } ];
 
 	  $('a.dwnldmenu').menuoptions({ 
            'Data': Downloads,

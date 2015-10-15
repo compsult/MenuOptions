@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-19
+ * @version         Version 1.7.1-20
  *
  *
  ******************************************/
@@ -248,7 +248,7 @@ $.widget('mre.menuoptions', {
         var $dd_span = this,
             orig_val = $(this.element).val();
         $(this.element).attr('menu_opt_key', '');
-        $(this.element).val(''); // in case there was text there before refresh
+        /*--  $(this.element).val('');  --*/
         $.each(RefreshCfg, function (key) {
             if ($dd_span.options.hasOwnProperty(key)) {
                 $dd_span._setOption(key, RefreshCfg[key]);

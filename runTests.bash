@@ -27,9 +27,11 @@ function runLocal {
 }
 
 function runSauce {
-    #--- runTest sauce safari "OS X 10.10" "Safari test"  ---#
-    #--- runTest sauce "internet explorer" "Windows 8" "IE test"  ---#
-    #--- runTest sauce firefox Linux "Firefox on linux" ---#
+    mv test/sauce_err_bootstrap.py test/test_bootstrap.py 
+    runTest sauce safari "OS X 10.10" "Safari test" 
+    runTest sauce "internet explorer" "Windows 8" "IE test" 
+    runTest sauce firefox Linux "Firefox on linux"
+    mv test/test_bootstrap.py test/sauce_err_bootstrap.py
     runTest sauce chrome Linux "Chrome on linux"
 }
 

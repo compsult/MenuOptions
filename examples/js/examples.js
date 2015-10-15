@@ -20,7 +20,8 @@ te.buildMenu = function ( ) {
         '<a class=underl_sm href='+te.root+'RockerControl.html>Rocker switch</a><br>'+
         '<p class=menu_left>Download</p>'+
         '<a class=underl_sm href="https://github.com/compsult/MenuOptions">github</a><br>'+
-        '<a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br><br>';
+        '<a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br>' +
+        '<a class=underl_sm href="https://atmospherejs.com/compsult/menuoptions">atmosphere</a><br><br>';
     if ( /^MenuOptions$/.test($('body div#rightcolumn > h1').text()) ) { 
          menu += '<a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-2"></a><br>';
          menu += '<a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a><br>';
@@ -83,7 +84,8 @@ te.examplelist = function ( ) {
       }); 
       
     var Downloads =[ {  'github'  :'https://github.com/compsult/MenuOptions' }, 
-                {  'npm'  :'https://www.npmjs.org/package/menuoptions' } ];
+                {  'npm'  :'https://www.npmjs.org/package/menuoptions' },
+                {  'atmosphere'  :'https://atmospherejs.com/compsult/menuoptions' } ];
 
 	  $('a.dwnldmenu').menuoptions({ 
            'Data': Downloads,
