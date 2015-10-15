@@ -27,9 +27,9 @@ function runLocal {
 }
 
 function runSauce {
-    runTest sauce safari "OS X 10.10" "Safari test" 
-    runTest sauce "internet explorer" "Windows 8" "IE test" 
-    runTest sauce firefox Linux "Firefox on linux"
+    #--- runTest sauce safari "OS X 10.10" "Safari test"  ---#
+    #--- runTest sauce "internet explorer" "Windows 8" "IE test"  ---#
+    #--- runTest sauce firefox Linux "Firefox on linux" ---#
     runTest sauce chrome Linux "Chrome on linux"
 }
 

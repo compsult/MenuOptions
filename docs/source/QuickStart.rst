@@ -1,8 +1,6 @@
 Quick start instructions
 ========================
 
-see `Quick start menu  demo <http://www.menuoptions.org/examples/QuickStartMenu.html>`_
-
 Installation
 ------------
 
@@ -12,7 +10,9 @@ Installation
             -- or --
     git clone https://github.com/compsult/MenuOptions.git
 
-You will get a directory tree like this. 
+The important part of the installation is under `media/`
+
+Note: this is a subset of the directory tree
 
 .. code-block:: bash
 
@@ -35,7 +35,7 @@ You can get around this restriction by editing menuoptions.css to use your direc
 Quick start to create menu
 --------------------------
 
-see `Quick start select demo <http://menuoptions.org/examples/QuickStartMenu.html>`_
+see `Quick start menu demo <http://menuoptions.org/examples/QuickStartMenu.html>`_
 
 Pass in a array of objects in the format:
 

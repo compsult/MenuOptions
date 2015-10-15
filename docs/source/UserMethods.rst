@@ -43,6 +43,13 @@ These examples show using both forms of `set_select_value`
     $('input#delivery').menuoptions('set_select_value', {'val': 'Delivered'});
     $('input#crust').menuoptions('set_select_value', {'ky': '3'}); // Thick
  
+`Note:` to clear out a Rocker control (reset), set the 'val' to '' (empty string).
+
+
+.. code-block:: javascript
+
+    $('input#delivery').menuoptions('set_select_value', {'val': ''});
+
 refreshData
 ^^^^^^^^^^^
 
