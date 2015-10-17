@@ -147,6 +147,10 @@ class SeleniumUtils(object):
         print ' '.join([ 'self.driver.set_window_size(',str(params['width']),',',str(params['height']) ])
         self.driver.set_window_size(params['width'], params['height'])
 
+    def reset_rocker (self, params):
+        js_script = "$('input#"+params['id']+"').menuoptions('set_select_value', { 'val': '' });"
+        self.driver.execute_script(js_script)
+
     def check_rocker (self, params ):
         self.driver.maximize_window();
         elem=self.driver.find_element_by_xpath(params['xpath'])

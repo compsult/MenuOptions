@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-20
+ * @version         Version 1.7.1-21
  *
  *
  ******************************************/
@@ -144,7 +144,7 @@ $.widget('mre.menuoptions', {
             val = new_rec_obj.val;
         }
         if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
-            if (val.length === 0) {
+            if (val !== null && val === '') {
                 $(this.element).attr('menu_opt_key', '');
                 $('div#RK_RT_' + this._event_ns).attr('class', 'rtup');
                 $('div#RK_LT_' + this._event_ns).attr('class', 'ltup');

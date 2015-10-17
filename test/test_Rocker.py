@@ -12,7 +12,7 @@ class test_rocker(SeleniumUtils, SetupByLocation):
 
     def test02_rocker(self):
         """
-           check that the MenuOptions rocker control works on MultiSelect screen
+           check that rocker control works on MultiSelect screen (added reset test 10/15)
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.click_menu_item({ 'menu': 'cfg',
@@ -37,6 +37,13 @@ class test_rocker(SeleniumUtils, SetupByLocation):
                           'js_result': 'fake_alert',
                           'sleep': 2,
                           'expected': 'pizzatype=1&toppings=2&crust=3&cheese=3&cooked=2&delivery=2' })
+        self.reset_rocker({ 'id':'pizzatype' })
+        self.check_rocker({ 'xpath': '//*[@id="RK_LT_menuoptions5"]',
+                            'xpath_txt': '//*[@id="RK_LT_menuoptions5"]/span',
+                            'classnm': 'ltup' })
+        self.check_rocker({ 'xpath': '//*[@id="RK_RT_menuoptions5"]',
+                            'xpath_txt': '//*[@id="RK_RT_menuoptions5"]/span',
+                            'classnm': 'rtup' })
 
     def test03_rocker(self):
         """
@@ -64,6 +71,7 @@ class test_rocker(SeleniumUtils, SetupByLocation):
                           'js_result': 'fake_alert',
                           'sleep': 1,
                           'expected': 'TrueFalse=T&YesNo=N&MaleFemale=M&on_off=2' })
+
 
     def tearDown(self):
         super(test_rocker,self).tearDown()
