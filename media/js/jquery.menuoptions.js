@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.1-21
+ * @version         Version 1.7.2-0
  *
  *
  ******************************************/
@@ -121,7 +121,8 @@ $.widget('mre.menuoptions', {
     },
 
     _validation_fail : function (err_msg) {
-        alert(err_msg);
+        var prefix = "input id #"+ $(this.element).attr('id') + ": ";
+        alert(prefix + err_msg);
         this._destroy();
     },
 
@@ -254,6 +255,10 @@ $.widget('mre.menuoptions', {
                 $dd_span._setOption(key, RefreshCfg[key]);
             }
         });
+        // InitialValue can only be set at init
+        if (this.options.InitialValue.hasOwnProperty('val') ) {
+            this.options.InitialValue.val = '';
+        }
         this._set_options();
         this.orig_objs = this.ary_of_objs = this._build_array_of_objs();
         if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
@@ -277,7 +282,8 @@ $.widget('mre.menuoptions', {
         if (matchedRec.length > 0) {
             $(this.element).attr('menu_opt_key', matchedRec[0].ky);
         } else {
-            alert(input_val + " was not found in select list");
+            alert("input id #"+ $(this.element).attr('id') + ": '" + 
+                    input_val + "' was not found in select list");
         }
     },
 
@@ -726,13 +732,13 @@ $.widget('mre.menuoptions', {
     _set_options : function () {
         this.options._orig_showat = this.options.ShowAt;
         this._set_showat();
+        this._setOption('Data', this.options.Data);
         if (this._initval_exists()) {
             this.set_select_value(this.options.InitialValue);
         }
         if (this.options.SelectOnly) {
             $(this.element).prop('readonly', true);
         }
-        this._setOption('Data', this.options.Data);
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
         this._setOption('_orig_bg', $(this.element).css('background-color'));
     },

@@ -113,6 +113,10 @@ These examples show using both forms of `InitialValue`
     'InitialValue': { 'ky': 1 },
 
 
+Note: `InitialValue` can only be used at initialization time.
+
+To reset the value after that time, use `set_select_value <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#set-select-value>`_ 
+
 MenuOptionsType
 ^^^^^^^^^^^^^^^
     options: **'Select' or 'Navigate' or 'Rocker'**
