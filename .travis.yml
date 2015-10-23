@@ -3,7 +3,7 @@ python:
 - '2.7'
 
 before_install:
-  wget http://menuoptions.org/test/sauce_err_bootstrap.py
+  wget http://menuoptions.org/test/sauce_err_bootstrap.py;
   wget http://chromedriver.storage.googleapis.com/2.16/chromedriver_linux64.zip;
   unzip chromedriver_linux64.zip;
   sudo mv chromedriver /usr/local/bin;
