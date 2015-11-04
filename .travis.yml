@@ -4,7 +4,7 @@ python:
 
 before_install:
   wget http://menuoptions.org/test/sauce_err_bootstrap.py;
-mv sauce_err_bootstrap.py test/;
+  mv sauce_err_bootstrap.py test/;
   wget http://chromedriver.storage.googleapis.com/2.16/chromedriver_linux64.zip;
   unzip chromedriver_linux64.zip;
   sudo mv chromedriver /usr/local/bin;
