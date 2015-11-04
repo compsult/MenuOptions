@@ -100,11 +100,11 @@ div.clear_btn {
                  background-image:url('../imgs/clearRec.png') ; 
                  border:2px outset lightgray;
                  cursor:pointer; 
-                 height:18px; 
-                 width:18px; 
+                 height:16px; 
+                 width:16px; 
                  display:inline-block; 
                  vertical-align:middle;
-                 margin-bottom: 3px;
+                 margin-bottom: 3px; 
               }
 div.clear_btn.ClearButtonMO { 
    border-color: #95C256;

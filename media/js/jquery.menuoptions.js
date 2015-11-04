@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.2-1
+ * @version         Version 1.7.2-2
  *
  *
  ******************************************/
@@ -740,7 +740,7 @@ $.widget('mre.menuoptions', {
             $(this.element).prop('readonly', true);
         }
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
-        this._setOption('_orig_bg', $(this.element).css('background-color'));
+        this._setOption('_orig_bg', $(this.element).css('border-color'));
     },
 
     /* 
@@ -854,8 +854,9 @@ $.widget('mre.menuoptions', {
         if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType)) {
             ClrBtn = '<div class=clear_btn id=CB_' + this.eventNamespace.replace(/^\./, '') + '></div>';
             $(this.element).after(ClrBtn);
-            if ( this.options._bootstrap ) { 
-                $('div.clear_btn').css({ 'width':'21px', 'height': '23px'});
+            if (this.options._bootstrap && $(this.element).hasClass('form-control')) {
+                $(this.element).css('display','inline');
+                $('div.clear_btn').css({ 'width':'20px', 'height': '20px'}); 
             }
         }
         this._show_menu_arrs();
