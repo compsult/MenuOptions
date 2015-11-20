@@ -12,20 +12,20 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.2-4
+ * @version         Version 1.7.2-5
  *
  *
  ******************************************/
-/*global $, alert, window*/
+/*global $, alert, window, console*/
 /*jslint nomen: true*/
 /* jshint -W097 */
 "use strict";
 $.widget('mre.menuoptions', {
     options: {
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
+        // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#bootmenuofs
         BootMenuOfs: 125,   // how far to left of expanded menu should dropdown appear
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
-        ClearBtn: true,   // if set, will clear the input field to it's left
+        ClearBtn: false,   // if set, will clear the input field to it's left
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
         SelectOnly: false,  // if true, will not allow user to type input
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
@@ -61,7 +61,7 @@ $.widget('mre.menuoptions', {
         _prev_target : '',
         _prevXY : { X : 0, Y : 0 },
         _CurrentFilter: '',
-        _orig_bg : '',
+        _orig_bc : '',
         _currTD : [ 0, 1 ],
         _event_ns : '',
         _curr_img : '',
@@ -210,7 +210,7 @@ $.widget('mre.menuoptions', {
             ltclass = "ltup",
             currval = $(this.element).val();
         $(this.element).hide();
-        $(this.element).next('div.clear_btn').hide();
+        $(this.element).next('span.clearbtn').hide();
         this._event_ns = this.eventNamespace.replace(/^\./, '');
         if (this._initval_exists()) {
             this.set_select_value(this.options.InitialValue);
@@ -267,7 +267,7 @@ $.widget('mre.menuoptions', {
             if ($('div.rocker[id=RK_' + this._event_ns + ']').length) {
                 $('div.rocker[id=RK_' + this._event_ns + ']').remove();
                 $(this.element).show();
-                $(this.element).next('div.clear_btn').show();
+                $(this.element).next('span.clearbtn').show();
             }
             this._build_dropdown(this.orig_objs);
         }
@@ -362,7 +362,7 @@ $.widget('mre.menuoptions', {
             if (IsSearchStrValidAnsw.length === 0) {
                 $(this.element).css({'border-color' : 'red' });
             } else {
-                $(this.element).css({'border-color' : this.options._orig_bg });
+                $(this.element).css({'border-color' : this.options._orig_bc });
             }
         }
     },
@@ -375,7 +375,7 @@ $.widget('mre.menuoptions', {
         }
         this.element.val(firstMenuItem.text());
         this.element.attr('menu_opt_key', firstMenuItem.attr('menu_opt_key'));
-        $(this.element).css({'border-color': this.options._orig_bg });
+        $(this.element).css({'border-color' : this.options._orig_bc });
         this._trigger("onSelect", this, {
             "newCode": $(event.target).attr('menu_opt_key'),
             "newVal" : firstMenuItem.text(),
@@ -522,7 +522,7 @@ $.widget('mre.menuoptions', {
             'click': function (e) {
                 $(this.element).val('');
                 $(this.element).attr('menu_opt_key', '');
-                this._buildWholeDropDown(e);
+                $(this.element).focus();
             }
         });
         // bind events to this.element
@@ -679,8 +679,8 @@ $.widget('mre.menuoptions', {
     },
 
     _hiLiteOnOff : function (event) {
-        if (!!$(event.target).attr('class')) {
-            if ($(event.target).attr('class').match(/clear_btn/)) {
+        if ($(event.target).attr('class')) {
+            if ($(event.target).attr('class').match(/clearbtn/)) {
                 $(event.target).toggleClass('ClearButtonMO');
             }
             if ($(event.target).attr('class').match(/ *dflt */)) {
@@ -702,7 +702,7 @@ $.widget('mre.menuoptions', {
         var $dd_span = this.dropdownbox,
             $dropdowncells = this.dropdownbox.find('td'),
             $menuoptions_elem = this.element,
-            $clearBtn = $('div#CB_' + this._event_ns);
+            $clearBtn = $('span#CB_' + this._event_ns);
         this.cached = {
             '.dropdownspan' : $dd_span,
             '.dropdowncells' : $dropdowncells,
@@ -740,7 +740,9 @@ $.widget('mre.menuoptions', {
             $(this.element).prop('readonly', true);
         }
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
-        this._setOption('_orig_bg', $(this.element).css('border-color'));
+        if (/Select/.test(this.options.MenuOptionsType)) {
+            this._setOption('_orig_bc', $(this.element).css('border-color'));
+        }
     },
 
     /* 
@@ -850,14 +852,12 @@ $.widget('mre.menuoptions', {
     },
 
     _add_clear_btn : function () {
-        var ClrBtn = '';
+        var ClrBtn = '', id = '';
         if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType)) {
-            ClrBtn = '<div class=clear_btn id=CB_' + this.eventNamespace.replace(/^\./, '') + '></div>';
+            id = 'CB_' + this.eventNamespace.replace(/^\./, ''); 
+            ClrBtn = '<span class="clearbtn clearbtnpos" id=' + id + '>x</span>';
             $(this.element).after(ClrBtn);
-            if (this.options._bootstrap && $(this.element).hasClass('form-control')) {
-                $(this.element).css('display','inline');
-                $('div.clear_btn').css({ 'width':'20px', 'height': '20px'}); 
-            }
+            $("span#"+id).position({ of: $(this.element), my:'center', at:'right-10' });
         }
         this._show_menu_arrs();
     },
@@ -1001,7 +1001,7 @@ $.widget('mre.menuoptions', {
         $(this.cached['.dropdowncells']).removeClass('mo');
         // once user clicks their choice, remove dropdown span from DOM
         $dd_span.cached['.dropdownspan'].remove();
-        $(this.element).css({'border-color': this.options._orig_bg });
+        $(this.element).css({'border-color' : this.options._orig_bc });
     },
 
     _calcDropBoxCoordinates : function () {

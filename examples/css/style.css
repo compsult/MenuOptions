@@ -7,6 +7,9 @@ h2.lft { text-align:left; color: gray; font-size:20px;  }
 h3 { text-align:center; color: gray; font-size:16px;  text-align:center;}
 h4 { color: gray; font-size:12px; }
 /*--   left menu css  --*/
+input { border-width: 1px;
+       border-color:silver;
+   }
 #wrapper {
 width: 1180px;
 margin: 0 auto;
@@ -28,7 +31,8 @@ p.menu_left { color: brown; font-size:14px; text-align:left; margin:4px;}
 div#fake_alert { color: brown; font-style: italic; text-align: center; border: 1px solid white;  
                  margin: auto; height: 46px; width: 500px;}
 /*------------------------------------------------------*/
-table#serial_demo tr { line-height:30px;  }
+table#serial_demo  { width:700px; }
+table#serial_demo tr { line-height:30px; }
 table#serial_demo td { text-align:left; font-size:14px; border: 1px solid silver;}
 p { text-align:left;margin-left:20px; }
 div#serialize, div#re_serialize { width:500px; } 

@@ -28,8 +28,8 @@ $(document).ready(function() {
         "onSelect": function(mo, data) { 
             console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
-        "InitialValue": { 'val': 'December'},
         "ClearBtn": true,
+        "InitialValue": { 'val': 'December'},
         "ShowAt": 'bottom',
         "Sort": []
     });  
@@ -39,6 +39,7 @@ $(document).ready(function() {
         "onSelect": function(mo, data) { 
             console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
+        "ClearBtn": true,
         "InitialValue": { 'val': 'December'},
         "Height": 200,
         "Sort": [] 
@@ -75,12 +76,12 @@ $(document).ready(function() {
          <tr>
              <td width=300>
                 <div id=inputbox1>
-                    <input type=search name=month1 id='selecttest'  placeholder='Month'>
+                    <input type=text name=month1 id='selecttest'  placeholder='Month'>
                 </div>
              </td>
              <td width=340>
                 <div id=inputbox2>
-                    <input type=search name=month2 id='scrolltest'  placeholder='Month'>
+                    <input type=text name=month2 id='scrolltest'  placeholder='Month'>
                 </div>
              </td>
          </tr>
@@ -117,6 +118,7 @@ $('input#scrolltest').menuoptions({
             console.log(mo, data.newVal, data.newCode, data.type );  
     }, 
     "InitialValue": { 'val': 'December'},
+    "ClearBtn": true,
     "Height": 200, // height less than 'natural' height creates scroll bar
     "Sort": [] 
 });  
@@ -137,12 +139,12 @@ $('input#scrolltest').menuoptions({
         &lt;tr&gt;
             &lt;td width=300&gt;
             &lt;div id=inputbox1&gt;
-                &lt;input type=search name=month1 id='selecttest'  placeholder='Month'&gt;
+                &lt;input type=text name=month1 id='selecttest'  placeholder='Month'&gt;
             &lt;/div&gt;
             &lt;/td&gt;
             &lt;td width=300&gt;
             &lt;div id=inputbox2&gt;
-                &lt;input type=search name=month2 id='scrolltest'  placeholder='Month'&gt;
+                &lt;input type=text name=month2 id='scrolltest'  placeholder='Month'&gt;
             &lt;/div&gt;
             &lt;/td&gt;
         &lt;/tr&gt;

@@ -90,6 +90,7 @@ function init( ) {
                 { "Reset to default": function() { resetMO ("default");} } ],
         "MenuOptionsType":"Navigate",
         "ShowAt" : "right",
+        "ClearBtn": true,
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
@@ -97,6 +98,7 @@ function init( ) {
     });  
     $('#pizzatype').menuoptions({ 
         "Data": { 1: "Sicilian", 2: "Neopolitan"},
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('input#toppings').menuoptions({ 
@@ -105,6 +107,7 @@ function init( ) {
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('input#cheese').menuoptions({ 
@@ -112,6 +115,7 @@ function init( ) {
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('input#crust').menuoptions({ 
@@ -119,6 +123,7 @@ function init( ) {
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('input#cooked').menuoptions({ 
@@ -126,10 +131,12 @@ function init( ) {
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('#delivery').menuoptions({ 
         "Data": { 1: "Deliver", 2:"Pick up"},
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('button#menutest').on('click', function (e) {
@@ -175,7 +182,7 @@ init();
 	            Pizza Type
              </td>
              <td class=pizzatype>
-                  <input type=search name=pizzatype id='pizzatype' placeholder='Pizza type'>
+                  <input type=text name=pizzatype id='pizzatype' placeholder='Pizza type'>
              </td>
          </tr>
          <tr class=tall>
@@ -183,7 +190,7 @@ init();
 	            Toppings
              </td>
              <td>
-		            <input type=search name=toppings id='toppings' placeholder='Toppings'>
+		            <input type=text name=toppings id='toppings' placeholder='Toppings'>
              </td>
          </tr>
          <tr class=tall>
@@ -191,7 +198,7 @@ init();
 	            Crust thickness            
              </td>
              <td>
-		            <input type=search name=crust id='crust' placeholder='Crust'>
+		            <input type=text name=crust id='crust' placeholder='Crust'>
              </td>
          </tr>
          <tr class=tall>
@@ -199,7 +206,7 @@ init();
 	            Cheese Amount
              </td>
              <td>
-		            <input type=search name=cheese id='cheese' placeholder='Cheese'>
+		            <input type=text name=cheese id='cheese' placeholder='Cheese'>
              </td>
          </tr>
          <tr class=tall>
@@ -207,7 +214,7 @@ init();
 	            Bake Instructions
              </td>
              <td>
-		            <input type=search name=cooked id='cooked' placeholder='Cooked'>
+		            <input type=text name=cooked id='cooked' placeholder='Cooked'>
              </td>
          </tr>
          <tr class=tall>
@@ -215,7 +222,7 @@ init();
 	            Delivery Instructions
              </td>
              <td class=delivery>
-                  <input type=search name=delivery id='delivery' placeholder='Delivery type'>
+                  <input type=text name=delivery id='delivery' placeholder='Delivery type'>
              </td>
          </tr>
      </table>
@@ -319,7 +326,7 @@ init();
 	            Pizza Type
              &lt;/td&gt;
              &lt;td class=pizzatype&gt;
-                  &lt;input type=search name=pizzatype id='pizzatype' placeholder='Pizza type'&gt;
+                  &lt;input type=text name=pizzatype id='pizzatype' placeholder='Pizza type'&gt;
              &lt;/td&gt;
          &lt;/tr&gt;
          &lt;tr class=tall&gt;
@@ -327,7 +334,7 @@ init();
 	            Toppings
              &lt;/td&gt;
              &lt;td&gt;
-		            &lt;input type=search name=toppings id='toppings' placeholder='Toppings'&gt;
+		            &lt;input type=text name=toppings id='toppings' placeholder='Toppings'&gt;
              &lt;/td&gt;
          &lt;/tr&gt;
          &lt;tr class=tall&gt;
@@ -335,7 +342,7 @@ init();
 	            Crust thickness            
              &lt;/td&gt;
              &lt;td&gt;
-		            &lt;input type=search name=crust id='crust' placeholder='Crust'&gt;
+		            &lt;input type=text name=crust id='crust' placeholder='Crust'&gt;
              &lt;/td&gt;
          &lt;/tr&gt;
          &lt;tr class=tall&gt;
@@ -343,7 +350,7 @@ init();
 	            Cheese Amount
              &lt;/td&gt;
              &lt;td&gt;
-		            &lt;input type=search name=cheese id='cheese' placeholder='Cheese'&gt;
+		            &lt;input type=text name=cheese id='cheese' placeholder='Cheese'&gt;
              &lt;/td&gt;
          &lt;/tr&gt;
          &lt;tr class=tall&gt;
@@ -351,7 +358,7 @@ init();
 	            Bake Instructions
              &lt;/td&gt;
              &lt;td&gt;
-		            &lt;input type=search name=cooked id='cooked' placeholder='Cooked'&gt;
+		            &lt;input type=text name=cooked id='cooked' placeholder='Cooked'&gt;
              &lt;/td&gt;
          &lt;/tr&gt;
          &lt;tr class=tall&gt;
@@ -359,7 +366,7 @@ init();
 	            Delivery Instructions
              &lt;/td&gt;
              &lt;td class=delivery&gt;
-                  &lt;input type=search name=delivery id='delivery' placeholder='Delivery type'&gt;
+                  &lt;input type=text name=delivery id='delivery' placeholder='Delivery type'&gt;
              &lt;/td&gt;
          &lt;/tr&gt;
      &lt;/table&gt;

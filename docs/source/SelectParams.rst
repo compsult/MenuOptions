@@ -40,7 +40,7 @@ ClearBtn
     options: **true or false**
 
     ClearBtn instructs MenuOptions to place a clear button to the right
-    of the input element. It will clear that input element when clicked
+    of the <input> element. It will clear that <input> element when clicked
     and cause the drop down list to appear.
 
 ColumnCount
@@ -69,6 +69,10 @@ DisableHiLiting
     the border will be set to red. Once there is a match, the border returns to 
     its default color. Set to true to disable this feature. 
     
+Note: 
+    1. Highlighing only restores previous styling if you set <input> elements border-color and border-width. If the <input> element inherits its CSS properties, they will not be restored to their original state (to avoid this scenario, set DisableHiLiting to true)
+    2. To avoid conflicts with the <input> type=search, it is recommended to use <input> type=text when using MenuOptions highlighting.
+
 Filters
 ^^^^^^^
     options: **[ { 'text : 'text' }, ...] or [ {'text': 'RegExp'}, ...]**
@@ -171,7 +175,7 @@ SelectOnly
 ^^^^^^^^^^
     options: **true or false**
 
-    This makes the input element read-only, i.e., data can only be entered 
+    This makes the <input> element read-only, i.e., data can only be entered 
     by clicking a select item (note: this prevents the use of autocomplete).
 
 ShowAt

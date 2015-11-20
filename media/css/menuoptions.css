@@ -96,20 +96,6 @@ span table.CrEaTeDtAbLeStYlE td.mo {
    font-weight: normal;
    color: brown; 
 }
-div.clear_btn { 
-                 background-image:url('../imgs/clearRec.png') ; 
-                 border:2px outset lightgray;
-                 cursor:pointer; 
-                 height:16px; 
-                 width:16px; 
-                 display:inline-block; 
-                 vertical-align:middle;
-                 margin-bottom: 3px; 
-              }
-div.clear_btn.ClearButtonMO { 
-   border-color: #95C256;
-}
-
 span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr { 
     height: 24px;
     font-weight: bold;
@@ -134,4 +120,16 @@ span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr {
     border-left: 4px solid silver;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
+}
+/*--  put clear X in input --*/
+span.clearbtnpos {
+    width:14px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #716C6C;
+}
+
+span.clearbtn.ClearButtonMO { 
+   font-weight: bold;
+   color: green;
 }
