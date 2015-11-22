@@ -35,7 +35,6 @@ table#serial_demo  { width:700px; }
 table#serial_demo tr { line-height:30px; }
 table#serial_demo td { text-align:left; font-size:14px; border: 1px solid silver;}
 p { text-align:left;margin-left:20px; }
-div#serialize, div#re_serialize { width:500px; } 
 
 a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray;}
 a.underl_sm { border-bottom:1px dotted gray; text-decoration:none; 

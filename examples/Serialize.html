@@ -9,7 +9,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
    <link rel="stylesheet" href="../media/css/menuoptions.css?v_1820">
-   <script src="../media/js/jquery.menuoptions.min.js?v_1820"></script>  
+   <script src="../media/js/jquery.menuoptions.js?v_1820"></script>  
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/ie10-viewport-bug-workaround.js"></script>
+     <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
    <!--  END_INCLUDES  -->
    <link el="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
@@ -17,6 +26,8 @@
    <script src="js/examples.js?v_1633"></script>
    <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
    <link rel="icon" href="./imgs/favicon.ico">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
 
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
@@ -30,8 +41,8 @@ $(document).ready(function() {
     $('input[name="t"]').menuoptions({  "Data": PayMethod, 
                                         "SelectOnly": true, 
                                         "ClearBtn": true, 
-                                        "ColumnCount": 2,
-                                        'Width': 225 });
+                                        "ColumnCount": 2
+                                        });
     $('input[name="t2"]').menuoptions({ "Data": MarStat, 
                                         "ClearBtn":true, 
                                     });   
@@ -56,107 +67,134 @@ $(document).ready(function() {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 });
 </script>
+
+<style>
+    pre { padding:0px; margin:0px; text-align:left; }
+    code { padding:0px; margin:0px; text-align:left;}
+    input.form-control { width:240px; }
+    div.answ { text-align:left; 
+               /*--  border:1px solid silver;   --*/
+               height:34px; 
+               width:400px; 
+               margin:4px 8px 19px 8px; }
+</style>
+
 </head>
 <body>
-    <div id="wrapper">
-        <div id="leftcolumn"></div>
-        <div id="rightcolumn">
+    
 	<h1 style='border:0px solid gray'>Using re_serialize()</h1>
-	<h2 style='border:0px solid gray'>(serialize() will not pick up "menu_opt_key" information)</h2>
-	<h2 style='border:0px solid gray'>Choose from the drop downs and click "See results"</h2>
-	<form id=tst>
+	<h3 style='border:0px solid gray'>(serialize() will not pick up "menu_opt_key" information)</h3>
+    <h3 style='border:0px solid gray'>Choose from the drop downs and click "See results"</h3><br>
                 <!--  START_HTML  -->
-	 <table id=serial_demo align=center style="margin-top:10px;text-align:left;">
-	    <tr>
-	       <td style=demotd1>
-		  <input name='t' type=text placeholder='pay method'>
-	       </td>
-	       <td class=demotd1>
-		  <div id=serialize_text>&nbsp;</div>
-	       </td>
-	    </tr>
-	    <tr>
-	       <td class=demotd1>
-		  <input name='t2' type=text placeholder='Marital Status'>
-	       </td>
-	       <td class=demotd1>
-		  <div id=serialize>&nbsp;</div>
-	       </td>
-	    </tr>
-	    <tr>
-	       <td class=demotd1>
-		  <input name='t3' type=text placeholder='State'>
-	       </td>
-	       <td class=demotd1>
-		  <div id=reserialize_text>&nbsp;</div>
-	       </td>
-	    </tr>
-	    <tr>
-	       <td class=demotd1>
-		  <input name='t4' type=text placeholder='Phone'>
-	       </td>
-	       <td class=demotd1>
-		  <div id=re_serialize>&nbsp;</div>
-	       </td>
-	    </tr>
-	 </table>
-	<button class="a" tooltip="Click to see serialize results" id=btn>See results</button><br>
-                <!--  END_HTML  -->
-	</form>
-	<br><br>
-   <div style="display:block; border:1px solid silver;text-align:left;margin:10px;">
-       <p>
-        <br />The code below takes the output from <span style='font-weight:bold'>serialize()</span> and turns
-        text values that the user selected into key codes.<br /><br />
-        <code>
-            var new_get_str = $('input[name=t3]').menuoptions('re_serialize', $('form#tst').serialize());
-        </code>
-      </p>
-       <p>
-      <h3 style='margin-left:10px;'> How it works:</h3>
-      <p>
-      If you load a MenuOptions select control with an object, like the code below:<br>
-        <pre>
-        PayMethod   = { 1: "American Express", 2: "Visa", 3: "Mastercard", 4:"Discover", 5:"Check", 
-                        6:"PayPal", 7:"Cash", 8:"Money Order"}
-        $('input[name="t"]').menuoptions({  "Data": PayMethod, 
-                                            "SelectOnly": true, 
-                                            "ClearBtn": true, 
-                                            "PlaceHolder": "Pay Method", 
-                                            "ColumnCount": 2,
-                                            'Width': 225 });
-        </pre>
-        <p>
-        MenuOptions will write an attribute into the input element called 'menu_opt_key'<br>
-        So if you chose "American Express" the input field would change from:
-        </p>
-        <pre>
-        &lt;input name="t" type="text" placeholder="Pay Method" readonly=""&gt;
-        </pre>
-        <p>
-        to this:
-        </p>
-        <pre>
-        &lt;input name="t" menu_opt_key="1" type="text" placeholder="Pay Method" readonly=""&gt;
-        </pre>
-        <p>
-        <span style='font-weight:bold'>serialize()</span> would grab the text "American Express".
-        </p>
-        <p>
-        <span style='font-weight:bold'>re_serialize</span> would grab the "menu_opt_key" field (1 in this case) and replace
-            "American Express" in the get string.
-        </p>
-        <p>
-            so this:<br><br> <span style='font-style:italic'>t=American+Express&t2=Co-habitating&t3=AZ&t4=</span>
-        </p>
-        <p>
-            becomes this:<br><br> <span style='font-style:italic'>t=1&t2=3&t3=AZ&t4=</span>
-        </p>
-      </p>
-      </div>
-   
+   <div class="container">
+	  <div class="row"> <!--  top level row  -->
+       	<div class="col-md-2 col-xs-2" style='text-align:left;border:0px solid silver;'> <!--  menu div  -->
+            <p class="menu_left">Menu Examples</p>
+            <a class="underl_sm" href="QuickStartMenu.html">Quick start menu</a><br>
+            <a class="underl_sm" href="MenusBottom.html">Drop down menus</a><br>
+            <a class="underl_sm" href="Dividers.html">Menu with dividers</a><br>
+            <a class="underl_sm" href="RightMenu.html">Right side menus</a><br>
+            <a class="underl_sm" href="bootstrap_ex.html">Bootstrap example</a>
+            <p class="menu_left">Select Examples</p>
+            <a class="underl_sm" href="QuickStartSelect.html">Quick start select</a><br>
+            <a class="underl_sm" href="InlinEdit.html">Inline edit</a><br>
+            <a class="underl_sm" href="SelectWithImages.html">Select with images</a><br>
+            <a class="underl_sm" href="Serialize.html">Serialize (re_serialize)</a><br>
+            <a class="underl_sm" href="MultiSelect.html">Multiple select lists</a><br>
+            <a class="underl_sm" href="ReloadMenuOptions.html">Dynamically reloading</a><br>
+            <p class="menu_left">Rocker Examples</p>
+            <a class="underl_sm" href="RockerControl.html">Rocker switch</a><br>
+            <p class="menu_left">Download</p>
+            <a class="underl_sm" href="https://github.com/compsult/MenuOptions">github</a><br>
+            <a class="underl_sm" href="https://www.npmjs.com/package/menuoptions">npm</a><br>
+            <a class="underl_sm" href="https://atmospherejs.com/compsult/menuoptions">atmosphere</a><br><br>
+        </div>
+        <div class="col-md-10 col-xs-10" >
+        <form id=tst>
+        <div class="row">
+            <div class="col-md-1 col-xs-1" >
+            </div>
+            <div class="col-md-3 col-xs-3" >
+                <input class="form-control"  name='t'  type=text placeholder='pay method'>
+                <input class="form-control"  name='t2'  type=text placeholder='Marital Status'>
+                <input class="form-control"  name='t3'  type=text placeholder='State'>
+                <input class="form-control"  name='t4'  type=text placeholder='Phone'>
+            </div>
+            <div class="col-md-1 col-xs-1" >
+            </div>
+            <div class="col-md-6 col-xs-6" >
+                <div class=answ id=serialize_text>&nbsp;</div>
+                <div class=answ id=serialize>&nbsp;</div>
+                <div class=answ id=reserialize_text>&nbsp;</div>
+                <div class=answ id=re_serialize>&nbsp;</div>
+            </div>
+        </div> <!--  close inner row  -->
+        <button class="a" style='margin-right:300px;' tooltip="Click to see serialize results" id=btn>See results</button><br>
+        </form>
+            <!--  END_HTML  -->
+        <br><br>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 text-left" >
+                <br />The code below takes the output from <span style='font-weight:bold'>serialize()</span> and turns
+                text values that the user selected into key codes.<br /><br />
+                <code>
+                    var new_get_str = $('input[name=t3]').menuoptions('re_serialize', $('form#tst').serialize());
+                </code>
+                <h2 style='text-align:left'> How it works:</h2>
+                If you load a MenuOptions select control with an object, like the code below:<br><br />
+                <pre>
+                <code class="javascript" style='padding:0px; margin:0px; text-align:left;'>
+    PayMethod   = { 1: "American Express", 2: "Visa", 3: "Mastercard", 4:"Discover", 5:"Check", 
+                    6:"PayPal", 7:"Cash", 8:"Money Order"}
+    $('input[name="t"]').menuoptions({  "Data": PayMethod, 
+                                        "SelectOnly": true, 
+                                        "ClearBtn": true, 
+                                        "PlaceHolder": "Pay Method", 
+                                        "ColumnCount": 2,
+                                        'Width': 225 });
+                </code>
+                </pre>
+                    <br /><br />
+                    MenuOptions will write an attribute into the input element called 'menu_opt_key'<br><br />
+                    So if you chose "American Express" the input field would change from:
+                    <br /><br />
+                <code>
+                    &lt;input name="t" type="text" placeholder="Pay Method" readonly=""&gt;
+                </code>
+                    <br /><br />
+                    to this:
+                    <br /><br />
+                <code>
+                    &lt;input name="t" menu_opt_key="1" type="text" placeholder="Pay Method" readonly=""&gt;
+                </code>
+                    <br /><br />
+                <br>
+                <span style='font-weight:bold'>serialize()</span> would grab the text "American Express".
+                <span style='font-weight:bold'>re_serialize</span> would grab the "menu_opt_key" field (1 in this case) and replace
+                    "American Express" in the get string.
+                    so this:<br><br> <span style='font-style:italic'>t=American+Express&t2=Co-habitating&t3=AZ&t4=</span>
+                    becomes this:<br><br> <span style='font-style:italic'>t=1&t2=3&t3=AZ&t4=</span>
+            </div>
+            <div class="col-md-2 col-xs-2" >
+            </div>
+		</div> <!--  close 2nd inner row  -->
+
+    </div> <!--  close top level row  -->
+    </div> <!--  close top level row  -->
+    </div> <!--  close container  -->
+            
 
     <br /><br /><br /><br />
         <h1>Code</h1>
@@ -178,8 +216,8 @@ $(document).ready(function() {
     $('input[name="t"]').menuoptions({  "Data": PayMethod, 
                                         "SelectOnly": true, 
                                         "ClearBtn": true, 
-                                        "ColumnCount": 2,
-                                        'Width': 225 });
+                                        "ColumnCount": 2
+                                        });
     $('input[name="t2"]').menuoptions({ "Data": MarStat, 
                                         "ClearBtn":true, 
                                     });   
@@ -205,42 +243,50 @@ $(document).ready(function() {
     <div id="tabs-2">
         <pre><code class="html" style='text-align:left'>
             
-	 &lt;table id=serial_demo align=center style="margin-top:10px;text-align:left;"&gt;
-	    &lt;tr&gt;
-	       &lt;td class=demotd1&gt;
-		  &lt;input name='t' type=text placeholder='pay method'&gt;
-	       &lt;/td&gt;
-	       &lt;td class=demotd1&gt;
-		  &lt;div id=serialize_text&gt;&nbsp;&lt;/div&gt;
-	       &lt;/td&gt;
-	    &lt;/tr&gt;
-	    &lt;tr&gt;
-	       &lt;td class=demotd1&gt;
-		  &lt;input name='t2' type=text placeholder='Marital Status'&gt;
-	       &lt;/td&gt;
-	       &lt;td class=demotd1&gt;
-		  &lt;div id=serialize&gt;&nbsp;&lt;/div&gt;
-	       &lt;/td&gt;
-	    &lt;/tr&gt;
-	    &lt;tr&gt;
-	       &lt;td class=demotd1&gt;
-		  &lt;input name='t3' type=text placeholder='State'&gt;
-	       &lt;/td&gt;
-	       &lt;td class=demotd1&gt;
-		  &lt;div id=reserialize_text&gt;&nbsp;&lt;/div&gt;
-	       &lt;/td&gt;
-	    &lt;/tr&gt;
-	    &lt;tr&gt;
-	       &lt;td class=demotd1&gt;
-		  &lt;input name='t4' type=text placeholder='Phone'&gt;
-	       &lt;/td&gt;
-	       &lt;td class=demotd1&gt;
-		  &lt;div id=re_serialize&gt;&nbsp;&lt;/div&gt;
-	       &lt;/td&gt;
-	    &lt;/tr&gt;
-	 &lt;/table&gt;
-	&lt;button class="a" tooltip="Click to see serialize results" id=btn&gt;See results&lt;/button&gt;&lt;br&gt;
-                
+   &lt;div class="container"&gt;
+	  &lt;div class="row"&gt; &lt;!--  top level row  --&gt;
+       	&lt;div class="col-md-2 col-xs-2" style='text-align:left;border:0px solid silver;'&gt; &lt;!--  menu div  --&gt;
+            &lt;p class="menu_left"&gt;Menu Examples&lt;/p&gt;
+            &lt;a class="underl_sm" href="QuickStartMenu.html"&gt;Quick start menu&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="MenusBottom.html"&gt;Drop down menus&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="Dividers.html"&gt;Menu with dividers&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="RightMenu.html"&gt;Right side menus&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="bootstrap_ex.html"&gt;Bootstrap example&lt;/a&gt;
+            &lt;p class="menu_left"&gt;Select Examples&lt;/p&gt;
+            &lt;a class="underl_sm" href="QuickStartSelect.html"&gt;Quick start select&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="InlinEdit.html"&gt;Inline edit&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="SelectWithImages.html"&gt;Select with images&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="Serialize.html"&gt;Serialize (re_serialize)&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="MultiSelect.html"&gt;Multiple select lists&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="ReloadMenuOptions.html"&gt;Dynamically reloading&lt;/a&gt;&lt;br&gt;
+            &lt;p class="menu_left"&gt;Rocker Examples&lt;/p&gt;
+            &lt;a class="underl_sm" href="RockerControl.html"&gt;Rocker switch&lt;/a&gt;&lt;br&gt;
+            &lt;p class="menu_left"&gt;Download&lt;/p&gt;
+            &lt;a class="underl_sm" href="https://github.com/compsult/MenuOptions"&gt;github&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="https://www.npmjs.com/package/menuoptions"&gt;npm&lt;/a&gt;&lt;br&gt;
+            &lt;a class="underl_sm" href="https://atmospherejs.com/compsult/menuoptions"&gt;atmosphere&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+        &lt;/div&gt;
+        &lt;div class="col-md-10 col-xs-10" &gt;
+        &lt;form id=tst&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col-md-1 col-xs-1" &gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-3 col-xs-3" &gt;
+                &lt;input class="form-control"  name='t'  type=text placeholder='pay method'&gt;
+                &lt;input class="form-control"  name='t2'  type=text placeholder='Marital Status'&gt;
+                &lt;input class="form-control"  name='t3'  type=text placeholder='State'&gt;
+                &lt;input class="form-control"  name='t4'  type=text placeholder='Phone'&gt;
+            &lt;/div&gt;
+            &lt;div class="col-md-6 col-xs-6" &gt;
+                &lt;div class=answ id=serialize_text&gt;&nbsp;&lt;/div&gt;
+                &lt;div class=answ id=serialize&gt;&nbsp;&lt;/div&gt;
+                &lt;div class=answ id=reserialize_text&gt;&nbsp;&lt;/div&gt;
+                &lt;div class=answ id=re_serialize&gt;&nbsp;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt; &lt;!--  close inner row  --&gt;
+        &lt;button class="a" style='margin-right:300px;' tooltip="Click to see serialize results" id=btn&gt;See results&lt;/button&gt;&lt;br&gt;
+        &lt;/form&gt;
+            
         </code></pre>
     </div>
             
@@ -251,14 +297,19 @@ $(document).ready(function() {
   &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
    &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
    &lt;link rel="stylesheet" href="../media/css/menuoptions.css?v_1820"&gt;
-   &lt;script src="../media/js/jquery.menuoptions.min.js?v_1820"&gt;&lt;/script&gt; 
+   &lt;script src="../media/js/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt;  
+    &lt;script src="./js/bootstrap.min.js"&gt;&lt;/script&gt;
+    &lt;script src="./js/ie10-viewport-bug-workaround.js"&gt;&lt;/script&gt;
+     &lt;link href="./css/bootstrap.min.css" rel="stylesheet"&gt;
+
+    &lt;!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"&gt;&lt;/script&gt;
+      &lt;script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
    
         </code></pre>
     </div>
-    </div>
-    <!--  end right col  -->
-    </div> 
-    <!--  end wrapper  -->
-        </div> 
     </body>
-</html>
+    </html>
+            

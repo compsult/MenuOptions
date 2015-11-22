@@ -34,7 +34,7 @@ te.examplelist = function ( ) {
         $('body').css({ "background":"white", "margin": "0px auto", "height":"100%", "padding": "0px", "width": "1200px", "height":"1700px"}); 
         $('html').css({ "text-align":"center"}); 
     }
-    $('h1:first').after("<table style='margin-left:auto;margin-right:auto;font-size:18px;margin-top:-10px;'>"+
+    $('h1:first').after("<br><table style='margin-left:auto;margin-right:auto;font-size:18px;margin-top:-10px;'>"+
         "<tr>"+
            "<td><a class='underl examplemenu' href='#'>All examples</a></td>"+
             "<td><a class='underl docmenu' style='margin-left:20px;' href='http://menuoptions.readthedocs.org/en/latest/'>Documentation</a></td>"+
@@ -42,7 +42,9 @@ te.examplelist = function ( ) {
             "<td><a class='underl chglog' style='margin-left:20px;' href='#'>Change log</a></td>"+
         "</tr>"+
     "</table><br />");
-    $('div#leftcolumn').prepend( te.buildMenu() );
+    if ( $('div#leftcolumn').length ) {
+        $('div#leftcolumn').prepend( te.buildMenu() );
+    }
     var Menu_w_Dividers =[ {  'Menu examples'  :'divider' }, 
                 {  'Quick start menu'  : te.root+'QuickStartMenu.html'}, 
                 {  'Drop down menus'  : te.root+'MenusBottom.html' },
