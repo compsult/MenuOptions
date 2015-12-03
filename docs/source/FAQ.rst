@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.3-7
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.3-8
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -61,6 +61,25 @@ select list, you need to run the `add_menuoption_key` method
 
 This will populate the attribute menu_opt_key that `re_serialize() <http://menuoptions.readthedocs.org/en/latest/Serialize.html>`_ 
 uses to get the value that corresponds with the text the user sees.
+
+The clear button (or 'X') is not aligned correctly
+--------------------------------------------------
+
+This can happen when an input element is added dynamically ( using javascript). 
+The clear button is positioned using the jQuery UI position() function, which requires 
+that the element be present in the DOM and visible.
+A workaround for this is to wrap the menuoptions call with a setTimeout, like this:
+
+.. code-block:: javascript
+
+    setTimeout(function () {
+        $('input#selecttest').menuoptions({ 
+             "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                       8:"August",9:"September",10:"October",11:"November",12:"December" },
+             "Sort": []
+        });  
+    }, 200 );
+
 
 How do I display text and have a hidden value, like the HTML select control?
 ----------------------------------------------------------------------------

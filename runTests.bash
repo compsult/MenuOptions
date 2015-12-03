@@ -20,8 +20,8 @@ function runTest {
 function runLocal {
 	export TST_LOCATION=local
 	export TST_BROWSER=chrome
-	#--- export TST_PLATFORM=linux ---#
-	#--- nosetests --stop -v  ---#
+	export TST_PLATFORM=linux
+	nosetests --stop -v 
 	export TST_BROWSER=firefox
 	nosetests --stop -v
 }

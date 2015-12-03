@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.3-7
+ * @version         Version 1.7.3-8
  *
  *
  ******************************************/
@@ -45,7 +45,7 @@ $.widget('mre.menuoptions', {
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#filters
         Filters: [], // header filters (pass mouse over them & they filter choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
-        MenuOptionsType: 'Select', //other option is Navigate (run JS,follow href)
+        MenuOptionsType: 'Select', //or Navigate (run JS,follow href) or Rocker (for binary choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
         DisableHiLiting : false, // set to true to disable autocomplete highlighting
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
@@ -520,9 +520,10 @@ $.widget('mre.menuoptions', {
             'mouseleave': '_hiLiteOnOff',
             'mouseenter': '_hiLiteOnOff',
             'click': function (e) {
-                $(this.element).val('');
-                $(this.element).attr('menu_opt_key', '');
-                $(this.element).focus();
+                if ( ! $(this.element).prop('disabled') ) {
+                    $(this.element).attr('menu_opt_key', '');
+                    $(this.element).val('').focus();
+                }
             }
         });
         // bind events to this.element
@@ -728,6 +729,9 @@ $.widget('mre.menuoptions', {
     _set_options : function () {
         this.options._orig_showat = this.options.ShowAt;
         this._set_showat();
+        if ( $(this.element).val().length ) {
+            this.add_menuoption_key();
+        }
         this._setOption('Data', this.options.Data);
         if (this._initval_exists()) {
             this.set_select_value(this.options.InitialValue);

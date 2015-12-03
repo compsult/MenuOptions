@@ -11,7 +11,7 @@ from selenium.webdriver.common.alert import Alert
 
 USERNAME=os.getenv("SAUCE_USERNAME")
 SECRET_KEY=os.getenv("SAUCE_ACCESS_KEY")
-LOCAL_IP="127.0.0.1"
+LOCAL_IP="localhost"
 
 class SetupByLocation(object):
 
@@ -196,7 +196,7 @@ class SeleniumUtils(object):
         self.hover_over({ 'menu': params['menu']})
         if 'fltr' in params and params['fltr']:
             self.hover_over({ 'menu': params['fltr']})
-        WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, 30).until(
               EC.presence_of_element_located((By.XPATH,params['xpath'])))
         self.click_item ( params )
         time.sleep(2)
@@ -226,7 +226,7 @@ class SeleniumUtils(object):
             self.std_hover_over (params )
 
     def check_bs_menu_offset (self, params ):
-        WebDriverWait(self.driver, 5).until(
+        WebDriverWait(self.driver, 30).until(
                 EC.visibility_of_element_located((By.CSS_SELECTOR,'table.CrEaTeDtAbLeStYlE')))
         print "Offset = " + str(params['menu_offset'])
         main_ofs = self.driver.execute_script("return $('span[id^=\"SP_menuoptions\"]').offset()")
@@ -253,6 +253,8 @@ class SeleniumUtils(object):
         hover = ActionChains(self.driver).move_to_element(elem)
         hover.perform()
         if 'filt_rslts' in params and params['filt_rslts']:
+            WebDriverWait(self.driver, 10).until(
+                    EC.visibility_of_element_located((By.CSS_SELECTOR,'table.CrEaTeDtAbLeStYlE')))
             txt=self.driver.find_element_by_xpath(params['filt_rslts']).text
             str_txt=re.sub(r'\s+', '', txt)
             assert str_txt == params['expected']
