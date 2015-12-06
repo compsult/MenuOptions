@@ -18,7 +18,7 @@ Parameter list for select list
     ClearBtn,boolean,"true or false",true,false
     ColumnCount,integer,"positive integer",1,false
     Data,JSON object, (see Data section below), none, true
-    DisableHiLiting,boolean, "true or false", false, false
+    DisableHiLiting,boolean, "true or false", true, false
     Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     Height,integer,positive integer, height of dropdown, false
     InitialValue,object,{'ky'|'val': <value>}, {}, false
@@ -67,9 +67,9 @@ DisableHiLiting
 
     When using autocomplete, if the user typed text does not match a `whole` select item,
     the border will be set to red. Once there is a match, the border returns to 
-    its default color. Set to true to disable this feature. 
+    its default color. Set to false to enable this feature. 
     
-Note: 
+Notes: 
     1. Highlighing only restores previous styling if you set <input> elements border-color and border-width. If the <input> element inherits its CSS properties, they will not be restored to their original state (to avoid this scenario, set DisableHiLiting to true)
     2. To avoid conflicts with the <input> type=search, it is recommended to use <input> type=text when using MenuOptions highlighting.
 

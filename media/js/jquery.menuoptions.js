@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.3-9
+ * @version         Version 1.7.3-10
  *
  *
  ******************************************/
@@ -47,7 +47,7 @@ $.widget('mre.menuoptions', {
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
         MenuOptionsType: 'Select', //or Navigate (run JS,follow href) or Rocker (for binary choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
-        DisableHiLiting : false, // set to true to disable autocomplete highlighting
+        DisableHiLiting : true, // set to false to enable autocomplete highlighting
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
@@ -741,7 +741,7 @@ $.widget('mre.menuoptions', {
         }
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
         if (/Select/.test(this.options.MenuOptionsType)) {
-            this._setOption('_orig_bc', $(this.element).css('border-color'));
+            this._setOption('_orig_bc', $(this.element).css('border-top-color'));
         }
     },
 
