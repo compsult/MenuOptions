@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.3-10
+ * @version         Version 1.7.3-11
  *
  *
  ******************************************/
@@ -327,7 +327,7 @@ $.widget('mre.menuoptions', {
         this.ary_of_objs = this.orig_objs;
         // if there is text in input, filter results accordingly
         if (this.cached['.mo_elem'].val().length) {
-            this._process_matches(e, this.cached['.mo_elem'].val(), true);
+            this._process_matches(e, this.cached['.mo_elem'].val());
             return;
         }
         this._build_dropdown(this.orig_objs);
@@ -347,23 +347,18 @@ $.widget('mre.menuoptions', {
         this._calcDropBoxCoordinates();
     },
 
-    _color_border : function (StrToCheck, colorBorder) {
+    _color_border : function (StrToCheck) {
         var select_str = '',
             IsSearchStrValidAnsw = false;
-        if (this.options.DisableHiLiting) {
-            return;
-        }
-        if (colorBorder) {
-            IsSearchStrValidAnsw = $.grep(this.ary_of_objs, function (rec) {
-                // the replace is to ignore images user may have used
-                select_str = rec.val.replace(/<[\w\W]*?>/g, '');
-                return StrToCheck.match(new RegExp(select_str, 'i'));
-            });
-            if (IsSearchStrValidAnsw.length === 0) {
-                $(this.element).css({'border-color' : 'red' });
-            } else {
-                $(this.element).css({'border-color' : this.options._orig_bc });
-            }
+        IsSearchStrValidAnsw = $.grep(this.ary_of_objs, function (rec) {
+            // the replace is to ignore images user may have used
+            select_str = rec.val.replace(/<[\w\W]*?>/g, '');
+            return StrToCheck.match(new RegExp(select_str, 'i'));
+        });
+        if (IsSearchStrValidAnsw.length === 0) {
+            $(this.element).css({'border-color' : 'red' });
+        } else {
+            $(this.element).css({'border-color' : this.options._orig_bc });
         }
     },
 
@@ -375,7 +370,9 @@ $.widget('mre.menuoptions', {
         }
         this.element.val(firstMenuItem.text());
         this.element.attr('menu_opt_key', firstMenuItem.attr('menu_opt_key'));
-        $(this.element).css({'border-color' : this.options._orig_bc });
+        if (!this.options.DisableHiLiting) {
+            $(this.element).css({'border-color' : this.options._orig_bc });
+        }
         this._trigger("onSelect", this, {
             "newCode": $(event.target).attr('menu_opt_key'),
             "newVal" : firstMenuItem.text(),
@@ -419,7 +416,7 @@ $.widget('mre.menuoptions', {
         return matching;
     },
 
-    _process_matches : function (event, StrToCheck, colorBorder) {
+    _process_matches : function (event, StrToCheck) {
         var matching = [];
         if (StrToCheck !== '') {
             matching = this.__buildMatchAry(StrToCheck, false);
@@ -432,7 +429,9 @@ $.widget('mre.menuoptions', {
         } else {
             this._buildWholeDropDown(event);
         }
-        this._color_border(StrToCheck, colorBorder);
+        if (!this.options.DisableHiLiting) {
+            this._color_border(StrToCheck);
+        }
     },
 
     _run_header_filter : function (event) {
@@ -450,7 +449,7 @@ $.widget('mre.menuoptions', {
         if ($.isPlainObject(this.options.Filters[0])) {
             if ($(event.currentTarget).attr('menuopt_regex')) {
                 SearchStr = $(event.currentTarget).attr('menuopt_regex');
-                this._process_matches(event,  SearchStr, false);
+                this._process_matches(event,  SearchStr);
             } else if ($(event.currentTarget).text().match(/\(all\)/i)) {
                 this._buildWholeDropDown(event);
             } else {
@@ -459,7 +458,7 @@ $.widget('mre.menuoptions', {
             }
         } else { // assume array of scalars
             if ($.inArray(SearchStr, this.options.Filters) > -1) {
-                this._process_matches(event,  SearchStr, false);
+                this._process_matches(event,  SearchStr);
             } else {
                 // if filter is not in list, user passed over ALL
                 this._buildWholeDropDown(event);
@@ -669,13 +668,13 @@ $.widget('mre.menuoptions', {
                     e.keyCode === $.ui.keyCode.ENTER) ||
                     (e.keyCode === $.ui.keyCode.TAB &&
                     this.cached['.mo_elem'].val().length > 0)) {
-                this._process_matches(e, this.cached['.mo_elem'].val(), true);
+                this._process_matches(e, this.cached['.mo_elem'].val());
                 this.__triggerChoice(e);
                 return;
             }
         }
         if (/keyup/.test(e.type) || e.keyCode === $.ui.keyCode.BACKSPACE) {
-            this._process_matches(e, this.cached['.mo_elem'].val(), true);
+            this._process_matches(e, this.cached['.mo_elem'].val());
         }
     },
 
@@ -1001,7 +1000,9 @@ $.widget('mre.menuoptions', {
         $(this.cached['.dropdowncells']).removeClass('mo');
         // once user clicks their choice, remove dropdown span from DOM
         $dd_span.cached['.dropdownspan'].remove();
-        $(this.element).css({'border-color' : this.options._orig_bc });
+        if (!this.options.DisableHiLiting) {
+            $(this.element).css({'border-color' : this.options._orig_bc });
+        }
     },
 
     _calcDropBoxCoordinates : function () {

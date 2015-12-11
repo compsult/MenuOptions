@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
      <link rel="stylesheet" href="../media/css/menuoptions.css">
-    <script src="../media/js/jquery.menuoptions.min.js"></script>
+    <script src="../media/js/jquery.menuoptions.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -106,6 +106,7 @@ $(document).ready(function() {
                                             console.log(e, data.newVal, data.newCode, data.type );
                                         }, 
                                         "ShowAt": 'bottom',
+                                        "DisableHiLiting": false,
                                         "ColumnCount": 3,
                                         "Width": 240,
                                         "Height": 200,
@@ -279,6 +280,7 @@ $(document).ready(function() {
                                             console.log(e, data.newVal, data.newCode, data.type );
                                         }, 
                                         "ShowAt": 'bottom',
+                                        "DisableHiLiting": false,
                                         "ColumnCount": 3,
                                         "Width": 240,
                                         "Height": 200,
