@@ -35,6 +35,7 @@ function runSauce {
     runTest sauce chrome Linux "Chrome on linux"
 }
 
+grunt uglify:development cssmin:minify
 if [ $# -eq 0 ]; then
     runSauce
 else

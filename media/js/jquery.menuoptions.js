@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.3-12
+ * @version         Version 1.7.3-13
  *
  *
  ******************************************/
@@ -518,7 +518,8 @@ $.widget('mre.menuoptions', {
         this._on(this.cached['.clearBtn'], {
             'mouseleave': '_hiLiteOnOff',
             'mouseenter': '_hiLiteOnOff',
-            'mousedown': '_clearInput'
+            'mousedown': '_clearInput',
+            'click': '_clearInput'
         });
         // bind events to this.element
         this._on({

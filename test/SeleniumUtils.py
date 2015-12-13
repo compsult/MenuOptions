@@ -82,6 +82,7 @@ class SeleniumUtils(object):
     def is_element_present(self, params):
         try: self.driver.find_element_by_xpath(params['xpath'])
         except NoSuchElementException, e: assert False
+        print ' '.join(['Found element ', params['xpath']])
         assert True
 
     def check_html (self, params ):

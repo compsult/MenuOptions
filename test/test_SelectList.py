@@ -18,14 +18,14 @@ class testSL(SeleniumUtils, SetupByLocation):
         self.check_content({ 'xpath': '//*[@id="selecttest"]',
                              'inputtext': 'December'})
 
-    def test03_clr_n_autocomplete(self):
+    def test03_autocomplete(self):
         """
            check that MenuOptions select list autocomplete works and
            that any character not in select list is deleted
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_clr({ 'xpath': '//*[@id="CB_menuoptions4"]',
-                         'input': '//*[@id="selecttest"]' })
+            'input': '//*[@id="selecttest"]' })
         self.check_autocomplete({ 'xpath': '//*[@id="selecttest"]',
                          'filt_rslts': '//*[@id="SP_menuoptions4"]',
                          'expected': 'JanuaryFebruaryMarchAprilMayAugust',
@@ -43,6 +43,15 @@ class testSL(SeleniumUtils, SetupByLocation):
                          'filt_rslts': '//*[@id="SP_menuoptions4"]',
                          'expected': 'CashChargeCheck',
                          'test_key': 'c' })
+
+    def test05_clear_btn(self):
+        """
+           check that click on 'X' clears the input and opens the select list dropdown
+        """
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
+        self.check_clr({ 'xpath': '//*[@id="CB_menuoptions4"]',
+            'input': '//*[@id="selecttest"]' })
+        self.is_element_present({ 'xpath': '//*[@id="SP_menuoptions4"]'})
 
     def tearDown(self):
         super(testSL,self).tearDown()
