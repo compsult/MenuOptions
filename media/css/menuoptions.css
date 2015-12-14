@@ -1,18 +1,18 @@
 /*--  rocker css  --*/
-div.rocker { height:31px; width:168px;overflow: hidden; color: black;}
+div.rocker { height:27px; width:168px;overflow: hidden; color: black;}
 div.ltup { float:left; text-align:center; font-size:14px;
     background: url(../imgs/rocker.png) 0% 100%; 
-    width:84px; height:31px; }
+    width:84px; height:27px; }
 div.ltdown { float:left; text-align:center; font-size:14px;
     background: url(../imgs/rocker.png) 0% 0%; 
-    width:84px; height:31px; }
+    width:84px; height:27px; }
 div.rtup { float:right; text-align:center; font-size:14px; 
     background: url(../imgs/rocker.png) 100% 100%; 
-    width:84px; height:31px; }
+    width:84px; height:27px; }
 div.rtdown { float:right; text-align:center; font-size:14px;
     background: url(../imgs/rocker.png) 100% 0%; 
-    width:84px; height:31px; }
-div.rocker span.innertext { line-height:31px; vertical-align: 50%; }
+    width:84px; height:27px; }
+div.rocker span.innertext { line-height:27px; vertical-align: 50%; }
 div.rocker div.ltup:hover, div.rtup:hover { color: yellow; font-style:italic; }
 
 span table.CrEaTeDtAbLeStYlE { 
