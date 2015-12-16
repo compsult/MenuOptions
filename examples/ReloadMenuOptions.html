@@ -82,8 +82,7 @@ $(document).ready(function() {
             $("body").data("endtimes").push(AddApptMins(startTime, t)); 
           } 
           /*--  refresh the Data for the endtime and remove filters (AM|PM)   --*/
-	      $('input#endtime').menuoptions( 'refreshData',  
-                { 'Data'    : $("body").data("endtimes"),
+	      $('input#endtime').menuoptions({ 'Data'    : $("body").data("endtimes"),
                   'Filters' : [],
                   'ColumnCount' : 4,
                   'Width' : 300 });
@@ -200,8 +199,7 @@ $(document).ready(function() {
             $("body").data("endtimes").push(AddApptMins(startTime, t)); 
           } 
           /*--  refresh the Data for the endtime and remove filters (AM|PM)   --*/
-	      $('input#endtime').menuoptions( 'refreshData',  
-                { 'Data'    : $("body").data("endtimes"),
+	      $('input#endtime').menuoptions({ 'Data'    : $("body").data("endtimes"),
                   'Filters' : [],
                   'ColumnCount' : 4,
                   'Width' : 300 });

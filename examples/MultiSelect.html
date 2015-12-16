@@ -24,34 +24,32 @@ $(document).ready(function() {
 
 function resetMO( instruct ) {
     if (instruct.match(/right/i)) { 
-        $('input#pizzatype').menuoptions('refreshData', {"ShowAt" : "right"});
-        $('input#toppings').menuoptions('refreshData', {"ShowAt" : "right"});
-        $('input#cheese').menuoptions('refreshData', {"ShowAt" : "right"});
-        $('input#crust').menuoptions('refreshData', {"ShowAt" : "right"});
-        $('input#cooked').menuoptions('refreshData', {"ShowAt" : "right"});
-        $('input#delivery').menuoptions('refreshData', {"ShowAt" : "right"});
+        $('input#pizzatype').menuoptions({"ShowAt" : "right"});
+        $('input#toppings').menuoptions({"ShowAt" : "right"});
+        $('input#cheese').menuoptions({"ShowAt" : "right"});
+        $('input#crust').menuoptions({"ShowAt" : "right"});
+        $('input#cooked').menuoptions({"ShowAt" : "right"});
+        $('input#delivery').menuoptions({"ShowAt" : "right"});
     }
     if (instruct.match(/colcnt/i)) { 
-        $('input#pizzatype').menuoptions('refreshData', {'ColumnCount' : 2 });
-        $('input#toppings').menuoptions('refreshData', {'ColumnCount' : 2 });
-        $('input#cheese').menuoptions('refreshData', {'ColumnCount' : 2 });
-        $('input#crust').menuoptions('refreshData', {'ColumnCount' : 2 });
-        $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 2 });
-        $('input#delivery').menuoptions('refreshData', {'ColumnCount' : 2 });
+        $('input#pizzatype').menuoptions({'ColumnCount' : 2 });
+        $('input#toppings').menuoptions({'ColumnCount' : 2 });
+        $('input#cheese').menuoptions({'ColumnCount' : 2 });
+        $('input#crust').menuoptions({'ColumnCount' : 2 });
+        $('input#cooked').menuoptions({'ColumnCount' : 2 });
+        $('input#delivery').menuoptions({'ColumnCount' : 2 });
     }
     if (instruct.match(/width/i)) { 
-        $('input#pizzatype').menuoptions('refreshData', {'Width' : 100 });
-        $('input#toppings').menuoptions('refreshData', {'Width' : 100 });
-        $('input#cheese').menuoptions('refreshData', {'Width' : 100 });
-        $('input#crust').menuoptions('refreshData', {'Width' : 100 });
-        $('input#cooked').menuoptions('refreshData', {'Width' : 100 });
-        $('input#delivery').menuoptions('refreshData', {'Width' : 100 });
+        $('input#pizzatype').menuoptions({'Width' : 100 });
+        $('input#toppings').menuoptions({'Width' : 100 });
+        $('input#cheese').menuoptions({'Width' : 100 });
+        $('input#crust').menuoptions({'Width' : 100 });
+        $('input#cooked').menuoptions({'Width' : 100 });
+        $('input#delivery').menuoptions({'Width' : 100 });
     }
     if (instruct.match(/rocker/i)) { 
-        $('input#pizzatype').menuoptions('refreshData', 
-                {"MenuOptionsType":"Rocker", "Sort": []});
-        $('input#delivery').menuoptions('refreshData', 
-                {"MenuOptionsType":"Rocker", "Sort": []});
+        $('input#pizzatype').menuoptions({"MenuOptionsType":"Rocker", "Sort": []});
+        $('input#delivery').menuoptions({"MenuOptionsType":"Rocker", "Sort": []});
     }
     if (instruct.match(/setvalue/i)) { 
         $('input#pizzatype').menuoptions('set_select_value', {'val': 'Sicilian'});
@@ -62,19 +60,19 @@ function resetMO( instruct ) {
         $('input#delivery').menuoptions('set_select_value', {'val': 'Pick up'});  
     }
     if (instruct.match(/default/i)) { 
-        $('input#pizzatype').menuoptions('refreshData', {"Sort": [],
+        $('input#pizzatype').menuoptions({"Sort": [],
                 "MenuOptionsType": "Select",
                 "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0,
                 "InitialValue":{'val':''}});
-        $('input#toppings').menuoptions('refreshData', {'ColumnCount' : 1,
+        $('input#toppings').menuoptions({'ColumnCount' : 1,
             'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
-        $('input#cheese').menuoptions('refreshData', {'ColumnCount' : 1, 
+        $('input#cheese').menuoptions({'ColumnCount' : 1, 
             'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
-        $('input#crust').menuoptions('refreshData', {'ColumnCount' : 1, 
+        $('input#crust').menuoptions({'ColumnCount' : 1, 
             'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
-        $('input#cooked').menuoptions('refreshData', {'ColumnCount' : 1, 
+        $('input#cooked').menuoptions({'ColumnCount' : 1, 
             'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
-        $('input#delivery').menuoptions('refreshData', {"Sort": [],
+        $('input#delivery').menuoptions({"Sort": [],
             "MenuOptionsType": "Select", "InitialValue":{'val':''},
                 "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0});
     }

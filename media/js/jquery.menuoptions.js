@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.3-15
+ * @version         Version 1.7.4-0
  *
  *
  ******************************************/
@@ -246,8 +246,7 @@ $.widget('mre.menuoptions', {
     refreshData : function (RefreshCfg) {
         // re-create drop down select
         // Note: you have to use same option names
-        var $dd_span = this,
-            orig_val = $(this.element).val();
+        var $dd_span = this;
         $(this.element).attr('menu_opt_key', '');
         /*--  $(this.element).val('');  --*/
         $.each(RefreshCfg, function (key) {
@@ -260,6 +259,11 @@ $.widget('mre.menuoptions', {
             this.options.InitialValue.val = '';
         }
         this._set_options();
+        this._recreate_mo();
+    },
+
+    _recreate_mo : function() {
+        var orig_val = $(this.element).val();
         this.orig_objs = this.ary_of_objs = this._build_array_of_objs();
         if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
             this._rocker_main({ 'val' : orig_val });
@@ -722,6 +726,14 @@ $.widget('mre.menuoptions', {
     // _setOption is called for each individual option that is changing
     _setOption: function (key, value) {
         this._super(key, value);
+        if (/InitialValue/i.test(key) ){
+            $(this.element).val(value.val);
+            $(this.element).attr('menu_opt_key',value.key);
+        }
+        if (/ShowAt/i.test(key) ){
+            this._set_showat();
+        }
+        this._recreate_mo();
     },
 
     _set_showat : function () {

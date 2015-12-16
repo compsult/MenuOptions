@@ -72,3 +72,10 @@ The new format (below), where arrow color is specified
         "MenuOptionsType": "Navigate", 
         "ShowDownArrow": "silver" // color of arrow is now silver, not black
         });  
+
+1.7.3-15
+^^^^^^^^
+deprecated `refreshData <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#refreshdata-deprecated>`_
+
+Instead, call menuoptions the same way you would when initializing 
+`(code examples here) <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#resetting-menuoptions-data>`_

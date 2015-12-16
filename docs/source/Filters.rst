@@ -26,7 +26,7 @@ a simple Filter like the one below
 
     "Filters": [{'AM':'AM'},{'PM':'PM'}],
 
-`See simple filter demo <http://www.menuoptions.org/examples/ReloadMenuOptions.html>`_
+`See simple filter demo </examples/ReloadMenuOptions.html>`_
 
 Using a regular expression (RegExp) filter
 ------------------------------------------
@@ -38,7 +38,7 @@ If your data is more varied, you can use RegExp Filters, like the one below:
     'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ],
 
 
-`See RegExp demo <http://www.menuoptions.org/examples/Dividers.html>`_
+`See RegExp demo </examples/Dividers.html>`_
 
 
 

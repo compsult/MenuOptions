@@ -1,7 +1,7 @@
 Parameters specifications for select lists
 ==========================================
 
-`Show me the select demo <http://www.menuoptions.org/examples/SelectWithImages.html>`_
+`Show me the select demo </examples/SelectWithImages.html>`_
 
 .. image:: _static/AutoCompWithImgs.jpg
    :alt: Select example
@@ -79,7 +79,7 @@ Filters
 
     Filters enable mouseover filtering of select items
     You can filter by plain text or by regular expression
-    (`Example of using Filters with a RegExp <http://www.menuoptions.org/examples/MenusBottom.html>`_ )
+    (`Example of using Filters with a RegExp </examples/MenusBottom.html>`_ )
 
 .. code-block:: html
 
@@ -94,7 +94,7 @@ Height
    Using the Height parameter is useful to get the exact height you
    want for your application. It is also useful for large list, since it will 
    create a vertical scroll bar. 
-   (`Example of using Height to create a vertical scroll bar <http://www.menuoptions.org/examples/QuickStartSelect.html>`_ )
+   (`Example of using Height to create a vertical scroll bar </examples/QuickStartSelect.html>`_ )
 
 .. code-block:: javascript
     
@@ -104,10 +104,11 @@ InitialValue
 ^^^^^^^^^^^^
     options: **{ 'ky' or 'val' : <value> }**
 
-    You can use InitialValue to set an initial value (note: that value is 
-    always the text tha is visible to user, not the key code) or to clear 
-    out a select list value
-    (`see a demo that uses InitialValue to clear a select list <http://www.menuoptions.org/examples/MultiSelect.html>`_ ) 
+    You can use InitialValue to set (or reset) an initial value 
+
+    Note: you can use this to set the initial value (visible on the screen)
+    or to set the key (the menu_opt_key) or both key and value.
+    (`see a demo that uses InitialValue </examples/MultiSelect.html>`_ ) 
 
 These examples show using both forms of `InitialValue`
 

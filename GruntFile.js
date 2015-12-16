@@ -19,6 +19,15 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
+        options: {
+            globals: {
+                jQuery: true,
+                console: true,
+                alert: true,
+                setTimeout: true,
+                document: true
+            }
+        },
         all: {
              src: "media/js/jquery.menuoptions.js"
         }

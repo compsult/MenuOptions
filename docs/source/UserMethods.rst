@@ -1,7 +1,7 @@
 User methods
 ========================
 
-`(Click here to see demo that uses methods set_select_value & refreshData) <http://menuoptions.org/examples/MultiSelect.html>`_
+`(Click here to see demo that uses methods set_select_value & refreshData) </examples/MultiSelect.html>`_
 
 add_menuoption_key
 ^^^^^^^^^^^^^^^^^^
@@ -50,43 +50,51 @@ These examples show using both forms of `set_select_value`
 
     $('input#delivery').menuoptions('set_select_value', {'val': ''});
 
-refreshData
-^^^^^^^^^^^
-
-allows all parameters to be dynamically reset
+refreshData [ deprecated ]
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+refreshData allows all parameters to be dynamically reset
 
 Usage:
 ::
 
     $(<selector>).menuoptions('refreshData', { 'option': 'option value', ...});
 
+`Using refreshData is no longer required to reset MenuOptions parameters.`
+
+[resetting MenuOptions data]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+    $(<selector>).menuoptions({ 'option': 'option value', ...});
+
 This example shows resetting a select list from input type to Rocker
 type and removing any previous Sort instructions
 
 .. code-block:: javascript
 
-        $('input#pizzatype').menuoptions('refreshData', {"MenuOptionsType":"Rocker", "Sort": []});
+        $('input#pizzatype').menuoptions({"MenuOptionsType":"Rocker", "Sort": []});
 
 This example shows resetting a select list's Data
 
 .. code-block:: javascript
 
-        $('input#delivery').menuoptions('refreshData', {"Data": { 1: "Deliver", 2:"Pick up" } });
+        $('input#delivery').menuoptions({"Data": { 1: "Deliver", 2:"Pick up" } });
 
 This example shows resetting a select list's Width
 
 .. code-block:: javascript
 
-        $('input#delivery').menuoptions('refreshData', {'Width' : 100 });
+        $('input#delivery').menuoptions({'Width' : 100 });
 
 This example shows making a select list display to the right (instead of at bottom)
 
 .. code-block:: javascript
 
-        $('input#delivery').menuoptions('refreshData', {"ShowAt" : "right"});;
+        $('input#delivery').menuoptions({"ShowAt" : "right"});;
 
 This example shows resetting a select list's ColumnCount
 
 .. code-block:: javascript
 
-        $('input#pizzatype').menuoptions('refreshData', {'ColumnCount' : 2 });
+        $('input#pizzatype').menuoptions({'ColumnCount' : 2 });

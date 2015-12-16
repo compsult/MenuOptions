@@ -1,7 +1,7 @@
 Parameters specifications for menus
 ===================================
 
-`Show me the menu demo <http://www.menuoptions.org/examples/MenusBottom.html>`_
+`Show me the menu demo </examples/MenusBottom.html>`_
 
 .. image:: _static/Menu.jpg
    :alt: Menu example
@@ -68,7 +68,7 @@ Filters
     Filters enable mouseover filering of menu items
     You can filter by plain text or by regular expression
     Here is an example of using Filters with a RegExp
-    (`Filters demo <http://www.menuoptions.org/examples/Dividers.html>`_ )
+    (`Filters demo </examples/Dividers.html>`_ )
 
 .. code-block:: javascript
 

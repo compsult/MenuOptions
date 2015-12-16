@@ -34,7 +34,7 @@ in a call like the one below:
     }); 
 
 
-`See this code in a demo <http://www.menuoptions.org/examples/Dividers.html>`_
+`See this code in a demo </examples/Dividers.html>`_
 
 
 
