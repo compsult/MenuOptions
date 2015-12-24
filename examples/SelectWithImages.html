@@ -35,6 +35,11 @@ $(document).ready(function() {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 
 });
 </script>
@@ -54,6 +59,7 @@ $(document).ready(function() {
 	       </td>
 	    </tr>
 	 </table>
+
 
 
     <br /><br /><br /><br />
@@ -98,10 +104,6 @@ $(document).ready(function() {
    
         </code></pre>
     </div>
-    </div>
-    <!--  end right col  -->
-    </div> 
-    <!--  end wrapper  -->
     </body>
     </html>
             

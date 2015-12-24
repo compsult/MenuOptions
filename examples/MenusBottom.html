@@ -68,6 +68,11 @@ $(document).ready(function() {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 });
 </script>
 </head>
@@ -99,6 +104,7 @@ $(document).ready(function() {
                 <!--  END_HTML  -->
                 <div id=fake_alert></div>
 
+
     <br /><br /><br /><br />
         <h1>Code</h1>
         <div id="tabs">
@@ -110,7 +116,7 @@ $(document).ready(function() {
     <div id="tabs-1">
         <pre><code class="javascript" style='text-align:left'>
             
-    var TstFunction = function() { $('div#fake_alert').html("&lt;p&gt;I just ran a javscript function from menu  with images&lt;/p&gt;"); };
+    var TstFunction = function() { $('div#fake_alert').html("&lt;p&gt;I just ran javscript from menu with images&lt;/p&gt;"); };
     var Menu_w_Imgs = [{"&lt;img class='js_img' src='imgs/Transparent.gif' width='1' height='1'&gt;javascript": function() { TstFunction(); }}, 
                 {"&lt;img class='goog_img' src='imgs/Transparent.gif' width='1' height='1'&gt;Google": "http://www.google.com"}, 
                 {"&lt;img class='yahoo_img' src='imgs/Transparent.gif' width='1' height='1'&gt;Yahoo": "http://www.yahoo.com"},
@@ -130,10 +136,10 @@ $(document).ready(function() {
         {"CNN": "http://www.cnn.com"} ];
 
     $('button[id$="menu_plain"]').menuoptions({ 
-        'Data': SimpleMenu, 
-        'MenuOptionsType': 'Navigate', 
+        "Data": SimpleMenu, 
+        "MenuOptionsType": "Navigate", 
         "Window" : "new", 
-        'ColumnCount' : 1
+        "ColumnCount" : 1
     });  
 
     var Menu_w_Dividers =[ {  'Search'  :'divider' }, 
@@ -144,10 +150,10 @@ $(document).ready(function() {
                 {  'MarketWatch' :'http://www.MarketWatch.com' } ];
 
     $('button[id="menu_divs_filts"]').menuoptions({ 
-        'MenuOptionsType': 'Navigate', 
-        'Data': Menu_w_Dividers,
-        'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ], 
-        'Sort': [], 
+        "MenuOptionsType": "Navigate", 
+        "Data": Menu_w_Dividers,
+        "Filters": [{ "Biz" : "^(CNBC|MarketWatch)"}, {"Search" :"^(Google|Yahoo)"} ], 
+        "Sort": [], 
     }); 
 
     $("div#buttons").buttonset().css({"padding":"5px" });
@@ -192,10 +198,6 @@ $(document).ready(function() {
    
         </code></pre>
     </div>
-    </div>
-    <!--  end right col  -->
-    </div> 
-    <!--  end wrapper  -->
     </body>
     </html>
             

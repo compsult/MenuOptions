@@ -22,10 +22,10 @@ span table.CrEaTeDtAbLeStYlE {
 }
 /*--  arrow for right side menus  --*/
 span.Navigatert table.CrEaTeDtAbLeStYlE::after {
-    border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent; 
-    border-left: 6px solid transparent; 
-    border-right: 6px solid #FFF; 
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent; 
+    border-left: 4px solid transparent; 
+    border-right: 4px solid #FFF; 
     width: 0;
     height: 0;
 
@@ -38,9 +38,9 @@ span.Navigatert table.CrEaTeDtAbLeStYlE::after {
 
 /*--  arrow for bottom menus  --*/
 span.Navigatebot table.CrEaTeDtAbLeStYlE::after {
-  border-bottom: 6px solid #FFF;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
+  border-bottom: 4px solid #FFF;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
   width: 0;
   height: 0;
 
@@ -131,5 +131,5 @@ span.clearbtnpos {
 
 span.clearbtn.ClearButtonMO { 
    font-weight: bold;
-   color: green;
+   color: red;
 }

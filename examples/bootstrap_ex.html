@@ -137,6 +137,16 @@ $(document).ready(function() {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
                 
 });
 </script>
@@ -196,9 +206,6 @@ $(document).ready(function() {
 	 </div>
     <!--  END_HTML  -->
 
-            
-
-            
 
     <br /><br /><br /><br />
         <h1>Code</h1>
@@ -330,7 +337,7 @@ $(document).ready(function() {
         &lt;div class="col-md-3 col-xs-12" style="height:120px"&gt;
             &lt;button type="button" id="menu_divs_filts" class="btn btn-primary"&gt;Menu with dividers & filters&lt;/button&gt;
          &lt;/div&gt;
-        &lt;div class="col-md-3 col-xs-12 text-left" style="height:120px;"&gt;
+        &lt;div class="col-md-3 col-xs-12 text-left" style="height:120px; "&gt;
               &lt;input type=text class="form-control" style='width:140px' name=starttime id='starttime' placeholder='Start time' &gt;
          &lt;/div&gt;
         &lt;div class="col-md-3 col-xs-12 text-right" style="height:180px"&gt;
@@ -376,7 +383,6 @@ $(document).ready(function() {
    
         </code></pre>
     </div>
-    </div><!-- /.container -->
     </body>
     </html>
             

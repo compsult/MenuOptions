@@ -150,6 +150,11 @@ function init( ) {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 }
 init();
 });
@@ -231,6 +236,7 @@ init();
     </form>
 
 
+
     <br /><br /><br /><br />
         <h1>Code</h1>
         <div id="tabs">
@@ -250,6 +256,8 @@ init();
                 { "Programatically set all values": function() { resetMO ("setvalues");}},
                 { "Reset to default": function() { resetMO ("default");} } ],
         "MenuOptionsType":"Navigate",
+        "ShowAt" : "right",
+        "ClearBtn": true,
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
@@ -257,6 +265,7 @@ init();
     });  
     $('#pizzatype').menuoptions({ 
         "Data": { 1: "Sicilian", 2: "Neopolitan"},
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('input#toppings').menuoptions({ 
@@ -265,6 +274,7 @@ init();
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('input#cheese').menuoptions({ 
@@ -272,6 +282,7 @@ init();
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('input#crust').menuoptions({ 
@@ -279,6 +290,7 @@ init();
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('input#cooked').menuoptions({ 
@@ -286,10 +298,12 @@ init();
         "onSelect": function(mo, data) { 
              console.log(mo, data.newVal, data.type );  
         }, 
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('#delivery').menuoptions({ 
         "Data": { 1: "Deliver", 2:"Pick up"},
+        "ClearBtn": true,
         "Sort": [] // don't sort
     });  
     $('button#menutest').on('click', function (e) {
@@ -314,7 +328,7 @@ init();
                  &lt;/div&gt;
              &lt;/td&gt;
          &lt;/tr&gt;
-         &lt;tr style='height:120px'&gt;
+         &lt;tr style='height:20px'&gt;
              &lt;td&gt;
 		            &nbsp;
              &lt;/td&gt;
@@ -368,7 +382,6 @@ init();
              &lt;/td&gt;
          &lt;/tr&gt;
      &lt;/table&gt;
-
      &lt;div id=fake_alert&gt;&lt;/div&gt;
                 
         </code></pre>
@@ -377,18 +390,14 @@ init();
     <div id="tabs-3">
         <pre><code class="html" style='text-align:left'>
             
-  &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
-  &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
+   &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
+   &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
    &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
    &lt;script src="../media/js/jquery.menuoptions.min.js?v_1820"&gt;&lt;/script&gt; 
    &lt;link rel="stylesheet" href="../media/css/menuoptions.css?v_1820"&gt;
    
         </code></pre>
     </div>
-    </div>
-    <!--  end right col  -->
-    </div> 
-    <!--  end wrapper  -->
     </body>
     </html>
             
