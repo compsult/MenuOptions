@@ -18,6 +18,7 @@ function runTest {
     fi
 }
 function runLocal {
+    grunt uglify:development cssmin:minify
 	export TST_LOCATION=local
 	export TST_BROWSER=chrome
 	export TST_PLATFORM=linux
@@ -35,7 +36,6 @@ function runSauce {
     runTest sauce chrome Linux "Chrome on linux"
 }
 
-grunt uglify:development cssmin:minify
 if [ $# -eq 0 ]; then
     runSauce
 else
