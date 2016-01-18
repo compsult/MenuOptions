@@ -123,13 +123,13 @@ span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr {
 }
 /*--  put clear X in input --*/
 span.clearbtnpos {
-    width:14px;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
     color: #716C6C;
 }
 
 span.clearbtn.ClearButtonMO { 
+   font-size: 14px;
    font-weight: bold;
    color: red;
 }

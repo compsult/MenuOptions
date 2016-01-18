@@ -23,16 +23,18 @@ function runLocal {
 	export TST_BROWSER=chrome
 	export TST_PLATFORM=linux
 	nosetests --stop -v 
-	export TST_BROWSER=firefox
-	nosetests --stop -v
+	#--- export TST_BROWSER=firefox ---#
+	#--- nosetests --stop -v ---#
 }
 
 function runSauce {
-    mv test/sauce_err_bootstrap.py test/test_bootstrap.py 
+    mv -f test/test_DataInputs.py test/data_structs.py
+    cp test/sauce_err_bootstrap.py test/test_bootstrap.py 
     runTest sauce safari "OS X 10.10" "Safari test" 
     runTest sauce "internet explorer" "Windows 8" "IE test" 
     runTest sauce firefox Linux "Firefox on linux"
-    mv test/test_bootstrap.py test/sauce_err_bootstrap.py
+    mv -f test/test_bootstrap.py test/sauce_err_bootstrap.py
+    cp test/data_structs.py test/test_DataInputs.py
     runTest sauce chrome Linux "Chrome on linux"
 }
 

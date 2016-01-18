@@ -20,8 +20,7 @@ class testSL(SeleniumUtils, SetupByLocation):
 
     def test03_autocomplete(self):
         """
-           check that MenuOptions select list autocomplete works and
-           that any character not in select list is deleted
+           check that MenuOptions select list autocomplete works and that any character not in select list is deleted
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_clr({ 'xpath': '//*[@id="CB_menuoptions4"]',
@@ -49,9 +48,9 @@ class testSL(SeleniumUtils, SetupByLocation):
            check that click on 'X' clears the input and opens the select list dropdown
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
-        self.check_clr({ 'xpath': '//*[@id="CB_menuoptions4"]',
+        self.check_clr({ 'xpath': '//*[@id="CB_menuoptions5"]',
             'input': '//*[@id="selecttest"]' })
-        self.is_element_present({ 'xpath': '//*[@id="SP_menuoptions4"]'})
+        self.is_element_present({ 'xpath': '//*[@id="SP_menuoptions5"]'})
 
     def tearDown(self):
         super(testSL,self).tearDown()

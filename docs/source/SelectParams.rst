@@ -56,10 +56,14 @@ Data
 
     MenuOptions accepts the following in `Data`
 
-    1. an array
-    2. an array of arrays
-    3. a single object
-    4. an array of objects
+    1. an array, e.g., ["Jan","Feb","Mar"...]
+    2. an array of arrays , e.g., [["Jan","Feb","Mar"],["Apr","Jun","Jul"]...]
+    3. a single multikey object, e.g., { 1:"Jan", 2:"Feb",...}
+    4. an array of multikey or single key objects, e.g., single key [{1:"Jan",{2:"Feb"}...], multikey [{1:"Jan",2:"Feb"},{3:"Mar", 4:"Apr"}...]
+
+Notes: 
+    1. Use arrays ([]) when you want the menu_opt_key to equal the displayed text, e.g., when using US State abbreviations. So the display would be 'AL' (for Alabama) and 'AL' would be stored in the menu_opt_key.
+    2. Use objects ({})  when you want to save a code in menu_opt_key. For example, if you want to display 'January' but save the code 1 in the menu_opt_key (and later save that code in a database or other persistent storage).
 
 DisableHiLiting
 ^^^^^^^^^^^^^^^

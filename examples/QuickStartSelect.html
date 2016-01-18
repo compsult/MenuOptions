@@ -8,7 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
-   <script src="../media/js/jquery.menuoptions.min.js?v_1820"></script> 
+   <script src="../media/js/jquery.menuoptions.js?v_1820"></script> 
    <link rel="stylesheet" href="../media/css/menuoptions.css?v_1820">
    <!--  END_INCLUDES  -->
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
@@ -20,11 +20,26 @@
 
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
-
    /*--  START_JAVASCRIPT  --*/
+    var data;
+    if ( document.URL.match(/singleobject/) ) {
+       data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                8:"August",9:"September",10:"October",11:"November",12:"December" };
+    } else if ( document.URL.match(/one_dimens_ary/) ) {
+       data = [ "January","February","March","April","May", "June","July",
+                "August","September","October","November","December" ];
+    } else if ( document.URL.match(/two_dimens_ary/) ) {
+       data = [ [ "January","February"],["March","April"],["May", "June","July",
+                "August","September","October","November","December" ]];
+    } else if ( document.URL.match(/ary_of_objs/) ) {
+       data = [ { 1:"January" }, { 2:"February" }, { 3:"March" }, { 4:"April" }, { 5:"May" }, {  6:"June" }, { 7:"July" },
+             { 8:"August" }, { 9:"September" }, { 10:"October" }, { 11:"November" },{ 12:"December"} ];
+    }  else {
+       data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                8:"August",9:"September",10:"October",11:"November",12:"December" };
+    }
     $('input#selecttest').menuoptions({ 
-        "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
-                  8:"August",9:"September",10:"October",11:"November",12:"December" },
+        "Data": data,
         "onSelect": function(mo, data) { 
             console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
@@ -34,8 +49,7 @@ $(document).ready(function() {
         "Sort": []
     });  
     $('input#scrolltest').menuoptions({ 
-        "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
-                  8:"August",9:"September",10:"October",11:"November",12:"December" },
+        "Data": data,
         "onSelect": function(mo, data) { 
             console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
@@ -172,7 +186,7 @@ $(document).ready(function() {
   &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
   &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
    &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
-   &lt;script src="../media/js/jquery.menuoptions.min.js?v_1820"&gt;&lt;/script&gt; 
+   &lt;script src="../media/js/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt; 
    &lt;link rel="stylesheet" href="../media/css/menuoptions.css?v_1820"&gt;
    
         </code></pre>

@@ -80,6 +80,8 @@ class SeleniumUtils(object):
         assert params['title'] in self.driver.title
 
     def is_element_present(self, params):
+        WebDriverWait(self.driver, 30).until(
+              EC.presence_of_element_located((By.XPATH,params['xpath'])))
         try: self.driver.find_element_by_xpath(params['xpath'])
         except NoSuchElementException, e: assert False
         print ' '.join(['Found element ', params['xpath']])
@@ -140,7 +142,7 @@ class SeleniumUtils(object):
     def check_clr (self, params ):
         self.driver.find_element_by_xpath(params['xpath']).click()
         elem=self.driver.find_element_by_xpath(params['input'])
-        input_text=elem.get_attribute('value')
+        input_text=elem.text
         print "Clicked clear, input value = " + input_text
         assert input_text == ''
 
@@ -235,6 +237,18 @@ class SeleniumUtils(object):
         nav_ofs = self.driver.execute_script("return $('nav.navbar').offset()")
         print "nav offset = " + str(nav_ofs['left'])
         assert main_ofs['left'] - nav_ofs['left'] == int(params['menu_offset'])
+
+    def js_chk_data_struct (self, params ):
+        js_script = ''.join(["return ",
+            "$('#",
+            params['id'],
+            "').data()['mre-menuoptions'].ary_of_objs;"
+            ])
+        data = self.driver.execute_script(js_script)
+        str_data=re.sub(r'\s+', '', str(data))
+        str_exp=re.sub(r'\s+', '', params['expected'])
+        print ' '.join(["Expected result = ",str_exp, " Actual = ",str_data])
+        assert str_data == str_exp
 
     def js_hover_over (self, params ):
         js_script = ''.join(["var elem = document.getElementById('",

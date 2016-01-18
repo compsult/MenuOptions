@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.4-2
+ * @version         Version 1.7.4-3
  *
  *
  ******************************************/
@@ -92,7 +92,7 @@ $.widget('mre.menuoptions', {
         }
 
         // make sure incoming data is in required format
-        this.orig_objs = this.ary_of_objs = this._build_array_of_objs();
+        this._build_array_of_objs();
         if (this.orig_objs === false) {
             this._validation_fail('Invalid Data format supplied to menuoptions');
             return;
@@ -100,7 +100,7 @@ $.widget('mre.menuoptions', {
 
         this._check_for_bootstrap();
 
-        this._set_options();
+        this._setOptions( this.options );
 
         if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
             if (this._rocker_main({'val' : ''}) === false) {
@@ -115,7 +115,7 @@ $.widget('mre.menuoptions', {
 
         this._detect_destroyed_input();
 
-        this._refresh();
+        this._refresh(); 
 
         $(this.element).addClass('ui-menuoptions');
     },
@@ -130,6 +130,10 @@ $.widget('mre.menuoptions', {
         if ( $('script[src*=bootstrap]').length > 0 ) {
             this.options._bootstrap = true;
         }
+    },
+
+    refreshData : function (RefreshCfg) {
+        this._setOptions( RefreshCfg );
     },
 
     set_select_value : function (new_rec_obj) {
@@ -155,7 +159,9 @@ $.widget('mre.menuoptions', {
             }
         } else {
             this.element.val(val);
-            this.add_menuoption_key();
+            if ( val.length > 0 ) { // skip for clearing out input
+                this.add_menuoption_key();
+            }
         }
     },
 
@@ -197,9 +203,9 @@ $.widget('mre.menuoptions', {
     _initval_exists : function () {
         var retval = false;
         if ((this.options.InitialValue.hasOwnProperty('val') &&
-                this.options.InitialValue.val.length > 0) ||
+                this.options.InitialValue.val.length >= 0) ||
                 (this.options.InitialValue.hasOwnProperty('ky') &&
-                this.options.InitialValue.ky.length > 0)) {
+                this.options.InitialValue.ky.length >= 0)) {
             retval = true;
         }
         return retval;
@@ -241,40 +247,6 @@ $.widget('mre.menuoptions', {
             "newVal" : tgt.children().text(),
             "type": "RockerClick"
         });
-    },
-
-    refreshData : function (RefreshCfg) {
-        // re-create drop down select
-        // Note: you have to use same option names
-        var $dd_span = this;
-        $(this.element).attr('menu_opt_key', '');
-        /*--  $(this.element).val('');  --*/
-        $.each(RefreshCfg, function (key) {
-            if ($dd_span.options.hasOwnProperty(key)) {
-                $dd_span._setOption(key, RefreshCfg[key]);
-            }
-        });
-        // InitialValue can only be set at init
-        if (this.options.InitialValue.hasOwnProperty('val') ) {
-            this.options.InitialValue.val = '';
-        }
-        this._set_options();
-        this._recreate_mo();
-    },
-
-    _recreate_mo : function() {
-        var orig_val = $(this.element).val();
-        this.orig_objs = this.ary_of_objs = this._build_array_of_objs();
-        if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
-            this._rocker_main({ 'val' : orig_val });
-        } else {
-            if ($('div.rocker[id=RK_' + this._event_ns + ']').length) {
-                $('div.rocker[id=RK_' + this._event_ns + ']').remove();
-                $(this.element).show();
-                $(this.element).next('span.clearbtn').show();
-            }
-            this._build_dropdown(this.orig_objs);
-        }
     },
 
     add_menuoption_key : function () {
@@ -723,34 +695,33 @@ $.widget('mre.menuoptions', {
 
     },
 
-    // _setOption is called for each individual option that is changing
-    _setOption: function (key, value) {
-        this._super(key, value);
-        if (/InitialValue/i.test(key) ){
-            $(this.element).val(value.val);
-            $(this.element).attr('menu_opt_key',value.key);
-        }
-        if (/ShowAt/i.test(key) ){
-            this._set_showat();
-        }
-        this._recreate_mo();
-    },
-
-    _set_showat : function () {
-        if (this.options.ShowAt.match(/^ *bottom *$/i)) {
-            this._setOption('ShowAt', 'left bottom-2' );
-        } else if (this.options.ShowAt.match(/^ *right *$/i)) {
-            this._setOption('ShowAt', 'right-2 top');
+    _recreate_mo : function() {
+        var orig_val = $(this.element).val();
+        this._build_array_of_objs();
+        if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
+            this._rocker_main({ 'val' : orig_val });
+        } else {
+            if ($('div.rocker[id=RK_' + this._event_ns + ']').length) {
+                $('div.rocker[id=RK_' + this._event_ns + ']').remove();
+                $(this.element).show();
+                $(this.element).next('span.clearbtn').show();
+            }
+            this._build_dropdown(this.orig_objs);
         }
     },
 
-    _set_options : function () {
+    _setOptions : function ( options ) {
+        var $dd_span = this;
         this.options._orig_showat = this.options.ShowAt;
+        $.each(options, function (key, value) {
+            if ($dd_span.options.hasOwnProperty(key)) {
+                $dd_span._setOption(key, options[key]);
+            }
+        });
         this._set_showat();
         if ( $(this.element).val().length ) {
             this.add_menuoption_key();
         }
-        this._setOption('Data', this.options.Data);
         if (this._initval_exists()) {
             this.set_select_value(this.options.InitialValue);
         }
@@ -760,6 +731,15 @@ $.widget('mre.menuoptions', {
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
         if (/Select/.test(this.options.MenuOptionsType)) {
             this._setOption('_orig_bc', $(this.element).css('border-top-color'));
+        }
+        this._recreate_mo();  
+    },
+
+    _set_showat : function () {
+        if (this.options.ShowAt.match(/^ *bottom *$/i)) {
+            this._setOption('ShowAt', 'left bottom-2' );
+        } else if (this.options.ShowAt.match(/^ *right *$/i)) {
+            this._setOption('ShowAt', 'right-2 top');
         }
     },
 
@@ -901,22 +881,35 @@ $.widget('mre.menuoptions', {
         }
     },
 
+    _build_array_of_objs_menu : function () {
+        var $this = this;
+        // reverse key value pair 
+        this.orig_objs = this.ary_of_objs = $.map($this.options.Data, function (k) {
+             return { ky: k[Object.keys(k)[0]], val: Object.keys(k)[0]};
+        });
+    },
+
     _obj_create : function (ary_of_objs, value) {
         var p;
         if ($.isArray(value) === true) {
-            ary_of_objs.push({ ky: value[0], val: value[1] });
+            $.each(value, function (key, val) {
+                ary_of_objs.push({ ky: val, val: val });
+            });
         } else {
             /*jslint unparam: true*/
             p = $.map(value, function (v, i) {
                 return i;
             });
             /*jslint unparam: false*/
-            if (value.hasOwnProperty(p[0])) {
-                ary_of_objs.push({ ky: p[0], val: value[p[0]] });
-            } else {
-                alert("Data error: Key with no value error" + 
-                        " in incoming Data parameter");
-                return false;
+            for (var i = 0; i < p.length; i++) { 
+                if (value.hasOwnProperty(p[i])) {
+                    ary_of_objs.push({ ky: p[i], val: value[p[i]] });
+                } else {
+                    alert( "Input ID " + $(this.element).attr('id') +
+                            " -> Data error: Key with no value error" + 
+                            " in incoming Data parameter");
+                    return false;
+                }
             }
         }
         return true;
@@ -925,6 +918,10 @@ $.widget('mre.menuoptions', {
     _build_array_of_objs : function () {
         var $dd_span = this,
             ary_of_objs = [];
+        if (this.options.MenuOptionsType === 'Navigate') {
+            this._build_array_of_objs_menu();
+            return;
+        }
         if (typeof $dd_span.options.Data[0] === 'string') {
             /*--  take 1 dimensional array and make array of objs  --*/
             /*jslint unparam: true*/
@@ -934,28 +931,23 @@ $.widget('mre.menuoptions', {
             /*jslint unparam: false*/
         } else {
             $.each($dd_span.options.Data, function (key, value) {
-                if (!$.isArray($dd_span.options.Data)) {
+                if ($.isPlainObject($dd_span.options.Data[0])) { 
+                    /*--  make sure objects follow {ky: "key", "val:"value} pattern --*/
+                    if ($dd_span._obj_create(ary_of_objs, value) === false) { 
+                             return false; 
+                    } 
+                } else if (!$.isArray($dd_span.options.Data)) { 
+                    /*--  if (!$.isArray($dd_span.options.Data)) {  --*/
                     // handle single object
                     ary_of_objs.push({ ky: key, val: value });
-                } else if ($.isPlainObject($dd_span.options.Data[0])) {
-                    // handle array of objects
-                    if ($dd_span._obj_create(ary_of_objs, value) === false) {
-                        return false;
-                    }
                 } else if ($.isArray($dd_span.options.Data[0])) {
                     // handle array of arrays
                     $dd_span._obj_create(ary_of_objs, value);
                 }
                 $dd_span.total_rec_cnt += 1;
-            });
+             });
         }
-        if ($dd_span.options.MenuOptionsType === 'Navigate') {
-            // reverse key value pair 
-            ary_of_objs = $.map(ary_of_objs, function (k) {
-                return { ky: k.val, val: k.ky };
-            });
-        }
-        return ary_of_objs;
+        this.orig_objs = this.ary_of_objs = ary_of_objs;
     },
 
     _run_menu_item : function (e) {

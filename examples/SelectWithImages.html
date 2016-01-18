@@ -9,7 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
    <link rel="stylesheet" href="../media/css/menuoptions.css?v_1820">
-   <script src="../media/js/jquery.menuoptions.min.js?v_1820"></script> 
+   <script src="../media/js/jquery.menuoptions.js?v_1820"></script> 
    <!--  END_INCLUDES  -->
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
@@ -21,12 +21,35 @@
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
    /*--  START_JAVASCRIPT  --*/
-  var PayMethod = { "1":"<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check", 
-                    "2": "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash", 
-                    "3": "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge", 
-                    "4": "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal"};
+    var data;
+    if ( document.URL.match(/singleobject/) ) {
+       data = { "1":"<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check", 
+                "2": "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash", 
+                "3": "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge", 
+                "4": "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal"};
+    } else if ( document.URL.match(/one_dimens_ary/) ) {
+       data = [ "<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check", 
+                "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash", 
+                "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge",
+                "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal" ];
+    } else if ( document.URL.match(/two_dimens_ary/) ) {
+       data = [ [ "<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check" ], 
+                [ "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash" , 
+                  "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge",
+                  "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal" ] ];
+    } else if ( document.URL.match(/ary_of_objs/) ) {
+       data = [ { "1":"<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check" , 
+                 "2": "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash" }, 
+                { "3": "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge" }, 
+                { "4": "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal"} ];
+    }  else {
+       data = { "1":"<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check", 
+                "2": "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash", 
+                "3": "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge", 
+                "4": "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal"};
+    }
   $('input#CustSel').menuoptions({
-                                      "Data": PayMethod,
+                                      "Data": data,
                                       "ClearBtn": true,
                                });
    /*--  END_JAVASCRIPT  --*/
@@ -100,7 +123,7 @@ $(document).ready(function() {
   &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
    &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
    &lt;link rel="stylesheet" href="../media/css/menuoptions.css?v_1820"&gt;
-   &lt;script src="../media/js/jquery.menuoptions.min.js?v_1820"&gt;&lt;/script&gt; 
+   &lt;script src="../media/js/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt; 
    
         </code></pre>
     </div>
