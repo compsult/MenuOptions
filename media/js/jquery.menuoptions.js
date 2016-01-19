@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.4-4
+ * @version         Version 1.7.4-5
  *
  *
  ******************************************/
@@ -234,9 +234,9 @@ $.widget('mre.menuoptions', {
             " menu_opt_key=" + this.orig_objs[1].ky + "></div>" +
             "</div></div>");
         $('div#RK_LT_' + this._event_ns)
-            .append('<span class=innertext style="padding-left:10px">' + this.orig_objs[0].val + '</span>');
+            .append('<span class=innertext>' + this.orig_objs[0].val + '</span>');
         $('div#RK_RT_' + this._event_ns)
-            .append('<span class=innertext style="padding-right:10px">' + this.orig_objs[1].val + '</span>');
+            .append('<span class=innertext>' + this.orig_objs[1].val + '</span>');
     },
 
     _rocker_click : function (event) {
@@ -258,8 +258,7 @@ $.widget('mre.menuoptions', {
         if (matchedRec.length > 0) {
             $(this.element).attr('menu_opt_key', matchedRec[0].ky);
         } else {
-            alert("input id #"+ $(this.element).attr('id') + ": '" + 
-                    input_val + "' was not found in select list");
+            this._validation_fail('Matching value was not found in select list');
         }
     },
 
@@ -429,7 +428,7 @@ $.widget('mre.menuoptions', {
             } else if ($(event.currentTarget).text().match(/\(all\)/i)) {
                 this._buildWholeDropDown(event);
             } else {
-                alert('Filter key ' + $(event.currentTarget).text() +
+                this._validation_fail('Filter key ' + $(event.currentTarget).text() +
                     'does not have a matching regular expression');
             }
         } else { // assume array of scalars
@@ -905,8 +904,7 @@ $.widget('mre.menuoptions', {
                 if (value.hasOwnProperty(p[i])) {
                     ary_of_objs.push({ ky: p[i], val: value[p[i]] });
                 } else {
-                    alert( "Input ID " + $(this.element).attr('id') +
-                            " -> Data error: Key with no value error" + 
+                    this._validation_fail(" Data error: Key with no value error" + 
                             " in incoming Data parameter");
                     return false;
                 }
