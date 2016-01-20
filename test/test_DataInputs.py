@@ -40,15 +40,15 @@ class testDS(SeleniumUtils, SetupByLocation):
         """
            check ary_of_objs data structure with single multi key object as Data
         """
-        self.open_n_tst_title({'url': self.url+"?ary_of_objs", 'title': 'MenuOptions'} )
+        self.open_n_tst_title({'url': self.url+"?singleobject", 'title': 'MenuOptions'} )
         self.js_chk_data_struct ({'id': 'selecttest',
                                   'expected': self.expected_for_objects })
 
     def test05_data_struct(self):
         """
-           check ary_of_objs data structure with multi key array of objects as Data
+           check ary_of_objs data structure with array of multi key objects as Data
         """
-        self.open_n_tst_title({'url': self.url+"?ary_of_objs", 'title': 'MenuOptions'} )
+        self.open_n_tst_title({'url': self.url+"?ary_of_mk_objs", 'title': 'MenuOptions'} )
         self.js_chk_data_struct ({'id': 'selecttest',
                                   'expected': self.expected_for_objects })
 
