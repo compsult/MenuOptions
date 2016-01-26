@@ -63,6 +63,11 @@ $(document).ready(function() {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 
 });
 </script>
@@ -85,6 +90,8 @@ $(document).ready(function() {
 
 
 
+            
+
     <br /><br /><br /><br />
         <h1>Code</h1>
         <div id="tabs">
@@ -96,12 +103,35 @@ $(document).ready(function() {
     <div id="tabs-1">
         <pre><code class="javascript" style='text-align:left'>
             
-  var PayMethod = { "1":"&lt;img class='check' src='imgs/Transparent.gif' width='1' height='1'&gt;Check", 
-                    "2": "&lt;img class='cash' src='imgs/Transparent.gif' width='1' height='1'&gt;Cash", 
-                    "3": "&lt;img class='charge' src='imgs/Transparent.gif' width='1' height='1'&gt;Charge", 
-                    "4": "&lt;img class='paypal' src='imgs/Transparent.gif' width='1' height='1'&gt;Paypal"};
+    var data;
+    if ( document.URL.match(/singleobject/) ) {
+       data = { "1":"&lt;img class='check' src='imgs/Transparent.gif' width='1' height='1'&gt;Check", 
+                "2": "&lt;img class='cash' src='imgs/Transparent.gif' width='1' height='1'&gt;Cash", 
+                "3": "&lt;img class='charge' src='imgs/Transparent.gif' width='1' height='1'&gt;Charge", 
+                "4": "&lt;img class='paypal' src='imgs/Transparent.gif' width='1' height='1'&gt;Paypal"};
+    } else if ( document.URL.match(/one_dimens_ary/) ) {
+       data = [ "&lt;img class='check' src='imgs/Transparent.gif' width='1' height='1'&gt;Check", 
+                "&lt;img class='cash' src='imgs/Transparent.gif' width='1' height='1'&gt;Cash", 
+                "&lt;img class='charge' src='imgs/Transparent.gif' width='1' height='1'&gt;Charge",
+                "&lt;img class='paypal' src='imgs/Transparent.gif' width='1' height='1'&gt;Paypal" ];
+    } else if ( document.URL.match(/two_dimens_ary/) ) {
+       data = [ [ "&lt;img class='check' src='imgs/Transparent.gif' width='1' height='1'&gt;Check" ], 
+                [ "&lt;img class='cash' src='imgs/Transparent.gif' width='1' height='1'&gt;Cash" , 
+                  "&lt;img class='charge' src='imgs/Transparent.gif' width='1' height='1'&gt;Charge",
+                  "&lt;img class='paypal' src='imgs/Transparent.gif' width='1' height='1'&gt;Paypal" ] ];
+    } else if ( document.URL.match(/ary_of_objs/) ) {
+       data = [ { "1":"&lt;img class='check' src='imgs/Transparent.gif' width='1' height='1'&gt;Check" , 
+                 "2": "&lt;img class='cash' src='imgs/Transparent.gif' width='1' height='1'&gt;Cash" }, 
+                { "3": "&lt;img class='charge' src='imgs/Transparent.gif' width='1' height='1'&gt;Charge" }, 
+                { "4": "&lt;img class='paypal' src='imgs/Transparent.gif' width='1' height='1'&gt;Paypal"} ];
+    }  else {
+       data = { "1":"&lt;img class='check' src='imgs/Transparent.gif' width='1' height='1'&gt;Check", 
+                "2": "&lt;img class='cash' src='imgs/Transparent.gif' width='1' height='1'&gt;Cash", 
+                "3": "&lt;img class='charge' src='imgs/Transparent.gif' width='1' height='1'&gt;Charge", 
+                "4": "&lt;img class='paypal' src='imgs/Transparent.gif' width='1' height='1'&gt;Paypal"};
+    }
   $('input#CustSel').menuoptions({
-                                      "Data": PayMethod,
+                                      "Data": data,
                                       "ClearBtn": true,
                                });
    

@@ -23,14 +23,26 @@
 $(document).ready(function() {
     /*--  here, a single object is used as Data  --*/
    /*--  START_JAVASCRIPT  --*/
-    var Menu_w_Dividers = {  
-                  'Search'  :'divider' , 
-                  'Google'  :'http://www.google.com' , 
-                  'Yahoo'  :'http://www.yahoo.com' , 
-                  'Business'  :'divider' , 
-                  'CNBC'  :'http://www.cnbc.com' , 
-                  'MarketWatch' :'http://www.MarketWatch.com' 
-    };
+    var Menu_w_Dividers;
+    if ( document.URL.match(/singleobject/) ) {
+        Menu_w_Dividers = {  
+                    'Search'  :'divider' , 
+                    'Google'  :'http://www.google.com' , 
+                    'Yahoo'  :'http://www.yahoo.com' , 
+                    'Business'  :'divider' , 
+                    'CNBC'  :'http://www.cnbc.com' , 
+                    'MarketWatch' :'http://www.MarketWatch.com' 
+        };
+    } else {
+        Menu_w_Dividers = [
+                { 'Search'  :'divider' }, 
+                { 'Google'  :'http://www.google.com' }, 
+                { 'Yahoo'  :'http://www.yahoo.com' }, 
+                { 'Business'  :'divider' }, 
+                { 'CNBC'  :'http://www.cnbc.com' }, 
+                { 'MarketWatch' :'http://www.MarketWatch.com'} 
+        ];
+    }
 
     $('button[id="menu_divs_filts"]').menuoptions({ 
         'MenuOptionsType': 'Navigate', 
@@ -41,6 +53,11 @@ $(document).ready(function() {
 
     $("div#buttons").buttonset().css({"padding":"5px" });
    /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
     $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
     });
@@ -77,6 +94,8 @@ $(document).ready(function() {
 	 </table>
 
 
+            
+
     <br /><br /><br /><br />
         <h1>Code</h1>
         <div id="tabs">
@@ -88,14 +107,26 @@ $(document).ready(function() {
     <div id="tabs-1">
         <pre><code class="javascript" style='text-align:left'>
             
-    var Menu_w_Dividers = {  
-                  'Search'  :'divider' , 
-                  'Google'  :'http://www.google.com' , 
-                  'Yahoo'  :'http://www.yahoo.com' , 
-                  'Business'  :'divider' , 
-                  'CNBC'  :'http://www.cnbc.com' , 
-                  'MarketWatch' :'http://www.MarketWatch.com' 
-    };
+    var Menu_w_Dividers;
+    if ( document.URL.match(/singleobject/) ) {
+        Menu_w_Dividers = {  
+                    'Search'  :'divider' , 
+                    'Google'  :'http://www.google.com' , 
+                    'Yahoo'  :'http://www.yahoo.com' , 
+                    'Business'  :'divider' , 
+                    'CNBC'  :'http://www.cnbc.com' , 
+                    'MarketWatch' :'http://www.MarketWatch.com' 
+        };
+    } else {
+        Menu_w_Dividers = [
+                { 'Search'  :'divider' }, 
+                { 'Google'  :'http://www.google.com' }, 
+                { 'Yahoo'  :'http://www.yahoo.com' }, 
+                { 'Business'  :'divider' }, 
+                { 'CNBC'  :'http://www.cnbc.com' }, 
+                { 'MarketWatch' :'http://www.MarketWatch.com'} 
+        ];
+    }
 
     $('button[id="menu_divs_filts"]').menuoptions({ 
         'MenuOptionsType': 'Navigate', 
@@ -126,60 +157,6 @@ $(document).ready(function() {
   &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
    &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
    &lt;script src="../media/js/jquery.menuoptions.js?v_1820"&gt;&lt;/script&gt; 
-   &lt;link rel="stylesheet" href="../media/css/menuoptions.css?v_1820"&gt;
-   
-        </code></pre>
-    </div>
-            
-    <br /><br /><br /><br />
-        <h1>Code</h1>
-        <div id="tabs">
-    <ul>
-        <li><a href="#tabs-1">Javascript</a></li>
-        <li><a href="#tabs-2">HTML </a></li>
-        <li><a href="#tabs-3">includes </a></li>
-    </ul>
-    <div id="tabs-1">
-        <pre><code class="javascript" style='text-align:left'>
-            
-    var Menu_w_Dividers = {  
-                  'Search'  :'divider' , 
-                  'Google'  :'http://www.google.com' , 
-                  'Yahoo'  :'http://www.yahoo.com' , 
-                  'Business'  :'divider' , 
-                  'CNBC'  :'http://www.cnbc.com' , 
-                  'MarketWatch' :'http://www.MarketWatch.com' 
-    };
-
-    $('button[id="menu_divs_filts"]').menuoptions({ 
-        'MenuOptionsType': 'Navigate', 
-        'Data': Menu_w_Dividers,
-        'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ], 
-        'Sort': [], 
-    }); 
-
-    $("div#buttons").buttonset().css({"padding":"5px" });
-   
-        </code></pre>
-    </div>
-            
-    <div id="tabs-2">
-        <pre><code class="html" style='text-align:left'>
-            
-                &lt;div id=buttons&gt;
-                    &lt;button type="button" id="menu_divs_filts" &gt;Menu with dividers & filters&lt;/button&gt;
-                &lt;/div&gt;
-                
-        </code></pre>
-    </div>
-            
-    <div id="tabs-3">
-        <pre><code class="html" style='text-align:left'>
-            
-   &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"&gt;&lt;/script&gt;
-  &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"&gt;&lt;/script&gt;
-   &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
-   &lt;script src="../media/js/jquery.menuoptions.min.js?v_1820"&gt;&lt;/script&gt; 
    &lt;link rel="stylesheet" href="../media/css/menuoptions.css?v_1820"&gt;
    
         </code></pre>

@@ -1,12 +1,29 @@
 User methods
 ========================
 
-`(Click here to see demo that uses methods set_select_value & refreshData) </examples/MultiSelect.html>`_
+`(Click here to see demo that resets MenuOptions options & resets a MenuOptions input field  ) </examples/MultiSelect.html>`_
 
-add_menuoption_key
-^^^^^^^^^^^^^^^^^^
+add_menuoption_key *[ deprecated ]*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Useful for when a value is pasted into a select list field,
+Alternative to add_menuoption_key
+
+    A call to MenuOptions with no parameters will `auto-configure  <FAQ.html#what-do-you-mean-auto-configure>`_
+
+Explanation: 
+
+    if there is a ``key`` (a code repesenting the value) in the input field
+    it will be replaced with the ``value`` (the text the user should see)
+    and the menu_opt_key will be set to the ``key``
+    Alternatively, if there is a ``value`` in the input field
+    it will be left as is and the menu_opt_key will be set to the key 
+
+.. code-block:: javascript
+
+    $('input#delivery').menuoptions();
+
+
+Useful for when a ``value`` is pasted into a select list field,
 `add_menuoption_key`  will set the menu_opt_key, based on the text
 visible in the input field. So, for example, the user pasted "January"
 inot the month field, calling `add_menuoption_key` will cause the month code
@@ -24,8 +41,8 @@ Thise example shows using `add_menuoption_key`
     $('input#delivery').menuoptions('add_menuoption_key');
 
 
-set_select_value
-^^^^^^^^^^^^^^^^
+set_select_value *[ deprecated, to be removed in v1.8 ]*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 allows the select list field to be set programmatically.
 Pass in an object with either 'ky' or 'val' as the key
@@ -50,8 +67,22 @@ These examples show using both forms of `set_select_value`
 
     $('input#delivery').menuoptions('set_select_value', {'val': ''});
 
-refreshData [ deprecated ]
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+[call MenuOptions with no parameters] *(replaces set_select_value)*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+    // set the input contents using the value 
+    $('input#delivery').val('pickup'); 
+    //        -- OR --
+    // set the input contents using the key 
+    $('input#delivery').val('1');
+    // call to MenuOptions with no parameters will auto-configure
+    $('input#delivery').menuoptions();
+
+
+refreshData *[ deprecated ]*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 refreshData allows all parameters to be dynamically reset
 
 Usage:
@@ -61,8 +92,8 @@ Usage:
 
 `Using refreshData is no longer required to reset MenuOptions parameters.`
 
-[resetting MenuOptions data]
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[resetting MenuOptions data] *(replaces refreshData)*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: javascript
 

@@ -4,7 +4,7 @@ Change Log
 1.7.1-3
 ^^^^^^^
 
-Changed RockerControl from an option to a MenuSelectType
+Changed RockerControl from an option to a `MenuOptionsType <SelectParams.html#menuoptionstype>`_
 
 The new format is demonstrated below:
 
@@ -44,7 +44,7 @@ Path to static files has changed:
 ShowDownArrow is no longer true or false
 ----------------------------------------
 
-`ShowDownArrow` defaults to color black and allows that color to be
+`ShowDownArrow <MenuParams.html#showdownarrow>`_ defaults to color black and allows that color to be
 overridden with any color you pass in.
 You can also pass in the "None" 
 keyword, indicating that no arrow will be added to the menu header element.
@@ -77,5 +77,19 @@ The new format (below), where arrow color is specified
 ^^^^^^^^
 deprecated `refreshData <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#refreshdata-deprecated>`_
 
-Instead, call menuoptions the same way you would when initializing 
+Instead, call MenuOptions the same way you would when initializing 
 `(code examples here) <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#resetting-menuoptions-data>`_
+
+1.7.4-7
+^^^^^^^
+
+deprecated `add_menuoption_key <UserMethods.html#add-menuoption-key-deprecated>`_
+
+deprecated `set_select_value <UserMethods.html#set-select-value-deprecated-to-be-removed-in-v1-8>`_
+
+Added `DataKeyNames <SelectParams.html#datakeynames>`_
+
+`DataKeyNames <SelectParams.html#datakeynames>`_ allows you to utilize `Data <SelectParams.html#id3>`_ that has extra, unneeded data,
+only picking out the key and value fields that you specify.
+
+Added data structure tests for menus

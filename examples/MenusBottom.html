@@ -73,6 +73,11 @@ $(document).ready(function() {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 });
 </script>
 </head>
@@ -104,6 +109,8 @@ $(document).ready(function() {
                 <!--  END_HTML  -->
                 <div id=fake_alert></div>
 
+
+            
 
     <br /><br /><br /><br />
         <h1>Code</h1>

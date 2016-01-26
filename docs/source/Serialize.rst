@@ -13,13 +13,11 @@ in a call like the one below:
 
     $('input#selecttest').menuoptions('re_serialize',$('form').serialize()); 
 
-`Rules`
-    1 - The selector must be an element that has been initialized with MenuOptions.
+`Note:`
+
+    The selector must be an element that has been initialized with MenuOptions.
         So in the example above, $('input#selecttest') had to have been used initialized
         with a MenuOptions call (initialization example below).
-
-    2 - The data passed in with the `Data </examples/SelectParams.html>`_
-        parameter must be an object or an array of objects
 
 .. code-block:: javascript
 

@@ -6,7 +6,7 @@
 Welcome to MenuOptions
 =====================================================
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-6
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-7
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -42,6 +42,8 @@ Benefits:
 
 - uses scrolling to accomodate large lists
 
+- `auto-configuration <FAQ.html#what-do-you-mean-auto-configure>`_
+
 Other benefits:
 
 - uses color highlighting to show autocomplete matches
@@ -50,7 +52,7 @@ Other benefits:
   single object, array of objects)
 
 - the value associated with with the label string is saved in the input element 
-  automatically (in the menu_opt_key - no need to manually update a hidden field)
+  automatically (in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ - no need to manually update a hidden field)
 
 - since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
 

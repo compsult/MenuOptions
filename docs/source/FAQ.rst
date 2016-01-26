@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-6
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-7
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -14,6 +14,32 @@ How do I reset the options in MenuOptions
 -----------------------------------------
 
 `see the instructions here <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#resetting-menuoptions-data>`_
+
+What do you mean auto-configuration?
+--------------------------------
+
+Auto-configuration means that if you set the input field to either the key or the value,
+MenuOptions will automatically set the correct `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_
+and the correct value (what is shown to user).
+
+For example:
+
+Assume you are using month name and month code in your `Data <SelectParams.html#id3>`_
+and the code 12 represents the month December. 
+If you set you month input field to "December", MenuOptions will automatically set
+`menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ to the code 12. If you set you month input field to 12, MenuOptions
+will convert that and display December, while setting the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ to the code 12.
+
+What is the menu_opt_key?
+-------------------------
+
+`menu_opt_key` is an attribute of the input field that holds the code that corresponds to the 
+visible text. So, if you input field shows "December" and the code for December is 12,
+the `menu_opt_key` would be set to 12.
+
+.. code-block:: html
+
+    <input type="text" name="month1" id="selecttest" menu_opt_key="12" class="ui-menuoptions">
 
 When I use jQuery.empty(), the widget does not get removed. How do I fix this?
 ------------------------------------------------------------------------------
@@ -31,13 +57,13 @@ I pasted data into a MenuOptions select list and now have errors when saving
 
 MenuOptions expects that you have either clicked a selection or 
 typed one in and pressed enter.  When you paste data into a MenuOptions 
-select list, you need to run the `add_menuoption_key` method
+select list, just call MenuOptions again with no parameters
 
 .. code-block:: javascript
 
-      $(YourSelector + ' .ui-menuoptions').menuoptions('add_menuoption_key' );
+      $(YourSelector + ' .ui-menuoptions').menuoptions();
 
-This will populate the attribute menu_opt_key that `re_serialize() </examples/Serialize.html>`_ 
+This will populate the attribute `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ that `re_serialize() </examples/Serialize.html>`_ 
 uses to get the value that corresponds with the text the user sees.
 
 The clear button (or 'X') is not aligned correctly
@@ -84,7 +110,7 @@ element. If you want to submit the form when a user presses Enter, you
 can do so in the onSelect option,  which returns the MenuOptions instance,
 newVal, newCode and type (EnterKey|Click|RockerClick).
 
-For more detals on onSelect `see the docs <http://menuoptions.readthedocs.org/en/latest/SelectParams.html#onselect>`_
+For more detals on onSelect `see the docs <SelectParams.html#onselect>`_
 
 .. code-block:: javascript
 
@@ -103,7 +129,7 @@ This code is in `quick start select demo </examples/QuickStartSelect.html>`_
 
 How can I create a vertical scroll bar for large lists?
 -------------------------------------------------------
-Below is an example. Whenever you specify a Height that is less than
+Below is an example. Whenever you specify a `Height <SelectParams.html#height>`_ that is less than
 the height of the select list dropdown, a vertical scroll bar will be created.
 
 .. code-block:: javascript
@@ -146,13 +172,14 @@ It enables:
 - mulitcolumn display of choices, allowing more data to be presented at one time
 - convenient binary choices (true/false, yes/no, etc) using the Rocker control
 - scrolling to accomodate large lists
+- `auto-configuration <FAQ.html#what-do-you-mean-auto-configure>`_
 
 Other benefits:
 
 - can use data from a variety of JSON types (array, array of arrays, single object, array of objects)
 - uses color highlighting to show autocomplete matches 
 - the value associated with with the label string is saved in the input element automatically
-  (in the menu_opt_key - no need to manually update a hidden field)
+  (in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ - no need to manually update a hidden field)
 - since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
 
 

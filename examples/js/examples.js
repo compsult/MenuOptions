@@ -95,7 +95,9 @@ te.examplelist = function ( ) {
            'Sort': []
       }); 
     var ChangeLog =[ {  '1.7.1-3'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id1' },
-                     {  '1.7.1-7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id2' } ];
+                     {  '1.7.1-7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id2' },
+                     {  '1.7.3-15'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id3' },
+                     {  '1.7.4-7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id4' } ];
 	  $('a.chglog').menuoptions({ 
            'Data': ChangeLog,
            'MenuOptionsType': 'Navigate', 

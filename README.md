@@ -1,4 +1,4 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-6)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-7)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
 #### What it looks like (shown with Bootstrap 3):
 
@@ -17,6 +17,7 @@
 *   has a clear button that wipes the current value and opens the select list (this saves keystrokes in browsers that don't support clear button in input=search e.g., FireFox) 
 *   has a rocker control, convenient for binary choices (true/false, yes/no, etc)
 *   can scroll to accomodate large lists (using the Height parameter)
+*   [auto-configuration](http://menuoptions.readthedocs.org/en/latest/FAQ.html#what-do-you-mean-auto-configuration)
 
 #### Other benefits:
 

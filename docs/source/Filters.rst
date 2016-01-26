@@ -4,7 +4,7 @@ Using Filters in a menu or select list
 How Filters work
 ----------------
 
-Filters are specified using an array of objects. Each key show what the user will 
+`Filters <MenuParams.html#filters>`_ are specified using an array of objects. Each key show what the user will 
 see, each value will be the actual filter that MenuOptions uses to filter out
 data.
 
@@ -19,8 +19,9 @@ data.
 Using a plain text filter
 -------------------------
 
-If your Data is conforms to a pattern (e.g., times with AM PM), you can create
-a simple Filter like the one below
+    
+If your `Data <SelectParams.html#id3>`_ is conforms to a pattern (e.g., times with AM PM), you can create
+a simple `Filter <MenuParams.html#filters>`_ like the one below
 
 .. code-block:: javascript
 
@@ -31,7 +32,7 @@ a simple Filter like the one below
 Using a regular expression (RegExp) filter
 ------------------------------------------
 
-If your data is more varied, you can use RegExp Filters, like the one below:
+If your data is more varied, you can use RegExp `Filters <MenuParams.html#filters>`_, like the one below:
 
 .. code-block:: javascript
 

@@ -15,22 +15,24 @@ Parameter list for menus
     :header: "Parameter","Type","Allowable Values","Default","Required"
     :widths: 22,22,35,35,25
 
-    BootMenuOfs,integer,positive integer,125,false
-    ColumnCount,integer,positive integer,1,false
-    Data,JSON object,"array, object or array of objects",none,true
-    Filters, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
-    MenuOptionsType,string,'Select' or 'Navigate','Select',false
-    ShowAt,string,'Bottom' or 'Right','Bottom',false
-    ShowDownArrow,string, 'None or <color>','black',false 
-    Sort,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
-    Width,integer,positive integer,width of parent,false
-    Window,string,'repl'or 'new',"repl",false
+    `BootMenuOfs`_,integer,positive integer,125,false
+    `ColumnCount`_,integer,positive integer,1,false
+    `Data <MenuParams.html#id3>`_,JSON object,"array, object or array of objects",none,true
+    `Filters`_, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
+    `MenuOptionsType`_,string,'Select' or 'Navigate','Select',false
+    `ShowAt <MenuParams.html#id7>`_,string,'Bottom' or 'Right','Bottom',false
+    `ShowDownArrow`_,string, 'None or <color>','black',false 
+    `Sort`_,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
+    `Width`_,integer,positive integer,width of parent,false
+    `Window`_,string,'repl'or 'new',"repl",false
 
 Parameters explained for menus
 ------------------------------
 
+.. _BootMenuOfs:
+
 BootMenuOfs
-^^^^^^^^^^^
+~~~~~~~~~~~
 
    options: **positive integer**
 
@@ -44,25 +46,32 @@ BootMenuOfs
 
     'BootMenuOfs': 150,
 
+.. _ColumnCount:
+
 ColumnCount
-^^^^^^^^^^^
+~~~~~~~~~~~
    options: **positive integer**
 
    MenuOptions defaults to a single column. To show have more than one 
-   column, use the ColumnCount parameter. 
+   column, use the `ColumnCount` parameter. 
+
+.. _Data:
 
 Data
-^^^^
-    options: **{}, [ [], [], ...], or [ {}, {}, ... ]** 
+~~~~
+    options: **{}, or [ {}, {}, ... ]** 
 
     MenuOptions menus accept the following in `Data`
 
-    1. a single object
-    #. a array of objects
-    #. an array of arrays
+    1. a single multikey object
+           { 1:"Jan", 2:"Feb",...}
+    2. an array of single key objects 
+           single key [{1:"Jan"},{2:"Feb"}...]
+
+.. _Filters:
 
 Filters
-^^^^^^^
+~~~~~~~
     options: **[ { 'text : 'text' }, ...] or [ {'text': 'RegExp'}, ...]**
 
     Filters enable mouseover filering of menu items
@@ -74,8 +83,10 @@ Filters
 
     'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ],
 
+.. _MenuOptionsType:
+
 MenuOptionsType
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
     options: **'Select' or 'Navigate'**
 
     MenuOptions defaults to "Select". To create a menu drop down, call 
@@ -85,8 +96,10 @@ MenuOptionsType
 
     'MenuOptionsType': 'Navigate'
 
+.. _ShowAt:
+
 ShowAt
-^^^^^^
+~~~~~~
     options: **'bottom' or 'right'**  
 
     MenuOptions accepts a string to tell it where to display the menu ::
@@ -94,8 +107,10 @@ ShowAt
     "Bottom" means that the menu will appear underneath
     "Right" means that the menu will appear to the right
 
+.. _ShowDownArrow:
+
 ShowDownArrow
-^^^^^^^^^^^^^
+~~~~~~~~~~~~~
      options: **None or <color>**
 
      ShowDownArrow defaults to "black", meaning a down arrow will automatically 
@@ -109,24 +124,30 @@ ShowDownArrow
     'ShowDownArrow': 'silver'
 
 
+.. _Sort:
+
 Sort
-^^^^
+~~~~
     options: **['alpha' or 'num', 'desc' or 'asc']**
 
      Setting the property to an empty array will cause a Data array 
      (or array of objects) to be displayed in the original order.
      With no sort, a single object will be displayed in random order.
 
+.. _Width:
+
 Width
-^^^^^
+~~~~~
    options: **positive integer**
 
    MenuOptions will try to match the width of the parent element (it may be
    wider if the contents cannot fit). The Width parameter allows the user to 
    override the default width. 
 
+.. _Window:
+
 Window
-^^^^^^
+~~~~~~
    options: **"repl" or "new"**
 
    When a menu itme is clicked, you can opt to have a new browser window open by

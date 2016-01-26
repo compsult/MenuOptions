@@ -53,6 +53,11 @@ $(document).ready(function () {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 });
 </script>
  
@@ -104,6 +109,8 @@ $(document).ready(function () {
     <button class=a type="button" id="menutest" >Show serialize values</button>
     </form>
 
+
+            
 
     <br /><br /><br /><br />
         <h1>Code</h1>

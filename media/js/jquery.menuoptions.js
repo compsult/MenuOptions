@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.4-6
+ * @version         Version 1.7.4-7
  *
  *
  ******************************************/
@@ -42,6 +42,8 @@ $.widget('mre.menuoptions', {
         ShowAt: 'bottom', // 'bottom' or 'right' are the options
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
         Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
+        DataKeyNames: {}, // specify object keys that contain desired data
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#filters
         Filters: [], // header filters (pass mouse over them & they filter choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
@@ -136,10 +138,30 @@ $.widget('mre.menuoptions', {
         this._setOptions( RefreshCfg );
     },
 
+    add_menuoption_key : function () {
+        var input_val = this.element.val();
+        var matchedRec = $.grep(this.ary_of_objs, function (rec) {
+                var select_str = rec.val.replace(/<[\w\W]*?>/g, '');
+                return select_str === input_val || rec.ky === input_val;
+                /*--  return rec.ky === input_val;  --*/
+            });
+        if (matchedRec.length === 0) {
+            this._validation_fail('Matching value was not found in select list');
+        } else {
+            var raw_val = matchedRec[0].val.replace(/<[\w\W]*?>/g, '');
+            if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
+                this._set_rocker ( matchedRec, raw_val );
+            } else {
+                $(this.element).removeAttr('value');
+                $(this.element).val(raw_val);
+                $(this.element).attr('menu_opt_key', matchedRec[0].ky);
+            }
+        }
+    },
+
     set_select_value : function (new_rec_obj) {
         var val = '',
             matchedRec = {};
-        this.ary_of_objs = this.orig_objs;
         if (new_rec_obj.hasOwnProperty('ky')) {
             matchedRec = $.grep(this.ary_of_objs, function (rec) {
                 return parseInt(rec.ky, 10) === parseInt(new_rec_obj.ky, 10);
@@ -249,16 +271,17 @@ $.widget('mre.menuoptions', {
         });
     },
 
-    add_menuoption_key : function () {
-        var input_val = this.element.val(),
-            matchedRec = $.grep(this.ary_of_objs, function (rec) {
-                var select_str = rec.val.replace(/<[\w\W]*?>/g, '');
-                return select_str === input_val;
-            });
-        if (matchedRec.length > 0) {
-            $(this.element).attr('menu_opt_key', matchedRec[0].ky);
-        } else {
-            this._validation_fail('Matching value was not found in select list');
+    _set_rocker : function ( matchedRec, raw_val ) {
+        $(this.element).attr('menu_opt_key', matchedRec[0].ky);
+        $(this.element).val(raw_val);
+        if ( new RegExp(raw_val).test($('div#RK_RT_' + 
+                    this.options._ID + " span").text()) ) {
+            $('div#RK_RT_' + this.options._ID).attr('class', 'rtdown');
+            $('div#RK_LT_' + this.options._ID).attr('class', 'ltup');
+        } else if ( new RegExp(raw_val).test($('div#RK_LT_' + 
+                    this.options._ID + " span").text()) ) {
+            $('div#RK_RT_' + this.options._ID).attr('class', 'rtup');
+            $('div#RK_LT_' + this.options._ID).attr('class', 'ltdown');
         }
     },
 
@@ -299,7 +322,6 @@ $.widget('mre.menuoptions', {
         }
         this.options._currTD = [0, 1];
         this.options._prev_event = e.type;
-        this.ary_of_objs = this.orig_objs;
         // if there is text in input, filter results accordingly
         if (this.cached['.mo_elem'].val().length) {
             this._process_matches(e, this.cached['.mo_elem'].val());
@@ -309,8 +331,8 @@ $.widget('mre.menuoptions', {
         this._show_drop_down(e);
     },
 
-    _build_filtered_dropdown: function (event) {
-        this._build_dropdown(this.ary_of_objs);
+    _build_filtered_dropdown: function (event, matching) {
+        this._build_dropdown( matching );
         this._show_drop_down(event);
     },
 
@@ -399,8 +421,7 @@ $.widget('mre.menuoptions', {
         }
         if (matching.length > 0) {
             // re-create drop down select
-            this.ary_of_objs = matching;
-            this._build_filtered_dropdown(event);
+            this._build_filtered_dropdown(event, matching);
         } else {
             this._buildWholeDropDown(event);
         }
@@ -556,7 +577,7 @@ $.widget('mre.menuoptions', {
             col = this.options._currTD[1],
             highlited = $('.CrEaTeDtAbLeStYlE tr td.mo');
         if (/keydown|keyup/.test(event.type)) {
-            if (/keydown/.test(event.type) &&
+            if (/keyup/.test(event.type) &&
                     (kc === $rt || kc === $lt || kc === $up || kc === $dwn)) {
                 event.preventDefault();
                 return true;
@@ -711,6 +732,14 @@ $.widget('mre.menuoptions', {
 
     _setOptions : function ( options ) {
         var $dd_span = this;
+        if ( $(this.element).val().length ) {
+            this.add_menuoption_key();
+            /*--  calling MenuOptions with no parameters will   --*/
+            /*--  just run add_menuoption_key()  --*/
+            if ( Object.keys(options).length === 0 ) {
+                return;
+            }
+        }
         this.options._orig_showat = this.options.ShowAt;
         $.each(options, function (key, value) {
             if ($dd_span.options.hasOwnProperty(key)) {
@@ -718,9 +747,6 @@ $.widget('mre.menuoptions', {
             }
         });
         this._set_showat();
-        if ( $(this.element).val().length ) {
-            this.add_menuoption_key();
-        }
         if (this._initval_exists()) {
             this.set_select_value(this.options.InitialValue);
         }
@@ -881,32 +907,59 @@ $.widget('mre.menuoptions', {
     },
 
     _build_array_of_objs_menu : function () {
-        var $this = this;
-        // reverse key value pair 
-        this.orig_objs = this.ary_of_objs = $.map($this.options.Data, function (k) {
-             return { ky: k[Object.keys(k)[0]], val: Object.keys(k)[0]};
-        });
+        if (!$.isArray(this.options.Data)) { 
+            var data = [];
+            $.each(this.options.Data, function (key, value) {
+                // handle single object
+                data.push({ ky: value, val: key });
+            });
+            this.orig_objs = this.ary_of_objs = data;
+        } else {
+            // reverse key value pair 
+            this.orig_objs = this.ary_of_objs = $.map(this.options.Data, function (k) {
+                return { ky: k[Object.keys(k)[0]], val: Object.keys(k)[0]};
+            });
+        }
+    },
+
+    _get_custom_keys : function (obj, ary_of_objs) {
+        var kys = Object.keys(obj),
+            obj_ky=this.options.DataKeyNames.key,
+            obj_val=this.options.DataKeyNames.value;
+        var valid_kys = $.grep(kys, function(n,i) { 
+                if ( n===obj_ky || n===obj_val ) 
+                    return n; 
+            });
+        if ( valid_kys.length != 2 ) {
+            this._validation_fail(" Data error: DataKeyNames is invalid "+
+                                  " (it only matched "+valid_kys.length+
+                                  " keys in the Data parameter)");
+            return false;
+        } else {
+            ary_of_objs.push({ ky: obj[obj_ky].toString(), 
+                val: obj[obj_val].toString() });
+        }
     },
 
     _obj_create : function (ary_of_objs, value) {
-        var p;
+        var kys, obj_ky, obj_val;
         if ($.isArray(value) === true) {
             $.each(value, function (key, val) {
                 ary_of_objs.push({ ky: val, val: val });
             });
         } else {
-            /*jslint unparam: true*/
-            p = $.map(value, function (v, i) {
-                return i;
-            });
-            /*jslint unparam: false*/
-            for (var i = 0; i < p.length; i++) { 
-                if (value.hasOwnProperty(p[i])) {
-                    ary_of_objs.push({ ky: p[i], val: value[p[i]] });
-                } else {
-                    this._validation_fail(" Data error: Key with no value error" + 
-                            " in incoming Data parameter");
-                    return false;
+            if ( Object.keys(this.options.DataKeyNames).length > 0 ) {
+               return this._get_custom_keys(value, ary_of_objs);
+            } else {
+                kys = Object.keys(value);
+                for (var i = 0; i < kys.length; i++) { 
+                    if (value.hasOwnProperty(kys[i])) {
+                        ary_of_objs.push({ ky: kys[i], val: value[kys[i]] });
+                    } else {
+                        this._validation_fail(" Data error: Key with no value error" + 
+                                " in incoming Data parameter");
+                        return false;
+                    }
                 }
             }
         }

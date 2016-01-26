@@ -18,18 +18,21 @@ function runTest {
     fi
 }
 function runLocal {
-    grunt uglify:development cssmin:minify
-    mv -f test/test_DataInputs.py test/data_structs.py
+    #--- grunt uglify:development cssmin:minify ---#
 	export TST_LOCATION=local
 	export TST_BROWSER=chrome
 	export TST_PLATFORM=linux
-	nosetests --stop -v 
     cp test/data_structs.py test/test_DataInputs.py
+	nosetests --stop -v
+    mv -f test/test_DataInputs.py test/data_structs.py
 	#--- export TST_BROWSER=firefox ---#
 	#--- nosetests --stop -v ---#
 }
 
 function runSauce {
+    if [[ -f test/test_DataInputs.py ]]; then
+         mv -f test/test_DataInputs.py test/data_structs.py
+    fi
     cp test/sauce_err_bootstrap.py test/test_bootstrap.py 
     runTest sauce safari "OS X 10.10" "Safari test" 
     runTest sauce "internet explorer" "Windows 8" "IE test" 
@@ -43,6 +46,9 @@ if [ $# -eq 0 ]; then
 else
     runLocal
     sleep 1
+    if [[ -f test/test_DataInputs.py ]]; then
+         mv -f test/test_DataInputs.py test/data_structs.py
+    fi
     kill -TERM -$(pgrep -o runTests.bash)
 fi
 #--- runTest sauce chrome Linux "Chrome on linux" ---#

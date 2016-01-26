@@ -21,7 +21,7 @@
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
    /*--  START_JAVASCRIPT  --*/
-    var data;
+    var data, DataKeyNames= {};
     if ( document.URL.match(/singleobject/) ) {
        data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                 8:"August",9:"September",10:"October",11:"November",12:"December" };
@@ -37,6 +37,20 @@ $(document).ready(function() {
     } else if ( document.URL.match(/ary_of_mk_objs/) ) {
        data = [ { 1:"January",  2:"February" }, { 3:"March", 4:"April" }, { 5:"May" }, {  6:"June" }, { 7:"July" },
              { 8:"August" }, { 9:"September" }, { 10:"October" }, { 11:"November" },{ 12:"December"} ];
+    } else if ( document.URL.match(/custom_key_names/) ) {
+        DataKeyNames = { "key": "mon_num", "value": "mon_name" };
+        data = [    {"mon_num":1, "mon_name":"January", "junk_key":"junk_val"}, 
+                    {"mon_num":2, "mon_name":"February", "junk_key":"junk_val"}, 
+                    {"mon_num":3, "mon_name":"March", "junk_key":"junk_val"},
+                    {"mon_num":4, "mon_name":"April", "junk_key":"junk_val"},
+                    {"mon_num":5, "mon_name":"May", "junk_key":"junk_val"},
+                    {"mon_num":6, "mon_name":"June", "junk_key":"junk_val"}, 
+                    {"mon_num":7, "mon_name":"July", "junk_key":"junk_val"},
+                    {"mon_num":8, "mon_name":"August", "junk_key":"junk_val"},
+                    {"mon_num":9, "mon_name":"September", "junk_key":"junk_val"}, 
+                    {"mon_num":10, "mon_name":"October", "junk_key":"junk_val"}, 
+                    {"mon_num":11, "mon_name":"November", "junk_key":"junk_val"},
+                    {"mon_num":12, "mon_name":"December", "junk_key":"junk_val"}];
     }  else {
        data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                 8:"August",9:"September",10:"October",11:"November",12:"December" };
@@ -46,6 +60,7 @@ $(document).ready(function() {
         "onSelect": function(mo, data) { 
             console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
+        "DataKeyNames": DataKeyNames,
         "ClearBtn": true,
         "InitialValue": { 'val': 'December'},
         "ShowAt": 'bottom',
@@ -57,6 +72,7 @@ $(document).ready(function() {
             console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
         "ClearBtn": true,
+        "DataKeyNames": DataKeyNames,
         "InitialValue": { 'val': 'December'},
         "Height": 200,
         "Sort": [] 
@@ -66,6 +82,16 @@ $(document).ready(function() {
         alert (tst);
     });
    /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
     $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
     });
@@ -113,6 +139,10 @@ $(document).ready(function() {
     <button class=a type="button" id="menutest" >Show serialize values</button>
     </form>
 
+            
+
+            
+
     <br /><br /><br /><br />
         <h1>Code</h1>
         <div id="tabs">
@@ -124,24 +154,58 @@ $(document).ready(function() {
     <div id="tabs-1">
         <pre><code class="javascript" style='text-align:left'>
             
+    var data, DataKeyNames= {};
+    if ( document.URL.match(/singleobject/) ) {
+       data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                8:"August",9:"September",10:"October",11:"November",12:"December" };
+    } else if ( document.URL.match(/one_dimens_ary/) ) {
+       data = [ "January","February","March","April","May", "June","July",
+                "August","September","October","November","December" ];
+    } else if ( document.URL.match(/two_dimens_ary/) ) {
+       data = [ [ "January","February"],["March","April"],["May", "June","July",
+                "August","September","October","November","December" ]];
+    } else if ( document.URL.match(/ary_of_objs/) ) {
+       data = [ { 1:"January" }, { 2:"February" }, { 3:"March" }, { 4:"April" }, { 5:"May" }, {  6:"June" }, { 7:"July" },
+             { 8:"August" }, { 9:"September" }, { 10:"October" }, { 11:"November" },{ 12:"December"} ];
+    } else if ( document.URL.match(/ary_of_mk_objs/) ) {
+       data = [ { 1:"January",  2:"February" }, { 3:"March", 4:"April" }, { 5:"May" }, {  6:"June" }, { 7:"July" },
+             { 8:"August" }, { 9:"September" }, { 10:"October" }, { 11:"November" },{ 12:"December"} ];
+    } else if ( document.URL.match(/custom_key_names/) ) {
+        DataKeyNames = { "key": "mon_num", "value": "mon_name" };
+        data = [    {"mon_num":1, "mon_name":"January", "junk_key":"junk_val"}, 
+                    {"mon_num":2, "mon_name":"February", "junk_key":"junk_val"}, 
+                    {"mon_num":3, "mon_name":"March", "junk_key":"junk_val"},
+                    {"mon_num":4, "mon_name":"April", "junk_key":"junk_val"},
+                    {"mon_num":5, "mon_name":"May", "junk_key":"junk_val"},
+                    {"mon_num":6, "mon_name":"June", "junk_key":"junk_val"}, 
+                    {"mon_num":7, "mon_name":"July", "junk_key":"junk_val"},
+                    {"mon_num":8, "mon_name":"August", "junk_key":"junk_val"},
+                    {"mon_num":9, "mon_name":"September", "junk_key":"junk_val"}, 
+                    {"mon_num":10, "mon_name":"October", "junk_key":"junk_val"}, 
+                    {"mon_num":11, "mon_name":"November", "junk_key":"junk_val"},
+                    {"mon_num":12, "mon_name":"December", "junk_key":"junk_val"}];
+    }  else {
+       data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                8:"August",9:"September",10:"October",11:"November",12:"December" };
+    }
     $('input#selecttest').menuoptions({ 
-        "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
-                  8:"August",9:"September",10:"October",11:"November",12:"December" },
+        "Data": data,
         "onSelect": function(mo, data) { 
             console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
+        "DataKeyNames": DataKeyNames,
         "ClearBtn": true,
         "InitialValue": { 'val': 'December'},
         "ShowAt": 'bottom',
         "Sort": []
     });  
     $('input#scrolltest').menuoptions({ 
-        "Data": { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
-                  8:"August",9:"September",10:"October",11:"November",12:"December" },
+        "Data": data,
         "onSelect": function(mo, data) { 
             console.log(mo, data.newVal, data.newCode, data.type );  
         }, 
         "ClearBtn": true,
+        "DataKeyNames": DataKeyNames,
         "InitialValue": { 'val': 'December'},
         "Height": 200,
         "Sort": [] 

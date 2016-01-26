@@ -1,12 +1,12 @@
-Using dividers in a menu or select list
-=======================================
+Using dividers in a menu
+========================
 
 
 Rules to use a divider
 ----------------------
 
-1. You can only use dividers in a single column menu or select list. In other words, the ColumnCount must be set to 1
-#. The Data must be an object or array of objects
+1. You can only use dividers in a single column menu. In other words, the `ColumnCount  <MenuParams.html#columncount>`_ must be set to 1
+#. The `Data <MenuParams.html#id3>`_ must be an object or array of objects
 #. The value must be set to 'divider'
 
 ::
