@@ -16,14 +16,14 @@ Parameter list for menus
     :widths: 22,22,35,35,25
 
     `BootMenuOfs`_,integer,positive integer,125,false
-    `ColumnCount`_,integer,positive integer,1,false
-    `Data <MenuParams.html#id3>`_,JSON object,"array, object or array of objects",none,true
-    `Filters`_, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
+    `ColumnCount <MenuParams.html#columncountmenu>`_,integer,positive integer,1,false
+    `Data <MenuParams.html#datamenu>`_,JSON object,"array, object or array of objects",none,true
+    `Filters <MenuParams.html#filtersmenu>`_, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     `MenuOptionsType`_,string,'Select' or 'Navigate','Select',false
-    `ShowAt <MenuParams.html#id7>`_,string,'Bottom' or 'Right','Bottom',false
+    `ShowAt <MenuParams.html#showatmenu>`_,string,'Bottom' or 'Right','Bottom',false
     `ShowDownArrow`_,string, 'None or <color>','black',false 
-    `Sort`_,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
-    `Width`_,integer,positive integer,width of parent,false
+    `Sort <MenuParams.html#sortmenu>`_,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
+    `Width <MenuParams.html#widthmenu>`_,integer,positive integer,width of parent,false
     `Window`_,string,'repl'or 'new',"repl",false
 
 Parameters explained for menus
@@ -46,7 +46,7 @@ BootMenuOfs
 
     'BootMenuOfs': 150,
 
-.. _ColumnCount:
+.. _ColumnCountMenu:
 
 ColumnCount
 ~~~~~~~~~~~
@@ -55,7 +55,7 @@ ColumnCount
    MenuOptions defaults to a single column. To show have more than one 
    column, use the `ColumnCount` parameter. 
 
-.. _Data:
+.. _DataMenu:
 
 Data
 ~~~~
@@ -68,7 +68,7 @@ Data
     2. an array of single key objects 
            single key [{1:"Jan"},{2:"Feb"}...]
 
-.. _Filters:
+.. _FiltersMenu:
 
 Filters
 ~~~~~~~
@@ -83,11 +83,11 @@ Filters
 
     'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ],
 
-.. _MenuOptionsType:
+.. _MenuOptionsType :
 
 MenuOptionsType
 ~~~~~~~~~~~~~~~
-    options: **'Select' or 'Navigate'**
+    options: **'Select' or 'Navigate' or 'Rocker'**
 
     MenuOptions defaults to "Select". To create a menu drop down, call 
     menuoptions with MenuOptionsType = "Navigate"
@@ -96,7 +96,7 @@ MenuOptionsType
 
     'MenuOptionsType': 'Navigate'
 
-.. _ShowAt:
+.. _ShowAtMenu:
 
 ShowAt
 ~~~~~~
@@ -124,7 +124,7 @@ ShowDownArrow
     'ShowDownArrow': 'silver'
 
 
-.. _Sort:
+.. _SortMenu:
 
 Sort
 ~~~~
@@ -134,7 +134,7 @@ Sort
      (or array of objects) to be displayed in the original order.
      With no sort, a single object will be displayed in random order.
 
-.. _Width:
+.. _WidthMenu:
 
 Width
 ~~~~~

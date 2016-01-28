@@ -8,14 +8,14 @@ add_menuoption_key *[ deprecated ]*
 
 Alternative to add_menuoption_key
 
-    A call to MenuOptions with no parameters will `auto-configure  <FAQ.html#what-do-you-mean-auto-configure>`_
+    A call to MenuOptions with no parameters will `auto-configure  <FAQ.html#what-do-you-mean-auto-configuration>`_
 
 Explanation: 
 
-    if there is a ``key`` (a code repesenting the value) in the input field
-    it will be replaced with the ``value`` (the text the user should see)
-    and the menu_opt_key will be set to the ``key``
-    Alternatively, if there is a ``value`` in the input field
+    if there is a **key** (a code repesenting the value) in the input field
+    it will be replaced with the **value** (the text the user should see)
+    and the menu_opt_key will be set to the **key**
+    Alternatively, if there is a **value** in the input field
     it will be left as is and the menu_opt_key will be set to the key 
 
 .. code-block:: javascript
@@ -23,7 +23,7 @@ Explanation:
     $('input#delivery').menuoptions();
 
 
-Useful for when a ``value`` is pasted into a select list field,
+Useful for when a **value** is pasted into a select list field,
 `add_menuoption_key`  will set the menu_opt_key, based on the text
 visible in the input field. So, for example, the user pasted "January"
 inot the month field, calling `add_menuoption_key` will cause the month code

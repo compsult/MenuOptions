@@ -78,7 +78,7 @@ The new format (below), where arrow color is specified
 deprecated `refreshData <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#refreshdata-deprecated>`_
 
 Instead, call MenuOptions the same way you would when initializing 
-`(code examples here) <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#resetting-menuoptions-data>`_
+`(code examples here) <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#resetting-menuoptions-data-replaces-refreshdata>`_
 
 1.7.4-7
 ^^^^^^^

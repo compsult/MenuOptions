@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-8
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-9
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -13,14 +13,20 @@ FAQ
 How do I reset the options in MenuOptions
 -----------------------------------------
 
-`see the instructions here <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#resetting-menuoptions-data>`_
+`see the instructions here <UserMethods.html#resetting-menuoptions-data-replaces-refreshdata>`_
 
 What do you mean auto-configuration?
---------------------------------
+------------------------------------
 
 Auto-configuration means that if you set the input field to either the key or the value,
 MenuOptions will automatically set the correct `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_
-and the correct value (what is shown to user).
+and the correct value (what is shown to user). The command below will auto-configure all the 
+MenuOptions widgets on a page:
+
+.. code-block:: javascript
+
+      $('.ui-menuoptions').menuoptions();
+
 
 For example:
 
@@ -172,7 +178,7 @@ It enables:
 - mulitcolumn display of choices, allowing more data to be presented at one time
 - convenient binary choices (true/false, yes/no, etc) using the Rocker control
 - scrolling to accomodate large lists
-- `auto-configuration <FAQ.html#what-do-you-mean-auto-configure>`_
+- `auto-configuration <FAQ.html#what-do-you-mean-auto-configuration>`_
 
 Other benefits:
 
