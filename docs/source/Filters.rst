@@ -27,7 +27,7 @@ a simple `Filter <MenuParams.html#filters>`_ like the one below
 
     "Filters": [{'AM':'AM'},{'PM':'PM'}],
 
-`See simple filter demo <examples/ReloadMenuOptions.html>`_
+`See simple filter demo <http://menuoptions.org/examples/ReloadMenuOptions.html>`_
 
 Using a regular expression (RegExp) filter
 ------------------------------------------
@@ -39,7 +39,7 @@ If your data is more varied, you can use RegExp `Filters <MenuParams.html#filter
     'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ],
 
 
-`See RegExp demo <examples/Dividers.html>`_
+`See RegExp demo <http://menuoptions.org/examples/Dividers.html>`_
 
 
 

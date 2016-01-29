@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-10
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-11
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -69,7 +69,7 @@ select list, just call MenuOptions again with no parameters
 
       $(YourSelector + ' .ui-menuoptions').menuoptions();
 
-This will populate the attribute `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ that `re_serialize() <examples/Serialize.html>`_ 
+This will populate the attribute `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ that `re_serialize() <http://menuoptions.org/examples/Serialize.html>`_ 
 uses to get the value that corresponds with the text the user sees.
 
 The clear button (or 'X') is not aligned correctly
@@ -107,7 +107,7 @@ When creating your MenuOptions select control, pass it an object, like the code 
                                             "ColumnCount": 2,
                                             'Width': 225 });
 
-For more details, see `re_serialize() <examples/Serialize.html>`_ 
+For more details, see `re_serialize() <http://menuoptions.org/examples/Serialize.html>`_ 
 
 When I hit enter in a MenuOptions select, it does not submit the form
 ---------------------------------------------------------------------
@@ -131,7 +131,7 @@ For more detals on onSelect `see the docs <SelectParams.html#onselect>`_
         "Sort": [] // don't sort
     });  
 
-This code is in `quick start select demo <examples/QuickStartSelect.html>`_
+This code is in `quick start select demo <http://menuoptions.org/examples/QuickStartSelect.html>`_
 
 How can I create a vertical scroll bar for large lists?
 -------------------------------------------------------
@@ -151,7 +151,7 @@ the height of the select list dropdown, a vertical scroll bar will be created.
         "Sort": []
     });  
 
-This code is in `quick start select demo <examples/QuickStartSelect.html>`_
+This code is in `quick start select demo <http://menuoptions.org/examples/QuickStartSelect.html>`_
 
 When I enter certain characters in a MenuOptions select list they disappear, why?
 ----------------------------------------------------------------------------------

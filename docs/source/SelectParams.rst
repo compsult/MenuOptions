@@ -1,7 +1,7 @@
 Parameters specifications for select lists
 ==========================================
 
-`Show me the select demo <examples/SelectWithImages.html>`_
+`Show me the select demo <http://menuoptions.org/examples/SelectWithImages.html>`_
 
 .. image:: _static/AutoCompWithImgs.jpg
    :alt: Select example
@@ -89,7 +89,7 @@ DataKeyNames
     ``DataKeyNames`` allows you to utilize `Data <SelectParams.html#id3>`_ that has extra, unneeded data,
     only picking out the key and value fields that you specify.
 
-    Below is the code used in `Quick start select list <examples/QuickStartSelect.html?custom_key_names>`_ 
+    Below is the code used in `Quick start select list <http://menuoptions.org/examples/QuickStartSelect.html?custom_key_names>`_ 
 
 .. code-block:: javascript
     :emphasize-lines: 18
@@ -145,7 +145,7 @@ Filters
 
     Filters enable mouseover filtering of select items
     You can filter by plain text or by regular expression
-    (`Example of using Filters with a RegExp <examples/MenusBottom.html>`_ )
+    (`Example of using Filters with a RegExp <http://menuoptions.org/examples/MenusBottom.html>`_ )
 
 .. code-block:: html
 
@@ -162,7 +162,7 @@ Height
    Using the Height parameter is useful to get the exact height you
    want for your application. It is also useful for large list, since it will 
    create a vertical scroll bar. 
-   (`Example of using Height to create a vertical scroll bar <examples/QuickStartSelect.html>`_ )
+   (`Example of using Height to create a vertical scroll bar <http://menuoptions.org/examples/QuickStartSelect.html>`_ )
 
 .. code-block:: javascript
     
@@ -179,7 +179,7 @@ InitialValue
 
     Note: you can use this to set the initial value (visible on the screen)
     or to set the key (the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_) or both key and value.
-    (`see a demo that uses InitialValue <examples/MultiSelect.html>`_ ) 
+    (`see a demo that uses InitialValue <http://menuoptions.org/examples/MultiSelect.html>`_ ) 
 
 These examples show using both forms of `InitialValue`
 
