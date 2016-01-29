@@ -1,7 +1,7 @@
 User methods
 ========================
 
-`(Click here to see demo that resets MenuOptions options & resets a MenuOptions input field  ) </examples/MultiSelect.html>`_
+`(Click here to see demo that resets MenuOptions options & resets a MenuOptions input field  ) <examples/MultiSelect.html>`_
 
 add_menuoption_key *[ deprecated ]*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

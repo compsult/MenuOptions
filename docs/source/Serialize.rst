@@ -5,7 +5,7 @@ Using MenuOptions select with serialize
 Pass output of serialize() to re_serialize()
 --------------------------------------------
 
-`See re_serialize demo with documention </examples/Serialize.html>`_
+`See re_serialize demo with documention <examples/Serialize.html>`_
 
 in a call like the one below:
 

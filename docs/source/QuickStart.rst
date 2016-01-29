@@ -35,7 +35,7 @@ You can get around this restriction by editing menuoptions.css to use your direc
 Quick start to create menu
 --------------------------
 
-see `Quick start menu demo </examples/QuickStartMenu.html>`_
+see `Quick start menu demo <examples/QuickStartMenu.html>`_
 
 Pass in a array of objects in the format:
 
@@ -62,7 +62,7 @@ The example below has 2 URLs and a javascript command.
 Quick start to create select drop down
 --------------------------------------
 
-see `Quick start select demo </examples/QuickStartSelect.html>`_
+see `Quick start select demo <examples/QuickStartSelect.html>`_
 
 You can create a select drop down with a simple array:
 
