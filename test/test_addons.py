@@ -33,6 +33,7 @@ class test_addons(SetupByLocation, SeleniumUtils):
         self.check_html({ 'xpath': '//*[@id="menu_w_imgs"]/span',
             'partial': True,
             'expected': u'Menuwithimages&nbsp;.*span.*class="down_arrow"' })
+
     def test04_rt_arrow(self):
         """
            verify that right side menus show a right arrow after menu text
@@ -45,6 +46,26 @@ class test_addons(SetupByLocation, SeleniumUtils):
         self.check_html({ 'xpath': '//*[@id="menu_w_imgs"]/span',
             'partial': True,
             'expected': u'Menuwithimages&nbsp;.*span.*class="right_arrow"' })
+
+    def test05_autocfg_text(self):
+        """
+           verify that auto-configure works with text in the input element
+        """
+        self.url='http://'+self.IP+'/examples/QuickStartSelect.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
+        self.js_chk_autocfg_text({ 'id': 'selecttest',
+            'text': "December",
+            'expected': u'12'})
+
+    def test06_autocfg_code(self):
+        """
+           verify that auto-configure works with a code in the input element
+        """
+        self.url='http://'+self.IP+'/examples/QuickStartSelect.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
+        self.js_chk_autocfg_code({ 'id': 'selecttest',
+            'code': "4",
+            'expected': u'April'})
 
     def tearDown(self):
         super(test_addons,self).tearDown()

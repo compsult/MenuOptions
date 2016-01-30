@@ -238,6 +238,29 @@ class SeleniumUtils(object):
         print "nav offset = " + str(nav_ofs['left'])
         assert main_ofs['left'] - nav_ofs['left'] == int(params['menu_offset'])
 
+    def js_chk_autocfg_text (self, params ):
+        #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
+        js_script = ''.join(["$('#", params['id'],"').val('",params['text'],"');",
+            "$('#",params['id'],"').menuoptions();",
+            "return $('#",params['id'],"').attr('menu_opt_key');"
+            ])
+        data = self.driver.execute_script(js_script)
+        str_data=re.sub(r'\s+', '', str(data))
+        str_exp=re.sub(r'\s+', '', params['expected'])
+        print ' '.join(["Expected result = ",str_exp, " Actual = ",str_data])
+        assert str_data == str_exp
+
+    def js_chk_autocfg_code (self, params ):
+        js_script = ''.join(["$('#", params['id'],"').val(",params['code'], ");",
+            "$('#",params['id'],"').menuoptions();",
+            "return $('#",params['id'],"').val();"
+            ])
+        data = self.driver.execute_script(js_script)
+        str_data=re.sub(r'\s+', '', str(data))
+        str_exp=re.sub(r'\s+', '', params['expected'])
+        print ' '.join(["Expected result = ",str_exp, " Actual = ",str_data])
+        assert str_data == str_exp
+
     def js_chk_data_struct (self, params ):
         js_script = ''.join(["return ",
             "$('#",
