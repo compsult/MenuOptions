@@ -263,9 +263,6 @@ te.inlineCustomSelect = function ( TblObj, OriginalContent, td) {
     // set the id of the input element, which is used to get the autocomplete data
     var inp_elem = $(td).children('input');
     inp_elem.CustSelect( TblObj, { "ClearBtn": false, "inlineEdit": true, "td": td }); 
-    if ( inp_elem.data('mreMenuoptions') !== undefined ) {
-	    inp_elem.menuoptions('add_menuoption_key' );
-    }
     $(td).children('input').focus(); 
 }
 /*------------------------------------------------------------------------------------------------------*/

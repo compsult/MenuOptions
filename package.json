@@ -1,6 +1,6 @@
 {
   "name": "menuoptions",
-  "version": "1.7.4-13",
+  "version": "1.7.4-14",
   "description": "A jQuery widget designed to to reduce - to an absolute minimum - the # of keystrokes and clicks required for data entry & navigation.",
   "main": "media/javascript/jquery.menuoptions.js",
   "homepage": "https://github.com/compsult/MenuOptions",

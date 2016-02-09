@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.4-13
+ * @version         Version 1.7.4-14
  *
  *
  ******************************************/
@@ -93,14 +93,14 @@ $.widget('mre.menuoptions', {
             return;
         }
 
+        this._check_for_bootstrap();
+
         // make sure incoming data is in required format
         this._build_array_of_objs();
         if (this.orig_objs === false) {
             this._validation_fail('Invalid Data format supplied to menuoptions');
             return;
         }
-
-        this._check_for_bootstrap();
 
         this._setOptions( this.options );
 
@@ -141,14 +141,14 @@ $.widget('mre.menuoptions', {
     add_menuoption_key : function () {
         var input_val = this.element.val();
         var matchedRec = $.grep(this.ary_of_objs, function (rec) {
-                var select_str = rec.val.replace(/<[\w\W]*?>/g, '');
+                var select_str = rec.val.toString().replace(/<[\w\W]*?>/g, '');
                 return new RegExp(select_str,"i").test(input_val) || 
                        new RegExp(rec.ky.toString(), "i").test(input_val);
             });
         if (matchedRec.length === 0) {
             this._validation_fail('Matching value was not found in select list');
         } else {
-            var raw_val = matchedRec[0].val.replace(/<[\w\W]*?>/g, '');
+            var raw_val = matchedRec[0].val.toString().replace(/<[\w\W]*?>/g, '');
             if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
                 this._set_rocker ( matchedRec, raw_val );
             } else {
@@ -732,13 +732,11 @@ $.widget('mre.menuoptions', {
 
     _setOptions : function ( options ) {
         var $dd_span = this;
-        if ( $(this.element).val().length ) {
-            this.add_menuoption_key();
+        if ( $(this.element).val().length && Object.keys(options).length === 0 ) {
             /*--  calling MenuOptions with no parameters will   --*/
             /*--  just run add_menuoption_key()  --*/
-            if ( Object.keys(options).length === 0 ) {
-                return;
-            }
+            this.add_menuoption_key();
+            return;
         }
         this.options._orig_showat = this.options.ShowAt;
         $.each(options, function (key, value) {
