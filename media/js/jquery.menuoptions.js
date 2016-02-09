@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.4-12
+ * @version         Version 1.7.4-13
  *
  *
  ******************************************/
@@ -142,8 +142,8 @@ $.widget('mre.menuoptions', {
         var input_val = this.element.val();
         var matchedRec = $.grep(this.ary_of_objs, function (rec) {
                 var select_str = rec.val.replace(/<[\w\W]*?>/g, '');
-                return select_str === input_val || rec.ky === input_val;
-                /*--  return rec.ky === input_val;  --*/
+                return new RegExp(select_str,"i").test(input_val) || 
+                       new RegExp(rec.ky.toString(), "i").test(input_val);
             });
         if (matchedRec.length === 0) {
             this._validation_fail('Matching value was not found in select list');

@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-12
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.4-13
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -32,8 +32,8 @@ For example:
 
 Assume you are using month name and month code in your `Data <SelectParams.html#id3>`_
 and the code 12 represents the month December. 
-If you set you month input field to "December", MenuOptions will automatically set
-`menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ to the code 12. If you set you month input field to 12, MenuOptions
+If you set the input field to "December", MenuOptions will automatically set
+`menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ to the code 12. If you set the input field to 12, MenuOptions
 will convert that and display December, while setting the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ to the code 12.
 
 What is the menu_opt_key?
