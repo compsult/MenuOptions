@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.4-14
+ * @version         Version 1.7.4-15
  *
  *
  ******************************************/
@@ -839,7 +839,6 @@ $.widget('mre.menuoptions', {
             menu_pos = /bottom/.test($(this.options)[0].ShowAt) ? 'bot' : 'rt';
 
         // sort as per default or user specification
-        this._runSort(ary_of_objs);
         // set val = key attr
         if (this.options.UseValueForKey === true &&
                 ary_of_objs.length === this.orig_objs.length) {
@@ -905,19 +904,20 @@ $.widget('mre.menuoptions', {
     },
 
     _build_array_of_objs_menu : function () {
+        var ary_of_objs = [];
         if (!$.isArray(this.options.Data)) { 
-            var data = [];
             $.each(this.options.Data, function (key, value) {
                 // handle single object
-                data.push({ ky: value, val: key });
+                ary_of_objs.push({ ky: value, val: key });
             });
-            this.orig_objs = this.ary_of_objs = data;
         } else {
             // reverse key value pair 
-            this.orig_objs = this.ary_of_objs = $.map(this.options.Data, function (k) {
+            ary_of_objs = $.map(this.options.Data, function (k) {
                 return { ky: k[Object.keys(k)[0]], val: Object.keys(k)[0]};
             });
         }
+        this._runSort(ary_of_objs);
+        this.orig_objs = this.ary_of_objs = ary_of_objs;
     },
 
     _get_custom_keys : function (obj, ary_of_objs) {
@@ -996,6 +996,7 @@ $.widget('mre.menuoptions', {
                 $dd_span.total_rec_cnt += 1;
              });
         }
+        this._runSort(ary_of_objs);
         this.orig_objs = this.ary_of_objs = ary_of_objs;
     },
 
