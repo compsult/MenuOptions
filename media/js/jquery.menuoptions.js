@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.4-15
+ * @version         Version 1.7.4-16
  *
  *
  ******************************************/
@@ -732,11 +732,13 @@ $.widget('mre.menuoptions', {
 
     _setOptions : function ( options ) {
         var $dd_span = this;
-        if ( $(this.element).val().length && Object.keys(options).length === 0 ) {
-            /*--  calling MenuOptions with no parameters will   --*/
-            /*--  just run add_menuoption_key()  --*/
+        if (/Select/.test(this.options.MenuOptionsType) && 
+                $(this.element).val().length) {
             this.add_menuoption_key();
-            return;
+            if ( Object.keys(options).length === 0 ) {
+                /*--  MenuOptions with no params will just run add_menuoption_key()   --*/
+                return;
+            }
         }
         this.options._orig_showat = this.options.ShowAt;
         $.each(options, function (key, value) {

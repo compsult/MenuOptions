@@ -22,6 +22,7 @@ function runLocal {
 	export TST_LOCATION=local
 	export TST_BROWSER=chrome
 	export TST_PLATFORM=linux
+    rm test/*.pyc
     cp test/data_structs.py test/test_DataInputs.py
 	nosetests --stop -v
     mv -f test/test_DataInputs.py test/data_structs.py
