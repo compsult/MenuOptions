@@ -58,6 +58,7 @@ class SetupByLocation(object):
             'deviceName': TST_DEVICE,
             'deviceOrientation': TST_DEVICE_ORIENT,
             'name': TST_NAME,
+            #--- 'autoAcceptAlerts': "true", ---#
         }
         self.driver = webdriver.Remote(desired_capabilities=desired_capabilities,
                             command_executor=sauce_url)

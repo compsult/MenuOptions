@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.4-18
+ * @version         Version 1.7.4-19
  *
  *
  ******************************************/
@@ -84,13 +84,11 @@ $.widget('mre.menuoptions', {
     _create: function () {
 
         if (this.options.Data.toString() === '') {
-            this._validation_fail('MenuOptions requires the Data parameter to be populated');
-            return;
+            return this._validation_fail('MenuOptions requires the Data parameter to be populated','fatal');
         }
 
         if (this.options.ColumnCount < 1) {
-            this._validation_fail('MenuOptions requires ColumnCount parameter be > 0');
-            return;
+            return this._validation_fail('MenuOptions requires ColumnCount parameter be > 0','fatal');
         }
 
         this._check_for_bootstrap();
@@ -98,15 +96,14 @@ $.widget('mre.menuoptions', {
         // make sure incoming data is in required format
         this._build_array_of_objs();
         if (this.orig_objs === false) {
-            this._validation_fail('Invalid Data format supplied to menuoptions');
-            return;
+            return this._validation_fail('Invalid Data format supplied to menuoptions','fatal');
         }
 
         this._setOptions( this.options );
 
         if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
             if (this._rocker_main({'val' : ''}) === false) {
-                return;
+                return false;
             }
         } else {
             this._add_clear_btn();
@@ -122,10 +119,13 @@ $.widget('mre.menuoptions', {
         $(this.element).addClass('ui-menuoptions');
     },
 
-    _validation_fail : function (err_msg) {
+    _validation_fail : function (err_msg, severity) {
         var prefix = "input id #"+ $(this.element).attr('id') + ": ";
         alert(prefix + err_msg);
-        this._destroy();
+        if (/fatal/i.test(severity) ) {
+            this._destroy();
+        }
+        return false;
     },
 
     _check_for_bootstrap : function (err_msg) {
@@ -146,7 +146,7 @@ $.widget('mre.menuoptions', {
                        rec.ky.toString().toLowerCase() === input_val.toLowerCase();
             });
         if (matchedRec.length === 0) {
-            this._validation_fail('Matching value was not found in select list');
+            this._validation_fail('Matching value was not found in select list','warning');
         } else {
             var raw_val = matchedRec[0].val.toString().replace(/<[\w\W]*?>/g, '');
             if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
@@ -203,8 +203,7 @@ $.widget('mre.menuoptions', {
 
     _rocker_main : function (orig_val) {
         if (this.orig_objs.length !== 2) {
-            this._validation_fail('When using the rocker control, exactly 2 elements need to be supplied to menuoptions');
-            return false;
+            return this._validation_fail('When using the rocker control, exactly 2 elements need to be supplied to menuoptions','fatal');
         }
         if ($('div.rocker[id=RK_' + this._event_ns + ']').length) {
             $('div.rocker[id=RK_' + this._event_ns + ']').remove();
@@ -450,7 +449,7 @@ $.widget('mre.menuoptions', {
                 this._buildWholeDropDown(event);
             } else {
                 this._validation_fail('Filter key ' + $(event.currentTarget).text() +
-                    'does not have a matching regular expression');
+                    'does not have a matching regular expression','warning');
             }
         } else { // assume array of scalars
             if ($.inArray(SearchStr, this.options.Filters) > -1) {
@@ -931,10 +930,9 @@ $.widget('mre.menuoptions', {
                     return n; 
             });
         if ( valid_kys.length != 2 ) {
-            this._validation_fail(" Data error: DataKeyNames is invalid "+
+            return this._validation_fail(" Data error: DataKeyNames is invalid "+
                                   " (it only matched "+valid_kys.length+
-                                  " keys in the Data parameter)");
-            return false;
+                                  " keys in the Data parameter)",'fatal');
         } else {
             ary_of_objs.push({ ky: obj[obj_ky].toString(), 
                 val: obj[obj_val].toString() });
