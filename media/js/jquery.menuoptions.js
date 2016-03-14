@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.4-19
+ * @version         Version 1.7.5-0
  *
  *
  ******************************************/
@@ -93,6 +93,8 @@ $.widget('mre.menuoptions', {
 
         this._check_for_bootstrap();
 
+        this._appendValidationDiv();
+
         // make sure incoming data is in required format
         this._build_array_of_objs();
         if (this.orig_objs === false) {
@@ -119,13 +121,36 @@ $.widget('mre.menuoptions', {
         $(this.element).addClass('ui-menuoptions');
     },
 
+    _appendValidationDiv : function () {
+        this._event_ns = this.eventNamespace.replace(/^\./, '');
+        if ( $('body div#ValidationErr'+this._event_ns).length === 0 ) {
+             $('body').append('<div id=ValidationErr'+this._event_ns+' class=dispbox></div>');
+        }
+    },
+
     _validation_fail : function (err_msg, severity) {
-        var prefix = "input id #"+ $(this.element).attr('id') + ": ";
-        alert(prefix + err_msg);
+        this._display_error(err_msg, severity);
         if (/fatal/i.test(severity) ) {
             this._destroy();
         }
         return false;
+    },
+
+    _display_error : function (err_msg, severity) {
+        var offsets = { top: $(this.element).offset().top,
+                        left: $(this.element).offset().left };
+        $('div#ValidationErr'+this._event_ns)
+                .html("<span id=ErMsgInr>"+err_msg+"...</span>")
+                .css({ 'display':'block', 
+                        'top': offsets.top+$(this.element).height(),
+                        'left': offsets.left-5,
+                        'width': $(this.element).outerWidth(),
+                        'height':'40px',
+                        'font-size':'14px',
+                        'color': "red",
+                        'border': "red",
+                        'z-index':20
+        }).fadeOut({'duration':3600});
     },
 
     _check_for_bootstrap : function (err_msg) {
@@ -146,7 +171,7 @@ $.widget('mre.menuoptions', {
                        rec.ky.toString().toLowerCase() === input_val.toLowerCase();
             });
         if (matchedRec.length === 0) {
-            this._validation_fail('Matching value was not found in select list','warning');
+            this._validation_fail('"'+input_val + '" was not found in select list','warning');
         } else {
             var raw_val = matchedRec[0].val.toString().replace(/<[\w\W]*?>/g, '');
             if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
@@ -238,7 +263,6 @@ $.widget('mre.menuoptions', {
             currval = $(this.element).val();
         $(this.element).hide();
         $(this.element).next('span.clearbtn').hide();
-        this._event_ns = this.eventNamespace.replace(/^\./, '');
         if (this._initval_exists()) {
             this.set_select_value(this.options.InitialValue);
         }
@@ -337,7 +361,6 @@ $.widget('mre.menuoptions', {
 
     _build_dropdown: function (ary_of_objs) {
         var tablehtml = this._create_table(ary_of_objs);
-        this._event_ns = this.eventNamespace.replace(/^\./, '');
         this.dropdownbox = $(tablehtml);
         this._cache_elems();
         this._calcDropBoxCoordinates();
@@ -752,7 +775,7 @@ $.widget('mre.menuoptions', {
         if (this.options.SelectOnly) {
             $(this.element).prop('readonly', true);
         }
-        this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
+        this._setOption('_ID', this._event_ns);
         if (/Select/.test(this.options.MenuOptionsType)) {
             this._setOption('_orig_bc', $(this.element).css('border-top-color'));
         }
@@ -875,7 +898,7 @@ $.widget('mre.menuoptions', {
     _add_clear_btn : function () {
         var ClrBtn = '', id = '';
         if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType)) {
-            id = 'CB_' + this.eventNamespace.replace(/^\./, ''); 
+            id = 'CB_' + this._event_ns;
             ClrBtn = '<span class="clearbtn clearbtnpos" id=' + id + '>X</span>';
             $(this.element).after(ClrBtn);
             $("span#"+id).position({ of: $(this.element), my:'center center', at:'right-10' });

@@ -21,7 +21,12 @@
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function() {
    /*--  START_JAVASCRIPT  --*/
-    var data, DataKeyNames= {};
+    var data, 
+        init_data="December", 
+        DataKeyNames= {};
+    if ( document.URL.match(/bad_data/) ) {
+       init_data="bad_data";
+    }
     if ( document.URL.match(/singleobject/) ) {
        data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                 8:"August",9:"September",10:"October",11:"November",12:"December" };
@@ -62,7 +67,7 @@ $(document).ready(function() {
         }, 
         "DataKeyNames": DataKeyNames,
         "ClearBtn": true,
-        "InitialValue": { 'val': 'December'},
+        "InitialValue": { 'val': init_data },
         "ShowAt": 'bottom',
         "Sort": []
     });  
@@ -73,7 +78,7 @@ $(document).ready(function() {
         }, 
         "ClearBtn": true,
         "DataKeyNames": DataKeyNames,
-        "InitialValue": { 'val': 'December'},
+        "InitialValue": { 'val': init_data },
         "Height": 200,
         "Sort": [] 
     });  
@@ -82,6 +87,11 @@ $(document).ready(function() {
         alert (tst);
     });
    /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
     $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
     });
@@ -143,6 +153,8 @@ $(document).ready(function() {
 
             
 
+            
+
     <br /><br /><br /><br />
         <h1>Code</h1>
         <div id="tabs">
@@ -154,7 +166,12 @@ $(document).ready(function() {
     <div id="tabs-1">
         <pre><code class="javascript" style='text-align:left'>
             
-    var data, DataKeyNames= {};
+    var data, 
+        init_data="December", 
+        DataKeyNames= {};
+    if ( document.URL.match(/bad_data/) ) {
+       init_data="bad_data";
+    }
     if ( document.URL.match(/singleobject/) ) {
        data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                 8:"August",9:"September",10:"October",11:"November",12:"December" };
@@ -195,7 +212,7 @@ $(document).ready(function() {
         }, 
         "DataKeyNames": DataKeyNames,
         "ClearBtn": true,
-        "InitialValue": { 'val': 'December'},
+        "InitialValue": { 'val': init_data },
         "ShowAt": 'bottom',
         "Sort": []
     });  
@@ -206,7 +223,7 @@ $(document).ready(function() {
         }, 
         "ClearBtn": true,
         "DataKeyNames": DataKeyNames,
-        "InitialValue": { 'val': 'December'},
+        "InitialValue": { 'val': init_data },
         "Height": 200,
         "Sort": [] 
     });  
