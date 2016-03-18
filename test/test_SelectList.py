@@ -2,7 +2,6 @@
 
 import time, re, sys
 from SeleniumUtils import SeleniumUtils, SetupByLocation
-import time
 
 
 class testSL(SeleniumUtils, SetupByLocation):
@@ -52,13 +51,6 @@ class testSL(SeleniumUtils, SetupByLocation):
         self.check_clr({ 'xpath': '//*[@id="CB_menuoptions5"]',
             'input': '//*[@id="selecttest"]' })
         self.is_element_present({ 'xpath': '//*[@id="SP_menuoptions5"]'})
-
-    def test06_bad_data(self):
-        """
-           check that bad initial data causes warning to show beneeath input element
-        """
-        self.open_n_tst_title({'url': self.url+"?bad_data", 'title': 'MenuOptions'} )
-        self.is_element_present({ 'xpath': '//*[@id="ErMsgInr"]'})
 
     def tearDown(self):
         super(testSL,self).tearDown()
