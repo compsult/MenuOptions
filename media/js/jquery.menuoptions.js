@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-2
+ * @version         Version 1.7.5-3
  *
  *
  ******************************************/
@@ -380,25 +380,24 @@ $.widget('mre.menuoptions', {
     __buildMatchAry : function (StrToCheck, no_img) {
         var origImg = "",
             newval = "",
-            newStr = "",
             $dd = this,
             lastChar = StrToCheck.charAt(StrToCheck.length - 1),
             RegExStr = '',
-            matching = [];
-        if (StrToCheck.match(/\{|\}|\\|\*|\(|\)|\./) &&
-                !($(this.options)[0].MenuOptionsType.match(/Navigate/i))) {
-            newStr = [StrToCheck.slice(0, (StrToCheck.length - 1)), '\\', lastChar].join('');
-            StrToCheck = newStr;
+            matching = [], 
+            re = /(\{|\}|\\|\*|\(|\))/g;
+        if ( !/Navigate/i.test($(this.options)[0].MenuOptionsType) ) {
+            StrToCheck=StrToCheck.replace(re, '\\$&');
         }
         RegExStr = new RegExp(StrToCheck, 'i');
         matching = $.map(this.orig_objs, function (o) {
-            if (/Navigate/i.test($($dd.options)[0].MenuOptionsType) && RegExStr.test(o.val)) {
-                return o;
-            }
             no_img = o.val.replace(/<img[\w\W]*?>/, '');
             if (RegExStr.test(no_img)) {
-                newval = no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">' +
-                        no_img.match(RegExStr) + '</span>');
+                if ( /Navigate/i.test($dd.options.MenuOptionsType) ) {
+                    newval = '<span style="color:brown;font-size:110%;">' + o.val + '</span>';
+                } else {
+                    newval = no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">' +
+                            RegExStr.exec(no_img)[0] + '</span>');
+                }
                 origImg = o.val.match(/<img[\w\W]*?>/);
                 if (origImg) {
                     newval = origImg + newval;

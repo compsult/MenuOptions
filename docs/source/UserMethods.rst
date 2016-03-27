@@ -41,8 +41,10 @@ Thise example shows using `add_menuoption_key`
     $('input#delivery').menuoptions('add_menuoption_key');
 
 
-set_select_value *[ deprecated, to be removed in v1.8 ]*
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+set_select_value *[ deprecated ]*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(`Use this <UserMethods.html#callwithnoparams>`_ method instead )
 
 allows the select list field to be set programmatically.
 Pass in an object with either 'ky' or 'val' as the key
@@ -67,18 +69,25 @@ These examples show using both forms of `set_select_value`
 
     $('input#delivery').menuoptions('set_select_value', {'val': ''});
 
-[call MenuOptions with no parameters] *(replaces set_select_value)*
+.. _CallWithNoParams:
+
+call MenuOptions with no parameters *(replaces set_select_value)*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: javascript
 
+    // ----   Step #1 ----
     // set the input contents using the value 
     $('input#delivery').val('pickup'); 
     //        -- OR --
     // set the input contents using the key 
     $('input#delivery').val('1');
-    // call to MenuOptions with no parameters will auto-configure
+    // ----   Step #2 ----
+    // call MenuOptions with no parameters will auto-configure
     $('input#delivery').menuoptions();
+    //        -- OR --
+    // call MenuOptions with no parameters to auto-configure ALL the MenuOptions widgets on page
+    $('.ui-menuoptions').menuoptions();
 
 
 refreshData *[ deprecated ]*
