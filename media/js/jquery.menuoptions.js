@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-0
+ * @version         Version 1.7.5-5
  *
  *
  ******************************************/
@@ -93,8 +93,6 @@ $.widget('mre.menuoptions', {
 
         this._check_for_bootstrap();
 
-        this._appendValidationDiv();
-
         // make sure incoming data is in required format
         this._build_array_of_objs();
         if (this.orig_objs === false) {
@@ -121,36 +119,13 @@ $.widget('mre.menuoptions', {
         $(this.element).addClass('ui-menuoptions');
     },
 
-    _appendValidationDiv : function () {
-        this._event_ns = this.eventNamespace.replace(/^\./, '');
-        if ( $('body div#ValidationErr'+this._event_ns).length === 0 ) {
-             $('body').append('<div id=ValidationErr'+this._event_ns+' class=dispbox></div>');
-        }
-    },
-
     _validation_fail : function (err_msg, severity) {
-        this._display_error(err_msg, severity);
+        var prefix = "input id #"+ $(this.element).attr('id') + ": ";
+        alert(prefix + err_msg);
         if (/fatal/i.test(severity) ) {
             this._destroy();
         }
         return false;
-    },
-
-    _display_error : function (err_msg, severity) {
-        var offsets = { top: $(this.element).offset().top,
-                        left: $(this.element).offset().left };
-        $('div#ValidationErr'+this._event_ns)
-                .html("<span id=ErMsgInr>"+err_msg+"...</span>")
-                .css({ 'display':'block', 
-                        'top': offsets.top+$(this.element).height(),
-                        'left': offsets.left-5,
-                        'width': $(this.element).outerWidth(),
-                        'height':'40px',
-                        'font-size':'14px',
-                        'color': "red",
-                        'border': "red",
-                        'z-index':20
-        }).fadeOut({'duration':3600});
     },
 
     _check_for_bootstrap : function (err_msg) {
@@ -171,7 +146,7 @@ $.widget('mre.menuoptions', {
                        rec.ky.toString().toLowerCase() === input_val.toLowerCase();
             });
         if (matchedRec.length === 0) {
-            this._validation_fail('"'+input_val + '" was not found in select list','warning');
+            this._validation_fail('Matching value was not found in select list','warning');
         } else {
             var raw_val = matchedRec[0].val.toString().replace(/<[\w\W]*?>/g, '');
             if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
@@ -263,6 +238,7 @@ $.widget('mre.menuoptions', {
             currval = $(this.element).val();
         $(this.element).hide();
         $(this.element).next('span.clearbtn').hide();
+        this._event_ns = this.eventNamespace.replace(/^\./, '');
         if (this._initval_exists()) {
             this.set_select_value(this.options.InitialValue);
         }
@@ -361,6 +337,7 @@ $.widget('mre.menuoptions', {
 
     _build_dropdown: function (ary_of_objs) {
         var tablehtml = this._create_table(ary_of_objs);
+        this._event_ns = this.eventNamespace.replace(/^\./, '');
         this.dropdownbox = $(tablehtml);
         this._cache_elems();
         this._calcDropBoxCoordinates();
@@ -403,25 +380,24 @@ $.widget('mre.menuoptions', {
     __buildMatchAry : function (StrToCheck, no_img) {
         var origImg = "",
             newval = "",
-            newStr = "",
             $dd = this,
             lastChar = StrToCheck.charAt(StrToCheck.length - 1),
             RegExStr = '',
-            matching = [];
-        if (StrToCheck.match(/\{|\}|\\|\*|\(|\)|\./) &&
-                !($(this.options)[0].MenuOptionsType.match(/Navigate/i))) {
-            newStr = [StrToCheck.slice(0, (StrToCheck.length - 1)), '\\', lastChar].join('');
-            StrToCheck = newStr;
+            matching = [], 
+            re = /(\{|\}|\\|\*|\(|\))/g;
+        if ( !/Navigate/i.test($(this.options)[0].MenuOptionsType) ) {
+            StrToCheck=StrToCheck.replace(re, '\\$&');
         }
         RegExStr = new RegExp(StrToCheck, 'i');
         matching = $.map(this.orig_objs, function (o) {
-            if (/Navigate/i.test($($dd.options)[0].MenuOptionsType) && RegExStr.test(o.val)) {
-                return o;
-            }
             no_img = o.val.replace(/<img[\w\W]*?>/, '');
             if (RegExStr.test(no_img)) {
-                newval = no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">' +
-                        no_img.match(RegExStr) + '</span>');
+                if ( /Navigate/i.test($dd.options.MenuOptionsType) ) {
+                    newval = '<span style="color:brown;font-size:110%;">' + o.val + '</span>';
+                } else {
+                    newval = no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">' +
+                            RegExStr.exec(no_img)[0] + '</span>');
+                }
                 origImg = o.val.match(/<img[\w\W]*?>/);
                 if (origImg) {
                     newval = origImg + newval;
@@ -775,7 +751,7 @@ $.widget('mre.menuoptions', {
         if (this.options.SelectOnly) {
             $(this.element).prop('readonly', true);
         }
-        this._setOption('_ID', this._event_ns);
+        this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
         if (/Select/.test(this.options.MenuOptionsType)) {
             this._setOption('_orig_bc', $(this.element).css('border-top-color'));
         }
@@ -898,7 +874,7 @@ $.widget('mre.menuoptions', {
     _add_clear_btn : function () {
         var ClrBtn = '', id = '';
         if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType)) {
-            id = 'CB_' + this._event_ns;
+            id = 'CB_' + this.eventNamespace.replace(/^\./, ''); 
             ClrBtn = '<span class="clearbtn clearbtnpos" id=' + id + '>X</span>';
             $(this.element).after(ClrBtn);
             $("span#"+id).position({ of: $(this.element), my:'center center', at:'right-10' });

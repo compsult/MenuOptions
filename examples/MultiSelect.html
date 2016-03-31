@@ -52,12 +52,14 @@ function resetMO( instruct ) {
         $('input#delivery').menuoptions({"MenuOptionsType":"Rocker", "Sort": []});
     }
     if (instruct.match(/setvalue/i)) { 
-        $('input#pizzatype').menuoptions('set_select_value', {'val': 'Sicilian'});
-        $('input#toppings').menuoptions('set_select_value', {'val': 'Green pepper'});
-        $('input#cheese').menuoptions('set_select_value', {'ky': '3'});
-        $('input#crust').menuoptions('set_select_value', {'ky': '3'});
-        $('input#cooked').menuoptions('set_select_value', {'val': 'Regular'});
-        $('input#delivery').menuoptions('set_select_value', {'val': 'Pick up'});  
+        $('input#pizzatype').val('Sicilian');
+        $('input#toppings').val('Green pepper');
+        $('input#cheese').val('3');
+        $('input#crust').val('3');
+        $('input#cooked').val('Regular');
+        $('input#delivery').val('Pick up');  
+        $('input#drivertip').val('1,000,000.00 (very good driver)');
+        $('.ui-menuoptions').menuoptions();
     }
     if (instruct.match(/default/i)) { 
         $('input#pizzatype').menuoptions({"Sort": [],
@@ -137,6 +139,11 @@ function init( ) {
         "ClearBtn": true,
         "Sort": [] // don't sort
     });  
+    $('#drivertip').menuoptions({ 
+        "Data": { 1: "2.00", 2:"2.50", 3:"3.00", 4:"4.00", 5: "4.50", 6:"1,000,000.00 (very good driver)"},
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
     $('button#menutest').on('click', function (e) {
         var tst = $('input#cooked').menuoptions('re_serialize', 
                 $('form#tst').serialize());
@@ -145,6 +152,21 @@ function init( ) {
     });
     $("div#buttons").buttonset().css({"padding":"5px" });
    /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
     $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
     });
@@ -233,16 +255,20 @@ init();
                   <input type=text name=delivery id='delivery' placeholder='Delivery type'>
              </td>
          </tr>
+         <tr class=tall>
+             <td>
+	            Driver tip
+             </td>
+             <td class=drivertip>
+                  <input type=text name=drivertip id='drivertip' placeholder='Driver tip'>
+             </td>
+         </tr>
      </table>
      <div id=fake_alert></div>
                 <!--  END_HTML  -->
 <br /><br />
     <button class=a type="button" id="menutest" >Show serialize values</button>
     </form>
-
-
-
-            
 
     <br /><br /><br /><br />
         <h1>Code</h1>
@@ -310,6 +336,11 @@ init();
     });  
     $('#delivery').menuoptions({ 
         "Data": { 1: "Deliver", 2:"Pick up"},
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
+    $('#drivertip').menuoptions({ 
+        "Data": { 1: "2.00", 2:"2.50", 3:"3.00", 4:"4.00", 5: "4.50", 6:"1,000,000.00 (very good driver)"},
         "ClearBtn": true,
         "Sort": [] // don't sort
     });  
@@ -386,6 +417,14 @@ init();
              &lt;/td&gt;
              &lt;td class=delivery&gt;
                   &lt;input type=text name=delivery id='delivery' placeholder='Delivery type'&gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            Driver tip
+             &lt;/td&gt;
+             &lt;td class=drivertip&gt;
+                  &lt;input type=text name=drivertip id='drivertip' placeholder='Driver tip'&gt;
              &lt;/td&gt;
          &lt;/tr&gt;
      &lt;/table&gt;
