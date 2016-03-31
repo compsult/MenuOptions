@@ -167,6 +167,21 @@ function init( ) {
     });
     $( "#tabs" ).tabs();
                 
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
 }
 init();
 });
@@ -255,10 +270,6 @@ init();
     <button class=a type="button" id="menutest" >Show serialize values</button>
     </form>
 
-
-
-            
-
     <br /><br /><br /><br />
         <h1>Code</h1>
         <div id="tabs">
@@ -325,6 +336,11 @@ init();
     });  
     $('#delivery').menuoptions({ 
         "Data": { 1: "Deliver", 2:"Pick up"},
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
+    $('#drivertip').menuoptions({ 
+        "Data": { 1: "2.00", 2:"2.50", 3:"3.00", 4:"4.00", 5: "4.50", 6:"1,000,000.00 (very good driver)"},
         "ClearBtn": true,
         "Sort": [] // don't sort
     });  
@@ -401,6 +417,14 @@ init();
              &lt;/td&gt;
              &lt;td class=delivery&gt;
                   &lt;input type=text name=delivery id='delivery' placeholder='Delivery type'&gt;
+             &lt;/td&gt;
+         &lt;/tr&gt;
+         &lt;tr class=tall&gt;
+             &lt;td&gt;
+	            Driver tip
+             &lt;/td&gt;
+             &lt;td class=drivertip&gt;
+                  &lt;input type=text name=drivertip id='drivertip' placeholder='Driver tip'&gt;
              &lt;/td&gt;
          &lt;/tr&gt;
      &lt;/table&gt;
