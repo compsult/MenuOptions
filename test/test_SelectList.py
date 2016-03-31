@@ -2,7 +2,6 @@
 
 import time, re, sys
 from SeleniumUtils import SeleniumUtils, SetupByLocation
-import time
 
 
 class testSL(SeleniumUtils, SetupByLocation):
@@ -44,7 +43,18 @@ class testSL(SeleniumUtils, SetupByLocation):
                          'expected': 'CashChargeCheck',
                          'test_key': 'c' })
 
-    def test05_clear_btn(self):
+    def test05_regex(self):
+        """
+           check that MenuOptions select list autocomplete works special characters
+        """
+        self.url='http://'+self.IP+'/examples/MultiSelect.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'multiple'} )
+        self.check_autocomplete({ 'xpath': '//*[@id="drivertip"]',
+                         'filt_rslts': '//*[@id="SP_menuoptions11"]',
+                         'expected': '1,000,000.00(verygooddriver)',
+                         'test_key': '(' })
+
+    def test0r65_clear_btn(self):
         """
            check that click on 'X' clears the input and opens the select list dropdown
         """
@@ -52,13 +62,6 @@ class testSL(SeleniumUtils, SetupByLocation):
         self.check_clr({ 'xpath': '//*[@id="CB_menuoptions5"]',
             'input': '//*[@id="selecttest"]' })
         self.is_element_present({ 'xpath': '//*[@id="SP_menuoptions5"]'})
-
-    def test06_bad_data(self):
-        """
-           check that bad initial data causes warning to show beneeath input element
-        """
-        self.open_n_tst_title({'url': self.url+"?bad_data", 'title': 'MenuOptions'} )
-        self.is_element_present({ 'xpath': '//*[@id="ErMsgInr"]'})
 
     def tearDown(self):
         super(testSL,self).tearDown()

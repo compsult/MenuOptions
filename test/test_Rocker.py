@@ -36,7 +36,7 @@ class test_rocker(SeleniumUtils, SetupByLocation):
         self.check_serialize({ 'xpath': '//*[@id="menutest"]',
                           'js_result': 'fake_alert',
                           'sleep': 2,
-                          'expected': 'pizzatype=1&toppings=2&crust=3&cheese=3&cooked=2&delivery=2' })
+                          'expected': 'pizzatype=1&toppings=2&crust=3&cheese=3&cooked=2&delivery=2&drivertip=6' })
         self.reset_rocker({ 'id':'pizzatype' })
         self.check_rocker({ 'xpath': '//*[@id="RK_LT_menuoptions5"]',
                             'xpath_txt': '//*[@id="RK_LT_menuoptions5"]/span',

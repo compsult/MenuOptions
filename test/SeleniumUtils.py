@@ -29,7 +29,7 @@ class SetupByLocation(object):
 
     def cfg_local (self):
         if self.TST_BROWSER is not None:
-            self.IP=LOCAL_IP
+            self.IP="localhost"
             if re.search(r'chrome', self.TST_BROWSER, re.I):
                 self.driver = webdriver.Chrome()
             elif re.search(r'firefox', self.TST_BROWSER, re.I):
