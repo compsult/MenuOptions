@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-6
+ * @version         Version 1.7.5-7
  *
  *
  ******************************************/
@@ -34,6 +34,8 @@ $.widget('mre.menuoptions', {
         ColumnCount: 1, // display data in this number of columns
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#usevalueforkey
         UseValueForKey: false, // if user wants value = text()
+        // http://menuoptions/docs/build/html/SelectParams.html#notinlistwarns
+        NotInListWarns: false, // if set to true, alert will be shown when input value is not in select list
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#width
         Width: '', // let user specify the exact width they want
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#height
@@ -145,8 +147,10 @@ $.widget('mre.menuoptions', {
                 return select_str.toLowerCase() === input_val.toLowerCase() || 
                        rec.ky.toString().toLowerCase() === input_val.toLowerCase();
             });
-        if (matchedRec.length === 0) {
-            this._validation_fail('Matching value was not found in select list','warning');
+        if (matchedRec.length === 0 ) {
+            if ( this.options.NotInListWarns === true ) {
+                this._validation_fail('Matching value was not found in select list','warning');
+            }
         } else {
             var raw_val = matchedRec[0].val.toString().replace(/<[\w\W]*?>/g, '');
             if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {

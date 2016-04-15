@@ -24,6 +24,7 @@ Parameter list for select list
     `Height`_,integer,positive integer, height of dropdown, false
     `InitialValue`_,object,{'ky'|'val': <value>}, {}, false
     `MenuOptionsType`_,string,'Select' or 'Navigate' or 'Rocker','Select',false
+    `NotInListWarns`_,boolean,'true or false',true,false
     `onSelect`_, function,function(),none,false
     `PlaceHolder`_,<deleted>,<as of v1.6.1>,--,--
     `SelectOnly`_,boolean,"true or false",false,false
@@ -192,6 +193,19 @@ These examples show using both forms of `InitialValue`
 Note: `InitialValue` can only be used at initialization time.
 
 To reset the value after that time, use `set_select_value <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#set-select-value>`_ 
+
+.. _NotInListWarns:
+
+NotInListWarns
+~~~~~~~~~~~~~~
+    options: **true or false**
+
+    MenuOptions defaults to warning user if input value is not in select list
+    To avoid these alert messages, set NotInListWarns to false (as in example below).
+
+.. code-block:: javascript
+
+    'NotInListWarns': false, // don't raise alert if input value is not in select list
 
 .. _MenuOptionsType:
 
