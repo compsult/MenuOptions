@@ -5,9 +5,9 @@ te.settings = [
    { name: "Phone", edit: "read_only", width: 120, type:"phone" },
    { name: "Salary", edit: "edit", width: 96, type:"float" },
    { name: "MaritalStatus", edit: "edit", width: 106, type:"autocompl",
-       options: { 1: 'Divorced', 2: 'Married', 3: 'Single', 4:'Commom-Law'} },
+   options: { 1: 'Divorced', 2: 'Married', 3: 'Single', 4:'Commom-Law'} },
    { name: "EmployeeType", edit: "edit", width: 100, type:"custselect",
-       options: { 'Hourly':1, 'Temp':2, 'Salary':3, 'W2':4, 'Contract-to-hire':5, 'Corp to corp':6}},
+       options: { 'Hourly':1,'Temp':2, 'Salary':3, 'W2':4, 'Contract-to-hire':5, 'Corp to corp':5}},
    { name: "StartTime", edit: "edit", width: 90, type:"custselect" }
 ];
 te.data = [

@@ -19,7 +19,7 @@ Parameter list for menus
     `ColumnCount <MenuParams.html#columncountmenu>`_,integer,positive integer,1,false
     `Data <MenuParams.html#datamenu>`_,JSON object,"array, object or array of objects",none,true
     `Filters <MenuParams.html#filtersmenu>`_, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
-    `MenuOptionsType`_,string,'Select' or 'Navigate','Select',false
+    `MenuOptionsTypeM`_,string,'Select' or 'Navigate','Select',false
     `ShowAt <MenuParams.html#showatmenu>`_,string,'Bottom' or 'Right','Bottom',false
     `ShowDownArrow`_,string, 'None or <color>','black',false 
     `Sort <MenuParams.html#sortmenu>`_,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
@@ -83,7 +83,7 @@ Filters
 
     'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ],
 
-.. _MenuOptionsType :
+.. _MenuOptionsTypeM :
 
 MenuOptionsType
 ~~~~~~~~~~~~~~~

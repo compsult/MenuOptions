@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-7
+ * @version         Version 1.7.5-8
  *
  *
  ******************************************/
@@ -27,35 +27,34 @@ $.widget('mre.menuoptions', {
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
         ClearBtn: false,   // if set, will clear the input field to it's left
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
-        SelectOnly: false,  // if true, will not allow user to type input
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         Data: '',  // pass in your array, object or array of objects here
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#columncount
         ColumnCount: 1, // display data in this number of columns
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
+        DataKeyNames: {}, // specify object keys that contain desired data
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#usevalueforkey
-        UseValueForKey: false, // if user wants value = text()
-        // http://menuoptions/docs/build/html/SelectParams.html#notinlistwarns
-        NotInListWarns: false, // if set to true, alert will be shown when input value is not in select list
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#width
-        Width: '', // let user specify the exact width they want
+        DisableHiLiting : false, // set to false to enable autocomplete highlighting
+        //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#filters
+        Filters: [], // header filters (pass mouse over them & they filter choices)
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#height
         Height: '', // let user specify the exact height they want
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
+        InitialValue : {}, // allows initial value ot be set
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
+        MenuOptionsType: 'Select', //or Navigate (run JS,follow href) or Rocker (for binary choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#showat
         ShowAt: 'bottom', // 'bottom' or 'right' are the options
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
         Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
-        DataKeyNames: {}, // specify object keys that contain desired data
-        //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#filters
-        Filters: [], // header filters (pass mouse over them & they filter choices)
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
-        MenuOptionsType: 'Select', //or Navigate (run JS,follow href) or Rocker (for binary choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
-        DisableHiLiting : true, // set to false to enable autocomplete highlighting
-        // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
+        SelectOnly: false,  // if true, will not allow user to type input
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
-        InitialValue : {}, // allows initial value ot be set
+        // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
+        UseValueForKey: false, // if user wants value = text()
+        ValidRegex: '', // used to validate user input
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#width
+        Width: '', // let user specify the exact width they want
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#window
         Window : "repl", // "repl" means replace current window, new mean open new browser window
         _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
@@ -141,17 +140,8 @@ $.widget('mre.menuoptions', {
     },
 
     add_menuoption_key : function () {
-        var input_val = this.element.val();
-        var matchedRec = $.grep(this.ary_of_objs, function (rec) {
-                var select_str = rec.val.toString().replace(/<[\w\W]*?>/g, '');
-                return select_str.toLowerCase() === input_val.toLowerCase() || 
-                       rec.ky.toString().toLowerCase() === input_val.toLowerCase();
-            });
-        if (matchedRec.length === 0 ) {
-            if ( this.options.NotInListWarns === true ) {
-                this._validation_fail('Matching value was not found in select list','warning');
-            }
-        } else {
+        var matchedRec = this._chk_for_invalid(true);
+        if ( matchedRec.length > 0 ) {
             var raw_val = matchedRec[0].val.toString().replace(/<[\w\W]*?>/g, '');
             if (/Rocker/i.test($(this.options)[0].MenuOptionsType) ) {
                 this._set_rocker ( matchedRec, raw_val );
@@ -347,21 +337,6 @@ $.widget('mre.menuoptions', {
         this._calcDropBoxCoordinates();
     },
 
-    _color_border : function (StrToCheck) {
-        var select_str = '',
-            IsSearchStrValidAnsw = false;
-        IsSearchStrValidAnsw = $.grep(this.ary_of_objs, function (rec) {
-            // the replace is to ignore images user may have used
-            select_str = rec.val.replace(/<[\w\W]*?>/g, '');
-            return StrToCheck.match(new RegExp(select_str, 'i'));
-        });
-        if (IsSearchStrValidAnsw.length === 0) {
-            $(this.element).css({'border-color' : 'red' });
-        } else {
-            $(this.element).css({'border-color' : this.options._orig_bc });
-        }
-    },
-
     __triggerChoice : function (event) {
         var firstMenuItem = $('table.CrEaTeDtAbLeStYlE').find('td:first'),
             hilited = $('.CrEaTeDtAbLeStYlE tr td.mo');
@@ -381,13 +356,14 @@ $.widget('mre.menuoptions', {
         this.cached['.dropdownspan'].remove();
     },
 
-    __buildMatchAry : function (StrToCheck, no_img) {
+    __buildMatchAry : function (StrToCheck) {
         var origImg = "",
             newval = "",
             $dd = this,
             lastChar = StrToCheck.charAt(StrToCheck.length - 1),
             RegExStr = '',
             matching = [], 
+            no_img='',
             re = /(\{|\}|\\|\*|\(|\))/g;
         if ( !/Navigate/i.test($(this.options)[0].MenuOptionsType) ) {
             StrToCheck=StrToCheck.replace(re, '\\$&');
@@ -411,6 +387,9 @@ $.widget('mre.menuoptions', {
         });
         if (matching.length === 0) { // cut chars not in any of the choices
             this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().slice(0, -1));
+            if (! $(this.options)[0].DisableHiLiting ) { 
+                this.cached['.mo_elem'].effect("highlight",{color:'red'},300);
+            }
         }
         return matching;
     },
@@ -418,7 +397,7 @@ $.widget('mre.menuoptions', {
     _process_matches : function (event, StrToCheck) {
         var matching = [];
         if (StrToCheck !== '') {
-            matching = this.__buildMatchAry(StrToCheck, false);
+            matching = this.__buildMatchAry(StrToCheck);
             this.cached['.dropdownspan'].remove();
         }
         if (matching.length > 0) {
@@ -426,9 +405,6 @@ $.widget('mre.menuoptions', {
             this._build_filtered_dropdown(event, matching);
         } else {
             this._buildWholeDropDown(event);
-        }
-        if (!this.options.DisableHiLiting) {
-            this._color_border(StrToCheck);
         }
     },
 
@@ -1092,7 +1068,32 @@ $.widget('mre.menuoptions', {
         return true;
     },
 
+    _chk_for_invalid : function (chk_key) {
+        if ( this.element.val().length === 0 ) {
+            return;
+        }
+        var re = /(\{|\}|\\|\*|\(|\))/g,
+            no_img='',
+            StrToCheck=this.element.val().replace(re, '\\$&'),
+            RegExStr = new RegExp('^'+StrToCheck+'$', 'i');
+        var matched_rec = $.map(this.orig_objs, function (o) {
+            no_img = o.val.toString().replace(/<img[\w\W]*?>/, '');
+            if (RegExStr.test(no_img) || chk_key && RegExStr.test(o.ky.toString())) {
+                return o;
+            }
+        });
+        if (matched_rec.length === 0 && ! $(this.options)[0].DisableHiLiting ) { 
+            this.element.effect("highlight",{color:'red'},500);
+        }
+        return matched_rec;
+    },
+
     _removeDropDown : function (e) {
+        if ( $('#'+$(this.element).attr('id')+':hover').length > 0 ) {
+            return;
+        }
+        var no_img ='',
+            matching =[];
         if (/Navigate/.test($(this.options)[0].MenuOptionsType) &&
                 (/mouseleave/.test(e.type))) {
             $(this.options)[0]._curr_img = null;
@@ -1106,6 +1107,9 @@ $.widget('mre.menuoptions', {
         if ($('span#SP_' + this.options._ID).length) {
             if (this._didMouseExitDropDown(e) === true) {
                 this.cached['.dropdownspan'].remove();
+                if (/Select/.test($(this.options)[0].MenuOptionsType)) {
+                    this._chk_for_invalid(false);
+                }
             }
         }
     },

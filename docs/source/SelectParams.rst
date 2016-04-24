@@ -19,12 +19,11 @@ Parameter list for select list
     `ColumnCount`_,integer,"positive integer",1,false
     `Data <SelectParams.html#id3>`_ ,JSON object, (see Data section below), none, true
     `DataKeyNames`_, object,(see DataKeyNames section below), none, false
-    `DisableHiLiting`_,boolean, "true or false", true, false
+    `DisableHiLiting`_,boolean, "true or false", false, false
     `Filters`_, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     `Height`_,integer,positive integer, height of dropdown, false
-    `InitialValue`_,object,{'ky'|'val': <value>}, {}, false
+    `InitialValue <SelectParams.html#initialvalues>`_,object,{'ky'|'val': <value>}, {}, false
     `MenuOptionsType`_,string,'Select' or 'Navigate' or 'Rocker','Select',false
-    `NotInListWarns`_,boolean,'true or false',true,false
     `onSelect`_, function,function(),none,false
     `PlaceHolder`_,<deleted>,<as of v1.6.1>,--,--
     `SelectOnly`_,boolean,"true or false",false,false
@@ -43,8 +42,8 @@ ClearBtn
 ~~~~~~~~
     options: **true or false**
 
-    ClearBtn instructs MenuOptions to place a clear button to the right
-    of the <input> element. It will clear that <input> element when clicked
+    ClearBtn instructs MenuOptions to place a clear button on the right
+    side of the <input> element. It will clear that <input> element when clicked
     and cause the drop down list to appear.
 
 .. _ColumnCount:
@@ -55,7 +54,6 @@ ColumnCount
 
    MenuOptions defaults to a single column. To show have more than one 
    column, use the ColumnCount parameter. 
-
 
 Data
 ~~~~
@@ -129,14 +127,17 @@ Notes:
 DisableHiLiting
 ~~~~~~~~~~~~~~~
     options: **true or false**
-
-    When using autocomplete, if the user typed text does not match a `whole` select item,
-    the border will be set to red. Once there is a match, the border returns to 
-    its default color. Set to false to enable this feature. 
     
-Notes: 
-    1. Highlighing only restores previous styling if you set <input> elements border-color and border-width. If the <input> element inherits its CSS properties, they will not be restored to their original state (to avoid this scenario, set DisableHiLiting to true)
-    2. To avoid conflicts with the <input> type=search, it is recommended to use <input> type=text when using MenuOptions highlighting.
+    default: **false**
+
+    There are 3 conditions that will cause the background of an MenuOptions input element to flash red.
+
+    1. the user type in an invalid character (i.e., a character not in the select list).
+    2. when leaving the MenuOptions input element (blur event) and the value is incomplete.
+    3. when using setting the intial value (using `InitialValue <SelectParams.html#initialvalues>`_) and that initial value is invalid
+
+    Set to `true` to disable this feature. 
+    
 
 .. _Filters:
 
@@ -170,13 +171,13 @@ Height
     'Height': 200
 
 
-.. _InitialValue:
+.. _InitialValueS:
 
 InitialValue
 ~~~~~~~~~~~~
     options: **{ 'ky' or 'val' : <value> }**
 
-    You can use InitialValue to set (or reset) an initial value 
+    You can use InitialValue to set (or reset) an initial value.
 
     Note: you can use this to set the initial value (visible on the screen)
     or to set the key (the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_) or both key and value.
@@ -192,22 +193,9 @@ These examples show using both forms of `InitialValue`
 
 Note: `InitialValue` can only be used at initialization time.
 
-To reset the value after that time, use `set_select_value <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#set-select-value>`_ 
+To reset the value after that time, use `set_select_value <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#call-menuoptions-with-no-parameters-replaces-set-select-value>`_
 
-.. _NotInListWarns:
-
-NotInListWarns
-~~~~~~~~~~~~~~
-    options: **true or false**
-
-    MenuOptions defaults to warning user if input value is not in select list
-    To avoid these alert messages, set NotInListWarns to false (as in example below).
-
-.. code-block:: javascript
-
-    'NotInListWarns': false, // don't raise alert if input value is not in select list
-
-.. _MenuOptionsType:
+.. _MenuOptionsType :
 
 MenuOptionsType
 ~~~~~~~~~~~~~~~

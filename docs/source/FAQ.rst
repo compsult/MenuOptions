@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.5-7
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.5-8
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -69,7 +69,7 @@ select list, just call MenuOptions again with no parameters
 
       $(YourSelector + ' .ui-menuoptions').menuoptions();
 
-This will populate the attribute `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ that `re_serialize() <http://menuoptions.org/examples/Serialize.html>`_ 
+This will populate the attribute `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ that `re_serialize() <Serialize.html>`_ 
 uses to get the value that corresponds with the text the user sees.
 
 The clear button (or 'X') is not aligned correctly
@@ -107,7 +107,7 @@ When creating your MenuOptions select control, pass it an object, like the code 
                                             "ColumnCount": 2,
                                             'Width': 225 });
 
-For more details, see `re_serialize() <http://menuoptions.org/examples/Serialize.html>`_ 
+For more details, see `re_serialize() <Serialize.html>`_ 
 
 When I hit enter in a MenuOptions select, it does not submit the form
 ---------------------------------------------------------------------
