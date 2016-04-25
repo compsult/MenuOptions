@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-9
+ * @version         Version 1.7.5-10
  *
  *
  ******************************************/
@@ -32,7 +32,7 @@ $.widget('mre.menuoptions', {
         ColumnCount: 1, // display data in this number of columns
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
         DataKeyNames: {}, // specify object keys that contain desired data
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#usevalueforkey
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
         DisableHiLiting : false, // set to false to enable autocomplete highlighting
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#filters
         Filters: [], // header filters (pass mouse over them & they filter choices)
@@ -1073,7 +1073,8 @@ $.widget('mre.menuoptions', {
                 return o;
             }
         });
-        if (matched_rec.length === 0 && ! $(this.options)[0].DisableHiLiting ) { 
+        if (matched_rec.length === 0 && ! $(this.options)[0].DisableHiLiting &&
+            $(this.element).next('span.clearbtn:hover').length === 0 ) {
             this.element.effect("highlight",{color:'red'},500);
         }
         return matched_rec;
