@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-8
+ * @version         Version 1.7.5-9
  *
  *
  ******************************************/
@@ -345,9 +345,6 @@ $.widget('mre.menuoptions', {
         }
         this.element.val(firstMenuItem.text());
         this.element.attr('menu_opt_key', firstMenuItem.attr('menu_opt_key'));
-        if (!this.options.DisableHiLiting) {
-            $(this.element).css({'border-color' : this.options._orig_bc });
-        }
         this._trigger("onSelect", this, {
             "newCode": $(event.target).attr('menu_opt_key'),
             "newVal" : firstMenuItem.text(),
@@ -732,9 +729,6 @@ $.widget('mre.menuoptions', {
             $(this.element).prop('readonly', true);
         }
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
-        if (/Select/.test(this.options.MenuOptionsType)) {
-            this._setOption('_orig_bc', $(this.element).css('border-top-color'));
-        }
         this._recreate_mo();  
     },
 
@@ -1040,9 +1034,6 @@ $.widget('mre.menuoptions', {
         $(this.cached['.dropdowncells']).removeClass('mo');
         // once user clicks their choice, remove dropdown span from DOM
         $dd_span.cached['.dropdownspan'].remove();
-        if (!this.options.DisableHiLiting) {
-            $(this.element).css({'border-color' : this.options._orig_bc });
-        }
     },
 
     _calcDropBoxCoordinates : function () {
