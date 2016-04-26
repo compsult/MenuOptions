@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-10
+ * @version         Version 1.7.5-11
  *
  *
  ******************************************/
@@ -618,17 +618,22 @@ $.widget('mre.menuoptions', {
     },
 
     __scroll: function (row) {
-        var row_top = $('.CrEaTeDtAbLeStYlE tbody tr:nth-child(' + row + ')').offset().top,
-            row_ht = $('.CrEaTeDtAbLeStYlE tbody tr:nth-child(' + row + ')').height(),
-            vis_ht = $('span#SP_' + this.options._ID).height(),
+        var row_top = 0, row_ht = 0, vis_ht = 0, vis_top = 0;
+        if ( $('.CrEaTeDtAbLeStYlE tbody tr:nth-child(' + row + ')').length === 0 ) {
+            return;
+        } else {
+            row_top = $('.CrEaTeDtAbLeStYlE tbody tr:nth-child(' + row + ')').offset().top;
+            row_ht = $('.CrEaTeDtAbLeStYlE tbody tr:nth-child(' + row + ')').height();
+            vis_ht = $('span#SP_' + this.options._ID).height();
             vis_top = $('span#SP_' + this.options._ID).offset().top;
-        if (vis_top > row_top) {
-            this.options._vert_ofs -= row_ht;
-            $('span#SP_' + this.options._ID).scrollTop(this.options._vert_ofs);
-        } else if (vis_top + vis_ht < row_top + row_ht) {
-            this.options._vert_ofs += row_ht;
-            $('span#SP_' + this.options._ID).scrollTop(this.options._vert_ofs);
-        }
+            if (vis_top > row_top) {
+                this.options._vert_ofs -= row_ht;
+                $('span#SP_' + this.options._ID).scrollTop(this.options._vert_ofs);
+            } else if (vis_top + vis_ht < row_top + row_ht) {
+                this.options._vert_ofs += row_ht;
+                $('span#SP_' + this.options._ID).scrollTop(this.options._vert_ofs);
+            }
+         }
     },
 
     _autocomplete: function (e) {
