@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-11
+ * @version         Version 1.7.5-12
  *
  *
  ******************************************/
@@ -369,12 +369,8 @@ $.widget('mre.menuoptions', {
         matching = $.map(this.orig_objs, function (o) {
             no_img = o.val.replace(/<img[\w\W]*?>/, '');
             if (RegExStr.test(no_img)) {
-                if ( /Navigate/i.test($dd.options.MenuOptionsType) ) {
-                    newval = '<span style="color:brown;font-size:110%;">' + o.val + '</span>';
-                } else {
-                    newval = no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">' +
-                            RegExStr.exec(no_img)[0] + '</span>');
-                }
+                newval = no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">' +
+                        RegExStr.exec(no_img)[0] + '</span>');
                 origImg = o.val.match(/<img[\w\W]*?>/);
                 if (origImg) {
                     newval = origImg + newval;
@@ -389,6 +385,27 @@ $.widget('mre.menuoptions', {
             }
         }
         return matching;
+    },
+
+    _chk_for_invalid : function (chk_key) {
+        if ( this.element.val().length === 0 ) {
+            return;
+        }
+        var re = /(\{|\}|\\|\*|\(|\))/g,
+            no_img='',
+            StrToCheck=this.element.val().replace(re, '\\$&'),
+            RegExStr = new RegExp('^'+StrToCheck+'$', 'i');
+        var matched_rec = $.map(this.orig_objs, function (o) {
+            no_img = o.val.toString().replace(/<img[\w\W]*?>/, '');
+            if (RegExStr.test(no_img) || chk_key && RegExStr.test(o.ky.toString())) {
+                return o;
+            }
+        });
+        if (matched_rec.length === 0 && ! $(this.options)[0].DisableHiLiting &&
+            $(this.element).next('span.clearbtn:hover').length === 0 ) {
+            this.element.effect("highlight",{color:'red'},500);
+        }
+        return matched_rec;
     },
 
     _process_matches : function (event, StrToCheck) {
@@ -1062,27 +1079,6 @@ $.widget('mre.menuoptions', {
             return false;
         }
         return true;
-    },
-
-    _chk_for_invalid : function (chk_key) {
-        if ( this.element.val().length === 0 ) {
-            return;
-        }
-        var re = /(\{|\}|\\|\*|\(|\))/g,
-            no_img='',
-            StrToCheck=this.element.val().replace(re, '\\$&'),
-            RegExStr = new RegExp('^'+StrToCheck+'$', 'i');
-        var matched_rec = $.map(this.orig_objs, function (o) {
-            no_img = o.val.toString().replace(/<img[\w\W]*?>/, '');
-            if (RegExStr.test(no_img) || chk_key && RegExStr.test(o.ky.toString())) {
-                return o;
-            }
-        });
-        if (matched_rec.length === 0 && ! $(this.options)[0].DisableHiLiting &&
-            $(this.element).next('span.clearbtn:hover').length === 0 ) {
-            this.element.effect("highlight",{color:'red'},500);
-        }
-        return matched_rec;
     },
 
     _removeDropDown : function (e) {

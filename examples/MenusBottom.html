@@ -22,9 +22,10 @@
 $(document).ready(function() {
    /*--  START_JAVASCRIPT  --*/
     var TstFunction = function() { $('div#fake_alert').html("<p>I just ran javscript from menu with images</p>"); };
-    var Menu_w_Imgs = [{"<img class='js_img' src='imgs/Transparent.gif' width='1' height='1'>javascript": function() { TstFunction(); }}, 
+    var Menu_w_Imgs = [
                 {"<img class='goog_img' src='imgs/Transparent.gif' width='1' height='1'>Google": "http://www.google.com"}, 
                 {"<img class='yahoo_img' src='imgs/Transparent.gif' width='1' height='1'>Yahoo": "http://www.yahoo.com"},
+                {"<img class='js_img' src='imgs/Transparent.gif' width='1' height='1'>javascript": function() { TstFunction(); }}, 
                 {"<img class='cnn_img' src='imgs/Transparent.gif' width='1' height='1'>CNN": "http://www.cnn.com"} ];
 
     $('button[id$="menu_w_imgs"]').menuoptions({ 
@@ -32,7 +33,8 @@ $(document).ready(function() {
         "MenuOptionsType": "Navigate", 
         "ColumnCount" : 1, 
         "Window" : "new", 
-        "ShowAt":"bottom"});  
+        "ShowAt":"bottom",
+        "Sort":[] });  
 
     var TestFunction = function() { $('div#fake_alert').html("<p>I just ran javscript from plain menu</p>"); };
     var SimpleMenu = [{"javascript": function() { TestFunction(); }}, 
@@ -48,8 +50,8 @@ $(document).ready(function() {
     });  
 
     var Menu_w_Dividers =[ {  'Search'  :'divider' }, 
-                {  'Google'  :'http://www.google.com' }, 
-                {  'Yahoo'  :'http://www.yahoo.com' }, 
+                {"<img class='goog_img' src='imgs/Transparent.gif' width='1' height='1'>Google": "http://www.google.com"}, 
+                {"<img class='yahoo_img' src='imgs/Transparent.gif' width='1' height='1'>Yahoo": "http://www.yahoo.com"},
                 {  'Business'  :'divider' }, 
                 {  'CNBC'  :'http://www.cnbc.com' }, 
                 {  'MarketWatch' :'http://www.MarketWatch.com' } ];
