@@ -11,6 +11,7 @@ te.buildMenu = function ( ) {
          '<a class=underl_sm href='+te.root+'bootstrap_ex.html>Bootstrap example</a>'+ 
         '<p class=menu_left>Select Examples</p>'+
         '<a class=underl_sm href='+te.root+'QuickStartSelect.html>Quick start select</a><br>'+
+        '<a class=underl_sm href='+te.root+'QuickStartSelect.html?bad_data>Select with bad data</a><br>'+
         '<a class=underl_sm href='+te.root+'InlinEdit.html>Inline edit</a></br>'+
         '<a class=underl_sm href='+te.root+'SelectWithImages.html>Select with images</a><br>'+
         '<a class=underl_sm href='+te.root+'Serialize.html>Serialize (re_serialize)</a><br>'+

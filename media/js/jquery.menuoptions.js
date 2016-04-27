@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-12
+ * @version         Version 1.7.5-13
  *
  *
  ******************************************/
@@ -401,8 +401,7 @@ $.widget('mre.menuoptions', {
                 return o;
             }
         });
-        if (matched_rec.length === 0 && ! $(this.options)[0].DisableHiLiting &&
-            $(this.element).next('span.clearbtn:hover').length === 0 ) {
+        if (matched_rec.length === 0 && ! $(this.options)[0].DisableHiLiting ) { 
             this.element.effect("highlight",{color:'red'},500);
         }
         return matched_rec;
