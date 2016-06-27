@@ -1,4 +1,4 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.0-2)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.0-3)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
 #### What it looks like:
 
@@ -7,16 +7,16 @@
 #### Benefits
 
 
-*   Input masking
+*  [Input masking](http://www.menuoptions.org/examples/Masks.html)
     *   error messages that explain why the input key is invalid
     *   hotkeys - a single key can fill a field (e.g., 't' fills in todays date in date fields)
-*   Multi column autocomplete (select list)
+*  [Multi column autocomplete (select lists)](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
     *   intelligent autocomplete (characters not in any select list item are automatically removed, saving keystrokes)
     *  mouseover filtering lets user reduce choices by moving their mouse over a filter element
     *  [auto-configuration](http://menuoptions.readthedocs.io/en/latest/FAQ.html#what-do-you-mean-auto-configuration)
-*   Rocker control
+*  [Rocker control](http://www.menuoptions.org/examples/Rocker.html)
     *   Binary options (true/false, yes/no, etc) that never hide a choice
-*   Menus
+*  [Menus](http://www.menuoptions.org/examples/MenusBottom.html)
     *  Built from JSON
     *  mouseover filtering
 
