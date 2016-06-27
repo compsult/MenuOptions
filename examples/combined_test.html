@@ -1,0 +1,162 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="MenuOptions a jQuery ui widget to enable rapid data entry  using the mouse or keyboard">
+    <meta name="keywords"    content="data entry jquery widget, input, ui, ux, single click data entry, multi-column data entry">
+    <meta name="author" content="Michael Etts">
+    <link rel="icon" href="./imgs/favicon.ico">
+
+	<title>MenuOptions | Testing with Bootstrap 3</title>
+
+ <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
+     function menus () {
+        var Menu_w_Dividers = {  
+                    'Search'  :'divider' , 
+                    'Google'  :'http://www.google.com' , 
+                    'Yahoo'  :'http://www.yahoo.com' , 
+                    'Business'  :'divider' , 
+                    'CNBC'  :'http://www.cnbc.com' , 
+                    'MarketWatch' :'http://www.MarketWatch.com' 
+        };
+
+        $('button[id="menu_divs_filts"]').menuoptions({ 
+            'MenuOptionsType': 'Navigate', 
+            'Data': Menu_w_Dividers,
+            'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ], 
+            'ShowDownArrow': 'white',
+            'Sort': [], 
+        }); 
+    }
+    function rockers() {
+        $('input#on_off').menuoptions({"Sort": [], 
+                "Data": { 1: "On", 2:"Off" }, "MenuOptionsType":"Rocker",
+                "onSelect": function(mo, data) {  console.log(data); }
+        }); 
+        $('input#MaleFemale').menuoptions({"Sort": [], 
+                "Data": { 'M': "Male", 'F':"Female" }, "MenuOptionsType":"Rocker",                    
+                    "onSelect": function(mo, data) { console.log(data); }                                                                       
+                });                                                       
+        $('input#TrueFalse').menuoptions({"Sort": [], 
+                "Data": { 'T': "True", 'F':"False" }, "MenuOptionsType":"Rocker",                    
+                    "onSelect": function(mo, data) { console.log(data); }                                                                       
+                });                                                       
+        $('input#YesNo').menuoptions({"Sort": [], 
+                "Data": { 'Y': "Yes", 'N':"No" }, "MenuOptionsType":"Rocker",                    
+                    "onSelect": function(mo, data) { console.log(data); }                                                                       
+                });                                                       
+    }
+    function get_hh_mm ( value ) {
+        var hh = new Date(value).getHours(),
+            ampm = "PM",
+            mm = new Date(value).getMinutes();
+        if ( hh < 12 ) { ampm = "AM";
+        } else { hh -= 12; }
+        hh = ( hh === 0 ) ? "12" : hh;
+        hh = ( hh < 10 ) ? "0" + hh : hh;
+        mm = ( mm < 10 ) ? "0" + mm : mm;
+        return hh + ":" + mm + " " + ampm;
+    }
+    var AddApptMins = function ( StartTime, Duration ) {
+        var epoch_time = new Date("Jan 1, " + new Date().getFullYear() + " " + StartTime).getTime() + Duration * 60000;
+        return get_hh_mm ( epoch_time );
+    }
+    function init() {
+        var last_time = ""
+            earliest_time = '08:00 AM',
+            latest_time = '09:40 PM';
+        $("body").data("alltimes", [ earliest_time ]);
+        for (var t = 0; t <= 80; t += 1) {  
+            last_time = AddApptMins($("body").data("alltimes")[$("body").data("alltimes").length-1], 20);
+            $("body").data("alltimes").push(last_time);   
+            if ( last_time === latest_time ) { break; }
+        }  
+        $('input#starttime').menuoptions({
+                                        "Data": $("body").data("alltimes"),
+                                        "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                        "ClearBtn": true,
+                                        "onSelect": function(e, data) { 
+                                            console.log(e, data.newVal, data.newCode, data.type );
+                                        }, 
+                                        "ShowAt": 'bottom',
+                                        "DisableHiLiting": false, // default is no border hi liting
+                                        "ColumnCount": 3,
+                                        "Width": 240,
+                                        "Height": 200,
+                                        "Mask" : 'HH:MM AM',
+                                        "Sort": []
+                                        });
+    }
+    init();
+    menus();
+    rockers();
+   /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+});
+</script>
+</head>
+  <body style='height:900px; overflow-y: scroll;'>
+  <br />
+    <!--  #import navbar  -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12"  style='height:60px'>
+	        <h1>All MenuOptions widgets </h1> 
+        </div>
+      </div>
+      <div class="row">
+        <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <!--  #import leftmenu  -->
+        </div>
+        <!--  START_HTML  -->
+        <div id=main_column class="col-md-10 col-xs-10">
+            <div class="row">
+                <div class="col-md-3 col-xs-12" style="height:120px">
+                    <button type="button" id="menu_divs_filts" class="btn btn-primary">Menu with dividers & filters</button>
+                </div>
+                <div class="col-md-3 col-xs-12 text-left" style="height:120px; ">
+                    <input type=text class="form-control" style='width:140px' name=starttime id='starttime' placeholder='Start time' >
+                </div>
+                <div class="col-md-3 col-xs-12 text-right" style="height:180px">
+                    <div style="height:50px;">
+                        <input type=text name=YesNo id='YesNo'>
+                    </div>
+                    <div style="height:50px;">
+                        <input type=text name=TrueFalse id='TrueFalse'>
+                    </div>
+                    <div style="height:50px;">
+                        <input type=text name=MaleFemale id='MaleFemale'>
+                    </div>
+                    <div style="height:50px;">
+                        <input type=text name=on_off id='on_off' >
+                    </div>
+                </div>
+          </div> <!--  column 2 (main)  -->
+          <!--  END_HTML  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+
+    </div>
+    <div id=page_loaded></div>
+    </body>
+    </html>
+            
+            

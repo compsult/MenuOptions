@@ -1,5 +1,8 @@
 #!/bin/bash
 
+VERBOSE=''
+#--- VERBOSE=' --nocapture ' ---#
+
 function runTest {
     TS=`date +%T`
     echo runTest "$@" 
@@ -24,21 +27,21 @@ function runLocal {
 	export TST_PLATFORM=linux
     rm test/*.pyc
     cp test/data_structs.py test/test_DataInputs.py
-	nosetests --stop -v
-    mv -f test/test_DataInputs.py test/data_structs.py
+	#--- nosetests --stop ${VERBOSE} -v test/test_SelectList.py:testSL.test04_regexp ---#
+	nosetests --stop ${VERBOSE} -v
 	#--- export TST_BROWSER=firefox ---#
-	#--- nosetests --stop -v ---#
+	#--- nosetests --stop ${VERBOSE} -v test/test_SelectList.py:testSL.test08_validregex ---#
+	#--- nosetests --stop ${VERBOSE} -v ---#
+    mv -f test/test_DataInputs.py test/data_structs.py
 }
 
 function runSauce {
     if [[ -f test/test_DataInputs.py ]]; then
          mv -f test/test_DataInputs.py test/data_structs.py
     fi
-    cp test/sauce_err_bootstrap.py test/test_bootstrap.py 
     runTest sauce safari "OS X 10.10" "Safari test" 
     runTest sauce "internet explorer" "Windows 8" "IE test" 
     runTest sauce firefox Linux "Firefox on linux"
-    mv -f test/test_bootstrap.py test/sauce_err_bootstrap.py
     runTest sauce chrome Linux "Chrome on linux"
 }
 
@@ -54,3 +57,4 @@ else
 fi
 #--- runTest sauce chrome Linux "Chrome on linux" ---#
 #--- runTest sauce "internet explorer" "Windows 8.1" "IE test" "11.0" test/test_Menus.py:testMO.test07_google ---#
+#--- runTest sauce "safari" "OS X 10.10" "Safari test" test/test_Rocker:test_rocker.test02_rocker ---#

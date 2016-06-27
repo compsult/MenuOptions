@@ -1,23 +1,24 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.5-13)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.0)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
-#### What it looks like (shown with Bootstrap 3):
+#### What it looks like:
 
-[![alt text](http://www.menuoptions.org/examples/imgs/overview2.gif "menu, select lists and rocker control")](http://menuoptions.org/examples/bootstrap_ex.html "Bootstrap example")
-
-| [Menu ( with dividers and filters )](http://www.menuoptions.org/examples/Dividers.html)       | [Select list ( multi-column with mouse over filters )](http://www.menuoptions.org/examples/ReloadMenuOptions.html) |  [Rocker control](http://www.menuoptions.org/examples/RockerControl.html)     |
+[![alt text](http://www.menuoptions.org/examples/imgs/overview2.gif "input mask and autocomplete example")](http://menuoptions.org/examples/MaskCombos.html "input mask and autocomplete example")
 
 #### Benefits
 
 
-*   1 click data entry
-*   if an item is at the top of the list, only one key needs to be pressed (the enter key)
-*   it uses intelligent autocomplete (characters not in any select list item are automatically removed, saving keystrokes)
-*   mouseover filtering lets user reduce choices by moving their mouse over a filter element
-*   mulitcolumn display of choices, allowing more data to be presented at one time
-*   has a clear button that wipes the current value and opens the select list (this saves keystrokes in browsers that don't support clear button in input=search e.g., FireFox) 
-*   has a rocker control, convenient for binary choices (true/false, yes/no, etc)
-*   can scroll to accomodate large lists (using the Height parameter)
-*   [auto-configuration](http://menuoptions.readthedocs.org/en/latest/FAQ.html#what-do-you-mean-auto-configuration)
+*   Input masking
+    *   error messages that explain why the input key is invalid
+    *   hotkeys - a single key can fill a field (e.g., 't' fills in todays date in date fields)
+*   Multi column autocomplete (select list)
+    *   intelligent autocomplete (characters not in any select list item are automatically removed, saving keystrokes)
+    *  mouseover filtering lets user reduce choices by moving their mouse over a filter element
+    *  [auto-configuration](http://menuoptions.readthedocs.io/en/latest/FAQ.html#what-do-you-mean-auto-configuration)
+*   Rocker control
+    *   Binary options (true/false, yes/no, etc) that never hide a choice
+*   Menus
+    *  Built from JSON
+    *  mouseover filtering
 
 #### Other benefits:
 
@@ -41,6 +42,19 @@ git clone https://github.com/compsult/MenuOptions.git
 ```
 
 [(more detailed install instructions)](http://menuoptions.readthedocs.org/en/latest/QuickStart.html)
+
+
+### Getting started with masks
+[See the demo](http://www.menuoptions.org/examples/Masks.html).
+
+```javascript
+    $('input#MdYtest').menuoptions({ 
+        "ClearBtn": true,
+        "Mask": "Mon DD, YYYY"
+    });  
+```
+
+![alt text](http://www.menuoptions.org/examples/imgs/masks.png "masks image")
 
 ### Getting started with a simple select list
 [See the demo](http://www.menuoptions.org/examples/QuickStartSelect.html).
@@ -118,4 +132,3 @@ $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').seria
 This demo illustrates using the using multiple MenuOptions controls, including the rocker control 
 
 ![alt text](http://www.menuoptions.org/examples/imgs/MultiSelects.png "using multiple menuoptions on a page ")
-

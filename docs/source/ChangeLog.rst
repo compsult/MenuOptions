@@ -93,3 +93,13 @@ Added `DataKeyNames <SelectParams.html#datakeynames>`_
 only picking out the key and value fields that you specify.
 
 Added data structure tests for menus
+
+1.8.0
+^^^^^^^
+
+refactor source into several js file
+
+add `input masking <Masks.html#masks>`_
+
+enable `input masking <Masks.html#masks>`_ and `autocomplete <SelectParams.html#parameters-specifications-for-select-lists>`_ together
+

@@ -12,7 +12,7 @@ div.rtup { float:right; text-align:center; font-size:14px;
 div.rtdown { float:right; text-align:center; font-size:14px;
     background: url(../imgs/rocker.png) 100% 0%; 
     width:84px; height:27px; }
-div.rocker span.innertext { line-height:27px; vertical-align: 50%; }
+div.rocker span.innertext { line-height:27px; vertical-align: 100%; }
 div.rocker div.ltup:hover, div.rtup:hover { color: yellow; font-style:italic; }
 
 span table.CrEaTeDtAbLeStYlE { 
@@ -105,7 +105,7 @@ span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr {
     display: inline-block;
     width: 0;
     height: 0;
-    margin-left: 2px;
+    margin-left: 6px;
     vertical-align: middle;
     border-top: 4px solid silver;
     border-right: 4px solid transparent;
@@ -113,23 +113,53 @@ span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr {
 }
 .right_arrow {
     display: inline-block;
-    width: 0;
+    width: 120;
     height: 0;
-    margin-left: 2px;
+    margin-left: 8px;
     vertical-align: middle;
     border-left: 4px solid silver;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
 }
+/*--  put clear help in input --*/
+ span.textwrap { 
+    display: inline-block; 
+    position: relative; 
+ } 
+span.helptext {
+    position: absolute; 
+    white-space: nowrap;
+    font: normal 12px arial;
+    color: gray;
+}
+span.err_text {
+    position: absolute; 
+    background:url(../imgs/red_x.png) no-repeat center left;
+    display:inline-block;
+    white-space: nowrap;
+    font: italic 12px arial;
+    color: red;
+}
+span.mask_match {
+    position: absolute; 
+    display:inline-block;
+    width: 18px;
+    background:url(../imgs/greencheck.png) no-repeat top left;
+}
 /*--  put clear X in input --*/
 span.clearbtnpos {
+    text-align: center; 
+    line-height: 16px; 
+    position: absolute; 
     font-size: 13px;
     cursor: pointer;
-    color: #716C6C;
+    color: #716C6C; 
+    /*--  border: 1px solid silver;  --*/
 }
 
 span.clearbtn.ClearButtonMO { 
-   font-size: 14px;
    font-weight: bold;
    color: red;
 }
+input.data_error { background: #FFE9E6 !important; }
+input.data_good  { background: #E1EDDD !important; }

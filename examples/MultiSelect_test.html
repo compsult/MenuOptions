@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions multiple select lists example </title>
+  
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <script src="../dist/js/jquery.menuoptions.min.js"></script>
+    <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+   <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+
+   <style>input[type="text"] {  width: 160px; }</style>
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+
+function resetMO( instruct ) {
+    if (instruct.match(/right/i)) { 
+        $('input#pizzatype').menuoptions({"ShowAt" : "right"});
+        $('input#toppings').menuoptions({"ShowAt" : "right"});
+        $('input#cheese').menuoptions({"ShowAt" : "right"});
+        $('input#crust').menuoptions({"ShowAt" : "right"});
+        $('input#cooked').menuoptions({"ShowAt" : "right"});
+        $('input#delivery').menuoptions({"ShowAt" : "right"});
+    }
+    if (instruct.match(/colcnt/i)) { 
+        $('input#pizzatype').menuoptions({'ColumnCount' : 2 });
+        $('input#toppings').menuoptions({'ColumnCount' : 2 });
+        $('input#cheese').menuoptions({'ColumnCount' : 2 });
+        $('input#crust').menuoptions({'ColumnCount' : 2 });
+        $('input#cooked').menuoptions({'ColumnCount' : 2 });
+        $('input#delivery').menuoptions({'ColumnCount' : 2 });
+    }
+    if (instruct.match(/width/i)) { 
+        $('input#pizzatype').menuoptions({'Width' : 100 });
+        $('input#toppings').menuoptions({'Width' : 100 });
+        $('input#cheese').menuoptions({'Width' : 100 });
+        $('input#crust').menuoptions({'Width' : 100 });
+        $('input#cooked').menuoptions({'Width' : 100 });
+        $('input#delivery').menuoptions({'Width' : 100 });
+    }
+    if (instruct.match(/rocker/i)) { 
+        $('input#pizzatype').menuoptions({"MenuOptionsType":"Rocker", "Sort": []});
+        $('input#delivery').menuoptions({"MenuOptionsType":"Rocker", "Sort": []});
+    }
+    if (instruct.match(/setvalue/i)) { 
+        $('input#pizzatype').val('Sicilian');
+        $('input#toppings').val('Green pepper');
+        $('input#cheese').val('3');
+        $('input#crust').val('3');
+        $('input#cooked').val('Regular');
+        $('input#delivery').val('Pick up');  
+        $('input#drivertip').val('1,000,000.00 (very good driver)');
+        $('.ui-menuoptions').menuoptions();
+    }
+    if (instruct.match(/default/i)) { 
+        $('input#pizzatype').menuoptions({"Sort": [],
+                "MenuOptionsType": "Select",
+                "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0,
+                "InitialValue":{'val':''}});
+        $('input#toppings').menuoptions({'ColumnCount' : 1,
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
+        $('input#cheese').menuoptions({'ColumnCount' : 1, 
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
+        $('input#crust').menuoptions({'ColumnCount' : 1, 
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
+        $('input#cooked').menuoptions({'ColumnCount' : 1, 
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
+        $('input#delivery').menuoptions({"Sort": [],
+            "MenuOptionsType": "Select", "InitialValue":{'val':''},
+                "ShowAt" : "bottom", 'ColumnCount' : 1, 'Width' : 0});
+        $('input#drivertip').menuoptions({'ColumnCount' : 1, 
+            'Width' : 0,"ShowAt" : "bottom", "InitialValue":{'val':''}});
+    }
+}
+function init( ) {
+   /*--  START_JAVASCRIPT  --*/
+    $('button#cfg').menuoptions({ 
+        "Data": [{ "Select list on right": function() { resetMO ("right"); } }, 
+                { "2 columns": function() { resetMO ("colcnt");} },
+                { "Custom width (100px)": function() { resetMO ("width");} },
+                { "Use rocker control for binary choices": function() { resetMO ("rocker");}},
+                { "Programatically set all values": function() { resetMO ("setvalues");}},
+                { "Reset to default": function() { resetMO ("default");} } ],
+        "MenuOptionsType":"Navigate",
+        "ShowAt" : "right",
+        "ClearBtn": true,
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "Sort": [] // don't sort
+    });  
+    $('#pizzatype').menuoptions({ 
+        "Data": { 1: "Sicilian", 2: "Neopolitan"},
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
+    $('input#toppings').menuoptions({ 
+        "Data": { 1:"Anchovie",2:"Green pepper", 3:"Pepperoni", 
+                  4:"Meat", 5:"Mushroom"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
+    $('input#cheese').menuoptions({ 
+        "Data": { 1:"Light",2:"Regular", 3:"Extra"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
+    $('input#crust').menuoptions({ 
+        "Data": { 1:"Thin",2:"Regular", 3:"Thick"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
+    $('input#cooked').menuoptions({ 
+        "Data": { 1: "Lightly baked", 2:"Regular", 3: "Well done"},
+        "onSelect": function(mo, data) { 
+             console.log(mo, data.newVal, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
+    $('#delivery').menuoptions({ 
+        "Data": { 1: "Deliver", 2:"Pick up"},
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
+    $('#drivertip').menuoptions({ 
+        "Data": { 1: "2.00", 2:"2.50", 3:"3.00", 4:"4.00", 5: "4.50", 6:"1,000,000.00 (very good driver)"},
+        "ClearBtn": true,
+        "Sort": [] // don't sort
+    });  
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#cooked').menuoptions('re_serialize', 
+                $('form#tst').serialize());
+        console.log(tst);
+        $('div#fake_alert').html(tst);
+    });
+     $("div#buttons").buttonset().css({"padding":"5px" });   
+   /*--  END_JAVASCRIPT  --*/
+}
+init();
+});
+</script>
+</head>
+<body>
+    <!--  #import navbar  -->
+      <div class="container">
+      <div class="row">
+        <div class="col-lg-12" style="height:80px;">
+	        <h1 >Example of multiple select lists with autocomplete </h1>
+        </div>
+      </div>
+      <div class="row">
+        <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <!--  #import leftmenu  -->
+        </div>
+        <!--  START_HTML  -->
+        <div id=main_column class="col-md-9 col-xs-9 text-center">
+            <form id=tst>
+           <!--  START_HTML  -->
+            <div class="row">
+                <div class="col-md-3 col-xs-3 text-right"  style='height:80px'>
+                </div>
+                <div class="col-md-9 col-xs-9 text-left">
+                    <div id=buttons>
+                      <button type="button" class="jq_button"  style='padding:8px;' id="cfg" >Change MenuOptions Configuration</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right"  style='height:40px'>
+                      Pizza Type
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                      <input type=text name=pizzatype id='pizzatype' placeholder='Pizza type'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:40px'>
+                      Toppings
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                      <input type=text name=toppings id='toppings' placeholder='Toppings'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:40px'>
+                      Crust thickness            
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                     <input type=text name=crust id='crust' placeholder='Crust'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:40px'>
+                      Cheese Amount
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                      <input type=text name=cheese id='cheese' placeholder='Cheese'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:40px'>
+                      Bake Instructions
+                </div>
+                <div class="col-md-8 col-xs-8 text-left" style='height:40px'>
+                      <input type=text name=cooked id='cooked' placeholder='Cooked'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:40px'>
+                      Delivery Instructions
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                      <input type=text name=delivery id='delivery' placeholder='Delivery type'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:60px'>
+                      Driver tip
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                     <input type=text name=drivertip id='drivertip' placeholder='Driver tip'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-xs-3 text-right">
+                </div>
+                <div class="col-md-9 col-xs-9 text-left">
+                      <span class="text-left"><button class="a" type="button" id="menutest" >Show serialize values</button></span>
+                </div>
+            </div>
+            <div id=fake_alert></div>
+        <br /><br />
+    </form>
+
+          </div> <!--  column 2 (main)  -->
+          <!--  END_HTML  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+    <div id=page_loaded></div>
+    </body>
+    </html>
+            

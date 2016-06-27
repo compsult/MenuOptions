@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions examples of various menus</title>
+  
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+  
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
+    var TstFunction = function() { alert ("I just ran a javscript function 1 "); };
+    var TST1 = [{"<img class='js_img' src='imgs/Transparent.gif' width='1' height='1'>javascript": function() { TstFunction('javascript'); }}, 
+           {"<img class='goog_img' src='imgs/Transparent.gif' width='1' height='1'>Google": "http://www.google.com"}, 
+           {"<img class='yahoo_img' src='imgs/Transparent.gif' width='1' height='1'>Yahoo": "http://www.yahoo.com"}];
+    TST1.push( {"<img class='cnn_img' src='imgs/Transparent.gif' width='1' height='1'>CNN": "http://www.cnn.com"} );
+
+    $('button[id$="menu_w_imgs"]').menuoptions({ 
+        "Data": TST1, 
+        "MenuOptionsType": "Navigate", 
+        "ColumnCount" : 1, 
+        "Width": "150", 
+        "ShowAt":"right"});  
+
+    var TestFunction = function() { alert ("I just ran a javscript function 2"); };
+    var TST2 = [{"javascript": function() { TestFunction(); }}, 
+        {"Google": "http://www.google.com"}, 
+        {"Yahoo": "http://www.yahoo.com"}];
+    TST2.push( {"CNN": "http://www.cnn.com"} );
+
+    $('button[id$="menu_plain"]').menuoptions({ 
+        'Data': TST2, 
+        'MenuOptionsType': 'Navigate', 
+        'ColumnCount' : 1,
+        "ShowAt":"right"});  
+
+    $('button[id="menu_divs_filts"]').menuoptions({ 
+        'MenuOptionsType': 'Navigate', 
+        'Data': [ {  'Search'  :'divider' }, 
+                    {  'Google'  :'http://www.google.com' }, 
+                    {  'Yahoo'  :'http://www.yahoo.com' }, 
+                    {  'Business'  :'divider' }, 
+                    {  'CNBC'  :'http://www.cnbc.com' }, 
+                    {  'MarketWatch'  :'http://www.MarketWatch.com' } ], 
+        'Filters': [{ 'Biz' : '^(CNBC|MarketWatch)'}, {'Search' :'^(Google|Yahoo)'} ], 
+        'Sort': [], 
+        "ShowAt":"right"});  
+    $("div#buttons").buttonset().css({"padding":"5px" });
+   /*--  END_JAVASCRIPT  --*/
+});
+</script>
+</head>
+<body>
+    <!--  #import navbar  -->
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style='height:120px'>
+	            <h1 >Examples of Menus positioned at right </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+                <!--  #import leftmenu  -->
+            </div>
+            <!--  START_HTML  -->
+            <div id=main_column class="col-md-8 col-xs-8">
+                <div class="row">
+                    <div class="text-center"  style='height:70px'>
+                        <div id=buttons>
+                            <button  class="jq_button" type="button" id="menu_plain" >Menu</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center"  style='height:70px'>
+                        <div id=buttons>
+                            <button  class="jq_button" type="button" id="menu_w_imgs" >Menu with images</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center"  style='height:70px'>
+                        <div id=buttons>
+                            <button  class="jq_button" type="button" id="menu_divs_filts" >Menu with dividers & filters</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-2">
+                <div id=fake_alert></div>
+          </div> <!--  column 2 (main)  -->
+         <!--  END_HTML  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+
+    <div id=page_loaded></div>
+    </body>
+    </html>
+            

@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<html> 
+<head> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>MenuOptions Rocker switch demo</title> 
+ 
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <!--  END_INCLUDES  -->
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+   <script> var te = te || {}; te.root=""; te.scroll=true; </script>
+   <link rel="icon" href="./imgs/favicon.ico">
+   <script src="./js/examples_bs.js"></script>
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function () {
+   /*--  START_JAVASCRIPT  --*/
+   $('input#on_off').menuoptions({"Sort": [], 
+        "Data": { 1: "On", 2:"Off" }, "MenuOptionsType":"Rocker",
+        "onSelect": function(mo, data) {  console.log(data); }
+   }); 
+   $('input#MaleFemale').menuoptions({"Sort": [], 
+        "Data": { 'M': "Male", 'F':"Female" }, "MenuOptionsType":"Rocker",                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+   $('input#TrueFalse').menuoptions({"Sort": [], 
+        "Data": { 'T': "True", 'F':"False" }, "MenuOptionsType":"Rocker",                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+   $('input#YesNo').menuoptions({"Sort": [], 
+        "Data": { 'Y': "Yes", 'N':"No" }, "MenuOptionsType":"Rocker",                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#YesNo').menuoptions('re_serialize', 
+                $('form#tst').serialize());
+        $('div#fake_alert').html(tst);
+    });
+   /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+});
+</script>
+ 
+</head> 
+<body>
+    <div class="navbar-wrapper">
+      <div class="container-fluid">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/"><img style="display:block;" src="./imgs/menuoptions_inv.png"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+              <ul class="nav navbar-nav">
+                <li><a id=examplemenu class=examplemenu href="#">All examples</a></li>
+                <li><a id=docmenu class=docmenu href="#">Documentation</a></li>
+                <li><a id=dwnldmenu class=dwnldmenu href="#">Download</a></li>
+                <li><a id=changelog class=changelog href="#">Change log</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style='height:120px'>
+                <h1 >Example using the rocker switch</h1>
+            </div>
+        </div>
+        <form id=tst>
+        <div class="row">
+            <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <p class=menu_left>Menu Examples</p>
+            <a class=underl_sm href=QuickStartMenu.html>Quick start menu</a><br>
+            <a class=underl_sm href=MenusBottom.html>Drop down menus</a></br>
+            <a class=underl_sm href=RightMenu.html>Right side menus</a><br>
+            <p class=menu_left>Select Examples</p>
+            <a class=underl_sm href=QuickStartSelect.html>Quick start select</a><br>
+            <a class=underl_sm href=QuickStartSelect.html?bad_data>Select with bad data</a><br>
+            <!--  <a class=underl_sm href=InlinEdit.html>Inline edit</a></br>  -->
+            <a class=underl_sm href=SelectWithImages.html>Select with images</a><br>
+            <a class=underl_sm href=Serialize.html>Serialize (re_serialize)</a><br>
+            <a class=underl_sm href=MultiSelect.html>Multiple select lists</a><br>
+            <a class=underl_sm href=ReloadMenuOptions.html>Dynamically reloading</a><br>
+            <p class=menu_left>Rocker Examples</p>
+            <a class=underl_sm href=Rocker.html>Rocker switch</a><br>
+            <p class=menu_left>Masks</p>
+            <a class=underl_sm href=MaskCombos.html>Masks and select list</a><br>
+            <a class=underl_sm href=Masks.html>Masks types</a><br>
+            <p class=menu_left>All widgets</p>
+            <a class=underl_sm href=combined.html>All options</a><br>
+            <p class=menu_left>Download</p>
+            <a class=underl_sm href="https://github.com/compsult/MenuOptions">github</a><br>
+            <a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br>
+            <a class=underl_sm href="https://atmospherejs.com/compsult/menuoptions">atmosphere</a><br><br>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-2"></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="http://menuoptions.readthedocs.org/en/latest/"><img src="https://readthedocs.org/projects/menuoptions/badge/?version=latest" alt="ReadTheDocs Status"/></a>
+            </div></div>
+            </div>
+            <div id=main_column class="col-md-8 col-xs-8">
+           <!--  START_HTML  -->
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right"  style='height:40px'>
+	                True or False 
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                    <input type=text name=TrueFalse id='TrueFalse' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:40px'>
+	                Yes or No
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+		            <input type=text name=YesNo id='YesNo' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:40px'>
+	                Male or Female
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+		            <input type=text name=MaleFemale id='MaleFemale' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:60px'>
+	                On or Off
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+		            <input type=text name=on_off id='on_off' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:60px'>
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                      <span class="text-left"><button class="a" type="button" id="menutest" >Show serialize values</button></span>
+                </div>
+            </div>
+        </form>
+            <div id=fake_alert></div>
+        <!--  END_HTML  -->
+
+    <div id=page_loaded></div>
+            
+
+    <br /><br /><br /><br />
+    <div class="container visible-lg visible-md">
+      <div class="row">
+        <div class="col-lg-12">
+            <h1>Code</h1>
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">Javascript</a></li>
+                    <li><a href="#tabs-2">HTML </a></li>
+                    <li><a href="#tabs-3">includes </a></li>
+                </ul>
+            <div id="tabs-1">
+            <pre><code class="javascript" style='text-align:left'>
+                
+   $('input#on_off').menuoptions({"Sort": [], 
+        "Data": { 1: "On", 2:"Off" }, "MenuOptionsType":"Rocker",
+        "onSelect": function(mo, data) {  console.log(data); }
+   }); 
+   $('input#MaleFemale').menuoptions({"Sort": [], 
+        "Data": { 'M': "Male", 'F':"Female" }, "MenuOptionsType":"Rocker",                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+   $('input#TrueFalse').menuoptions({"Sort": [], 
+        "Data": { 'T': "True", 'F':"False" }, "MenuOptionsType":"Rocker",                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+   $('input#YesNo').menuoptions({"Sort": [], 
+        "Data": { 'Y': "Yes", 'N':"No" }, "MenuOptionsType":"Rocker",                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#YesNo').menuoptions('re_serialize', 
+                $('form#tst').serialize());
+        $('div#fake_alert').html(tst);
+    });
+   
+            </code></pre>
+        </div>
+            
+    <div id="tabs-2">
+        <pre><code class="html" style='text-align:left'>
+            
+            &lt;div class="row"&gt;
+                &lt;div class="col-md-4 col-xs-4 text-right"  style='height:40px'&gt;
+	                True or False 
+                &lt;/div&gt;
+                &lt;div class="col-md-8 col-xs-8 text-left"&gt;
+                    &lt;input type=text name=TrueFalse id='TrueFalse' &gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="row"&gt;
+                &lt;div class="col-md-4 col-xs-4 text-right" style='height:40px'&gt;
+	                Yes or No
+                &lt;/div&gt;
+                &lt;div class="col-md-8 col-xs-8 text-left"&gt;
+		            &lt;input type=text name=YesNo id='YesNo' &gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="row"&gt;
+                &lt;div class="col-md-4 col-xs-4 text-right" style='height:40px'&gt;
+	                Male or Female
+                &lt;/div&gt;
+                &lt;div class="col-md-8 col-xs-8 text-left"&gt;
+		            &lt;input type=text name=MaleFemale id='MaleFemale' &gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="row"&gt;
+                &lt;div class="col-md-4 col-xs-4 text-right" style='height:60px'&gt;
+	                On or Off
+                &lt;/div&gt;
+                &lt;div class="col-md-8 col-xs-8 text-left"&gt;
+		            &lt;input type=text name=on_off id='on_off' &gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="row"&gt;
+                &lt;div class="col-md-4 col-xs-4 text-right" style='height:60px'&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-8 col-xs-8 text-left"&gt;
+                      &lt;span class="text-left"&gt;&lt;button class="a" type="button" id="menutest" &gt;Show serialize values&lt;/button&gt;&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+            &lt;div id=fake_alert&gt;&lt;/div&gt;
+        
+        </code></pre>
+    </div>
+            
+    <div id="tabs-3">
+        <pre><code class="html" style='text-align:left'>
+            
+ &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"&gt;&lt;/script&gt;
+ &lt;link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"&gt;
+ &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"&gt;&lt;/script&gt;
+  &lt;script src="./js/bootstrap.min.js"&gt;&lt;/script&gt;
+  &lt;link href="./css/bootstrap.min.css" rel="stylesheet"&gt;
+  &lt;script src="../dist/js/jquery.menuoptions.js"&gt;&lt;/script&gt;
+  &lt;link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820"&gt;
+  &lt;link rel="stylesheet" type="text/css" href="css/style.css?v_2339"&gt;
+  
+        </code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    </body>
+    </html>
+            

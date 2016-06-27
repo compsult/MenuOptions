@@ -8,7 +8,7 @@ class test_set_vals(SeleniumUtils, SetupByLocation):
 
     def setUp(self):
         super(test_set_vals,self).setUp()
-        self.url='http://'+self.IP+'/examples/MultiSelect.html'
+        self.url='http://'+self.IP+'/examples/MultiSelect_test.html'
 
     def test02_set_value(self):
         """
@@ -36,15 +36,15 @@ class test_set_vals(SeleniumUtils, SetupByLocation):
         """
            check that MenuOptions add_menu_opt_key works
         """
-        self.url='http://'+self.IP+'/examples/QuickStartSelect.html'
+        self.url='http://'+self.IP+'/examples/QuickStartSelect_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_add_menu_opt_key({ 'xpath': '//*[@id="scrolltest"]',
-                                      'clr_xpath': '//*[@id="CB_menuoptions5"]',
+                                      'clr_xpath': '//*[@id="CB_menuoptions1"]',
                                       'inp_text': 'May',
                                       'exp_key': '5',
                                       'id': 'scrolltest' })
         self.check_add_menu_opt_key({ 'xpath': '//*[@id="selecttest"]',
-                                      'clr_xpath': '//*[@id="CB_menuoptions4"]',
+                                      'clr_xpath': '//*[@id="CB_menuoptions0"]',
                                       'inp_text': 'November',
                                       'exp_key': '11',
                                       'id': 'selecttest' })

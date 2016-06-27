@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html> 
+<head> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>MenuOptions Rocker switch demo</title> 
+ 
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function () {
+   /*--  START_JAVASCRIPT  --*/
+   $('input#on_off').menuoptions({"Sort": [], 
+        "Data": { 1: "On", 2:"Off" }, "MenuOptionsType":"Rocker",
+        "onSelect": function(mo, data) {  console.log(data); }
+   }); 
+   $('input#MaleFemale').menuoptions({"Sort": [], 
+        "Data": { 'M': "Male", 'F':"Female" }, "MenuOptionsType":"Rocker",                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+   $('input#TrueFalse').menuoptions({"Sort": [], 
+        "Data": { 'T': "True", 'F':"False" }, "MenuOptionsType":"Rocker",                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+   $('input#YesNo').menuoptions({"Sort": [], 
+        "Data": { 'Y': "Yes", 'N':"No" }, "MenuOptionsType":"Rocker",                    
+               "onSelect": function(mo, data) { console.log(data); }                                                                       
+           });                                                       
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#YesNo').menuoptions('re_serialize', 
+                $('form#tst').serialize());
+        $('div#fake_alert').html(tst);
+    });
+   /*--  END_JAVASCRIPT  --*/
+});
+</script>
+ 
+</head> 
+<body>
+    <!--  #import navbar  -->
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style='height:120px'>
+                <h1 >Example using the rocker switch</h1>
+            </div>
+        </div>
+        <form id=tst>
+        <div class="row">
+            <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+                <!--  #import leftmenu  -->
+            </div>
+            <div id=main_column class="col-md-8 col-xs-8">
+           <!--  START_HTML  -->
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right"  style='height:40px'>
+	                True or False 
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                    <input type=text name=TrueFalse id='TrueFalse' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:40px'>
+	                Yes or No
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+		            <input type=text name=YesNo id='YesNo' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:40px'>
+	                Male or Female
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+		            <input type=text name=MaleFemale id='MaleFemale' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:60px'>
+	                On or Off
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+		            <input type=text name=on_off id='on_off' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-4 text-right" style='height:60px'>
+                </div>
+                <div class="col-md-8 col-xs-8 text-left">
+                      <span class="text-left"><button class="a" type="button" id="menutest" >Show serialize values</button></span>
+                </div>
+            </div>
+        </form>
+            <div id=fake_alert></div>
+        <!--  END_HTML  -->
+
+    <div id=page_loaded></div>
+    </body>
+    </html>
+            

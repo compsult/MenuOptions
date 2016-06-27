@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.5-13
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.0
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -74,11 +74,24 @@ uses to get the value that corresponds with the text the user sees.
 
 The clear button (or 'X') is not aligned correctly
 --------------------------------------------------
+There are 2 situations where this can happen.
 
-This can happen when an input element is added dynamically ( using javascript). 
+The first is when an input element is added dynamically (using javascript). 
 The clear button is positioned using the jQuery UI position() function, which requires 
 that the element be present in the DOM and visible.
-A workaround for this is to wrap the menuoptions call with a setTimeout, like this:
+
+The second is when the container that surrounds the input element is being resized,
+as when a browser draws a table and shrinks the <TD> that contains the input element.
+
+There are 2 workarounds for this. The first is to call MenuOptions again (with no parameters)
+immediately after adding the element or after the layout change.
+
+.. code-block:: javascript
+
+      $(YourSelector + ' .ui-menuoptions').menuoptions();
+
+
+For dynamically added elements, you can wrap the menuoptions call with a setTimeout, like this:
 
 .. code-block:: javascript
 
@@ -114,7 +127,7 @@ When I hit enter in a MenuOptions select, it does not submit the form
 That's correct. MenuOptions uses the Enter key to select the first dropdown 
 element. If you want to submit the form when a user presses Enter, you
 can do so in the onSelect option,  which returns the MenuOptions instance,
-newVal, newCode and type (EnterKey|Click|RockerClick).
+newVal, newCode and type (EnterKey|Click|Rocker).
 
 For more detals on onSelect `see the docs <SelectParams.html#onselect>`_
 
@@ -168,24 +181,28 @@ MenuOptions was created for one reason.
     required for data entry as well as navigation.
 
 
-It enables:
+Features:
+~~~~~~~~~
 
-- 1 click data entry
-- if an item is at the top of the list, only one key needs to be pressed (the enter key)
-- it uses intelligent autocomplete 
-  (characters not in any select list item are automatically removed, saving keystrokes)
-- mouseover filtering lets user reduce choices by moving their mouse over a filter element
-- mulitcolumn display of choices, allowing more data to be presented at one time
-- convenient binary choices (true/false, yes/no, etc) using the Rocker control
-- scrolling to accomodate large lists
-- `auto-configuration <FAQ.html#what-do-you-mean-auto-configuration>`_
+- Input masking
+    - error messages that explain why the input key is invalid
+    - hotkeys - a single key can fill a field (e.g., 't' fills in todays date in date fields)
+- Multi column autocomplete
+    - intelligent autocomplete (characters not in any select list item are automatically removed, saving keystrokes)
+    - mouseover filtering lets user reduce choices by moving their mouse over a filter element
+    - `auto-configuration <FAQ.html#what-do-you-mean-auto-configuration>`_
+- Rocker control
+    - Binary options (true/false, yes/no, etc) that never hide a choice
+- Menus
+    - Built from JSON
+    - mouseover filtering
 
 Other benefits:
 
-- can use data from a variety of JSON types (array, array of arrays, single object, array of objects)
+- offers the ability to combine multi column autocomplete and input mask functionality.
 - uses color highlighting to show autocomplete matches 
 - the value associated with with the label string is saved in the input element automatically
   (in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ - no need to manually update a hidden field)
-- since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
+- it can utilize `Data <SelectParams.html#id3>`_ from a variety of of JSON types (array, array of arrays, single object, array of objects)
 
 

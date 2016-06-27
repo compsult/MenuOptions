@@ -6,7 +6,7 @@
 Welcome to MenuOptions
 =====================================================
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.5-13
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.0
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -26,21 +26,15 @@ What it looks like:
    :alt: What it looks like
    :target: http://www.menuoptions.org
 
-Benefits:
+Features:
 
-- 1 click data entry
+- Input masking
 
-- it uses intelligent autocomplete (characters not in any select list item 
-  are automatically removed, saving keystrokes)
-  can utilize multicolumn select lists.
+- multi-column autcomplete
 
-- mouseover filtering lets user reduce choices by moving their mouse over a filter element
+- menu system based on JSON
 
-- mulitcolumn display of choices, allowing more data to be presented at one time
-
-- has a rocker control, convenient for binary choices (true/false, yes/no, etc)
-
-- uses scrolling to accomodate large lists
+- rocker control
 
 - `auto-configuration <FAQ.html#what-do-you-mean-auto-configure>`_
 
@@ -48,13 +42,13 @@ Other benefits:
 
 - uses color highlighting to show autocomplete matches
 
+- mouseover filtering to reduce choices
+
 - it can utilize data from a variety of JSON types (array, array of arrays, 
   single object, array of objects)
 
 - the value associated with with the label string is saved in the input element 
   automatically (in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ - no need to manually update a hidden field)
-
-- since the dropdowns uses similar logic to menus, it has a basic menu system thrown in.
 
 
 Prerequisites:
@@ -75,6 +69,7 @@ Contents:
    :maxdepth: 3
 
    QuickStart
+   Masks
    MenuParams
    SelectParams
    UserMethods

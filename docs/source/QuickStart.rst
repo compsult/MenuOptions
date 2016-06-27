@@ -10,27 +10,50 @@ Installation
             -- or --
     git clone https://github.com/compsult/MenuOptions.git
 
-The important part of the installation is under `media/`
+The important part of the installation is under `dist`
 
-Note: this is a subset of the directory tree
+Here are the 6 files needed for MenuOptions.  Note: this is a subset of the directory tree
 
 .. code-block:: bash
 
     ├── css
-    │   ├── menuoptions.css
     │   └── menuoptions.min.css
     ├── imgs
-    │   ├── clearRec.png
+    │   ├── greencheck.png
+    │   ├── red_x.png
     │   ├── rocker.png
     │   └── ui-bg_glass_75_dadada_1x400.png
     └── js
-        ├── jquery.menuoptions.js
         └── jquery.menuoptions.min.js
 
 
 You can use any directory name for the javascript and css files but the 
 images directory needs to be called `imgs` (it's referenced in the menuoptions.css file).
 You can get around this restriction by editing menuoptions.css to use your directory name.
+
+Quick start to create an input mask
+-----------------------------------
+
+Below are examples of using the currently available input masks
+
+.. code-block:: javascript
+
+    $('input#MdYtest').menuoptions({ 
+        "ClearBtn": true,
+        "Mask": "Mon DD, YYYY"
+    });  
+    $('input#YMDtest').menuoptions({ 
+        "ClearBtn": true,
+        "Mask": "YYYYMMDD"
+    });  
+    $('input#Phonetest').menuoptions({ 
+        "ClearBtn": true,
+        "Mask": "(999) 999-9999"
+    });  
+    $('input#Timetest').menuoptions({
+        "ClearBtn": true,
+        "Mask" : 'HH:MM AM'
+    });  
 
 Quick start to create menu
 --------------------------

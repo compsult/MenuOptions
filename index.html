@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MenuOptions | jQuery ui widget with input masks and multi-column autocomplete </title>
+    <meta name="description" content="MenuOptions a jQuery ui widget to enable rapid data entry  using the mouse or keyboard">
+    <meta name="keywords"    content="multi-column autocomplete, input masks, input mask, masked input, input, single click data entry">
+      
+    <!-- jQuery -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="./dist/js/jquery.menuoptions.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="examples/css/style.css?v_2339">
+    <link rel="stylesheet" type="text/css" href="./dist/css/menuoptions.css?v_1820">
+    <script src="examples/js/bootstrap.min.js"></script>
+    <link href="examples/css/bootstrap.min.css" rel="stylesheet">
+    <script src="examples/js/ie10-viewport-bug-workaround.js"></script>
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+   <script> var te = te || {}; te.root="examples/"; te.scroll=true; </script>
+   <link rel="icon" href="examples/imgs/favicon.ico">
+   <script src="examples/js/examples_bs.js"></script>
+    <script type='text/javascript'>//<![CDATA[ 
+    $(document).ready(function() {
+        $('pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+        });
+        $( "#tabs" ).tabs();
+    });
+    </script>
+      
+</head>
+<body>
+    <div class="navbar-wrapper">
+      <div class="container-fluid">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/"><img style="display:block;" src="examples/imgs/menuoptions_inv.png"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+              <ul class="nav navbar-nav">
+                <li><a id=examplemenu class=examplemenu href="#">All examples</a></li>
+                <li><a id=docmenu class=docmenu href="#">Documentation</a></li>
+                <li><a id=dwnldmenu class=dwnldmenu href="#">Download</a></li>
+                <li><a id=changelog class=changelog href="#">Change log</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>MenuOptions</h1> 
+            </div>
+        </div>
+        <div class="row">
+            <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <p class=menu_left>Menu Examples</p>
+            <a class=underl_sm href=examples/QuickStartMenu.html>Quick start menu</a><br>
+            <a class=underl_sm href=examples/MenusBottom.html>Drop down menus</a></br>
+            <a class=underl_sm href=examples/RightMenu.html>Right side menus</a><br>
+            <p class=menu_left>Select Examples</p>
+            <a class=underl_sm href=examples/QuickStartSelect.html>Quick start select</a><br>
+            <a class=underl_sm href=examples/QuickStartSelect.html?bad_data>Select with bad data</a><br>
+            <!--  <a class=underl_sm href=examples/InlinEdit.html>Inline edit</a></br>  -->
+            <a class=underl_sm href=examples/SelectWithImages.html>Select with images</a><br>
+            <a class=underl_sm href=examples/Serialize.html>Serialize (re_serialize)</a><br>
+            <a class=underl_sm href=examples/MultiSelect.html>Multiple select lists</a><br>
+            <a class=underl_sm href=examples/ReloadMenuOptions.html>Dynamically reloading</a><br>
+            <p class=menu_left>Rocker Examples</p>
+            <a class=underl_sm href=examples/Rocker.html>Rocker switch</a><br>
+            <p class=menu_left>Masks</p>
+            <a class=underl_sm href=examples/MaskCombos.html>Masks and select list</a><br>
+            <a class=underl_sm href=examples/Masks.html>Masks types</a><br>
+            <p class=menu_left>All widgets</p>
+            <a class=underl_sm href=examples/combined.html>All options</a><br>
+            <p class=menu_left>Download</p>
+            <a class=underl_sm href="https://github.com/compsult/MenuOptions">github</a><br>
+            <a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br>
+            <a class=underl_sm href="https://atmospherejs.com/compsult/menuoptions">atmosphere</a><br><br>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-2"></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="http://menuoptions.readthedocs.org/en/latest/"><img src="https://readthedocs.org/projects/menuoptions/badge/?version=latest" alt="ReadTheDocs Status"/></a>
+            </div></div>
+            </div>
+            <div id=main_column class="col-md-10 col-xs-10">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xs-12"> </div>
+                    <h2 style='text-align:left'> What it looks like:</h2>
+                     <a class=underl href='examples/MaskCombos.html'><img src="http://www.menuoptions.org/examples/imgs/overview2.gif" alt="alt text" title="menu, select lists and rocker control" /></a>
+                    <h2 style='text-align:left'>Installation</h2> 
+                    <pre><code class="javascript" style='text-align:left'>
+                        npm install menuoptions
+                                -- or --
+                        git clone https://github.com/compsult/MenuOptions.git
+                    </code></pre>
+                    <a class=underl_sm href='http://menuoptions.readthedocs.org/en/latest/QuickStart.html'>(more detailed install instructions</a>
+                    <h2 style='text-align:left'> Features:</h2>
+                    <ul style="list-style:none">
+                        <li class=left_img><a style='line-height:40px' href='examples/Masks.html'>Input masking</a></li>
+                        <ul style="list-style:circle">
+                          <li><p>error messages that explain why the input key is invalid</p></li>
+                          <li><p>hotkeys a single key can fill a field (e.g., <code class=mo>t</code> fills in todays date in date fields)</p></li>
+                        </ul>
+                        <li class=left_img><a style='line-height:40px' href='examples/ReloadMenuOptions.html'>Multi column autocomplete</a></li>
+                        <ul style="list-style:circle">
+                            <li><p>intelligent autocomplete (characters not in any select list item are automatically removed, saving keystrokes)</p></li>
+                            <li><p>mouseover filtering lets user reduce choices by moving their mouse over a filter element</p></li>
+                            <li><p><a class=underl_sm href='http://menuoptions.readthedocs.org/en/latest/FAQ.html#what-do-you-mean-auto-configuration'>auto-configuration</a></p</li>
+                        </ul>
+                        <li class=left_img><a style='line-height:40px' href='examples/Rocker.html'>Rocker control</a></li>
+                        <ul style="list-style:circle">
+                            <li><p>Binary options (true/false, yes/no, etc) that never hide a choice</p></li>
+                        </ul>
+                        <li class=left_img><a style='line-height:40px' href='examples/MenusBottom.html'>Menus</a></li>
+                        <ul style="list-style:circle">
+                            <li><p>Built from JSON</p></li>
+                            <li><p>mouseover filtering</p></li>
+                        </ul>
+                    </ul>
+                    <h2 style='text-align:left'> Other benefits:</h2>
+
+                    <ul style="list-style:none">
+                        <li class=left_img><p>offers the ability to combine multi column autocomplete and input mask functionality</p></li>
+                        <li class=left_img><p>uses color highlighting to show autocomplete matches </p></li>
+                        <li class=left_img><p>it can utilize <a href='http://menuoptions.readthedocs.io/en/latest/SelectParams.html#id3'>data</a> from a variety of JSON types (array, array of arrays, single object, array of objects)</p></li>
+                        <li class=left_img><p>the value associated with the label string is saved in the input element automatically
+                        (in the <a href='http://menuoptions/docs/build/html/FAQ.html#what-is-the-menu-opt-key'>menu_opt_key</a> - no need to manually update a hidden field)</p></li>
+                    </ul>
+
+                    <h2 class=lft> Notes: </h2>
+                    <h3 style='text-align:left;'> 1 - <a class=gr href=https://github.com/compsult/MenuOptions>MenuOptions</a> documentation has been moved to <a class=gr href='http://menuoptions.readthedocs.org/en/latest/'>ReadTheDocs </a></h4>
+                    <h3 style='text-align:left;'> 2 - It is strongly advised to use the latest release of MenuOptions, for latest features and bug fixes</h3><br>
+                    <h2 class=lft>Getting started with input masks</h2>
+
+                    <p><a href="examples/Masks.html">See the demo</a></p>
+
+                    <pre><code class="javascript" style='text-align:left'>
+                        $('input#MdYtest').menuoptions({ 
+                            "ClearBtn": true,
+                            "Mask": "Mon DD, YYYY"
+                        });  
+                    </code></pre>
+
+                    <a href="examples/Masks.html"><img src="examples/imgs/masks.png" alt="input mask " title="input mask example" /></a>
+
+                    <h2 class=lft>Getting started with a simple select list</h2>
+
+                    <p><a href="examples/QuickStartSelect.html">See the demo</a></p>
+
+                    <pre><code class="javascript" style='text-align:left'>
+                    var Data = [ "January","February","March","April","May","June","July",
+                                "August","September","October","November","December" ];
+
+                    $('input#selecttest').menuoptions({
+                        "Data": Data
+                    });
+                    </code></pre>
+                    <a href="examples/QuickStartSelect.html">
+                    <img src="examples/imgs/SimpleSelect.jpg" alt="simple select list example" title="simple select list example" /></a>
+
+                    <h2 class=lft>Getting started with a simple menu</h2>
+
+                    <p><a href="examples/QuickStartMenu.html">See the demo</a></p>
+
+                    <pre><code class="javascript" style='text-align:left'>
+                    var Data =  [ {"javascript": function() { alert('Run some javascript'); }},
+                                {"Google": "http://www.google.com"},
+                                {"Yahoo": "http://www.yahoo.com"}];
+
+                    $('button[id$="menutest"]').menuoptions({
+                                "Data": Data,
+                                "MenuOptionsType": "Navigate", // Navigate is for menus
+                            });
+                    </code></pre>
+                    <a href="examples/QuickStartMenu.html">
+                    <img src="examples/imgs/SimpleMenu.jpg" alt="simple menu example" title="simple menu example" /></a>
+
+                    <h2 class=lft> Using MenuOptions with in line editing of Table cells</h2>
+                    <p><a href='examples/InlinEdit.html'>See the demo</a></p>
+                    <p>An example of using MenuOptions select lists as part of in line editing for a table</p>
+                    <a href='examples/InlinEdit.html'>
+                        <img src='examples/imgs/InlineEditing.png' alt_text="autocomplete with images">
+                    </a>
+
+
+                    <h2 class=lft>Autocomplete with images</h2>
+                    <p><a href="examples/SelectWithImages.html">See the demo</a></p>
+
+                    <a href="examples/SelectWithImages.html"><img src="examples/imgs/AutoCompWithImgs.jpg" alt="autocomplete with images" title="autocomplete with images" /></a>
+
+
+                    <h2 class=lft>Mouseover filtering with dividers</h2>
+                    <p><a href="examples/MenusBottom.html">See the demo</a></p> 
+                    <a href="examples/MenusBottom.html"><img src="examples/imgs/MenuWithMOandDivs.jpg" alt="mouseover with dividers" title="mouseover with dividers" /></a>
+
+                    <h2 class=lft>Dynamic reloading of a MenuOptions select list</h2>
+                    
+                    <p><a href="examples/ReloadMenuOptions.html">See the demo</a></p>
+                    
+                    <p>In this case, the user selects a start time and the end time will be modified to only display<br />
+                    the start time plus 1 hour and 30 minutes later<br /></p>
+                    
+                    <a href="examples/ReloadMenuOptions.html"><img src="examples/imgs/Reload.png" alt="dynamic reload of MenuOptions select list" title="dynamic reload of MenuOptions select list" /></a>
+                    <h2 class=lft>Using MenuOptions with jQuery's serialize</h2>
+                    
+                    <p><a href="examples/Serialize.html">See the demo</a></p>
+                    
+                    <p>If you load MenuOptions select list using an object, the value will be written into the 'menu_opt_key'
+                    attribute.  jQuery's serialize will not pick up the value of a MenuOptions select list (menu_opt_key).<br /><br />
+                    To account for this, wrap serialize() with re_serialize, like this:<br /></p>
+                    
+                    <pre><code class="javascript" style='text-align:left'>
+                        $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').serialize());
+                    </code></pre>
+                    
+                    <a href="examples/Serialize.html"><img src="examples/imgs/re_serialize.png" alt="re_serialize" title="using MenuOptions with serialize() " /></a>
+
+                    <h2 class=lft>Multiple select lists on a page demo </h2>
+                    
+                    <p><a href="examples/MultiSelect.html">See the demo</a></p>
+                    
+                    <p> This demo illustrates using the using multiple MenuOptions controls, including the rocker control </p>
+                    
+                    <a href="examples/MultiSelect.html"><img src="examples/imgs/MultiSelects.png" alt="Multiple Selects" title="using MenuOptions with multiple select lists " /></a>
+
+                    <br />
+          </div> <!--  column 2 (main)  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+                    
+     <div id=page_loaded></div>
+            
+	

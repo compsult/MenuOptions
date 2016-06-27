@@ -6,21 +6,27 @@ te.buildMenu = function ( ) {
     var AllExamples =[ {  'Menu examples'  :'divider' }, 
                 {  'Quick start menu'  : te.root+'QuickStartMenu.html'}, 
                 {  'Drop down menus'  : te.root+'MenusBottom.html' },
-                {  'Menu with dividers'  : te.root+'Dividers.html' }, 
                 {  'Right side menus'  : te.root+'RightMenu.html' }, 
                 {  'Select list examples'  : 'divider' }, 
                 {  'Quick Start select' : te.root+'QuickStartSelect.html'}, 
-                {  'Inline edit'  : te.root+'InlinEdit.html' }, 
+                {  'Select with bad data' : te.root+'QuickStartSelect.html?bad_data'}, 
+                /*--  {  'Inline edit'  : te.root+'InlinEdit.html' },   --*/
                 {  'Select with images' : te.root+'SelectWithImages.html' },
                 {  'Serialize (re_serialize)':  te.root+'Serialize.html' },
                 {  'Multiple select lists':  te.root+'MultiSelect.html' },
                 {  'Dynamically reloading':  te.root+'ReloadMenuOptions.html' },
                 {  'Rocker examples'  : 'divider' }, 
-                {  'Rocker switch':  te.root+'RockerControl.html' } ];
+                {  'Rocker switch':  te.root+'RockerControl.html' },
+                {  'Mask examples'  : 'divider' }, 
+                {  'Mask and select list':  te.root+'MaskCombos.html' },
+                {  'Mask types':  te.root+'Masks.html' },
+                {  'All widgets'  : 'divider' }, 
+                {  'All options':  te.root+'combined.html' },
+        ];
 
 	  $('a.examplemenu').menuoptions({ 
            'Data': AllExamples,
-           'Width':170,
+           'Width':190,
            'MenuOptionsType': 'Navigate', 
            "ShowDownArrow": "orange",
            'Sort': []
@@ -38,7 +44,7 @@ te.buildMenu = function ( ) {
 
 	  $('a.docmenu').menuoptions({ 
            'Data': Docs,
-           'Width':206,
+           'Width':190,
            'MenuOptionsType': 'Navigate', 
            "ShowDownArrow": "blue",
            'Sort': []
@@ -50,21 +56,22 @@ te.buildMenu = function ( ) {
 
 	  $('a.dwnldmenu').menuoptions({ 
            'Data': Downloads,
-           'Width':100,
+           'Width':190,
            'MenuOptionsType': 'Navigate', 
            "ShowDownArrow": "yellow",
            'Sort': []
       }); 
     var ChangeLog =[ {  '1.7.1-3'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id1' },
                      {  '1.7.1-7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id2' },
-                     {  '1.7.3-15'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id3' },
-                     {  '1.7.4-7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id4' } ];
+                     {  '1.7.3-15' :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id3' },
+                     {  '1.7.4-7'  :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id4' },
+                     {  '1.8.0'    :'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html#id6' } ];
 	  $('a.changelog').menuoptions({ 
            'Data': ChangeLog,
            'MenuOptionsType': 'Navigate', 
            "ShowDownArrow": "white",
            "Window":"new",
-           'Width':100,
+           'Width':190,
            'Sort': []
       }); 
       $('body').append("<div id=page_loaded></div");

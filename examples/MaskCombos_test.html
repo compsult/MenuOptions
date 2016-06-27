@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions masks and select list demo</title>
+  
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
+    function get_hh_mm ( value ) {
+        var hh = new Date(value).getHours(),
+            ampm = "PM",
+            mm = new Date(value).getMinutes();
+        if ( hh < 12 ) { ampm = "AM";
+        } else { hh -= 12; }
+        hh = ( hh === 0 ) ? "12" : hh;
+        hh = ( hh < 10 ) ? "0" + hh : hh;
+        mm = ( mm < 10 ) ? "0" + mm : mm;
+        return hh + ":" + mm + " " + ampm;
+    }
+    var AddApptMins = function ( StartTime, Duration ) {
+        var epoch_time = new Date("Jan 1, " + new Date().getFullYear() + " " + StartTime).getTime() + Duration * 60000;
+        return get_hh_mm ( epoch_time );
+    }
+    function init() {
+        var last_time = ""
+            earliest_time = '09:00 AM',
+            latest_time = '05:45 PM';
+        $("body").data("alltimes", [ earliest_time ]);
+        for (var t = 0; t <= 80; t += 1) {  
+            last_time = AddApptMins($("body").data("alltimes")[$("body").data("alltimes").length-1], 15);
+            $("body").data("alltimes").push(last_time);   
+            if ( last_time === latest_time ) { break; }
+        }  
+        $('input#starttime1').menuoptions({ "Mask" : 'HH:MM AM', "ClearBtn": true });
+        $('input#endtime1').menuoptions({ "Mask" : 'HH:MM AM', "ClearBtn": true });
+        $('input#starttime2').menuoptions({
+                                        "Data": $("body").data("alltimes"),
+                                        "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                        "ClearBtn": true,
+                                        "onSelect": function(e, data) { 
+                                            $('input#endtime3').val('');
+                                            ResetEndTimeData(data.newVal, 'input#endtime2'); 
+                                            console.log(data);
+                                        }, 
+                                        "ShowAt": 'bottom',
+                                        "ColumnCount": 4,
+                                        "Width": 300,
+                                        "Height": 200,
+                                        "Sort": []
+                                        });
+        $('input#endtime2').menuoptions({
+                                        "Data": $("body").data("alltimes"),
+                                        "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                        "ClearBtn": true,
+                                        "ShowAt": 'bottom',
+                                        "ColumnCount": 4,
+                                        "Width": 300,
+                                        "Sort": []
+                                        });
+        $('input#starttime3').menuoptions({
+                                        "Data": $("body").data("alltimes"),
+                                        "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                        "ClearBtn": true,
+                                        "onSelect": function(e, data) { 
+                                            $('input#endtime3').val('');
+                                            ResetEndTimeData(data.newVal, 'input#endtime3'); 
+                                            console.log(data);
+                                        }, 
+                                        "ShowAt": 'bottom',
+                                        "ColumnCount": 4,
+                                        "Width": 300,
+                                        "Height": 200,
+                                        "Mask" : 'HH:MM AM',
+                                        "Sort": []
+                                        });
+        $('input#endtime3').menuoptions({
+                                        "Data": $("body").data("alltimes"),
+                                        "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                        "Mask" : 'HH:MM AM',
+                                        "ClearBtn": true,
+                                        "ShowAt": 'bottom',
+                                        "ColumnCount": 4,
+                                        "Width": 300,
+                                        "Sort": []
+                                        });
+        $('button#mask_only_btn').off('click').on('click', function (e) {
+            var tst = $('input#starttime1').menuoptions('re_serialize',$('form#mask_only').serialize()); 
+            alert (tst);
+        });
+        $('button#select_only_btn').off('click').on('click', function (e) {
+            var tst = $('input#starttime2').menuoptions('re_serialize',$('form#select_only').serialize()); 
+            alert (tst);
+        });
+        $('button#mask_and_dropdown_btn').off('click').on('click', function (e) {
+            var tst = $('input#starttime3').menuoptions('re_serialize',$('form#mask_and_dropdown').serialize()); 
+            alert (tst);
+        });
+    }
+    function ResetEndTimeData( startTime, selector ) {
+          var end_time = $('input#endtime');
+          /*--  clear out the existing end time array  --*/
+          $("body").data("endtimes", []);
+          /*--  change end time choices to be up to 90 minutes later   --*/
+          for (var t = 5; t <= 100; t += 5) { 
+            $("body").data("endtimes").push(AddApptMins(startTime, t)); 
+          } 
+          /*--  refresh the Data for the endtime and remove filters (AM|PM)   --*/
+	      $(selector).menuoptions({ 'Data' : $("body").data("endtimes"),
+                  'Filters' : [],
+                  'ColumnCount' : 4,
+                  'Width' : 300 });
+    }
+    init();
+   /*--  END_JAVASCRIPT  --*/
+});
+</script>
+</head>
+<body>
+    <!--  #import navbar  -->
+      <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+	        <h1>Using input masks and multi-column autocomplete</h1> 
+        </div>
+      </div>
+      <div class="row">
+        <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <!--  #import leftmenu  -->
+        </div>
+        <!--  START_HTML  -->
+        <div id=main_column class="col-md-10 col-xs-10">
+            <div class="row">
+                <div class="col-lg-9" style="height:70px">
+                    <h3>Mask only</h3>
+                    <h4>** keystroke specific error messages **</h4>
+                </div>
+            </div>
+            <div class="row">
+                <form id=mask_only>
+                    <div class="col-md-2 col-xs-12"> </div>
+                    <div class="col-md-3 col-xs-12" style='height:50px'>
+                        <input type=text class="form-control" style='width:110px' name=starttime1 id='starttime1' placeholder='Start time' >
+                    </div>
+                    <div class="col-md-3 col-xs-12" style='height:50px'>
+                        <input type=text class="form-control" style='width:110px' name=endtime1 id='endtime1' placeholder='End time' >
+                    </div>
+                    <div class="col-md-3 col-xs-12" style='height:50px'>
+                        <button type="button" id="mask_only_btn" class="btn btn-primary">Show serialize result</button>
+                    </div>
+                    <div class="col-md-1 col-xs-12" style="height:50px"> </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-lg-9" style="height:70px">
+                    <h3>Multi column autocomplete (select list) only</h3> 
+                    <h4>** no mask, generic error messages **</h4>
+                </div>
+            </div>
+            <div class="row">
+                <form id=select_only>
+                    <div class="col-md-2 col-xs-12"> </div>
+                    <div class="col-md-3 col-xs-12" style='height:50px'>
+                        <input type=text class="form-control" style='width:110px' name=starttime2 id='starttime2' placeholder='Start time' >
+                    </div>
+                    <div class="col-md-3 col-xs-12" style='height:50px'>
+                        <input type=text class="form-control" style='width:110px' name=endtime2 id='endtime2' placeholder='End time' >
+                    </div>
+                    <div class="col-md-3 col-xs-12" style='height:50px'>
+                        <button type="button" id="select_only_btn" class="btn btn-primary">Show serialize result</button>
+                    </div>
+                    <div class="col-md-1 col-xs-12" style="height:50px"> </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-lg-9" style="height:70px">
+                    <h3>Mask and multi-column autocomplete (select list)</h3> 
+                    <h4>** keystroke specific error messages **</h4>
+                </div>
+            </div>
+            <div class="row">
+                <form id=mask_and_dropdown>
+                    <div class="col-md-2 col-xs-12"> </div>
+                    <div class="col-md-3 col-xs-12" style='height:50px'>
+                        <input type=text class="form-control" style='width:110px' name=starttime3 id='starttime3' placeholder='Start time' >
+                    </div>
+                    <div class="col-md-3 col-xs-12" style='height:50px'>
+                        <input type=text class="form-control" style='width:110px' name=endtime3 id='endtime3' placeholder='End time' >
+                    </div>
+                    <div class="col-md-3 col-xs-12" style='height:50px'>
+                        <button type="button" id="mask_and_dropdown_btn" class="btn btn-primary">Show serialize result</button>
+                    </div>
+                    <div class="col-md-1 col-xs-12" style="height:50px"> </div>
+                </form>
+            </div> 
+          </div> <!--  column 2 (main)  -->
+          <!--  END_HTML  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+
+    <div id=page_loaded></div>
+    </div>
+    </body>
+    </html>
+            

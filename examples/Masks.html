@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions masks demo </title>
+  
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <style>
+    span.lg { font-size: 1.2em; line-height:150%; color:gray; }
+    span.sub { font-size: .9em; line-height:100%; color:gray; }
+  </style>
+  <!--  END_INCLUDES  -->
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+   <script> var te = te || {}; te.root=""; te.scroll=true; </script>
+   <link rel="icon" href="./imgs/favicon.ico">
+   <script src="./js/examples_bs.js"></script>
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
+    $('input#MdYtest').menuoptions({ 
+        "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Mask": "Mon DD, YYYY"
+    });  
+    $('input#YMDtest').menuoptions({ 
+        "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Mask": "YYYYMMDD"
+    });  
+    $('input#Phonetest').menuoptions({ 
+        "onSelect": function(mo, data) { 
+            console.log(mo, data);  
+        }, 
+        "ClearBtn": true,
+        "Mask": "(999) 999-9999"
+    });  
+    $('input#Timetest').menuoptions({
+        "ClearBtn": true,
+        "onSelect": function(e, data) { 
+            console.log(data);
+        }, 
+        "Mask" : 'HH:MM AM'
+    });  
+   /*--  END_JAVASCRIPT  --*/
+    $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+    });
+    $( "#tabs" ).tabs();
+                
+});
+</script>
+</head>
+<body>
+    <div class="navbar-wrapper">
+      <div class="container-fluid">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/"><img style="display:block;" src="./imgs/menuoptions_inv.png"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+              <ul class="nav navbar-nav">
+                <li><a id=examplemenu class=examplemenu href="#">All examples</a></li>
+                <li><a id=docmenu class=docmenu href="#">Documentation</a></li>
+                <li><a id=dwnldmenu class=dwnldmenu href="#">Download</a></li>
+                <li><a id=changelog class=changelog href="#">Change log</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+<form id=tst>
+    <div class="container" style='height:280px'>
+      <div class="row">
+        <div class="col-lg-12" style='height:60px'>
+	        <h1>Masks types</h1> 
+        </div>
+      </div>
+      <div class="row">
+        <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <p class=menu_left>Menu Examples</p>
+            <a class=underl_sm href=QuickStartMenu.html>Quick start menu</a><br>
+            <a class=underl_sm href=MenusBottom.html>Drop down menus</a></br>
+            <a class=underl_sm href=RightMenu.html>Right side menus</a><br>
+            <p class=menu_left>Select Examples</p>
+            <a class=underl_sm href=QuickStartSelect.html>Quick start select</a><br>
+            <a class=underl_sm href=QuickStartSelect.html?bad_data>Select with bad data</a><br>
+            <!--  <a class=underl_sm href=InlinEdit.html>Inline edit</a></br>  -->
+            <a class=underl_sm href=SelectWithImages.html>Select with images</a><br>
+            <a class=underl_sm href=Serialize.html>Serialize (re_serialize)</a><br>
+            <a class=underl_sm href=MultiSelect.html>Multiple select lists</a><br>
+            <a class=underl_sm href=ReloadMenuOptions.html>Dynamically reloading</a><br>
+            <p class=menu_left>Rocker Examples</p>
+            <a class=underl_sm href=Rocker.html>Rocker switch</a><br>
+            <p class=menu_left>Masks</p>
+            <a class=underl_sm href=MaskCombos.html>Masks and select list</a><br>
+            <a class=underl_sm href=Masks.html>Masks types</a><br>
+            <p class=menu_left>All widgets</p>
+            <a class=underl_sm href=combined.html>All options</a><br>
+            <p class=menu_left>Download</p>
+            <a class=underl_sm href="https://github.com/compsult/MenuOptions">github</a><br>
+            <a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br>
+            <a class=underl_sm href="https://atmospherejs.com/compsult/menuoptions">atmosphere</a><br><br>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-2"></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="http://menuoptions.readthedocs.org/en/latest/"><img src="https://readthedocs.org/projects/menuoptions/badge/?version=latest" alt="ReadTheDocs Status"/></a>
+            </div></div>
+        </div>
+        <!--  START_HTML  -->
+        <div id=main_column class="col-md-10 col-xs-10">
+        <div class="row" style="border: 0px solid green;">
+          <div class="col-md-9 col-xs-9" style='height:50px;border: 0px solid silver;'>
+            <div class="row" style='height:76px'></div>
+            <div class="row" style='height:76px'>
+                <div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'>
+                    <span class=lg>Mask for YYYYMMDD</span><br>
+                    <span class=sub>(hotkey t = today)</span>
+                </div>
+                <div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'>
+                    <input class="form-control" style='width:150px' type=text name=MdY id='YMDtest'  placeholder='YYYYMMDD'>
+                </div>
+            </div>
+            <div class="row" style='height:76px'>
+                <div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'>
+                    <span class=lg>Mask for Mon DD, YYYY</span><br>
+                    <span class=sub>(hotkey t = today)</span>
+                </div>
+                <div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'>
+                    <input class="form-control" style='width:150px' type=text name=YMD id='MdYtest'  placeholder='Mon DD, YYYY'>
+                </div>
+            </div>
+            <div class="row" style='height:76px'>
+                <div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;vertical-align: middle'>
+                    <span class=lg>Mask for Phone number</span>
+                </div>
+                <div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'>
+                    <input class="form-control" style='width:150px' type=text name=phone id='Phonetest'  placeholder='(999) 999-9999'>
+                </div>
+            </div>
+            <div class="row" style='height:76px'>
+                <div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'>
+                    <span class=lg>Mask for time</span><br>
+                    <span class=sub>(hotkey n = now)</span>
+                </div>
+                <div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'>
+                    <input class="form-control" style='width:150px' type=text name=time id='Timetest'  placeholder='HH:MM AM'>
+                </div>
+            </div>
+          </div>
+        <!--  END_HTML  -->
+        </div> <!--  end container row  -->
+    </div> <!--  end container -->
+</form>
+    <div id=page_loaded></div>
+            
+
+    <br /><br /><br /><br />
+    <div class="container visible-lg visible-md">
+      <div class="row">
+        <div class="col-lg-12">
+            <h1>Code</h1>
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">Javascript</a></li>
+                    <li><a href="#tabs-2">HTML </a></li>
+                    <li><a href="#tabs-3">includes </a></li>
+                </ul>
+            <div id="tabs-1">
+            <pre><code class="javascript" style='text-align:left'>
+                
+    $('input#MdYtest').menuoptions({ 
+        "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Mask": "Mon DD, YYYY"
+    });  
+    $('input#YMDtest').menuoptions({ 
+        "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Mask": "YYYYMMDD"
+    });  
+    $('input#Phonetest').menuoptions({ 
+        "onSelect": function(mo, data) { 
+            console.log(mo, data);  
+        }, 
+        "ClearBtn": true,
+        "Mask": "(999) 999-9999"
+    });  
+    $('input#Timetest').menuoptions({
+        "ClearBtn": true,
+        "onSelect": function(e, data) { 
+            console.log(data);
+        }, 
+        "Mask" : 'HH:MM AM'
+    });  
+   
+            </code></pre>
+        </div>
+            
+    <div id="tabs-2">
+        <pre><code class="html" style='text-align:left'>
+            
+        &lt;div id=main_column class="col-md-10 col-xs-10"&gt;
+        &lt;div class="row" style="border: 0px solid green;"&gt;
+          &lt;div class="col-md-9 col-xs-9" style='height:50px;border: 0px solid silver;'&gt;
+            &lt;div class="row" style='height:76px'&gt;&lt;/div&gt;
+            &lt;div class="row" style='height:76px'&gt;
+                &lt;div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'&gt;
+                    &lt;span class=lg&gt;Mask for YYYYMMDD&lt;/span&gt;&lt;br&gt;
+                    &lt;span class=sub&gt;(hotkey t = today)&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'&gt;
+                    &lt;input class="form-control" style='width:150px' type=text name=MdY id='YMDtest'  placeholder='YYYYMMDD'&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="row" style='height:76px'&gt;
+                &lt;div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'&gt;
+                    &lt;span class=lg&gt;Mask for Mon DD, YYYY&lt;/span&gt;&lt;br&gt;
+                    &lt;span class=sub&gt;(hotkey t = today)&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'&gt;
+                    &lt;input class="form-control" style='width:150px' type=text name=YMD id='MdYtest'  placeholder='Mon DD, YYYY'&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="row" style='height:76px'&gt;
+                &lt;div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;vertical-align: middle'&gt;
+                    &lt;span class=lg&gt;Mask for Phone number&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'&gt;
+                    &lt;input class="form-control" style='width:150px' type=text name=phone id='Phonetest'  placeholder='(999) 999-9999'&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="row" style='height:76px'&gt;
+                &lt;div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'&gt;
+                    &lt;span class=lg&gt;Mask for time&lt;/span&gt;&lt;br&gt;
+                    &lt;span class=sub&gt;(hotkey n = now)&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'&gt;
+                    &lt;input class="form-control" style='width:150px' type=text name=time id='Timetest'  placeholder='HH:MM AM'&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        
+        </code></pre>
+    </div>
+            
+    <div id="tabs-3">
+        <pre><code class="html" style='text-align:left'>
+            
+ &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"&gt;&lt;/script&gt;
+ &lt;link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"&gt;
+ &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"&gt;&lt;/script&gt;
+  &lt;script src="../dist/js/jquery.menuoptions.js"&gt;&lt;/script&gt;
+  &lt;link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820"&gt;
+  &lt;script src="./js/bootstrap.min.js"&gt;&lt;/script&gt;
+  &lt;link href="./css/bootstrap.min.css" rel="stylesheet"&gt;
+  &lt;link rel="stylesheet" type="text/css" href="css/style.css?v_2339"&gt;
+  &lt;style&gt;
+    span.lg { font-size: 1.2em; line-height:150%; color:gray; }
+    span.sub { font-size: .9em; line-height:100%; color:gray; }
+  &lt;/style&gt;
+  
+        </code></pre>
+       </div>
+      </div>
+     </div>
+    </div>
+    </body>
+    </html>
+            

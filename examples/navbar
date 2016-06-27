@@ -1,0 +1,27 @@
+    <div class="navbar-wrapper">
+      <div class="container-fluid">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/"><img style="display:block;" src="./imgs/menuoptions_inv.png"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+              <ul class="nav navbar-nav">
+                <li><a id=examplemenu class=examplemenu href="#">All examples</a></li>
+                <li><a id=docmenu class=docmenu href="#">Documentation</a></li>
+                <li><a id=dwnldmenu class=dwnldmenu href="#">Download</a></li>
+                <li><a id=changelog class=changelog href="#">Change log</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>

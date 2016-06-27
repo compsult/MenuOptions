@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+#--- from selenium.webdriver.common.desired_capabilities import DesiredCapabilities ---#
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
@@ -17,6 +18,10 @@ class SetupByLocation(object):
 
     def setUp (self):
         self.TST_LOCATION = os.getenv("TST_LOCATION")
+        if self.TST_LOCATION == 'local':
+            self.SLEEP=False
+        else:
+            self.SLEEP=True
         self.TST_BROWSER = os.getenv("TST_BROWSER")
         if self.TST_LOCATION is None:
             raise NameError("Env variable TST_LOCATION not defined")
@@ -33,6 +38,10 @@ class SetupByLocation(object):
             if re.search(r'chrome', self.TST_BROWSER, re.I):
                 self.driver = webdriver.Chrome()
             elif re.search(r'firefox', self.TST_BROWSER, re.I):
+                #--- firefox_capabilities = DesiredCapabilities.FIREFOX ---#
+                #--- firefox_capabilities['marionette'] = True ---#
+                #--- firefox_capabilities['binary'] = '/usr/local/bin/wires' ---#
+                #--- self.driver = webdriver.Firefox(capabilities=firefox_capabilities) ---#
                 self.driver = webdriver.Firefox()
             elif re.search(r'internet explorer', self.TST_BROWSER, re.I):
                 self.driver = webdriver.Ie()
@@ -76,6 +85,7 @@ class SeleniumUtils(object):
     def open_n_tst_title (self, params):
         self.driver.get(params['url'])
         self.driver.maximize_window()
+        self.driver.execute_script("$('.ui-menuoptions').menuoptions()")
         WebDriverWait(self.driver, 30).until(
               EC.presence_of_element_located((By.ID,'page_loaded')))
         assert params['title'] in self.driver.title
@@ -88,6 +98,12 @@ class SeleniumUtils(object):
         print ' '.join(['Found element ', params['xpath']])
         assert True
 
+    def check_not_class (self, params ):
+        klass = params['elem'].get_attribute("class")
+        for nKlass in params['notKlass']:
+            print ' '.join(["Not class =",nKlass," class = ",klass])
+            assert re.search(r'%s' % nKlass, klass) is None
+
     def check_html (self, params ):
         #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
         elem = self.click_item ( params )
@@ -95,7 +111,7 @@ class SeleniumUtils(object):
             elem2=self.driver.find_element_by_xpath(params['cell'])
             found=re.sub(r'\s+', '', elem2.get_attribute('innerHTML'))
         else:
-            found=re.sub(r'\s+', '', elem.get_attribute('innerHTML'))
+            found=re.sub(r'\s+', '', elem.get_attribute('class'))
         params['expected']=re.sub(r'\s+', '', params['expected'].decode('utf-8'))
         if 'partial' in params and params['partial'] == True:
             print ' '.join(['Partial check', 'Found:   ',found.encode('utf-8'),
@@ -104,6 +120,66 @@ class SeleniumUtils(object):
         else:
             print ' '.join(['Found:   ',found.encode('utf-8'),'\nExpected:',params['expected'].encode('utf-8')])
             assert params['expected'] == found
+
+    def check_help_msg (self, params ):
+        #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
+        if 'selector' in params:
+            self.driver.execute_script("$('"+params['selector']+"').val('"+params['keys']+"');")
+            self.driver.execute_script("$('"+params['selector']+"').trigger('input')")
+        elem =  self.driver.find_element_by_xpath(params['xpath'])
+        if 'click' in params:
+            elem.click()
+        if self.SLEEP: time.sleep(1)
+        if 'back_spc' in params and params['back_spc'] == True:
+            elem.send_keys(Keys.BACKSPACE)
+        elem2=self.driver.find_element_by_xpath(params['help_id'])
+        if 'help_txt' in params:
+            assert params['help_txt'] == elem2.text
+        assert params['rslt'] == elem.get_attribute("value")
+        if 'klass' in params and len(params['klass']) > 0:
+            assert re.search(r'%s' % params['klass'], elem.get_attribute("class"))
+        if 'notKlass' in params and len(params['notKlass']) > 0:
+            params['elem']=elem
+            self.check_not_class (params)
+
+
+    def check_regexp_validation (self, params ):
+        #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
+        if 'clearbtn' in params and len(params['clearbtn']) > 0:
+            print ' '.join(['clearbtn:',params['clearbtn'],'input:',params['xpath']])
+            self.driver.find_element_by_xpath(params['clearbtn']).click()
+            print ' '.join(['clicked clearbtn',params['clearbtn']])
+        elem = self.click_item ( params )
+        print ' '.join(['clicked input',params['xpath']])
+        if 'fill_str' in params and len(params['fill_str']) > 0:
+            elem.send_keys(params['fill_str'])
+        if 'TABout' in params and params['TABout'] == True:
+            elem.send_keys(Keys.TAB) # needed when followed by check_ENTER_exit
+        value, klass = (elem.get_attribute("value"), elem.get_attribute("class"))
+        assert value == params['rslt'] and re.search(r'%s' % params['klass'], klass)
+
+
+    def check_TAB_exit (self, params ):
+        params['elem'] = self.click_item ( params )
+        if 'test_key' in params and len(params['test_key']) > 0:
+            params['elem'].send_keys(params['test_key'])
+            params['elem'].send_keys(Keys.TAB)
+            params['elem'] = self.click_item ( params )
+            value, klass = (params['elem'].get_attribute("value"), params['elem'].get_attribute("class"))
+            assert value == params['rslt'] and re.search(r'%s' % params['klass'], klass)
+        elif 'notKlass' in params and len(params['notKlass']) > 0:
+            params['elem'].send_keys(Keys.TAB)
+            self.check_not_class (params)
+            value = params['elem'].get_attribute("value")
+            assert value == params['rslt']
+
+    def check_ENTER_exit (self, params ):
+        print ' '.join(['input:',params['xpath']])
+        elem = self.click_item ( params )
+        print ' '.join(['clicked input',params['xpath']])
+        elem.send_keys(Keys.ENTER)
+        value, klass = (elem.get_attribute("value"), elem.get_attribute("class"))
+        assert value == params['rslt'] and re.search(r'%s' % params['klass'], klass)
 
     def check_invalid_key (self, params ):
         elem=self.driver.find_element_by_xpath(params['xpath'])
@@ -116,10 +192,10 @@ class SeleniumUtils(object):
     def check_scrolling (self, params ):
         elem = self.click_item ( params )
         elem.send_keys(params['keypress']*params['repeat'])
-        elem=self.driver.find_element_by_xpath('//*[@id="SP_menuoptions5"]/table/tbody/tr['+str(params['repeat'])+']')
+        elem=self.driver.find_element_by_xpath('//*[@id="SP_menuoptions1"]/table/tbody/tr['+str(params['repeat'])+']')
         rowtop=elem.location['y']
         rowheight=elem.size['height']
-        elem=self.driver.find_element_by_xpath('//*[@id="SP_menuoptions5"]')
+        elem=self.driver.find_element_by_xpath('//*[@id="SP_menuoptions1"]')
         vistop=elem.location['y']
         visheight=elem.size['height']
         print ' '.join(['rowtop:',str(rowtop),'rowheight:',str(rowheight),
@@ -141,6 +217,7 @@ class SeleniumUtils(object):
         assert params['inputtext'] == input_text
 
     def check_clr (self, params ):
+        #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
         self.driver.find_element_by_xpath(params['xpath']).click()
         elem=self.driver.find_element_by_xpath(params['input'])
         input_text=elem.text
@@ -150,6 +227,9 @@ class SeleniumUtils(object):
     def set_win_size (self, params ):
         print ' '.join([ 'self.driver.set_window_size(',str(params['width']),',',str(params['height']) ])
         self.driver.set_window_size(params['width'], params['height'])
+        if 'sleep' in params and params['sleep'] > 0:
+            print ' '.join(["sleeping for",str(params['sleep']),"seconds"])
+            if self.SLEEP: time.sleep(params['sleep'])
 
     def reset_rocker (self, params):
         js_script = "$('input#"+params['id']+"').menuoptions('set_select_value', { 'val': '' });"
@@ -167,7 +247,7 @@ class SeleniumUtils(object):
 
     def check_serialize (self, params ):
         self.driver.find_element_by_xpath(params['xpath']).click()
-        time.sleep(2)
+        if self.SLEEP: time.sleep(2)
         self._check_js_result( params )
 
     def check_add_menu_opt_key (self, params ):
@@ -192,6 +272,8 @@ class SeleniumUtils(object):
 
     def click_item (self, params ):
         print "Clicking over = " + params['xpath']
+        WebDriverWait(self.driver, 30).until(
+              EC.presence_of_element_located((By.XPATH,params['xpath'])))
         elem =  self.driver.find_element_by_xpath(params['xpath'])
         elem.click()
         return elem
@@ -203,7 +285,7 @@ class SeleniumUtils(object):
         WebDriverWait(self.driver, 30).until(
               EC.presence_of_element_located((By.XPATH,params['xpath'])))
         self.click_item ( params )
-        time.sleep(2)
+        if self.SLEEP: time.sleep(params['sleep'])
         self._check_js_result( params )
 
     def close_last_tab(self):
@@ -222,12 +304,12 @@ class SeleniumUtils(object):
         assert result == True
 
     def hover_over (self, params ):
-        if self.driver.desired_capabilities['browserName'] in ['safari', 'internet explorer']:
-            print "Javascript Hovering over = " + params['menu']
-            self.js_hover_over (params )
-        else:
-            print "Std Hovering over = " + params['menu']
-            self.std_hover_over (params )
+        #--- if self.driver.desired_capabilities['browserName'] in ['safari', 'internet explorer']: ---#
+        print "Javascript Hovering over = " + params['menu']
+        self.js_hover_over (params )
+        #--- else: ---#
+            #--- print "Std Hovering over = " + params['menu'] ---#
+            #--- self.std_hover_over (params ) ---#
 
     def check_bs_menu_offset (self, params ):
         WebDriverWait(self.driver, 30).until(
@@ -266,7 +348,7 @@ class SeleniumUtils(object):
         js_script = ''.join(["return ",
             "$('#",
             params['id'],
-            "').data()['mre-menuoptions'].ary_of_objs;"
+            "').data()['mreMenuoptions'].ary_of_objs;"
             ])
         data = self.driver.execute_script(js_script)
         str_data=re.sub(r'\s+', '', str(data))

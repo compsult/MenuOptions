@@ -7,7 +7,7 @@ te.settings = [
    { name: "MaritalStatus", edit: "edit", width: 106, type:"autocompl",
    options: { 1: 'Divorced', 2: 'Married', 3: 'Single', 4:'Commom-Law'} },
    { name: "EmployeeType", edit: "edit", width: 100, type:"custselect",
-       options: { 'Hourly':1,'Temp':2, 'Salary':3, 'W2':4, 'Contract-to-hire':5, 'Corp to corp':5}},
+       options: { 1:'Hourly',2:'Temp', 3:'Salary', 4:'W2', 5:'Contract-to-hire', 6:'Corp to corp'}},
    { name: "StartTime", edit: "edit", width: 90, type:"custselect" }
 ];
 te.data = [

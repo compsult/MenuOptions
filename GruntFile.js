@@ -4,8 +4,17 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     exec: {
+        combine: {
+            command: './combine_files.py _jquery.menuoptions.js'
+        },
+        css: {
+            command: 'cp ./media/css/menuoptions.* ./dist/css/; cp ./media/imgs/* ./dist/imgs/'
+        },
         html: {
             command: 'cd docs; make clean; make html'
+        },
+        examples: {
+            command: './addCodeSegment.py'
         },
     },
     uglify: {
@@ -14,7 +23,7 @@ module.exports = function(grunt) {
             banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         files: {
-            "media/js/jquery.menuoptions.min.js" : [ "media/js/jquery.menuoptions.js" ]
+            "dist/js/jquery.menuoptions.min.js" : [ "dist/js/jquery.menuoptions.js" ]
         }
       }
     },
@@ -29,13 +38,17 @@ module.exports = function(grunt) {
             }
         },
         all: {
-             src: "media/js/jquery.menuoptions.js"
+             src: "dist/js/jquery.menuoptions.js"
         }
     },
     watch: {
+      examples: {
+        files: ['examples/*_test.html'], // which files to watch
+        tasks: [ 'exec:examples']
+      },
       jshint: {
-        files: ['media/js/jquery.menuoptions.js'], // which files to watch
-        tasks: [ 'jshint', 'uglify']
+        files: ['media/js/*.js'], // which files to watch
+        tasks: [ 'exec:combine', 'jshint', 'uglify']
       },
       html: {
         files: ['docs/source/*.rst'], // which files to watch
@@ -46,7 +59,7 @@ module.exports = function(grunt) {
       },
       cssmin: {
           files: [ 'media/css/menuoptions.css' ],
-          tasks: ['cssmin'],
+          tasks: ['cssmin', 'exec:css'],
       },
     },
     cssmin: {

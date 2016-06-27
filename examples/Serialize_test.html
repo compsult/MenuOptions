@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions re_serialize demo</title>
+
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+  
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
+     var us_states  = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME',
+                                   'MD','MA','MI', 'MN','MS','MO','MT','NE','NV','NH','NJ','NM', 'NY','NC','ND','OH','OK','OR','PA',
+				   'RI','SC','SD','TN','TX','UT', 'VT','VA','WA','WV','WI','WY'], 
+        PayMethod   = { 1: "American Express", 2: "Visa", 3: "Mastercard", 4:"Discover", 5:"Check", 6:"PayPal", 7:"Cash", 8:"Money Order"},
+        MarStat   = { 1: "Single", 2: "Married", 3: "Co-habitating", 4:"Seperated", 5:"Divorced", 6:"Widowed"};
+
+    $('input[name="t"]').menuoptions({  "Data": PayMethod, 
+                                        "SelectOnly": true, 
+                                        "ClearBtn": true, 
+                                        "ColumnCount": 2
+                                        });
+    $('input[name="t2"]').menuoptions({ "Data": MarStat, 
+                                        "ClearBtn":true, 
+                                    });   
+    $('input[name="t3"]').menuoptions({ "Data": us_states, 
+                                        "ClearBtn":true, 
+                                        "ColumnCount":6, 
+                                        "UseValueForKey":true });   
+
+    $('button.a').off('click');
+    $('button.a').on('click', function(e) {
+       var res = $('form#tst').serialize(); 
+       var new_get_str = $('input[name=t3]').menuoptions('re_serialize', res);
+       $('div#serialize_text').html("serialize() result (below):").css({'color':'green'});
+       $('div#reserialize_text').html("re_serialize result (below):").css({'color':'green'});
+       $('div#serialize').html(res);
+       $('div#re_serialize').html(new_get_str);
+       e.preventDefault();
+    });
+   /*--  END_JAVASCRIPT  --*/
+});
+</script>
+
+<style>
+    pre { padding:0px; margin:0px; text-align:left; }
+    code { padding:0px; margin:0px; text-align:left;}
+    input.form-control { width:240px; }
+    div.answ { text-align:left; 
+               /*--  border:1px solid silver;   --*/
+               height:34px; 
+               width:400px; 
+               margin:4px 8px 19px 8px; }
+</style>
+
+</head>
+<body>
+    
+    <!--  #import navbar  -->
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style='height:160px'>
+                <h1 >Using re_serialize()</h1>
+                <h3 >(serialize() will not pick up "menu_opt_key" information)</h3>
+                <h3>Choose from the drop downs and click "See results"</h3><br>
+            </div>
+        </div>
+        <form id=tst>
+        <div class="row">
+            <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+                <!--  #import leftmenu  -->
+            </div>
+           <!--  START_HTML  -->
+            <div id=main_column class="col-md-8 col-xs-8">
+                <form id=tst>
+            <div class="col-md-1 col-xs-1" > </div>
+            <div class="col-md-3 col-xs-3" style='height:250px' >
+                <input class="form-control"  name='t'  type=text placeholder='pay method'><br>
+                <input class="form-control"  name='t2'  type=text placeholder='Marital Status'><br>
+                <input class="form-control"  name='t3'  type=text placeholder='State'><br>
+                <input class="form-control"  name='t4'  type=text placeholder='Phone'>
+            </div>
+            <div class="col-md-1 col-xs-1" > </div>
+            <div class="col-md-6 col-xs-6" >
+                <div class=answ id=serialize_text>&nbsp;</div>
+                <div class=answ id=serialize>&nbsp;</div>
+                <div class=answ id=reserialize_text>&nbsp;</div>
+                <div class=answ id=re_serialize>&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12 text-center">
+                    <button class="a" tooltip="Click to see serialize results" id=btn>See results</button><br>
+                </div>
+            </div>
+            </form>
+        </div> <!--  close inner row  -->
+        <!--  END_HTML  -->
+        <br><br>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 text-left" >
+                <br />The code below takes the output from <span style='font-weight:bold'>serialize()</span> and turns
+                text values that the user selected into key codes.<br /><br />
+                <code>
+                    var new_get_str = $('input[name=t3]').menuoptions('re_serialize', $('form#tst').serialize());
+                </code>
+                <h2 style='text-align:left'> How it works:</h2>
+                If you load a MenuOptions select control with an object, like the code below:<br><br />
+                <pre>
+                <code class="javascript" style='padding:0px; margin:0px; text-align:left;'>
+    PayMethod   = { 1: "American Express", 2: "Visa", 3: "Mastercard", 4:"Discover", 5:"Check", 
+                    6:"PayPal", 7:"Cash", 8:"Money Order"}
+    $('input[name="t"]').menuoptions({  "Data": PayMethod, 
+                                        "SelectOnly": true, 
+                                        "ClearBtn": true, 
+                                        "PlaceHolder": "Pay Method", 
+                                        "ColumnCount": 2,
+                                        'Width': 225 });
+                </code>
+                </pre>
+                    <br /><br />
+                    MenuOptions will write an attribute into the input element called 'menu_opt_key'<br><br />
+                    So if you chose "American Express" the input field would change from:
+                    <br /><br />
+                <code>
+                    &lt;input name="t" type="text" placeholder="Pay Method" readonly=""&gt;
+                </code>
+                    <br /><br />
+                    to this:
+                    <br /><br />
+                <code>
+                    &lt;input name="t" menu_opt_key="1" type="text" placeholder="Pay Method" readonly=""&gt;
+                </code>
+                    <br /><br />
+                <br>
+                <span style='font-weight:bold'>serialize()</span> would grab the text "American Express".
+                <span style='font-weight:bold'>re_serialize</span> would grab the "menu_opt_key" field (1 in this case) and replace
+                    "American Express" in the get string.
+                    so this:<br><br> <span style='font-style:italic'>t=American+Express&t2=Co-habitating&t3=AZ&t4=</span>
+                    becomes this:<br><br> <span style='font-style:italic'>t=1&t2=3&t3=AZ&t4=</span>
+            </div>
+            <div class="col-md-2 col-xs-2" >
+          </div> <!--  end inner container row  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+            
+    <div id=page_loaded></div>
+    </body>
+    </html>
+            

@@ -18,6 +18,7 @@ $.fn.CustSelect = function( TblObj, instructs ) {
           colName = te.settings[this.parentNode.cellIndex]['name'],
           colCnt = 1,
           width = 120,
+          UseValueForKey = false,
           Filters = [];
 
       if ( colName.match(/StartTime/i) ) {
@@ -25,18 +26,19 @@ $.fn.CustSelect = function( TblObj, instructs ) {
           colCnt = 4;
           width = 300,
           Filters = [ {'PM':'PM'}];
+          UseValueForKey = true;
       }
       instructs.td = this.parentNode;
 	  $(this).menuoptions({ "Data": optionData,
                                 "ColumnCount" : colCnt, 
                                 'Filters': Filters, 
                                 'Width': width, 
-                                 'Height': 220,  
-                                "UseValueForKey":true, 
+                                'Height': 220,  
+                                "UseValueForKey": UseValueForKey,
                                 "onSelect": function(mo, data) {
                                     te.SaveCustomSelect ( TblObj, mo, data, instructs );
                                 },
-                                "ClearBtn": instructs.ClearBtn,
+                                "ClearBtn": true,
                                 "Sort": [] }); 
     });
 };
@@ -203,19 +205,6 @@ te.saveInlineEdit = function ( TblObj, td ) {
     if ( te.settings[td.index()]['type'] == "float" ) {
        ShowVal = te.commaSeparateNumber(parseFloat(ShowVal).toFixed(2));
     }
-    var savemsg = "Saving new value '"+ShowVal+"'<br /> (replacing existing value '"+OrigVal+"')";
-    var tdtop =  $(td).offset().top, tdleft = $(td).offset().left;
-    $('#ValidationErr span#ErMsgInr').remove();
-    $('#ValidationErr')
-        .append("<span id=ErMsgInr>"+savemsg+"</span>")
-         .css({ 'display':'block',  
-                 'top': tdtop+30, 
-                 'left': tdleft-360, 
-                 'color': 'blue', 
-                 'border':'2px solid green', 
-        });
-    $(td).html( ShowVal ); // keep user entry & "close" 
-    te.clearInlineEdit (td);
 }
 /*------------------------------------------------------------------------------------------------------*/
 te.getFloat = function ( TblObj, OriginalContent, td) {
@@ -373,7 +362,7 @@ te.BuildDetailSubscreen = function ( ) {
 }
 /*------------------------------------------------------------------------------------------------------*/
 function DrawDetailSubscreen( ScreenData ) {
-	$('<br /><div class=display style="width: 940px; table-layout:fixed; width:100%"><table id="'+
+	$('<br /><div class=display style="width: 940px; table-layout:fixed;margin-left:120px; width:100%"><table id="'+
             'Example"></table></div>;')
         .insertAfter($("li:contains('MenuOptions select')"));
     te.oDetailTable = $('#Example').DataTable({                    

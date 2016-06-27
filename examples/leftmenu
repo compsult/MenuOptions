@@ -1,0 +1,32 @@
+            <p class=menu_left>Menu Examples</p>
+            <a class=underl_sm href=QuickStartMenu.html>Quick start menu</a><br>
+            <a class=underl_sm href=MenusBottom.html>Drop down menus</a></br>
+            <a class=underl_sm href=RightMenu.html>Right side menus</a><br>
+            <p class=menu_left>Select Examples</p>
+            <a class=underl_sm href=QuickStartSelect.html>Quick start select</a><br>
+            <a class=underl_sm href=QuickStartSelect.html?bad_data>Select with bad data</a><br>
+            <!--  <a class=underl_sm href=InlinEdit.html>Inline edit</a></br>  -->
+            <a class=underl_sm href=SelectWithImages.html>Select with images</a><br>
+            <a class=underl_sm href=Serialize.html>Serialize (re_serialize)</a><br>
+            <a class=underl_sm href=MultiSelect.html>Multiple select lists</a><br>
+            <a class=underl_sm href=ReloadMenuOptions.html>Dynamically reloading</a><br>
+            <p class=menu_left>Rocker Examples</p>
+            <a class=underl_sm href=Rocker.html>Rocker switch</a><br>
+            <p class=menu_left>Masks</p>
+            <a class=underl_sm href=MaskCombos.html>Masks and select list</a><br>
+            <a class=underl_sm href=Masks.html>Masks types</a><br>
+            <p class=menu_left>All widgets</p>
+            <a class=underl_sm href=combined.html>All options</a><br>
+            <p class=menu_left>Download</p>
+            <a class=underl_sm href="https://github.com/compsult/MenuOptions">github</a><br>
+            <a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br>
+            <a class=underl_sm href="https://atmospherejs.com/compsult/menuoptions">atmosphere</a><br><br>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-2"></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="http://menuoptions.readthedocs.org/en/latest/"><img src="https://readthedocs.org/projects/menuoptions/badge/?version=latest" alt="ReadTheDocs Status"/></a>
+            </div></div>

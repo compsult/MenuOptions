@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions masks demo </title>
+  
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <style>
+    span.lg { font-size: 1.2em; line-height:150%; color:gray; }
+    span.sub { font-size: .9em; line-height:100%; color:gray; }
+  </style>
+  <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
+    $('input#MdYtest').menuoptions({ 
+        "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Mask": "Mon DD, YYYY"
+    });  
+    $('input#YMDtest').menuoptions({ 
+        "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+        }, 
+        "ClearBtn": true,
+        "Mask": "YYYYMMDD"
+    });  
+    $('input#Phonetest').menuoptions({ 
+        "onSelect": function(mo, data) { 
+            console.log(mo, data);  
+        }, 
+        "ClearBtn": true,
+        "Mask": "(999) 999-9999"
+    });  
+    $('input#Timetest').menuoptions({
+        "ClearBtn": true,
+        "onSelect": function(e, data) { 
+            console.log(data);
+        }, 
+        "Mask" : 'HH:MM AM'
+    });  
+   /*--  END_JAVASCRIPT  --*/
+});
+</script>
+</head>
+<body>
+    <!--  #import navbar  -->
+<form id=tst>
+    <div class="container" style='height:280px'>
+      <div class="row">
+        <div class="col-lg-12" style='height:60px'>
+	        <h1>Masks types</h1> 
+        </div>
+      </div>
+      <div class="row">
+        <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <!--  #import leftmenu  -->
+        </div>
+        <!--  START_HTML  -->
+        <div id=main_column class="col-md-10 col-xs-10">
+        <div class="row" style="border: 0px solid green;">
+          <div class="col-md-9 col-xs-9" style='height:50px;border: 0px solid silver;'>
+            <div class="row" style='height:76px'></div>
+            <div class="row" style='height:76px'>
+                <div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'>
+                    <span class=lg>Mask for YYYYMMDD</span><br>
+                    <span class=sub>(hotkey t = today)</span>
+                </div>
+                <div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'>
+                    <input class="form-control" style='width:150px' type=text name=MdY id='YMDtest'  placeholder='YYYYMMDD'>
+                </div>
+            </div>
+            <div class="row" style='height:76px'>
+                <div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'>
+                    <span class=lg>Mask for Mon DD, YYYY</span><br>
+                    <span class=sub>(hotkey t = today)</span>
+                </div>
+                <div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'>
+                    <input class="form-control" style='width:150px' type=text name=YMD id='MdYtest'  placeholder='Mon DD, YYYY'>
+                </div>
+            </div>
+            <div class="row" style='height:76px'>
+                <div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;vertical-align: middle'>
+                    <span class=lg>Mask for Phone number</span>
+                </div>
+                <div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'>
+                    <input class="form-control" style='width:150px' type=text name=phone id='Phonetest'  placeholder='(999) 999-9999'>
+                </div>
+            </div>
+            <div class="row" style='height:76px'>
+                <div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'>
+                    <span class=lg>Mask for time</span><br>
+                    <span class=sub>(hotkey n = now)</span>
+                </div>
+                <div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'>
+                    <input class="form-control" style='width:150px' type=text name=time id='Timetest'  placeholder='HH:MM AM'>
+                </div>
+            </div>
+          </div>
+        <!--  END_HTML  -->
+        </div> <!--  end container row  -->
+    </div> <!--  end container -->
+</form>
+    <div id=page_loaded></div>
+    </body>
+    </html>
+            

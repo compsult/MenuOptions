@@ -8,7 +8,7 @@ class testMO(SeleniumUtils, SetupByLocation):
 
     def setUp(self):
         super(testMO,self).setUp()
-        self.url='http://'+self.IP+'/examples/MenusBottom.html'
+        self.url='http://'+self.IP+'/examples/MenusBottom_test.html'
 
     def test02_js(self):
         """
@@ -82,6 +82,10 @@ class testMO(SeleniumUtils, SetupByLocation):
         self.hover_over({ 'menu': 'hdr_fltrBiz',
              'filt_rslts': '//span/following::table[@class="CrEaTeDtAbLeStYlE"]',
              'expected': 'CNBCMarketWatch' })
+        self.click_menu_item({ 'menu': 'menu_divs_filts',
+                          'xpath': '//span[text()="CNBC"]',
+                          'fltr' : 'hdr_fltrBiz',
+                          'sleep': 3 })
 
     def test10_mousefiltering(self):
         """

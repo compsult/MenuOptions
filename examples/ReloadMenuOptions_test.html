@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> Reload MenuOptions Slelect demo</title>
+  
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
+    function get_hh_mm ( value ) {
+        var hh = new Date(value).getHours(),
+            ampm = "PM",
+            mm = new Date(value).getMinutes();
+        if ( hh < 12 ) { ampm = "AM";
+        } else { hh -= 12; }
+        hh = ( hh === 0 ) ? "12" : hh;
+        hh = ( hh < 10 ) ? "0" + hh : hh;
+        mm = ( mm < 10 ) ? "0" + mm : mm;
+        return hh + ":" + mm + " " + ampm;
+    }
+    var AddApptMins = function ( StartTime, Duration ) {
+        var epoch_time = new Date("Jan 1, " + new Date().getFullYear() + " " + StartTime).getTime() + Duration * 60000;
+        return get_hh_mm ( epoch_time );
+    }
+    function init() {
+        var last_time = ""
+            earliest_time = '08:00 AM',
+            latest_time = '09:45 PM';
+        $("body").data("alltimes", [ earliest_time ]);
+        for (var t = 0; t <= 80; t += 1) {  
+            last_time = AddApptMins($("body").data("alltimes")[$("body").data("alltimes").length-1], 15);
+            $("body").data("alltimes").push(last_time);   
+            if ( last_time === latest_time ) { break; }
+        }  
+        $('input#starttime').menuoptions({
+                                        "Data": $("body").data("alltimes"),
+                                        "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                        "ClearBtn": true,
+                                        "onSelect": function(e, data) { 
+                                            ResetEndTimeData(data.newVal); 
+                                        }, 
+                                        "Mask" : 'HH:MM AM',
+                                        "ColumnCount": 4,
+                                        "Width": 300,
+                                        "Height": 200,
+                                        "Sort": []
+                                        });
+        $('input#endtime').menuoptions({
+                                        "Data": $("body").data("alltimes"),
+                                        "Filters": [{'AM':'AM'},{'PM':'PM'}],
+                                        "ClearBtn": true,
+                                        "Mask" : 'HH:MM AM',
+                                        "ColumnCount": 4,
+                                        "Width": 300,
+                                        "Sort": []
+                                        });
+        $('button#menutest').off('click').on('click', function (e) {
+            var tst = $('input#starttime').menuoptions('re_serialize',$('form#tst').serialize()); 
+            alert (tst);
+        });
+    }
+    function ResetEndTimeData( startTime ) {
+          var end_time = $('input#endtime');
+          /*--  clear out the existing end time array  --*/
+          $("body").data("endtimes", []);
+          /*--  change end time choices to be up to 90 minutes later   --*/
+          for (var t = 0; t <= 90; t += 5) { 
+            $("body").data("endtimes").push(AddApptMins(startTime, t)); 
+          } 
+          /*--  refresh the Data for the endtime and remove filters (AM|PM)   --*/
+	      $('input#endtime').menuoptions({ 'Data'    : $("body").data("endtimes"),
+                  'Filters' : [],
+                  'ColumnCount' : 4,
+                  'Width' : 300 });
+    }
+    init();
+   /*--  END_JAVASCRIPT  --*/
+});
+</script>
+</head>
+<body>
+    <!--  #import navbar  -->
+      <div class="container">
+      <div class="row">
+        <div class="col-lg-12" style='height:140px'>
+	        <h1 >Example of dynamic reloading a MenuOptions select</h1> 
+            <h2>When you change the Start time, the end time select list will modified to <br /> 
+                only display the start time plus 1 hour and 30 minutes </h2><br />
+        </div>
+      </div>
+      <div class="row">
+        <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <!--  #import leftmenu  -->
+        </div>
+        <!--  START_HTML  -->
+        <div class="col-md-8 col-xs-8">
+            <form id=tst>
+            <div class="row">
+                <div class="col-lg-12 text-center" style="height:60px">
+                    <input type=text name=starttime id='starttime' placeholder='Start time' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center" style="height:60px">
+                    <input type=text name=endtime id='endtime'  placeholder='End time'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12 text-center">
+                      <button class="a" tooltip="see results" id=menutest>Show values</button>
+                </div>
+            </div>
+            </form>
+          </div> <!--  column 2 (main)  -->
+          <!--  END_HTML  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+    <div id=page_loaded></div>
+    </body>
+    </html>
+            

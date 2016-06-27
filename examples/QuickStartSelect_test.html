@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> MenuOptions select example </title>
+  
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
+    var data, 
+        init_data="December", 
+        DataKeyNames= {};
+    if ( document.URL.match(/bad_data/) ) {
+       init_data="Junk data";
+    }
+    if ( document.URL.match(/singleobject/) ) {
+       data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                8:"August",9:"September",10:"October",11:"November",12:"December" };
+    } else if ( document.URL.match(/one_dimens_ary/) ) {
+       data = [ "January","February","March","April","May", "June","July",
+                "August","September","October","November","December" ];
+    } else if ( document.URL.match(/two_dimens_ary/) ) {
+       data = [ [ "January","February"],["March","April"],["May", "June","July",
+                "August","September","October","November","December" ]];
+    } else if ( document.URL.match(/ary_of_objs/) ) {
+       data = [ { 1:"January" }, { 2:"February" }, { 3:"March" }, { 4:"April" }, { 5:"May" }, {  6:"June" }, { 7:"July" },
+             { 8:"August" }, { 9:"September" }, { 10:"October" }, { 11:"November" },{ 12:"December"} ];
+    } else if ( document.URL.match(/ary_of_mk_objs/) ) {
+       data = [ { 1:"January",  2:"February" }, { 3:"March", 4:"April" }, { 5:"May" }, {  6:"June" }, { 7:"July" },
+             { 8:"August" }, { 9:"September" }, { 10:"October" }, { 11:"November" },{ 12:"December"} ];
+    } else if ( document.URL.match(/custom_key_names/) ) {
+        DataKeyNames = { "key": "mon_num", "value": "mon_name" };
+        data = [    {"mon_num":1, "mon_name":"January", "junk_key":"junk_val"}, 
+                    {"mon_num":2, "mon_name":"February", "junk_key":"junk_val"}, 
+                    {"mon_num":3, "mon_name":"March", "junk_key":"junk_val"},
+                    {"mon_num":4, "mon_name":"April", "junk_key":"junk_val"},
+                    {"mon_num":5, "mon_name":"May", "junk_key":"junk_val"},
+                    {"mon_num":6, "mon_name":"June", "junk_key":"junk_val"}, 
+                    {"mon_num":7, "mon_name":"July", "junk_key":"junk_val"},
+                    {"mon_num":8, "mon_name":"August", "junk_key":"junk_val"},
+                    {"mon_num":9, "mon_name":"September", "junk_key":"junk_val"}, 
+                    {"mon_num":10, "mon_name":"October", "junk_key":"junk_val"}, 
+                    {"mon_num":11, "mon_name":"November", "junk_key":"junk_val"},
+                    {"mon_num":12, "mon_name":"December", "junk_key":"junk_val"}];
+    }  else {
+       data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
+                8:"August",9:"September",10:"October",11:"November",12:"December" };
+    }
+    $('input#selecttest').menuoptions({ 
+        "Data": data,
+        "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+        }, 
+        "DataKeyNames": DataKeyNames,
+        "ClearBtn": true,
+        "InitialValue": { 'val': init_data },
+        "ShowAt": 'bottom',
+        "NotInListWarns": false,
+        "Sort": []
+    });  
+    $('input#scrolltest').menuoptions({ 
+        "Data": data,
+        "onSelect": function(mo, data) { 
+            console.log(mo, data.newVal, data.newCode, data.type );  
+        }, 
+        "ClearBtn": true,
+        "DataKeyNames": DataKeyNames,
+        "InitialValue": { 'val': init_data },
+        "NotInListWarns": false,
+        "Height": 200,
+        "Sort": [] 
+    });  
+    $('button#menutest').on('click', function (e) {
+        var tst = $('input#selecttest').menuoptions('re_serialize',$('form#tst').serialize());
+        alert (tst);
+    });
+   /*--  END_JAVASCRIPT  --*/
+});
+</script>
+</head>
+<body>
+    <!--  #import navbar  -->
+      <div class="container">
+      <div class="row">
+        <div class="col-lg-12" style='height:100px'>
+	        <h1 >Example of simple select list with autocomplete </h1>
+        </div>
+      </div>
+      <div class="row">
+        <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <!--  #import leftmenu  -->
+        </div>
+        <form id=tst>
+        <!--  START_HTML  -->
+        <div class="col-md-8 col-xs-8">
+            <div class="row">
+                <div class="col-lg-2" style="height:60px"> </div>
+                <div class="col-lg-5" style="height:60px">
+                    <h3 class="text-left">Select list with default height</h3>
+                </div>
+                <div class="col-lg-5 text-right" style="height:60px">
+                    <h3 class="text-left">Select list with height set (with scroll)</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2" style="height:60px"> </div>
+                <div class="col-lg-5 text-left" style="height:60px">
+                    <input type=text name=month1 id='selecttest'  placeholder='Month'>
+                </div>
+                <div class="col-lg-5 text-left" style="height:80px">
+                    <input type=text name=month2 id='scrolltest'  placeholder='Month'>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-xs-5 text-right" style='height:60px'>
+                    </div>
+                    <div class="col-md-7 col-xs-7 text-left">
+                        <span class="text-left"><button class="a" type="button" id="menutest" >Show serialize values</button></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-xs-2">
+          </div> <!--  column 2 (main)  -->
+          <!--  END_HTML  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+    </form>
+
+    <div id=page_loaded></div>
+    </body>
+    </html>
+            

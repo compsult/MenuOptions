@@ -7,41 +7,109 @@
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.css">
     <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
-    <link rel="stylesheet" type="text/css" href="../media/css/menuoptions.css?v_1820">
+    <link rel="stylesheet" type="text/css" href="../dist/css/menuoptions.css?v_1820">
       
     <!-- jQuery -->
-    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/380cb78f450/integration/jqueryui/dataTables.jqueryui.js"></script>
     <script type="text/javascript" charset="utf8" src="js/InlineEdit.js?v_1820"></script>
     <script type="text/javascript" charset="utf8" src="js/data.js"></script>
     <script type="text/javascript" charset="utf8" src="js/Scroller.js"></script>
-    <script type="text/javascript" charset="utf8" src="../media/js/jquery.menuoptions.js?v_1820"></script>
+    <script src="../dist/js/jquery.menuoptions.js"></script>
    <script> var te = te || {}; te.root=""; te.scroll=true; </script>
-   <script src="js/examples.js?v_1820"></script>
+   <script src="./js/examples_bs.js"></script>
    <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
    <link rel="icon" href="./imgs/favicon.ico">
 
 </head>
 <body>
-    <div id="wrapper">
-        <div id="leftcolumn"></div>
-        <div id="rightcolumn">
+    <div class="navbar-wrapper">
+      <div class="container-fluid">
 
-    <div style='width:940px;'>
-     <h1>Inline Edit Demo </h1>
-     <h3 style='margin-top:-8px;' >(using <a target=_blank class=underl href='http://datatables.net/'>Datatables</a> for table display)</h3> 
-   <ul class=hdr style='text-align:left;'>
-       <li class=ctr>Click on blue cells to edit inline</li>
-       <li class=ctr>The <span class=hdr>Hire Date</span> uses <a target=_blank class=underl href='https://jqueryui.com/datepicker/'>jQuery UI datepicker</a></li>
-       <li class=ctr>The <span class=hdr>Marital Status</span> uses <a target=_blank class=underl href='https://jqueryui.com/autocomplete/'>jQuery UI autocomplete</a>  </li>
-       <li class=ctr>The <span class=hdr>Employee Type</span> and <span class=hdr>Start Time</span> use <a target=_blank class=underl href='http://www.menuoptions.org/'>MenuOptions select</a></li>
-    </ul></div>
- <div id=ValidationErr class=dispbox><div><button id=mini_cnr_x>X</button></div></div>
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/"><img style="display:block;" src="./imgs/menuoptions_inv.png"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+              <ul class="nav navbar-nav">
+                <li><a id=examplemenu class=examplemenu href="#">All examples</a></li>
+                <li><a id=docmenu class=docmenu href="#">Documentation</a></li>
+                <li><a id=dwnldmenu class=dwnldmenu href="#">Download</a></li>
+                <li><a id=changelog class=changelog href="#">Change log</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
     </div>
-    <!--  end right col  -->
-    </div> 
-    <!--  end wrapper  -->
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style='height:160px'>
+                <h1>Inline Edit Demo </h1>
+                <h3 style='margin-top:-8px;' >(using <a target=_blank class=underl href='http://datatables.net/'>Datatables</a> for table display)</h3> 
+                <ul class=hdr style='text-align:left;'>
+                    <li class=ctr>Click on blue cells to edit inline</li>
+                    <li class=ctr>The <span class=hdr>Hire Date</span> uses <a target=_blank class=underl href='https://jqueryui.com/datepicker/'>jQuery UI datepicker</a></li>
+                    <li class=ctr>The <span class=hdr>Marital Status</span> uses <a target=_blank class=underl href='https://jqueryui.com/autocomplete/'>jQuery UI autocomplete</a>  </li>
+                    <li class=ctr>The <span class=hdr>Employee Type</span> and <span class=hdr>Start Time</span> use <a target=_blank class=underl href='http://www.menuoptions.org/'>MenuOptions select</a></li>
+                </ul>
+            </div>
+        </div>
+        <form id=tst>
+        <div class="row">
+            <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <p class=menu_left>Menu Examples</p>
+            <a class=underl_sm href=QuickStartMenu.html>Quick start menu</a><br>
+            <a class=underl_sm href=MenusBottom.html>Drop down menus</a></br>
+            <a class=underl_sm href=RightMenu.html>Right side menus</a><br>
+            <p class=menu_left>Select Examples</p>
+            <a class=underl_sm href=QuickStartSelect.html>Quick start select</a><br>
+            <a class=underl_sm href=QuickStartSelect.html?bad_data>Select with bad data</a><br>
+            <!--  <a class=underl_sm href=InlinEdit.html>Inline edit</a></br>  -->
+            <a class=underl_sm href=SelectWithImages.html>Select with images</a><br>
+            <a class=underl_sm href=Serialize.html>Serialize (re_serialize)</a><br>
+            <a class=underl_sm href=MultiSelect.html>Multiple select lists</a><br>
+            <a class=underl_sm href=ReloadMenuOptions.html>Dynamically reloading</a><br>
+            <p class=menu_left>Rocker Examples</p>
+            <a class=underl_sm href=Rocker.html>Rocker switch</a><br>
+            <p class=menu_left>Masks</p>
+            <a class=underl_sm href=MaskCombos.html>Masks and select list</a><br>
+            <a class=underl_sm href=Masks.html>Masks types</a><br>
+            <p class=menu_left>All widgets</p>
+            <a class=underl_sm href=combined.html>All options</a><br>
+            <p class=menu_left>Download</p>
+            <a class=underl_sm href="https://github.com/compsult/MenuOptions">github</a><br>
+            <a class=underl_sm href="https://www.npmjs.com/package/menuoptions">npm</a><br>
+            <a class=underl_sm href="https://atmospherejs.com/compsult/menuoptions">atmosphere</a><br><br>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://travis-ci.org/compsult/MenuOptions"><img src="https://travis-ci.org/compsult/MenuOptions.svg?branch=1.7.1-2"></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="https://saucelabs.com/u/compsult"><img src="https://saucelabs.com/buildstatus/compsult" alt="Sauce Test Status"/></a>
+            </div></div>
+            <div class="row"><div class="col-lg-12" style='height:24px'>
+                <a href="http://menuoptions.readthedocs.org/en/latest/"><img src="https://readthedocs.org/projects/menuoptions/badge/?version=latest" alt="ReadTheDocs Status"/></a>
+            </div></div>
+            </div>
+            <div id=main_column class="col-md-8 col-xs-8">
+                <div id=ValidationErr class=dispbox><div><button id=mini_cnr_x>X</button></div></div>
+            </div>
+          </div> <!--  end inner container row  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+     <div id=page_loaded></div>
+            
 	

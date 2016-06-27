@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> Select demo</title>
+  
+  <!--  START_INCLUDES  -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="../dist/js/jquery.menuoptions.js"></script>
+  <link rel="stylesheet" href="../dist/css/menuoptions.css?v_1820">
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css?v_2339">
+  <!--  END_INCLUDES  -->
+  <!--  #import hdr_includes  -->
+
+<script type='text/javascript'>//<![CDATA[ 
+$(document).ready(function() {
+   /*--  START_JAVASCRIPT  --*/
+    var data;
+    if ( document.URL.match(/singleobject/) ) {
+       data = { "1":"<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check", 
+                "2": "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash", 
+                "3": "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge", 
+                "4": "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal"};
+    } else if ( document.URL.match(/one_dimens_ary/) ) {
+       data = [ "<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check", 
+                "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash", 
+                "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge",
+                "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal" ];
+    } else if ( document.URL.match(/two_dimens_ary/) ) {
+       data = [ [ "<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check" ], 
+                [ "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash" , 
+                  "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge",
+                  "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal" ] ];
+    } else if ( document.URL.match(/ary_of_objs/) ) {
+       data = [ { "1":"<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check" , 
+                 "2": "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash" }, 
+                { "3": "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge" }, 
+                { "4": "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal"} ];
+    }  else {
+       data = { "1":"<img class='check' src='imgs/Transparent.gif' width='1' height='1'>Check", 
+                "2": "<img class='cash' src='imgs/Transparent.gif' width='1' height='1'>Cash", 
+                "3": "<img class='charge' src='imgs/Transparent.gif' width='1' height='1'>Charge", 
+                "4": "<img class='paypal' src='imgs/Transparent.gif' width='1' height='1'>Paypal"};
+    }
+  $('input#CustSel').menuoptions({
+                                      "Data": data,
+                                      "ClearBtn": true,
+                               });
+   /*--  END_JAVASCRIPT  --*/
+});
+</script>
+</head>
+<body>
+    <!--  #import navbar  -->
+      <div class="container">
+      <div class="row">
+        <div class="col-lg-12" style='height:140px'>
+            <h1 >Example of MenuOptions select (with images)</h1>
+	        <h2 >(press enter to select 1st choice in list)</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
+            <!--  #import leftmenu  -->
+        </div>
+        <!--  START_HTML  -->
+        <div class="col-md-8 col-xs-8">
+            <div class="row">
+                <div class="col-lg-12 text-center" style="height:60px">
+	        	      <input type=text id='CustSel' type='text'  placeholder='Pay method' >
+                </div>
+            </div>
+         </div>
+          </div> <!--  column 2 (main)  -->
+         <!--  END_HTML  -->
+        </div> <!--  end container row  -->
+     </div> <!--  end container -->
+    <div id=page_loaded></div>
+    </body>
+    </html>
+            
