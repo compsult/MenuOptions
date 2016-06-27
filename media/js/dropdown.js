@@ -1,0 +1,360 @@
+    _set_showat : function () {
+        if (this.options.ShowAt.match(/^ *bottom *$/i)) {
+            this._setOption('ShowAt', 'left bottom-2' );
+        } else if (this.options.ShowAt.match(/^ *right *$/i)) {
+            this._setOption('ShowAt', 'right-2 top');
+        }
+    },
+
+    _build_row : function (dd_span, subary) {
+        return $.map(subary, function (obj) {
+            if (!$.isFunction(obj.ky) && obj.ky.match(/^ *divider *$/i) &&
+                    dd_span.options.MenuOptionsType === 'Navigate') {
+                // for menu's, a non clickable divider row (for categories, etc)
+                return '\t<td class=' + obj.ky + '>' + obj.val + '</td>\n';
+            }
+            return '\t<td class=dflt menu_opt_key="' + obj.ky + 
+                '">' + obj.val + '</td>\n';
+        });
+    },
+
+    _create_table : function (ary_of_objs) {
+        var buffer = '',
+            subary = [],
+            TDary = [],
+            RowCnt = 0,
+            start_ofs = 0,
+            html = '',
+            i = 0,
+            menu_pos = /bottom/.test(this.options.ShowAt) ? 'bot' : 'rt';
+
+        // sort as per default or user specification
+        // set val = key attr
+        if (this.options.UseValueForKey === true &&
+                ary_of_objs.length === this.orig_objs.length) {
+            /*jslint unparam: true*/
+            $.each(ary_of_objs, function (k, v) { v.val = v.ky; });
+            /*jslint unparam: false*/
+        }
+        while (RowCnt * this.options.ColumnCount < ary_of_objs.length) {
+            start_ofs = RowCnt === 0 ? 0 : (RowCnt * this.options.ColumnCount);
+            subary = ary_of_objs.slice(start_ofs, start_ofs + this.options.ColumnCount);
+            TDary = this._build_row(this, subary);
+            // pad with empty cells (if necessary) to match TD count of other rows
+            for (i = subary.length + 1; i <= this.options.ColumnCount; i += 1) {
+                TDary.push('<td class=dflt menu_opt_key="">&nbsp;</td>');
+            }
+            buffer += '<tr>\n' + TDary.join('') + '</tr>\n';
+            RowCnt += 1;
+        }
+        buffer = '<table class=CrEaTeDtAbLeStYlE cellpadding=4px>\n' + buffer + '</table>';
+        if (this.options.Filters.length && this.cached['.mo_elem'].val().length === 0) {
+            buffer = this._createFilterHeader() + buffer;
+        }
+        if ( $('button.navbar-toggle').length && 
+             /block/.test($('button.navbar-toggle').css('display')) && 
+             this.cached['.mo_elem'].closest('ul.navbar-nav').length ) {
+             menu_pos = "rt";
+        }
+        html = '<span class=' + this.options.MenuOptionsType + menu_pos + ' id=SP_' + this.options._ID + '>' + buffer + '\n</span>';
+        return html;
+    },
+
+    _build_filtered_dropdown : function (event, matching) {
+        this._build_dropdown( matching );
+        this._show_drop_down(event);
+    },
+
+    _build_dropdown: function (ary_of_objs) {
+        this.options._currTD = [0, 1];
+        var tablehtml = this._create_table(ary_of_objs);
+        this._event_ns = this.eventNamespace.replace(/^\./, '');
+        this.dropdownbox = $(tablehtml);
+        this._cache_elems();
+        this._calcDropBoxCoordinates();
+    },
+
+    _build_drop_down_test : function (e) {
+        if (e.type === this.options._prev.event && $(e.currentTarget).text() === this.options._prev.text) { 
+             this.__set_prev(e);
+             return false;
+        } 
+        this.__set_prev(e);
+        if ( $('span#SP_' + this.options._ID).length > 0) {
+            /* if wholeDropDown is visible and not a mouseover 'all' filtering operation, return */
+            if ( ! /keydown|keyup/.test(e.type) && !/(all)/.test($(e.target).text())) { 
+                return false;
+            }
+        }
+        if (e.type === 'search') { // clear menu_opt_key when input is cleared
+            this.cached['.mo_elem'].attr('menu_opt_key', '');
+        }
+        if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true) {
+            return false;
+        }
+        if ( this.options._mask_status.mask_only === true ) {
+            if ( /keyup|input/.test(e.type)) {
+                this._check_mask(e);
+            }
+            if ( /focus/.test(e.type)) {
+                /*--  if ( this.__match_complete() === false ) {  --*/
+                    this.__add_const (this.cached['.mo_elem'].val());
+                    this.__set_help_msg('', 'good');
+                /*--  }  --*/
+            }
+            return false;
+        }
+        if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
+            this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
+            $("span#HLP_"+this.options._ID).hide();
+            return false;
+        }  
+        if (/keydown|mousedown|click/.test(e.type)) {  
+            /*--  only focus and keyup create a dropdown (otherwise multiple calls to dropdown logic)  --*/
+            $("span#HLP_"+this.options._ID).show();
+            /*--  this.options._currTD = [0, 1];  --*/
+            return false;
+        }
+        return true;
+    },
+
+    _buildWholeDropDown : function (e) {
+        if ( this._build_drop_down_test(e) === false ) {
+            return;
+        }
+        var curVal = this.cached['.mo_elem'].val();
+        // if there is text in input, filter results accordingly
+        if (curVal.length > 0 ) {
+            var matched = this.__match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
+            if ( matched.length > 0) {
+                this._build_filtered_dropdown (e, matched );
+            } 
+            return;
+        } else {
+            this.cached['.mo_elem'].removeClass('data_error data_good'); 
+            this._build_dropdown(this.orig_objs);
+            this._show_drop_down(e);
+        }
+        this.__set_help_msg('', 'good');
+    },
+
+    _run_header_filter : function (e) {
+        if (e.type === this.options._prev.event && $(e.currentTarget).text() === this.options._prev.text) { 
+             this.__set_prev(e);
+             return false;
+        } 
+        this.__set_prev(e);
+        if (this.cached['.mo_elem'].val().length) {
+            // disable mouseover filters if user started entering data
+            return;
+        }
+        // get text from header filter <td>
+        var SearchStr = $(e.currentTarget).text();
+        this.options._CurrentFilter = $(e.currentTarget).text();
+        if ($.isPlainObject(this.options.Filters[0])) {
+            if ($(e.currentTarget).attr('menuopt_regex')) {
+                SearchStr = $(e.currentTarget).attr('menuopt_regex');
+                this._process_matches(e,  SearchStr);
+            } else if ($(e.currentTarget).text().match(/\(all\)/i)) {
+                this._build_dropdown(this.orig_objs);
+                this._show_drop_down(e);
+            } else {
+                this._validation_fail('Filter key ' + $(e.currentTarget).text() +
+                    'does not have a matching regular expression','warning');
+            }
+        } else { // assume array of scalars
+            if ($.inArray(SearchStr, this.options.Filters) > -1) {
+                this._process_matches(e,  SearchStr);
+            } else {
+                // if filter is not in list, user passed over ALL
+                this._buildWholeDropDown(e);
+            }
+        }
+        this.options._CurrentFilter = '';
+    },
+
+    _createFilterHeader : function () {
+        var TDary = [],
+            p = [];
+        if (!$.isPlainObject(this.options.Filters[0])) {
+            TDary = $.map(this.options.Filters, function (obj) {
+                return '\t<td class=hf_td>' + obj + '</td>\n';
+            });
+            TDary.unshift('\t<td class=hf_td>(all)</td>\n');
+        } else {
+            /*jslint unparam: true*/
+            $.each(this.options.Filters, function (key, value) {
+                p = $.map(value, function (v, i) {
+                    return i;
+                });
+                TDary.push('\t<td class=hf_td id=hdr_fltr' + p[0] +
+                        ' menuopt_regex="' + value[p[0]] + '">' + 
+                        p[0] + '</td>\n');
+            });
+            /*jslint unparam: false*/
+            TDary.unshift('\t<td class=hf_td id=hdr_fltrAll>(all)</td>\n');
+        }
+        return '\n<table id=HF_' + this._event_ns + ' class=HdrFilter>\n<tr>\n' + 
+            TDary.join('') + '</tr>\n</table>\n';
+    },
+
+    __scroll : function (row) {
+        var row_top = 0, row_ht = 0, vis_ht = 0, vis_top = 0;
+        if ( $('.CrEaTeDtAbLeStYlE tbody tr:nth-child(' + row + ')').length === 0 ) {
+            return;
+        } else {
+            row_top = $('.CrEaTeDtAbLeStYlE tbody tr:nth-child(' + row + ')').offset().top;
+            row_ht = $('.CrEaTeDtAbLeStYlE tbody tr:nth-child(' + row + ')').height();
+            vis_ht = $('span#SP_' + this.options._ID).height();
+            vis_top = $('span#SP_' + this.options._ID).offset().top;
+            if (vis_top > row_top) {
+                this.options._vert_ofs -= row_ht;
+                $('span#SP_' + this.options._ID).scrollTop(this.options._vert_ofs);
+            } else if (vis_top + vis_ht < row_top + row_ht) {
+                this.options._vert_ofs += row_ht;
+                $('span#SP_' + this.options._ID).scrollTop(this.options._vert_ofs);
+            }
+         }
+    },
+
+    _calcDropBoxCoordinates : function () {
+        // figure out the coords of the select box
+        // ( the top & bottom adjustments provide overlap between 
+        // element & drop down||right )
+        this.options._menu_box.top = this.cached['.dropdownspan'].position().top;
+        this.options._menu_box.bottom = this.options._menu_box.top + 
+            this.cached['.dropdownspan'].height();
+        this.options._menu_box.left = this.cached['.dropdownspan'].position().left;
+        this.options._menu_box.right = this.options._menu_box.left + 
+            this.cached['.dropdownspan'].width();
+    },
+
+    _didMouseExitDropDown : function (e) {
+        // this is where mouse is inside drop down 
+        if (e.pageX + 1  > this.options._menu_box.left  &&
+                e.pageX  < this.options._menu_box.right - 1 &&
+                e.pageY + 1 > this.options._menu_box.top &&
+                e.pageY  < this.options._menu_box.bottom) {
+            return false;
+        }
+        return true;
+    },
+
+    _removeDropDown : function (e) {
+        this.options._prev.event = e.type;
+        // prevent 2 calls in a row (we trigger one by calling .blur() )
+        if (e.type === 'blur' && /mouseleave/.test(this.options._prev.event)) {
+            return;
+        }
+        // is the mouse over the drop down? If not, remove it from DOM
+        if ($('span#SP_' + this.options._ID).length) {
+            if (this._didMouseExitDropDown(e) === true) {
+                this.cached['.dropdownspan'].remove();
+            }
+        }
+        $("span#HLP_"+this.options._ID).hide();
+        /*--  this.options._currTD = [0, 1];  --*/
+    },
+
+    _resetOffsetOfDropDown: function () {
+        // If the menu width was changed, 
+        //    test to see if it changed it's original offsets
+        // If it did, re-align menu to parent element
+        if (this.menu_start_loc.left !==
+                this.cached['.dropdownspan'].offset().left ||
+                this.menu_start_loc.top !==
+                this.cached['.dropdownspan'].offset().top) {
+            if (this.cached['.dropdownspan'] &&
+                    this.cached['.dropdownspan'][0]) {
+                this.options._width_adj.width_adjustment =
+                    parseInt(this.cached['.dropdownspan'][0].style.left, 10) +
+                    ((this.options._width_adj.width_after_adj -
+                        this.options._width_adj.width_menu) / 2);
+                this.cached['.dropdownspan'].css({ 'left':
+                        this.options._width_adj.width_adjustment });
+            }
+        }
+    },
+
+    _addDropDownToDOM : function () {
+        // only one dropdown at a time
+        $('body span[id^="SP_menuoption"]').remove();
+        this.dropdownbox
+                .appendTo('body')
+                .hide(1);
+    },
+
+    _show_drop_down : function (e) {
+        var $dd_span = this,
+            final_width = 0,
+            showAt = this.options.ShowAt;
+
+        this._addDropDownToDOM();
+        this._get_n_set_width();
+        if ( $('button.navbar-toggle').length && 
+             /block/.test($('button.navbar-toggle').css('display')) && 
+             this.cached['.mo_elem'].closest('ul.navbar-nav').length ) {
+             showAt = 'left+' + this.options.BootMenuOfs + ' top';
+        }
+        // show the menu
+        $dd_span.cached['.dropdownspan']
+            .stop(true, false)
+            .show()
+            .position({
+                of :  this.element,
+                my : 'left top',
+                at : showAt,
+                collision : 'flipfit'
+            });
+        final_width = parseInt($('span#SP_' + this.options._ID).css('width'), 10);
+        $('span#SP_' + $dd_span.options._ID).css({ zIndex: 9999});
+        if (this._use_scroller()) {
+            $('span#SP_' + $dd_span.options._ID).css({'overflow-y': 'scroll',
+                'overflow-x': 'hidden', 'width' : final_width + 18,
+                'height': parseInt($dd_span.options.Height, 10)
+                });
+            $dd_span.cached['.dropdownspan']
+                .stop(true, false)
+                .show()
+                .position({
+                    of : this.element,
+                    my : 'left top',
+                    at : showAt,
+                    collision : 'flipfit'
+                });
+        }
+        $('table.CrEaTeDtAbLeStYlE').find('tr:even').addClass('even');
+        $('table.CrEaTeDtAbLeStYlE').find('tr:odd').addClass('odd');
+        this._refresh();
+        this._calcDropBoxCoordinates();
+    },
+
+    _use_scroller : function () {
+        // is a scroll bar needed here? returns true or false
+        var final_ht = parseInt($('span#SP_' + this.options._ID).css('height'), 10);
+        return (/Select/i.test(this.options.MenuOptionsType) && 
+                /^\d+/.test(this.options.Height) && 
+                parseInt(this.options.Height, 10) < final_ht);
+    },
+
+    _get_n_set_width : function () {
+        var $dd_span = this,
+            menu_width = parseInt($('span#SP_' + this.options._ID).css('width'), 10);
+        $dd_span.menu_start_loc = $dd_span.cached['.dropdownspan'].offset();
+        $dd_span.options._width_adj.width_menu = menu_width;
+        $dd_span.options._width_adj.width_after_adj = (menu_width >
+                this.cached['.mo_elem'].width()) ?  menu_width : this.cached['.mo_elem'].outerWidth();
+        if ($dd_span.options.Width !== '' && $dd_span.options.Width !== 0) {
+            // if user specified width, use that width
+            $dd_span.options._width_adj.width_after_adj = (parseInt($dd_span.options.Width, 10));
+        }
+        $('span#SP_' + $dd_span.options._ID + ', span#SP_' + $dd_span.options._ID +
+                    ' > table').css({  'width': $dd_span.options._width_adj.width_after_adj });
+        if (this.options.ShowAt.match(/left[\w\W]*bottom[\w\W]*/i)) {
+            $('span#SP_' + $dd_span.options._ID)
+                    .offset({left : this.cached['.mo_elem'].offset().left});
+        } else {
+            $('span#SP_' + $dd_span.options._ID)
+                .offset({left : this.cached['.mo_elem'].offset().left + this.cached['.mo_elem'].outerWidth() });
+        }
+    },
