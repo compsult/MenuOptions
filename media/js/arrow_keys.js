@@ -69,14 +69,15 @@
         var str_len = val.length;
         for (var x = str_len; str_len > 0; str_len--) {
             if ( this.options._mask.hasOwnProperty('consts') &&
-                 this.options._mask.consts.hasOwnProperty(str_len) ) {
-                 $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
-                 continue;
+                this.options._mask.consts.hasOwnProperty(str_len) ) {
+                if ( str_len > 1 ) {
+                    $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
+                }
+                continue;
             } else {
-                 $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
-                 break;
+                $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
+                break;
             }
         }
-        this.__highlite_ok_or_bad(this.cached['.mo_elem'].val());
-        this.__set_help_msg('', 'good');
+        this.__set_help_msg('', '');
     },

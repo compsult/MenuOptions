@@ -1,14 +1,14 @@
 {
     "name": "menuoptions",
     "title": "Menu Options",
-    "description": "A jQuery widget designed to optimize data entry speed for both keyboard and mouse users. MenuOptions uses autocomplete and mouseover filtering to accomplish this. Menus can be created that follow URLs or execute javascript functions.",
+    "description": "A jQuery widget that combines multi-column autocomplete with input masks",
     "keywords": [
         "ui",
         "form",
         "input",
         "menu"
     ],
-    "version": "1.8.0-4",
+    "version": "1.8.0-5",
     "author": {
         "name": "Michael Etts",
         "url": "https://github.com/compsult/menuoptions"

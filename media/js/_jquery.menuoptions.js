@@ -112,7 +112,7 @@ $.widget('mre.menuoptions', {
     },
 
     add_menuoption_key : function () {
-        var matched = this.__match_list_hilited({'StrToCheck': this.element.val(), 'chk_key': true, 'case_ins': false});
+        var matched = this._match_list_hilited({'StrToCheck': this.element.val(), 'chk_key': true, 'case_ins': false});
         if ( matched.length > 0 ) {
             var raw_val = matched[0].val.toString().replace(/<[\w\W]*?>/g, '');
             if (/Rocker/i.test(this.options.MenuOptionsType) ) {
@@ -321,20 +321,6 @@ $.widget('mre.menuoptions', {
     #import incoming_data.js
 
     #import dropdown.js
-
-    __highlite_ok_or_bad : function ( StrToCheck ) {
-        if ( ! /Select/i.test(this.options.MenuOptionsType) ) {
-            return;
-        }
-        if ( this.options.DisableHiLiting === false ) { 
-            var exact_matches = this.__matches(this.cached['.mo_elem'].val(), 'exact');
-            if ( this.__match_complete() === true || exact_matches.length === 1) {  
-                $(this.element).removeClass('data_error').addClass('data_good'); 
-            } else {
-                $(this.element).removeClass('data_good').addClass('data_error'); 
-            }
-        }
-    },
 
     #import utils.js
 });

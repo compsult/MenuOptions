@@ -8,5 +8,5 @@
                             5: { max_val: 1 },
                             6: function( val,obj ) { return /1/.test(val[4]) ? obj._day_test(val,2,'cut',5) : obj._day_test(val,9,'cut',5); },
                             7: function( val, obj ) { return obj._get_days(val,'YMD'); },
-                            8: function( val, obj ) { return obj._get_days(val,'YMD'); } },
+                            8: function( val, obj ) { return obj._get_days(val,'YMD'); } }, 
                 'Whole' : function( val, obj ) { return obj._get_days(val,'YMD'); }

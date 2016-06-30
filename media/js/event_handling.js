@@ -5,17 +5,16 @@
                         'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': "ENTERKey" }); 
         } else if (e.keyCode === $.ui.keyCode.TAB ) {
             if ( curVal.length > 0) {
-                var matched =  this.__build_match_ary(e, curVal);
+                var matched =  this._build_match_ary(e, curVal);
                 if ( matched.length > 0 ) {
                     this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'), 
                                 'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': "TABKey" }); 
                 } else if ( this.__match_complete() === true ) {
                     this.__exec_trigger({ 'newCode': curVal, 'newVal' : curVal, 'type': "TABKey" }); 
                 }
-            } else if ( curVal.length > 0 ) {
-                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
-            }
+            } 
         } 
+        this.__set_help_msg('', ''); 
     },
 
     _clear_filter : function (e) {

@@ -199,7 +199,7 @@ $.widget('mre.menuoptions', {
                             5: { max_val: 1 },
                             6: function( val,obj ) { return /1/.test(val[4]) ? obj._day_test(val,2,'cut',5) : obj._day_test(val,9,'cut',5); },
                             7: function( val, obj ) { return obj._get_days(val,'YMD'); },
-                            8: function( val, obj ) { return obj._get_days(val,'YMD'); } },
+                            8: function( val, obj ) { return obj._get_days(val,'YMD'); } }, 
                 'Whole' : function( val, obj ) { return obj._get_days(val,'YMD'); }
             },
             '(999) 999-9999' : { 
@@ -246,7 +246,7 @@ $.widget('mre.menuoptions', {
     },
 
     add_menuoption_key : function () {
-        var matched = this.__match_list_hilited({'StrToCheck': this.element.val(), 'chk_key': true, 'case_ins': false});
+        var matched = this._match_list_hilited({'StrToCheck': this.element.val(), 'chk_key': true, 'case_ins': false});
         if ( matched.length > 0 ) {
             var raw_val = matched[0].val.toString().replace(/<[\w\W]*?>/g, '');
             if (/Rocker/i.test(this.options.MenuOptionsType) ) {
@@ -451,15 +451,15 @@ $.widget('mre.menuoptions', {
     },
 
     _check_mask : function (e) {
-        if ( this.cached['.mo_elem'].val().length === this.options._mask.MaxLen &&
-             this.__match_complete() === true ) {
-            return;
+        if ( this.cached['.mo_elem'].val().length === this.options._mask.MaxLen ) {
+            if ( this._match_complete() === true ) {
+                return;
+            } 
         }
-        this.__is_last_char_valid(this.cached['.mo_elem'].val());
-        this.__set_help_msg ('', '');
+        this._is_last_mask_char_valid(e, this.cached['.mo_elem'].val());
     },
 
-    __match_complete : function () {
+    _match_complete : function () {
         if ( this.options._mask.hasOwnProperty('Whole') === false ||
              this.options._mask.hasOwnProperty('MaxLen') === false ) {
             return false;
@@ -472,32 +472,32 @@ $.widget('mre.menuoptions', {
             } else if (new RegExp(this.options._mask.Whole).test(val) === true ) {
                 this.__set_help_msg('', 'completed');
                 return true;
+            } else {
+                return false;
             }
-        } else {
-            return false;
         }
     },
 
-    __build_match_ary : function (event, StrToCheck) {
-        var matched = this.__match_list_hilited({'StrToCheck': StrToCheck, 'chk_key': false, 'case_ins': true, evt: event});
+    _build_match_ary : function (event, StrToCheck) {
+        var matched = this._match_list_hilited({'StrToCheck': StrToCheck, 'chk_key': false, 'case_ins': true, evt: event});
         if ( /Select/.test(this.options.MenuOptionsType) && matched.length === 0 && this.options._CurrentFilter === '') {
-            if ( this.__is_last_char_valid(StrToCheck) === true ) { 
-                this.__match_complete();
+            if ( this._is_last_mask_char_valid(event, StrToCheck) === true ) { 
+                this._match_complete();
             } else {
-                return this.__match_list_hilited({'StrToCheck': this.cached['.mo_elem'].val(), 'chk_key': false, 'case_ins': true, evt: event});
+                return this._match_list_hilited({'StrToCheck': this.cached['.mo_elem'].val(), 'chk_key': false, 'case_ins': true, evt: event});
             }
         }
         return matched;
     },
 
-    __add_const : function (StrToCheck) {
+    _add_const : function (StrToCheck) {
         /*--  append constant value to end of string  --*/
         var str_len = StrToCheck.length;
         if (this.options._mask.hasOwnProperty('consts')) {
             for (var x = str_len; str_len < this.options._mask.MaxLen; str_len++) {
                 if (this.options._mask.consts.hasOwnProperty(str_len+1)) {
                     this.cached['.mo_elem'].val(this.cached['.mo_elem'].val()+this.options._mask.consts[str_len+1]);
-                    if ( this.__match_complete() === true ) {
+                    if ( this._match_complete() === true ) {
                         return true;
                     }
                 } else {
@@ -508,14 +508,14 @@ $.widget('mre.menuoptions', {
         return false;
     },
 
-    __match_list_hilited : function (params) {
+    _match_list_hilited : function (params) {
         if ( /Select|Rocker/.test(this.options.MenuOptionsType) && params.StrToCheck.length === 0 ) {
                 return [];
         }
         if ( /Select/.test(this.options.MenuOptionsType) && this.options._CurrentFilter === '' &&
              this.options.Mask.length > 0 && params.evt.type.length > 0 && /keyup/.test(params.evt.type)) {
-             if ( this.__is_last_char_valid(params.StrToCheck) === true ) { 
-                 this.__add_const (this.cached['.mo_elem'].val());
+             if ( this._is_last_mask_char_valid(params.evt, params.StrToCheck) === true ) { 
+                 this._add_const (this.cached['.mo_elem'].val());
              } else {
                  return [];
              }
@@ -544,16 +544,16 @@ $.widget('mre.menuoptions', {
             }
         });
         if ( this.options._CurrentFilter.length === 0 ) {
-            this.__check_match_results(matching, params.StrToCheck);
+            this.__check_match_results(matching, params.StrToCheck, params.evt);
         }
         return matching;
     },
 
-    __check_match_results : function (matching, StrToCheck) {
+    __check_match_results : function (matching, StrToCheck, e) {
         if ( matching.length === 0 ) { 
             /*--  if no match and no mask then  cut last char  --*/
             if ( this.options.Mask.length === 0 ) {
-                this.__cut_last_char(StrToCheck, 'invalid key'); 
+                this._cut_last_char(StrToCheck, 'invalid key',e); 
             }
         } else {
             if ( StrToCheck === matching[0].val.replace(/<span[\w\W]*?>|<\/span>/g,'') ) {
@@ -599,62 +599,55 @@ $.widget('mre.menuoptions', {
         }
     },
 
-    __matches : function(StrToCheck, exact) {
+    _matches : function(StrToCheck, exact) {
         return $.map(this.orig_objs, function (o) { 
             if (exact === 'exact' && StrToCheck === o.val.replace(/<img[\w\W]*?>/, '')) { return o; }
             else if (exact === 'partial' && new RegExp(StrToCheck).test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
         });
     },
 
-    __cut_last_char : function (StrToCheck, err_msg) {
+    _cut_last_char : function (StrToCheck, err_msg,e) {
         this.cached['.mo_elem'].val(StrToCheck.slice(0, -1));  
         this.__set_help_msg(err_msg, 'error'); 
-        if ( this.options.Mask.length > 0 ) {
-            return;
-        }
-        var str_len = StrToCheck.length, exact_matches = [];
-         for (var x = str_len; str_len > 0; str_len--) { 
-            exact_matches = this.__matches(this.cached['.mo_elem'].val(), 'partial');
-            if ( exact_matches.length === 0 ) {
-                this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1)); 
-            } else {
-                return;
-            }
-        } 
     },
 
-    __valid_test : function (StrToCheck) {
-        var str_len = StrToCheck.length;
-        for (var x = str_len; str_len > 0; str_len--) {
-            if ( this.options._mask.hasOwnProperty('valid') &&
-                 this.options._mask.valid.hasOwnProperty(str_len)) {
-                if ( $.isFunction(this.options._mask.valid[str_len])){
-                    this.options._mask.valid[str_len](this.cached['.mo_elem'].val(),this);
-                    continue;
-                } else if (this.options._mask.valid[str_len].hasOwnProperty('max_val')) {
-                    var max_val = this.options._mask.valid[str_len].max_val;
-                    if ( ! new RegExp('[0-'+max_val+']').test(this.cached['.mo_elem'].val()[str_len-1])) {
-                        this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
-                        this.__set_help_msg('0 - '+max_val+' only', 'error');
-                    } 
-                    continue;
-                }
-            }
-            if ( this.cached['.mo_elem'].val().length === 0 ) {
-                return true;
-            } else {
-                if ( this.options._mask.consts[str_len] && this.cached['.mo_elem'].val()[str_len-1] === this.options._mask.consts[str_len]) {
-                    continue;
-                }
+    _run_valid_mask_test : function (e, StrToCheck, str_len) {
+        if ( this.options._mask.hasOwnProperty('consts') && 
+             this.options._mask.consts[str_len] ) {
+            if ( this.cached['.mo_elem'].val().substring(str_len-1,str_len) !== this.options._mask.consts[str_len]) {
                 this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
-                this.__set_help_msg('', 'good');
+            } 
+        } else if ( this.options._mask.hasOwnProperty('valid') &&
+                this.options._mask.valid.hasOwnProperty(str_len)) {
+            if ( $.isFunction(this.options._mask.valid[str_len])){
+                this.options._mask.valid[str_len](this.cached['.mo_elem'].val(),this);
+            } else if (this.options._mask.valid[str_len].hasOwnProperty('max_val')) {
+                var max_val = this.options._mask.valid[str_len].max_val;
+                if ( ! new RegExp('[0-'+max_val+']').test(this.cached['.mo_elem'].val()[str_len-1])) {
+                    this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
+                    this.__set_help_msg('0 - '+max_val+' only', 'error');
+                }  
             }
         }
-        this.__add_const (this.cached['.mo_elem'].val());
+    },
+
+    _valid_test : function (e, StrToCheck) {
+        var str_len = StrToCheck.length;
+        if ( StrToCheck.length > this.options._mask.MaxLen ) {
+            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.MaxLen));
+        }
+        for (var x = str_len; str_len > 0; str_len--) {
+            this._run_valid_mask_test(e, StrToCheck, str_len);
+            if ( this.cached['.mo_elem'].val().length === 0 ) {
+                return true;
+            }
+        }
+        this._add_const (this.cached['.mo_elem'].val());
+        this.__set_help_msg('', '');
         return true; 
     },
 
-    __is_last_char_valid : function (StrToCheck) {
+    _is_last_mask_char_valid : function (e, StrToCheck) {
         if ( StrToCheck.length > this.options._mask.MaxLen ) {
             this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.MaxLen));
             return true;
@@ -663,19 +656,21 @@ $.widget('mre.menuoptions', {
              this.options._mask.hotkey.hasOwnProperty(StrToCheck.length)) {
                if (this.options._mask.hotkey[StrToCheck.length](StrToCheck,this) === true) {
                     this.__set_help_msg('', 'good');
-                    return;
+                    return true;
                }
         }
         if ( this.options._mask.hasOwnProperty('valid') &&
-             this.options._mask.valid.hasOwnProperty(StrToCheck.length)) {
-            return this.__valid_test(StrToCheck);
+             this.options._mask.valid.hasOwnProperty(StrToCheck.length) ||
+             this.options._mask.hasOwnProperty('consts') &&
+             this.options._mask.consts.hasOwnProperty(StrToCheck.length)) {
+            return this._valid_test(e, StrToCheck);
         }
     },
 
     _process_matches : function (event, StrToCheck) {
         var matching = [];
         if (StrToCheck !== '') {
-            matching = this.__build_match_ary(event, StrToCheck); 
+            matching = this._build_match_ary(event, StrToCheck); 
             this.cached['.dropdownspan'].remove();
         }
         if (matching.length > 0) {
@@ -693,17 +688,16 @@ $.widget('mre.menuoptions', {
                         'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': "ENTERKey" }); 
         } else if (e.keyCode === $.ui.keyCode.TAB ) {
             if ( curVal.length > 0) {
-                var matched =  this.__build_match_ary(e, curVal);
+                var matched =  this._build_match_ary(e, curVal);
                 if ( matched.length > 0 ) {
                     this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'), 
                                 'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': "TABKey" }); 
                 } else if ( this.__match_complete() === true ) {
                     this.__exec_trigger({ 'newCode': curVal, 'newVal' : curVal, 'type': "TABKey" }); 
                 }
-            } else if ( curVal.length > 0 ) {
-                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
-            }
+            } 
         } 
+        this.__set_help_msg('', ''); 
     },
 
     _clear_filter : function (e) {
@@ -838,16 +832,17 @@ $.widget('mre.menuoptions', {
         var str_len = val.length;
         for (var x = str_len; str_len > 0; str_len--) {
             if ( this.options._mask.hasOwnProperty('consts') &&
-                 this.options._mask.consts.hasOwnProperty(str_len) ) {
-                 $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
-                 continue;
+                this.options._mask.consts.hasOwnProperty(str_len) ) {
+                if ( str_len > 1 ) {
+                    $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
+                }
+                continue;
             } else {
-                 $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
-                 break;
+                $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
+                break;
             }
         }
-        this.__highlite_ok_or_bad(this.cached['.mo_elem'].val());
-        this.__set_help_msg('', 'good');
+        this.__set_help_msg('', '');
     },
 
     __set_prev : function (e) {
@@ -1190,9 +1185,15 @@ $.widget('mre.menuoptions', {
              return false;
         } 
         this.__set_prev(e);
+        if (/click/.test(e.type)) {  
+            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
+        }
         if ( $('span#SP_' + this.options._ID).length > 0) {
             /* if wholeDropDown is visible and not a mouseover 'all' filtering operation, return */
             if ( ! /keydown|keyup/.test(e.type) && !/(all)/.test($(e.target).text())) { 
+                if ( /input/.test(e.type)) {
+                    this._check_mask(e);
+                }
                 return false;
             }
         }
@@ -1202,17 +1203,17 @@ $.widget('mre.menuoptions', {
         if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true) {
             return false;
         }
-        if ( this.options._mask_status.mask_only === true ) {
+        if ( this.options.Mask.length > 0 ) {
             if ( /keyup|input/.test(e.type)) {
-                this._check_mask(e);
+                this._check_mask(e, this.cached['.mo_elem'].val());
             }
             if ( /focus/.test(e.type)) {
-                /*--  if ( this.__match_complete() === false ) {  --*/
-                    this.__add_const (this.cached['.mo_elem'].val());
-                    this.__set_help_msg('', 'good');
-                /*--  }  --*/
+                this._add_const (this.cached['.mo_elem'].val());
+                this.__set_help_msg('', 'good');
             }
-            return false;
+            if ( this.options._mask_status.mask_only === true ) {
+                return false;
+            }
         }
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
@@ -1222,7 +1223,6 @@ $.widget('mre.menuoptions', {
         if (/keydown|mousedown|click/.test(e.type)) {  
             /*--  only focus and keyup create a dropdown (otherwise multiple calls to dropdown logic)  --*/
             $("span#HLP_"+this.options._ID).show();
-            /*--  this.options._currTD = [0, 1];  --*/
             return false;
         }
         return true;
@@ -1235,7 +1235,7 @@ $.widget('mre.menuoptions', {
         var curVal = this.cached['.mo_elem'].val();
         // if there is text in input, filter results accordingly
         if (curVal.length > 0 ) {
-            var matched = this.__match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
+            var matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
             if ( matched.length > 0) {
                 this._build_filtered_dropdown (e, matched );
             } 
@@ -1469,26 +1469,12 @@ $.widget('mre.menuoptions', {
         }
     },
 
-    __highlite_ok_or_bad : function ( StrToCheck ) {
-        if ( ! /Select/i.test(this.options.MenuOptionsType) ) {
-            return;
-        }
-        if ( this.options.DisableHiLiting === false ) { 
-            var exact_matches = this.__matches(this.cached['.mo_elem'].val(), 'exact');
-            if ( this.__match_complete() === true || exact_matches.length === 1) {  
-                $(this.element).removeClass('data_error').addClass('data_good'); 
-            } else {
-                $(this.element).removeClass('data_good').addClass('data_error'); 
-            }
-        }
-    },
-
     _day_test : function (val, maxval, cut, offset) {
         if (/\d/.test(val[offset]) && val[offset] <= maxval ) {
             return true;
         } 
         if ( cut === 'cut' ) {
-            this.__cut_last_char(val, '0 - '+maxval+' only');
+            this._cut_last_char(val, '0 - '+maxval+' only');
         }
         return false;
     },
@@ -1519,7 +1505,7 @@ $.widget('mre.menuoptions', {
                     return this._day_test(val, maxdays[0], 'cut', 6);
                 } else if ( val.length === 8 ) {
                     if ( mon_num === 2 && val.substring(6,8) > maxdays ) {
-                        this.__cut_last_char(val, 'not a leap year');
+                        this._cut_last_char(val, 'not a leap year');
                         return false;
                     } else {
                         return this._parse_days(val,7, maxdays);
@@ -1551,7 +1537,7 @@ $.widget('mre.menuoptions', {
         if ( new RegExp(str).test(value)){
             return true;
         }
-        this.__cut_last_char(val, err_msg);
+        this._cut_last_char(val, err_msg);
         return false;
     },
 

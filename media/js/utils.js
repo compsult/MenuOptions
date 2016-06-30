@@ -3,7 +3,7 @@
             return true;
         } 
         if ( cut === 'cut' ) {
-            this.__cut_last_char(val, '0 - '+maxval+' only');
+            this._cut_last_char(val, '0 - '+maxval+' only');
         }
         return false;
     },
@@ -34,7 +34,7 @@
                     return this._day_test(val, maxdays[0], 'cut', 6);
                 } else if ( val.length === 8 ) {
                     if ( mon_num === 2 && val.substring(6,8) > maxdays ) {
-                        this.__cut_last_char(val, 'not a leap year');
+                        this._cut_last_char(val, 'not a leap year');
                         return false;
                     } else {
                         return this._parse_days(val,7, maxdays);
@@ -66,7 +66,7 @@
         if ( new RegExp(str).test(value)){
             return true;
         }
-        this.__cut_last_char(val, err_msg);
+        this._cut_last_char(val, err_msg);
         return false;
     },
 

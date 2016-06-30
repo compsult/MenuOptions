@@ -80,9 +80,15 @@
              return false;
         } 
         this.__set_prev(e);
+        if (/click/.test(e.type)) {  
+            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
+        }
         if ( $('span#SP_' + this.options._ID).length > 0) {
             /* if wholeDropDown is visible and not a mouseover 'all' filtering operation, return */
             if ( ! /keydown|keyup/.test(e.type) && !/(all)/.test($(e.target).text())) { 
+                if ( /input/.test(e.type)) {
+                    this._check_mask(e);
+                }
                 return false;
             }
         }
@@ -92,17 +98,17 @@
         if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true) {
             return false;
         }
-        if ( this.options._mask_status.mask_only === true ) {
+        if ( this.options.Mask.length > 0 ) {
             if ( /keyup|input/.test(e.type)) {
-                this._check_mask(e);
+                this._check_mask(e, this.cached['.mo_elem'].val());
             }
             if ( /focus/.test(e.type)) {
-                /*--  if ( this.__match_complete() === false ) {  --*/
-                    this.__add_const (this.cached['.mo_elem'].val());
-                    this.__set_help_msg('', 'good');
-                /*--  }  --*/
+                this._add_const (this.cached['.mo_elem'].val());
+                this.__set_help_msg('', 'good');
             }
-            return false;
+            if ( this.options._mask_status.mask_only === true ) {
+                return false;
+            }
         }
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
@@ -112,7 +118,6 @@
         if (/keydown|mousedown|click/.test(e.type)) {  
             /*--  only focus and keyup create a dropdown (otherwise multiple calls to dropdown logic)  --*/
             $("span#HLP_"+this.options._ID).show();
-            /*--  this.options._currTD = [0, 1];  --*/
             return false;
         }
         return true;
@@ -125,7 +130,7 @@
         var curVal = this.cached['.mo_elem'].val();
         // if there is text in input, filter results accordingly
         if (curVal.length > 0 ) {
-            var matched = this.__match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
+            var matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
             if ( matched.length > 0) {
                 this._build_filtered_dropdown (e, matched );
             } 
