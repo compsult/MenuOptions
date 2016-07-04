@@ -9,7 +9,7 @@
                 if ( matched.length > 0 ) {
                     this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'), 
                                 'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': "TABKey" }); 
-                } else if ( this.__match_complete() === true ) {
+                } else if ( this._match_complete() === true ) {
                     this.__exec_trigger({ 'newCode': curVal, 'newVal' : curVal, 'type': "TABKey" }); 
                 }
             } 
@@ -50,16 +50,16 @@
         });
         // bind events to this.element
         this._on({
-            'touchend':  '_buildWholeDropDown',
-            'mousedown':  '_buildWholeDropDown',
-            'click':  '_buildWholeDropDown',
-            'mouseenter':  '_buildWholeDropDown',
-            'focus':  '_buildWholeDropDown',
-            'keypress': '_buildWholeDropDown',
-            'keydown': '_buildWholeDropDown',
-            'input': '_buildWholeDropDown',
-            'keyup': '_buildWholeDropDown',
-            'search':  '_buildWholeDropDown',
+            'touchend':  '_build_whole_dropdown',
+            'mousedown':  '_build_whole_dropdown',
+            'click':  '_build_whole_dropdown',
+            'mouseenter':  '_build_whole_dropdown',
+            'focus':  '_build_whole_dropdown',
+            'keypress': '_build_whole_dropdown',
+            'keydown': '_build_whole_dropdown',
+            'input': '_build_whole_dropdown',
+            'keyup': '_build_whole_dropdown',
+            'search':  '_build_whole_dropdown',
             'mouseleave':  '_removeDropDown', 
             'blur': '_removeDropDown',
         });

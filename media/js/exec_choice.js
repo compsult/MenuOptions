@@ -47,12 +47,10 @@
         if ( /Select/i.test(this.options.MenuOptionsType) ) {
             this.__exec_trigger({ 'newCode': $(e.target).closest('td').attr('menu_opt_key'),
                               'newVal' : $(e.target).closest('td').text(), 'type': "Click" });
-            e.target.className = e.target.className.replace(/ mo/, '');
-        } else {
+        } else if ( /Navigate/i.test(this.options.MenuOptionsType)) {
             this._run_menu_item(e);
         }
-        /*--  remove mouseover class in the cached elements  --*/
-        $(this.cached['.dropdowncells']).removeClass('mo');
         // once user clicks their choice, remove dropdown span from DOM
         $('span#SP_' + this.options._ID).remove();
+        this.cached['.mo_elem'].focus();
     },

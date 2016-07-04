@@ -113,6 +113,26 @@ class testSL(SeleniumUtils, SetupByLocation):
                               'rslt': '09:00 AM',
                               'klass': 'data_good' })
 
+    def test11_chk_initial_data_validation(self):
+        """
+           check that MenuOptions validates initialization data (InitialValue)
+        """
+        self.url='http://'+self.IP+'/examples/QuickStartSelect_test.html?bad_data'
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
+        self.check_content({ 'xpath': '//*[@id="selecttest"]',
+                             'inputtext': 'June'})
+
+    def test12_check_bad_paste_autocompl_only(self):
+        """
+           verify that autocomplete truncates or deletes bad pasted data
+        """
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
+        self.check_regexp_validation({ 'xpath': '//*[@id="selecttest"]',
+                              'clearbtn': '//*[@id="CB_menuoptions0"]',
+                              'fill_str': 'menuoptionsonselect',
+                              'klass': 'data_error',
+                              'rslt': 'm' })
+
     def tearDown(self):
         super(testSL,self).tearDown()
         self.driver.quit()

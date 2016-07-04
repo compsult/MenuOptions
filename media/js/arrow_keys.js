@@ -79,5 +79,5 @@
                 break;
             }
         }
-        this.__set_help_msg('', '');
+        this.__set_help_msg('', 'good');
     },

@@ -22,23 +22,24 @@ class test_rocker(SeleniumUtils, SetupByLocation):
         self.click_menu_item({ 'menu': 'cfg',
                           'xpath': '//td[text()="Use rocker control for binary choices"]',
                           'sleep': 1 })
+        self.driver.execute_script("$('input#pizzatype,input#delivery').menuoptions({'MenuOptionsType':'Rocker', 'Sort': []})")
         self.check_rocker({ 'xpath': '//*[@id="RK_LT_menuoptions1"]',
                             'xpath_txt': '//*[@id="RK_LT_menuoptions1"]/span',
-                             'classnm': 'ltdown' })
+                            'classnm': 'ltdown' })
         self.check_rocker({ 'xpath': '//*[@id="RK_RT_menuoptions1"]',
                             'xpath_txt': '//*[@id="RK_RT_menuoptions1"]/span',
-                             'classnm': 'rtup' })
+                            'classnm': 'rtup' })
         self.check_rocker({ 'xpath': '//*[@id="RK_LT_menuoptions6"]',
                             'xpath_txt': '//*[@id="RK_LT_menuoptions6"]/span',
-                             'classnm': 'ltup' })
+                            'classnm': 'ltup' })
         self.check_rocker({ 'xpath': '//*[@id="RK_RT_menuoptions6"]',
                             'xpath_txt': '//*[@id="RK_RT_menuoptions6"]/span',
-                             'classnm': 'rtdown' })
+                            'classnm': 'rtdown' })
         self.check_serialize({ 'xpath': '//*[@id="menutest"]',
                           'js_result': 'fake_alert',
                           'sleep': 2,
                           'expected': 'pizzatype=1&toppings=2&crust=3&cheese=3&cooked=2&delivery=2&drivertip=6' })
-        self.reset_rocker({ 'id':'pizzatype' })
+        self.driver.execute_script("$('input#pizzatype,input#delivery').menuoptions('set_select_value', {'val':''})")
         self.check_rocker({ 'xpath': '//*[@id="RK_LT_menuoptions1"]',
                             'xpath_txt': '//*[@id="RK_LT_menuoptions1"]/span',
                             'classnm': 'ltup' })

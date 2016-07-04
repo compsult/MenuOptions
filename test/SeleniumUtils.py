@@ -123,10 +123,13 @@ class SeleniumUtils(object):
 
     def check_help_msg (self, params ):
         #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
+        elem =  self.driver.find_element_by_xpath(params['xpath'])
         if 'selector' in params:
+            #--- if re.search(r'chrome|safari', self.TST_BROWSER, re.I): ---#
             self.driver.execute_script("$('"+params['selector']+"').val('"+params['keys']+"');")
             self.driver.execute_script("$('"+params['selector']+"').trigger('input')")
-        elem =  self.driver.find_element_by_xpath(params['xpath'])
+            #--- else: ---#
+                #--- elem.send_keys(params['keys']) ---#
         if 'click' in params:
             elem.click()
         if self.SLEEP: time.sleep(1)
@@ -210,6 +213,7 @@ class SeleniumUtils(object):
             assert True
 
     def check_content (self, params ):
+        #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
         elem=self.driver.find_element_by_xpath(params['xpath'])
         input_text=elem.get_attribute('value')
         print ' '.join(["Expected text in xpath:",params['xpath'],"=",input_text,
@@ -305,7 +309,8 @@ class SeleniumUtils(object):
 
     def hover_over (self, params ):
         #--- if self.driver.desired_capabilities['browserName'] in ['safari', 'internet explorer']: ---#
-        print "Javascript Hovering over = " + params['menu']
+        #--- if not re.search(r'internet explorer', self.TST_BROWSER, re.I): ---#
+            #--- print "Javascript Hovering over = " + params['menu'] ---#
         self.js_hover_over (params )
         #--- else: ---#
             #--- print "Std Hovering over = " + params['menu'] ---#

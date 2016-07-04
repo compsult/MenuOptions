@@ -1,10 +1,15 @@
     _check_mask : function (e) {
-        if ( this.cached['.mo_elem'].val().length === this.options._mask.MaxLen ) {
-            if ( this._match_complete() === true ) {
-                return;
-            } 
+        var val = this.cached['.mo_elem'].val();
+        if ( val.length === this.options._mask.MaxLen ) {
+            this._match_complete();
+            return;
         }
-        this._is_last_mask_char_valid(e, this.cached['.mo_elem'].val());
+        if (/input/.test(e.type)) {
+            var $this=this;
+            /*--  setTimeout( function() {  --*/
+                $this._is_last_mask_char_valid(e, val);
+            /*--  }, 80 );  --*/
+        }
     },
 
     _match_complete : function () {
@@ -14,13 +19,19 @@
         }
         var val = this.cached['.mo_elem'].val();
         if ( val.length === this.options._mask.MaxLen ) {
-            if ( $.isFunction(this.options._mask.Whole) && this.options._mask.Whole(val, this) === true ) {
-                this.__set_help_msg('', 'completed');
-                return true;
-            } else if (new RegExp(this.options._mask.Whole).test(val) === true ) {
-                this.__set_help_msg('', 'completed');
-                return true;
+            if ( $.isFunction(this.options._mask.Whole)) {
+                 var result = this.options._mask.Whole(val, this);
+                 if ( result[0] === false ) {
+                    this._valid_test(this.cached['.mo_elem'].val());
+                 } else {
+                    this.__set_help_msg('', 'completed');
+                 }
+                 return result[0];
+            } else if ( new RegExp(this.options._mask.Whole).test(val) === true ) {
+                 this.__set_help_msg('', 'completed');
+                 return true;
             } else {
+                this.options._mask_status.mask_passed = false;
                 return false;
             }
         }
@@ -29,7 +40,7 @@
     _build_match_ary : function (event, StrToCheck) {
         var matched = this._match_list_hilited({'StrToCheck': StrToCheck, 'chk_key': false, 'case_ins': true, evt: event});
         if ( /Select/.test(this.options.MenuOptionsType) && matched.length === 0 && this.options._CurrentFilter === '') {
-            if ( this._is_last_mask_char_valid(event, StrToCheck) === true ) { 
+            if ( this.options.Mask.length > 0 && this._is_last_mask_char_valid(event, StrToCheck) === true ) { 
                 this._match_complete();
             } else {
                 return this._match_list_hilited({'StrToCheck': this.cached['.mo_elem'].val(), 'chk_key': false, 'case_ins': true, evt: event});
@@ -61,7 +72,7 @@
                 return [];
         }
         if ( /Select/.test(this.options.MenuOptionsType) && this.options._CurrentFilter === '' &&
-             this.options.Mask.length > 0 && params.evt.type.length > 0 && /keyup/.test(params.evt.type)) {
+             this.options.Mask.length > 0 && params.evt.hasOwnProperty('type') && /keyup/.test(params.evt.type)) {
              if ( this._is_last_mask_char_valid(params.evt, params.StrToCheck) === true ) { 
                  this._add_const (this.cached['.mo_elem'].val());
              } else {
@@ -99,10 +110,7 @@
 
     __check_match_results : function (matching, StrToCheck, e) {
         if ( matching.length === 0 ) { 
-            /*--  if no match and no mask then  cut last char  --*/
-            if ( this.options.Mask.length === 0 ) {
-                this._cut_last_char(StrToCheck, 'invalid key',e); 
-            }
+            this._check_whole_input(StrToCheck);
         } else {
             if ( StrToCheck === matching[0].val.replace(/<span[\w\W]*?>|<\/span>/g,'') ) {
                 this.__set_help_msg('', 'completed');
@@ -121,6 +129,7 @@
                         .html('<span style="margin-left:16px">'+help_msg+"</span>")
                         .removeClass('helptext mask_match').addClass('err_text');
                 this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+                this.options._mask_status.mask_passed = false;
                 break;
             case 'completed': 
                 if ( $("span#HLP_"+this.options._ID).hasOwnProperty('background-image') && 
@@ -133,6 +142,7 @@
                 var val = this.cached['.mo_elem'].val();
                 this.options._mask_status.mask_passed = true;
                 this.__exec_trigger({ 'newCode': val, 'newVal' : val, 'type': "Completed" }); 
+                this.options._mask_status.mask_passed = true;
                 break;
             case 'good':
                 help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
@@ -148,50 +158,78 @@
     },
 
     _matches : function(StrToCheck, exact) {
+        var re = /(\{|\}|\\|\*|\(|\))|\[|\]/g;
+        StrToCheck=StrToCheck.replace(re, '\\$&');
         return $.map(this.orig_objs, function (o) { 
             if (exact === 'exact' && StrToCheck === o.val.replace(/<img[\w\W]*?>/, '')) { return o; }
             else if (exact === 'partial' && new RegExp(StrToCheck).test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
         });
     },
 
-    _cut_last_char : function (StrToCheck, err_msg,e) {
-        this.cached['.mo_elem'].val(StrToCheck.slice(0, -1));  
-        this.__set_help_msg(err_msg, 'error'); 
+    _check_whole_input : function (StrToCheck) {
+        var str_len = this.cached['.mo_elem'].val().length;
+        for (var x = str_len; str_len > 0; str_len--) {
+            if ( this.options.Data !== ""  && this._matches(this.cached['.mo_elem'].val(), 'partial').length === 0 ||
+                 this.options.Mask.length > 0 ) {
+                    if ( this.options.Mask.length > 0 ) {
+                        this._single_char_valid_mask(this.cached['.mo_elem'].val(), str_len);
+                    } else {
+                        this._cut_last_char('invalid char', this.cached['.mo_elem'].val().length);
+                    }
+            }
+        }
+        /*--  str_len = this.cached['.mo_elem'].val().length;  --*/
+        if ( StrToCheck.length === this.cached['.mo_elem'].val().length ) {
+            this.__set_help_msg('', 'good');
+        }
+        /*--  if ( this.options.Mask.length > 0 && str_len > 0 && str_len < this.options._mask.MaxLen ) {  --*/
+           /*--  this.cached['.mo_elem'].removeClass('data_good').addClass('data_error');   --*/
+        /*--  } else if ( ) {  --*/
+        /*--  }  --*/
     },
 
-    _run_valid_mask_test : function (e, StrToCheck, str_len) {
-        if ( this.options._mask.hasOwnProperty('consts') && 
-             this.options._mask.consts[str_len] ) {
+    _cut_last_char : function (err_msg, str_len) {
+        this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
+        this.options._mask_status.mask_passed = false;
+        this.__set_help_msg(err_msg, 'error');
+    },
+
+    _single_char_valid_mask : function ( StrToCheck, str_len) {
+        if ( this.options._mask.hasOwnProperty('consts') && this.options._mask.consts[str_len] ) {
             if ( this.cached['.mo_elem'].val().substring(str_len-1,str_len) !== this.options._mask.consts[str_len]) {
                 this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
             } 
         } else if ( this.options._mask.hasOwnProperty('valid') &&
                 this.options._mask.valid.hasOwnProperty(str_len)) {
             if ( $.isFunction(this.options._mask.valid[str_len])){
-                this.options._mask.valid[str_len](this.cached['.mo_elem'].val(),this);
+               var val_passed = this.options._mask.valid[str_len](this.cached['.mo_elem'].val(),this);
+               this.options._mask_status.mask_passed = this.options._mask_status.mask_passed === false ? false : val_passed[0];
+               if ( val_passed[0] === false ) {
+                    this._cut_last_char(val_passed[1], str_len);
+                    return false;
+               }
             } else if (this.options._mask.valid[str_len].hasOwnProperty('max_val')) {
                 var max_val = this.options._mask.valid[str_len].max_val;
                 if ( ! new RegExp('[0-'+max_val+']').test(this.cached['.mo_elem'].val()[str_len-1])) {
-                    this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
-                    this.__set_help_msg('0 - '+max_val+' only', 'error');
-                }  
+                    this._cut_last_char('0 - '+max_val+' only', str_len);
+                    return false;
+                }
             }
         }
+        return true;
     },
 
-    _valid_test : function (e, StrToCheck) {
-        var str_len = StrToCheck.length;
+    _valid_test : function (StrToCheck) {
         if ( StrToCheck.length > this.options._mask.MaxLen ) {
             this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.MaxLen));
         }
-        for (var x = str_len; str_len > 0; str_len--) {
-            this._run_valid_mask_test(e, StrToCheck, str_len);
-            if ( this.cached['.mo_elem'].val().length === 0 ) {
-                return true;
-            }
-        }
+        this._check_whole_input(this.cached['.mo_elem'].val());
         this._add_const (this.cached['.mo_elem'].val());
-        this.__set_help_msg('', '');
+        if ( $("span#HLP_"+this.options._ID).hasOwnProperty('background-image') === false &&
+             ! /greencheck.png/.test($("span#HLP_"+this.options._ID).css('background-image')) &&
+             this.options._mask_status.mask_passed === true ) {
+            this.__set_help_msg('', 'good');
+        }
         return true; 
     },
 
@@ -207,11 +245,10 @@
                     return true;
                }
         }
-        if ( this.options._mask.hasOwnProperty('valid') &&
-             this.options._mask.valid.hasOwnProperty(StrToCheck.length) ||
-             this.options._mask.hasOwnProperty('consts') &&
-             this.options._mask.consts.hasOwnProperty(StrToCheck.length)) {
-            return this._valid_test(e, StrToCheck);
+        if ( this.options.Mask.length > 0 ) {
+            this._valid_test(StrToCheck);
+        } else {
+            this._check_whole_input(this.cached['.mo_elem'].val());
         }
     },
 
@@ -225,6 +262,6 @@
             // re-create drop down select
             this._build_filtered_dropdown(event, matching);
         } else {
-            this._buildWholeDropDown(event);
+            this._build_whole_dropdown(event);
         }
     },

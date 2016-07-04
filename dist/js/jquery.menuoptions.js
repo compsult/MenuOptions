@@ -163,13 +163,13 @@ $.widget('mre.menuoptions', {
                 'Help': 'HH:MM AM',     
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'H:M'}); } },
                 'valid' : { 1: { max_val: 1}, 
-                            2: function( val,obj ) { return /1/.test(val[0]) ? obj._day_test(val,2,'cut',1) : obj._day_test(val,9,'cut',1); },
+                            2: function( val,obj ) { return /1/.test(val[0]) ? obj._day_test(val,2,1) : obj._day_test(val,9,1); },
                             4: { max_val : 5}, 5: { max_val : 9}, 
                             7: function( val,obj ) {return obj._is_char_valid(val,'AP','A or P only', 'one_char', 6);},
                             8: function( val,obj ) {return obj._is_char_valid(val,'M','M only', 'one_char', 7); }
                             },
                 'consts' : { 3: ':', 6: ' ', 8:'M'},
-                'Whole' : function( val, obj ) { return /^[01][0-9]:[0-5][0-9] [AP]M$/.test(val); }
+                'Whole' : function( val, obj ) { if (/^[01][0-9]:[0-5][0-9] [AP]M$/.test(val)) {return [true,''];} else {return [false,'invalid time'];} }
             },
             'Mon DD, YYYY' : { 
                 'MaxLen' : 12,
@@ -197,7 +197,7 @@ $.widget('mre.menuoptions', {
                             3: { max_val: 9 },
                             4: { max_val: 9 },
                             5: { max_val: 1 },
-                            6: function( val,obj ) { return /1/.test(val[4]) ? obj._day_test(val,2,'cut',5) : obj._day_test(val,9,'cut',5); },
+                            6: function( val,obj ) { return /1/.test(val[4]) ? obj._day_test(val,2,5) : obj._day_test(val,9,5); },
                             7: function( val, obj ) { return obj._get_days(val,'YMD'); },
                             8: function( val, obj ) { return obj._get_days(val,'YMD'); } }, 
                 'Whole' : function( val, obj ) { return obj._get_days(val,'YMD'); }
@@ -440,23 +440,26 @@ $.widget('mre.menuoptions', {
         if ( /Select/i.test(this.options.MenuOptionsType) ) {
             this.__exec_trigger({ 'newCode': $(e.target).closest('td').attr('menu_opt_key'),
                               'newVal' : $(e.target).closest('td').text(), 'type': "Click" });
-            e.target.className = e.target.className.replace(/ mo/, '');
-        } else {
+        } else if ( /Navigate/i.test(this.options.MenuOptionsType)) {
             this._run_menu_item(e);
         }
-        /*--  remove mouseover class in the cached elements  --*/
-        $(this.cached['.dropdowncells']).removeClass('mo');
         // once user clicks their choice, remove dropdown span from DOM
         $('span#SP_' + this.options._ID).remove();
+        this.cached['.mo_elem'].focus();
     },
 
     _check_mask : function (e) {
-        if ( this.cached['.mo_elem'].val().length === this.options._mask.MaxLen ) {
-            if ( this._match_complete() === true ) {
-                return;
-            } 
+        var val = this.cached['.mo_elem'].val();
+        if ( val.length === this.options._mask.MaxLen ) {
+            this._match_complete();
+            return;
         }
-        this._is_last_mask_char_valid(e, this.cached['.mo_elem'].val());
+        if (/input/.test(e.type)) {
+            var $this=this;
+            /*--  setTimeout( function() {  --*/
+                $this._is_last_mask_char_valid(e, val);
+            /*--  }, 80 );  --*/
+        }
     },
 
     _match_complete : function () {
@@ -466,13 +469,19 @@ $.widget('mre.menuoptions', {
         }
         var val = this.cached['.mo_elem'].val();
         if ( val.length === this.options._mask.MaxLen ) {
-            if ( $.isFunction(this.options._mask.Whole) && this.options._mask.Whole(val, this) === true ) {
-                this.__set_help_msg('', 'completed');
-                return true;
-            } else if (new RegExp(this.options._mask.Whole).test(val) === true ) {
-                this.__set_help_msg('', 'completed');
-                return true;
+            if ( $.isFunction(this.options._mask.Whole)) {
+                 var result = this.options._mask.Whole(val, this);
+                 if ( result[0] === false ) {
+                    this._valid_test(this.cached['.mo_elem'].val());
+                 } else {
+                    this.__set_help_msg('', 'completed');
+                 }
+                 return result[0];
+            } else if ( new RegExp(this.options._mask.Whole).test(val) === true ) {
+                 this.__set_help_msg('', 'completed');
+                 return true;
             } else {
+                this.options._mask_status.mask_passed = false;
                 return false;
             }
         }
@@ -481,7 +490,7 @@ $.widget('mre.menuoptions', {
     _build_match_ary : function (event, StrToCheck) {
         var matched = this._match_list_hilited({'StrToCheck': StrToCheck, 'chk_key': false, 'case_ins': true, evt: event});
         if ( /Select/.test(this.options.MenuOptionsType) && matched.length === 0 && this.options._CurrentFilter === '') {
-            if ( this._is_last_mask_char_valid(event, StrToCheck) === true ) { 
+            if ( this.options.Mask.length > 0 && this._is_last_mask_char_valid(event, StrToCheck) === true ) { 
                 this._match_complete();
             } else {
                 return this._match_list_hilited({'StrToCheck': this.cached['.mo_elem'].val(), 'chk_key': false, 'case_ins': true, evt: event});
@@ -513,7 +522,7 @@ $.widget('mre.menuoptions', {
                 return [];
         }
         if ( /Select/.test(this.options.MenuOptionsType) && this.options._CurrentFilter === '' &&
-             this.options.Mask.length > 0 && params.evt.type.length > 0 && /keyup/.test(params.evt.type)) {
+             this.options.Mask.length > 0 && params.evt.hasOwnProperty('type') && /keyup/.test(params.evt.type)) {
              if ( this._is_last_mask_char_valid(params.evt, params.StrToCheck) === true ) { 
                  this._add_const (this.cached['.mo_elem'].val());
              } else {
@@ -551,10 +560,7 @@ $.widget('mre.menuoptions', {
 
     __check_match_results : function (matching, StrToCheck, e) {
         if ( matching.length === 0 ) { 
-            /*--  if no match and no mask then  cut last char  --*/
-            if ( this.options.Mask.length === 0 ) {
-                this._cut_last_char(StrToCheck, 'invalid key',e); 
-            }
+            this._check_whole_input(StrToCheck);
         } else {
             if ( StrToCheck === matching[0].val.replace(/<span[\w\W]*?>|<\/span>/g,'') ) {
                 this.__set_help_msg('', 'completed');
@@ -573,6 +579,7 @@ $.widget('mre.menuoptions', {
                         .html('<span style="margin-left:16px">'+help_msg+"</span>")
                         .removeClass('helptext mask_match').addClass('err_text');
                 this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+                this.options._mask_status.mask_passed = false;
                 break;
             case 'completed': 
                 if ( $("span#HLP_"+this.options._ID).hasOwnProperty('background-image') && 
@@ -585,6 +592,7 @@ $.widget('mre.menuoptions', {
                 var val = this.cached['.mo_elem'].val();
                 this.options._mask_status.mask_passed = true;
                 this.__exec_trigger({ 'newCode': val, 'newVal' : val, 'type': "Completed" }); 
+                this.options._mask_status.mask_passed = true;
                 break;
             case 'good':
                 help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
@@ -600,50 +608,78 @@ $.widget('mre.menuoptions', {
     },
 
     _matches : function(StrToCheck, exact) {
+        var re = /(\{|\}|\\|\*|\(|\))|\[|\]/g;
+        StrToCheck=StrToCheck.replace(re, '\\$&');
         return $.map(this.orig_objs, function (o) { 
             if (exact === 'exact' && StrToCheck === o.val.replace(/<img[\w\W]*?>/, '')) { return o; }
             else if (exact === 'partial' && new RegExp(StrToCheck).test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
         });
     },
 
-    _cut_last_char : function (StrToCheck, err_msg,e) {
-        this.cached['.mo_elem'].val(StrToCheck.slice(0, -1));  
-        this.__set_help_msg(err_msg, 'error'); 
+    _check_whole_input : function (StrToCheck) {
+        var str_len = this.cached['.mo_elem'].val().length;
+        for (var x = str_len; str_len > 0; str_len--) {
+            if ( this.options.Data !== ""  && this._matches(this.cached['.mo_elem'].val(), 'partial').length === 0 ||
+                 this.options.Mask.length > 0 ) {
+                    if ( this.options.Mask.length > 0 ) {
+                        this._single_char_valid_mask(this.cached['.mo_elem'].val(), str_len);
+                    } else {
+                        this._cut_last_char('invalid char', this.cached['.mo_elem'].val().length);
+                    }
+            }
+        }
+        /*--  str_len = this.cached['.mo_elem'].val().length;  --*/
+        if ( StrToCheck.length === this.cached['.mo_elem'].val().length ) {
+            this.__set_help_msg('', 'good');
+        }
+        /*--  if ( this.options.Mask.length > 0 && str_len > 0 && str_len < this.options._mask.MaxLen ) {  --*/
+           /*--  this.cached['.mo_elem'].removeClass('data_good').addClass('data_error');   --*/
+        /*--  } else if ( ) {  --*/
+        /*--  }  --*/
     },
 
-    _run_valid_mask_test : function (e, StrToCheck, str_len) {
-        if ( this.options._mask.hasOwnProperty('consts') && 
-             this.options._mask.consts[str_len] ) {
+    _cut_last_char : function (err_msg, str_len) {
+        this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
+        this.options._mask_status.mask_passed = false;
+        this.__set_help_msg(err_msg, 'error');
+    },
+
+    _single_char_valid_mask : function ( StrToCheck, str_len) {
+        if ( this.options._mask.hasOwnProperty('consts') && this.options._mask.consts[str_len] ) {
             if ( this.cached['.mo_elem'].val().substring(str_len-1,str_len) !== this.options._mask.consts[str_len]) {
                 this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
             } 
         } else if ( this.options._mask.hasOwnProperty('valid') &&
                 this.options._mask.valid.hasOwnProperty(str_len)) {
             if ( $.isFunction(this.options._mask.valid[str_len])){
-                this.options._mask.valid[str_len](this.cached['.mo_elem'].val(),this);
+               var val_passed = this.options._mask.valid[str_len](this.cached['.mo_elem'].val(),this);
+               this.options._mask_status.mask_passed = this.options._mask_status.mask_passed === false ? false : val_passed[0];
+               if ( val_passed[0] === false ) {
+                    this._cut_last_char(val_passed[1], str_len);
+                    return false;
+               }
             } else if (this.options._mask.valid[str_len].hasOwnProperty('max_val')) {
                 var max_val = this.options._mask.valid[str_len].max_val;
                 if ( ! new RegExp('[0-'+max_val+']').test(this.cached['.mo_elem'].val()[str_len-1])) {
-                    this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
-                    this.__set_help_msg('0 - '+max_val+' only', 'error');
-                }  
+                    this._cut_last_char('0 - '+max_val+' only', str_len);
+                    return false;
+                }
             }
         }
+        return true;
     },
 
-    _valid_test : function (e, StrToCheck) {
-        var str_len = StrToCheck.length;
+    _valid_test : function (StrToCheck) {
         if ( StrToCheck.length > this.options._mask.MaxLen ) {
             this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.MaxLen));
         }
-        for (var x = str_len; str_len > 0; str_len--) {
-            this._run_valid_mask_test(e, StrToCheck, str_len);
-            if ( this.cached['.mo_elem'].val().length === 0 ) {
-                return true;
-            }
-        }
+        this._check_whole_input(this.cached['.mo_elem'].val());
         this._add_const (this.cached['.mo_elem'].val());
-        this.__set_help_msg('', '');
+        if ( $("span#HLP_"+this.options._ID).hasOwnProperty('background-image') === false &&
+             ! /greencheck.png/.test($("span#HLP_"+this.options._ID).css('background-image')) &&
+             this.options._mask_status.mask_passed === true ) {
+            this.__set_help_msg('', 'good');
+        }
         return true; 
     },
 
@@ -659,11 +695,10 @@ $.widget('mre.menuoptions', {
                     return true;
                }
         }
-        if ( this.options._mask.hasOwnProperty('valid') &&
-             this.options._mask.valid.hasOwnProperty(StrToCheck.length) ||
-             this.options._mask.hasOwnProperty('consts') &&
-             this.options._mask.consts.hasOwnProperty(StrToCheck.length)) {
-            return this._valid_test(e, StrToCheck);
+        if ( this.options.Mask.length > 0 ) {
+            this._valid_test(StrToCheck);
+        } else {
+            this._check_whole_input(this.cached['.mo_elem'].val());
         }
     },
 
@@ -677,7 +712,7 @@ $.widget('mre.menuoptions', {
             // re-create drop down select
             this._build_filtered_dropdown(event, matching);
         } else {
-            this._buildWholeDropDown(event);
+            this._build_whole_dropdown(event);
         }
     },
 
@@ -692,7 +727,7 @@ $.widget('mre.menuoptions', {
                 if ( matched.length > 0 ) {
                     this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'), 
                                 'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': "TABKey" }); 
-                } else if ( this.__match_complete() === true ) {
+                } else if ( this._match_complete() === true ) {
                     this.__exec_trigger({ 'newCode': curVal, 'newVal' : curVal, 'type': "TABKey" }); 
                 }
             } 
@@ -733,16 +768,16 @@ $.widget('mre.menuoptions', {
         });
         // bind events to this.element
         this._on({
-            'touchend':  '_buildWholeDropDown',
-            'mousedown':  '_buildWholeDropDown',
-            'click':  '_buildWholeDropDown',
-            'mouseenter':  '_buildWholeDropDown',
-            'focus':  '_buildWholeDropDown',
-            'keypress': '_buildWholeDropDown',
-            'keydown': '_buildWholeDropDown',
-            'input': '_buildWholeDropDown',
-            'keyup': '_buildWholeDropDown',
-            'search':  '_buildWholeDropDown',
+            'touchend':  '_build_whole_dropdown',
+            'mousedown':  '_build_whole_dropdown',
+            'click':  '_build_whole_dropdown',
+            'mouseenter':  '_build_whole_dropdown',
+            'focus':  '_build_whole_dropdown',
+            'keypress': '_build_whole_dropdown',
+            'keydown': '_build_whole_dropdown',
+            'input': '_build_whole_dropdown',
+            'keyup': '_build_whole_dropdown',
+            'search':  '_build_whole_dropdown',
             'mouseleave':  '_removeDropDown', 
             'blur': '_removeDropDown',
         });
@@ -842,7 +877,7 @@ $.widget('mre.menuoptions', {
                 break;
             }
         }
-        this.__set_help_msg('', '');
+        this.__set_help_msg('', 'good');
     },
 
     __set_prev : function (e) {
@@ -1185,15 +1220,12 @@ $.widget('mre.menuoptions', {
              return false;
         } 
         this.__set_prev(e);
-        if (/click/.test(e.type)) {  
-            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
+        if ( this.options.Mask.length > 0 && /focus/.test(e.type)) {
+            this.__set_help_msg('', 'good');
         }
-        if ( $('span#SP_' + this.options._ID).length > 0) {
+        if ( this.options.Data !== "" && $('span#SP_' + this.options._ID).length > 0) {
             /* if wholeDropDown is visible and not a mouseover 'all' filtering operation, return */
             if ( ! /keydown|keyup/.test(e.type) && !/(all)/.test($(e.target).text())) { 
-                if ( /input/.test(e.type)) {
-                    this._check_mask(e);
-                }
                 return false;
             }
         }
@@ -1203,7 +1235,7 @@ $.widget('mre.menuoptions', {
         if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true) {
             return false;
         }
-        if ( this.options.Mask.length > 0 ) {
+        if ( this.options.Data === "" && this.options.Mask.length > 0 ) {
             if ( /keyup|input/.test(e.type)) {
                 this._check_mask(e, this.cached['.mo_elem'].val());
             }
@@ -1225,10 +1257,16 @@ $.widget('mre.menuoptions', {
             $("span#HLP_"+this.options._ID).show();
             return false;
         }
+        if (/click/.test(e.type)) {  
+            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
+        }
+        if (this.options.Data === "" ) {
+            return false;
+        }
         return true;
     },
 
-    _buildWholeDropDown : function (e) {
+    _build_whole_dropdown : function (e) {
         if ( this._build_drop_down_test(e) === false ) {
             return;
         }
@@ -1245,7 +1283,6 @@ $.widget('mre.menuoptions', {
             this._build_dropdown(this.orig_objs);
             this._show_drop_down(e);
         }
-        this.__set_help_msg('', 'good');
     },
 
     _run_header_filter : function (e) {
@@ -1277,7 +1314,7 @@ $.widget('mre.menuoptions', {
                 this._process_matches(e,  SearchStr);
             } else {
                 // if filter is not in list, user passed over ALL
-                this._buildWholeDropDown(e);
+                this._build_whole_dropdown(e);
             }
         }
         this.options._CurrentFilter = '';
@@ -1362,8 +1399,7 @@ $.widget('mre.menuoptions', {
                 this.cached['.dropdownspan'].remove();
             }
         }
-        $("span#HLP_"+this.options._ID).hide();
-        /*--  this.options._currTD = [0, 1];  --*/
+        $("span#HLP_"+this.options._ID).hide(); 
     },
 
     _resetOffsetOfDropDown: function () {
@@ -1469,28 +1505,25 @@ $.widget('mre.menuoptions', {
         }
     },
 
-    _day_test : function (val, maxval, cut, offset) {
+    _day_test : function (val, maxval, offset) {
         if (/\d/.test(val[offset]) && val[offset] <= maxval ) {
             return true;
         } 
-        if ( cut === 'cut' ) {
-            this._cut_last_char(val, '0 - '+maxval+' only');
-        }
-        return false;
+        return [false, '0 - '+maxval+' only'];
     },
 
 
     _parse_days : function (val,dom_pos, maxdays) {
         if ( val.length === dom_pos ) {
-            return this._day_test(val, maxdays[0], 'cut', val.length-1);
+            return this._day_test(val, maxdays[0], val.length-1);
         } else if ( val.length === dom_pos+1 ) {
             if (val[dom_pos-1] === maxdays[0]) {
-                return this._day_test(val, maxdays[1], 'cut', val.length-1);
+                return this._day_test(val, maxdays[1], val.length-1);
             } else {
-                return this._day_test(val, 9, 'cut', val.length-1);
+                return this._day_test(val, 9, val.length-1);
             }
         } else if ( val.length === this.options._mask.MaxLen ) {
-            return  val.substring(dom_pos-1, dom_pos+1) <= maxdays;
+            return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'error'];
         }
     },
 
@@ -1502,11 +1535,10 @@ $.widget('mre.menuoptions', {
                 mon_num = parseInt(val.substring(4,6),10);
                 maxdays = new Date(val.substring(0,4),mon_num,0).getDate().toString();
                 if ( val.length === 7 ) {
-                    return this._day_test(val, maxdays[0], 'cut', 6);
+                    return this._day_test(val, maxdays[0], 6);
                 } else if ( val.length === 8 ) {
                     if ( mon_num === 2 && val.substring(6,8) > maxdays ) {
-                        this._cut_last_char(val, 'not a leap year');
-                        return false;
+                        return [false, 'not a leap year'];
                     } else {
                         return this._parse_days(val,7, maxdays);
                     }
@@ -1516,13 +1548,12 @@ $.widget('mre.menuoptions', {
                 mon_num = mon_ary.indexOf(val.substring(0,3))+1;
                 if ( mon_num === 0 ) {
                     this.cached['.mo_elem'].val('');
-                    return false;
+                    return [false, 'invalid month'];
                 }
                 maxdays = /^2$/.test(mon_num) ? '29' : (/^(1|3|5|7|8|10|12)$/.test(mon_num) ? '31' : '30');
                 if ( mon_num === 2 && val.length === 12) {
                     if ( val.substring(4,6) > new Date(val.substring(8,12),mon_num,0).getDate() ) {
-                        this.__set_help_msg('not a leap year', 'error');
-                        return false;
+                        return [false, 'not a leap year'];
                     }
                 } else {
                     return this._parse_days(val, 5, maxdays);
@@ -1535,10 +1566,9 @@ $.widget('mre.menuoptions', {
         var str = str_flag === 'string' ? '^('+regex+')$' : '['+regex+']',
             value = str_flag === 'string' ? val : val[offset];
         if ( new RegExp(str).test(value)){
-            return true;
+            return [true, ''];
         }
-        this._cut_last_char(val, err_msg);
-        return false;
+        return [false, err_msg];
     },
 
     _date_hotkeys : function (params) {

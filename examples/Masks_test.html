@@ -24,31 +24,31 @@
 $(document).ready(function() {
    /*--  START_JAVASCRIPT  --*/
     $('input#MdYtest').menuoptions({ 
-        "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
-        }, 
+        /*--  "onSelect": function(mo, data) {   --*/
+            /*--  console.log(mo, data.newVal, data.newCode, data.type );    --*/
+        /*--  },   --*/
         "ClearBtn": true,
         "Mask": "Mon DD, YYYY"
     });  
     $('input#YMDtest').menuoptions({ 
-        "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
-        }, 
+        /*--  "onSelect": function(mo, data) {   --*/
+            /*--  console.log(mo, data.newVal, data.newCode, data.type );    --*/
+        /*--  },   --*/
         "ClearBtn": true,
         "Mask": "YYYYMMDD"
     });  
     $('input#Phonetest').menuoptions({ 
-        "onSelect": function(mo, data) { 
-            console.log(mo, data);  
-        }, 
+        /*--  "onSelect": function(mo, data) {   --*/
+            /*--  console.log(mo, data);    --*/
+        /*--  },   --*/
         "ClearBtn": true,
         "Mask": "(999) 999-9999"
     });  
     $('input#Timetest').menuoptions({
         "ClearBtn": true,
-        "onSelect": function(e, data) { 
-            console.log(data);
-        }, 
+        /*--  "onSelect": function(e, data) {   --*/
+            /*--  console.log(data);  --*/
+        /*--  },   --*/
         "Mask" : 'HH:MM AM'
     });  
    /*--  END_JAVASCRIPT  --*/

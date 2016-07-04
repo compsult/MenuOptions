@@ -190,7 +190,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'help_txt': 'not a leap year',
                               'klass': 'data_error',
                               'keys': 'Feb 29, 2015',
-                              'rslt': 'Feb 29, 2015',
+                              'rslt': 'Feb 2',
                               'selector': 'input#MdYtest'
                            })
 

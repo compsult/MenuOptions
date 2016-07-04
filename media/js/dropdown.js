@@ -80,15 +80,12 @@
              return false;
         } 
         this.__set_prev(e);
-        if (/click/.test(e.type)) {  
-            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
+        if ( this.options.Mask.length > 0 && /focus/.test(e.type)) {
+            this.__set_help_msg('', 'good');
         }
-        if ( $('span#SP_' + this.options._ID).length > 0) {
+        if ( this.options.Data !== "" && $('span#SP_' + this.options._ID).length > 0) {
             /* if wholeDropDown is visible and not a mouseover 'all' filtering operation, return */
             if ( ! /keydown|keyup/.test(e.type) && !/(all)/.test($(e.target).text())) { 
-                if ( /input/.test(e.type)) {
-                    this._check_mask(e);
-                }
                 return false;
             }
         }
@@ -98,7 +95,7 @@
         if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true) {
             return false;
         }
-        if ( this.options.Mask.length > 0 ) {
+        if ( this.options.Data === "" && this.options.Mask.length > 0 ) {
             if ( /keyup|input/.test(e.type)) {
                 this._check_mask(e, this.cached['.mo_elem'].val());
             }
@@ -120,10 +117,16 @@
             $("span#HLP_"+this.options._ID).show();
             return false;
         }
+        if (/click/.test(e.type)) {  
+            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
+        }
+        if (this.options.Data === "" ) {
+            return false;
+        }
         return true;
     },
 
-    _buildWholeDropDown : function (e) {
+    _build_whole_dropdown : function (e) {
         if ( this._build_drop_down_test(e) === false ) {
             return;
         }
@@ -140,7 +143,6 @@
             this._build_dropdown(this.orig_objs);
             this._show_drop_down(e);
         }
-        this.__set_help_msg('', 'good');
     },
 
     _run_header_filter : function (e) {
@@ -172,7 +174,7 @@
                 this._process_matches(e,  SearchStr);
             } else {
                 // if filter is not in list, user passed over ALL
-                this._buildWholeDropDown(e);
+                this._build_whole_dropdown(e);
             }
         }
         this.options._CurrentFilter = '';
@@ -257,8 +259,7 @@
                 this.cached['.dropdownspan'].remove();
             }
         }
-        $("span#HLP_"+this.options._ID).hide();
-        /*--  this.options._currTD = [0, 1];  --*/
+        $("span#HLP_"+this.options._ID).hide(); 
     },
 
     _resetOffsetOfDropDown: function () {
