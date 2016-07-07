@@ -126,7 +126,7 @@ $.widget('mre.menuoptions', {
         if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType)) {
             id = 'CB_' + this.options._ID;
             if ( $('span#'+id).length === 0 ) {
-                ClrBtn = '<span class="clearbtn clearbtnpos" id=' + id + '>X</span>'; 
+                ClrBtn = '<span class="clearbtn" id=' + id + '>X</span>'; 
                 $(this.element).after(ClrBtn);
             }
             $("span#"+id).position({ of: $(this.element), my:'center center', at:'right-10' });  

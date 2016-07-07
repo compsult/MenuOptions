@@ -5,10 +5,7 @@
             return;
         }
         if (/input/.test(e.type)) {
-            var $this=this;
-            /*--  setTimeout( function() {  --*/
-                $this._is_last_mask_char_valid(e, val);
-            /*--  }, 80 );  --*/
+             this._is_last_mask_char_valid(e, val);
         }
     },
 
@@ -178,14 +175,9 @@
                     }
             }
         }
-        /*--  str_len = this.cached['.mo_elem'].val().length;  --*/
         if ( StrToCheck.length === this.cached['.mo_elem'].val().length ) {
             this.__set_help_msg('', 'good');
         }
-        /*--  if ( this.options.Mask.length > 0 && str_len > 0 && str_len < this.options._mask.MaxLen ) {  --*/
-           /*--  this.cached['.mo_elem'].removeClass('data_good').addClass('data_error');   --*/
-        /*--  } else if ( ) {  --*/
-        /*--  }  --*/
     },
 
     _cut_last_char : function (err_msg, str_len) {

@@ -180,3 +180,6 @@ button.jq_button:hover {
 	font-weight: normal;
 	color: #212121;
 }
+.form-control {
+    width:160px !important;
+}
