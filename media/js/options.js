@@ -17,6 +17,7 @@
         Height: '', // let user specify the exact height they want
         Help: '', // prompt to show expected input
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
+        Justify : 'left', // allows initial value ot be set
         InitialValue : {}, // allows initial value ot be set
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
         MenuOptionsType: 'Select', //or Navigate (run JS,follow href) or Rocker (for binary choices)

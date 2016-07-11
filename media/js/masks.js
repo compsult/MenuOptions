@@ -11,8 +11,28 @@
             },
             '(999) 999-9999' : { 
                 #import phone_mask.js
+            },
+            '$0,000.00' : { 
+                #import money_mask.js
             }
         };
+    },
+
+    _set_initial_mask_value : function () {
+        var val, ofs;
+        if ( this.cached['.mo_elem'].val().length === 0 ) {
+            if ( this.options._mask.hasOwnProperty('initial') ) {
+                if ( this.options._mask.initial.hasOwnProperty('val') ) {
+                    val = this.options._mask.initial.val;
+                    this.element.val(val);
+                }
+                if ( this.options._mask.initial.hasOwnProperty('ofs') ) {
+                    ofs = val.length - this.options._mask.initial.ofs;
+                    this.element.focus().get(0).setSelectionRange(ofs,ofs);
+                    this.element.blur();
+                }
+            }
+        }
     },
 
     _set_valid_mask : function () {

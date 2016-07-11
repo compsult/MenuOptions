@@ -17,13 +17,14 @@ Parameter list for select list
 
     `ClearBtn`_ ,boolean,"true or false",true,false
     `ColumnCount`_,integer,"positive integer",1,false
-    `Data <SelectParams.html#id3>`_ ,JSON object, (see Data section below), none, true
-    `DataKeyNames`_, object,(see DataKeyNames section below), none, false
+    `Data <SelectParams.html#id3>`_ ,JSON object, (see Data section), none, true
+    `DataKeyNames`_, object,(see DataKeyNames section), none, false
     `DisableHiLiting`_,boolean, "true or false", false, false
     `Filters`_, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     `Height`_,integer,positive integer, height of dropdown, false
     `InitialValue <SelectParams.html#initialvalues>`_,object,{'ky'|'val': <value>}, {}, false
-    `MenuOptionsType`_,string,'Select' or 'Navigate' or 'Rocker','Select',false
+    `Justify`_,string,'right'|'left'|'center',"left", false
+    `MenuOptionsType`_,string,'Select'|'Navigate'|'Rocker','Select',false
     `onSelect`_, function,function(),none,false
     `PlaceHolder`_,<deleted>,<as of v1.6.1>,--,--
     `SelectOnly`_,boolean,"true or false",false,false
@@ -194,6 +195,19 @@ These examples show using both forms of `InitialValue`
 Note: `InitialValue` can only be used at initialization time.
 
 To reset the value after that time, use `set_select_value <http://menuoptions.readthedocs.org/en/latest/UserMethods.html#call-menuoptions-with-no-parameters-replaces-set-select-value>`_
+
+.. _Justify:
+
+Justify
+~~~~~~~
+    options: **left|right|center**
+
+    This will justify the text in the input element
+
+.. code-block:: javascript
+
+    "Justify": 'right',
+            
 
 .. _MenuOptionsType :
 

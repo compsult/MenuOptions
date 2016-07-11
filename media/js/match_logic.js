@@ -53,29 +53,18 @@
             for (var x = str_len; str_len < this.options._mask.MaxLen; str_len++) {
                 if (this.options._mask.consts.hasOwnProperty(str_len+1)) {
                     this.cached['.mo_elem'].val(this.cached['.mo_elem'].val()+this.options._mask.consts[str_len+1]);
-                    if ( this._match_complete() === true ) {
-                        return true;
-                    }
+                    this._match_complete();
                 } else {
                     break;
                 }
             }
         }
-        return false;
     },
 
     _match_list_hilited : function (params) {
         if ( /Select|Rocker/.test(this.options.MenuOptionsType) && params.StrToCheck.length === 0 ) {
-                return [];
+            return [];
         }
-        if ( /Select/.test(this.options.MenuOptionsType) && this.options._CurrentFilter === '' &&
-             this.options.Mask.length > 0 && params.evt.hasOwnProperty('type') && /keyup/.test(params.evt.type)) {
-             if ( this._is_last_mask_char_valid(params.evt, params.StrToCheck) === true ) { 
-                 this._add_const (this.cached['.mo_elem'].val());
-             } else {
-                 return [];
-             }
-        } 
         var origImg = "",
             no_img='',
             newval = "",
@@ -129,8 +118,7 @@
                 this.options._mask_status.mask_passed = false;
                 break;
             case 'completed': 
-                if ( $("span#HLP_"+this.options._ID).hasOwnProperty('background-image') && 
-                     $("span#HLP_"+this.options._ID).css('background-image').match('greencheck.png') ) {
+                if ( $("span#HLP_"+this.options._ID).hasClass('mask_match')) {
                     $("span#HLP_"+this.options._ID).show();
                     return;
                 }
@@ -175,7 +163,7 @@
                     }
             }
         }
-        if ( StrToCheck.length === this.cached['.mo_elem'].val().length ) {
+        if ( StrToCheck.length === this.cached['.mo_elem'].val().length && this.options._mask_status.mask_passed) {
             this.__set_help_msg('', 'good');
         }
     },
@@ -191,17 +179,19 @@
             if ( this.cached['.mo_elem'].val().substring(str_len-1,str_len) !== this.options._mask.consts[str_len]) {
                 this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
             } 
-        } else if ( this.options._mask.hasOwnProperty('valid') &&
-                this.options._mask.valid.hasOwnProperty(str_len)) {
-            if ( $.isFunction(this.options._mask.valid[str_len])){
-               var val_passed = this.options._mask.valid[str_len](this.cached['.mo_elem'].val(),this);
+        } else if ( this.options._mask.hasOwnProperty('valid') && this.options._mask.valid.hasOwnProperty(str_len) || 
+                    this.options._mask.hasOwnProperty('valid') && this.options._mask.valid.hasOwnProperty('all')) {
+            var valid_tst = this.options._mask.valid.hasOwnProperty('all') ? this.options._mask.valid.all :
+                            this.options._mask.valid[str_len];
+            if ( $.isFunction(valid_tst)){
+               var val_passed = valid_tst(this.cached['.mo_elem'].val(),this);
                this.options._mask_status.mask_passed = this.options._mask_status.mask_passed === false ? false : val_passed[0];
                if ( val_passed[0] === false ) {
                     this._cut_last_char(val_passed[1], str_len);
                     return false;
                }
-            } else if (this.options._mask.valid[str_len].hasOwnProperty('max_val')) {
-                var max_val = this.options._mask.valid[str_len].max_val;
+            } else if (valid_tst.hasOwnProperty('max_val')) {
+                var max_val = valid_tst.max_val;
                 if ( ! new RegExp('[0-'+max_val+']').test(this.cached['.mo_elem'].val()[str_len-1])) {
                     this._cut_last_char('0 - '+max_val+' only', str_len);
                     return false;
@@ -217,10 +207,13 @@
         }
         this._check_whole_input(this.cached['.mo_elem'].val());
         this._add_const (this.cached['.mo_elem'].val());
-        if ( $("span#HLP_"+this.options._ID).hasOwnProperty('background-image') === false &&
-             ! /greencheck.png/.test($("span#HLP_"+this.options._ID).css('background-image')) &&
-             this.options._mask_status.mask_passed === true ) {
+        if ( $("span#HLP_"+this.options._ID).hasClass('mask_match')) {
             this.__set_help_msg('', 'good');
+        }
+        if (this.options._mask.hasOwnProperty('MaxLen') && 
+            this.cached['.mo_elem'].val().length > 0 && 
+            this.cached['.mo_elem'].val().length < this.options._mask.MaxLen ) {
+                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
         return true; 
     },
@@ -256,4 +249,11 @@
         } else {
             this._build_whole_dropdown(event);
         }
+    },
+
+    _check_money : function ( params ) {
+        var cur_val = this.cached['.mo_elem'].val(),
+            ofs = cur_val.length - this.options._mask.initial.ofs;
+        this.element.focus().get(0).setSelectionRange(ofs,ofs);
+        return [true, '0 - 9 only'];
     },

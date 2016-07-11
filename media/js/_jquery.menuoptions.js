@@ -27,12 +27,8 @@ $.widget('mre.menuoptions', {
   // the constructor
     _create: function () {
 
-        if (this.options.Data.toString() === '' ) {
-            if ( this.options.Mask === '') {
-                return this._validation_fail('MenuOptions requires the Data parameter to be populated','fatal');
-            } else {
-                this.options._mask_status.mask_only = true;
-            }
+        if ( /invalid/i.test(this._test_mask_cfg()) ) {
+            return this._validation_fail('MenuOptions requires the Data parameter to be populated','fatal');
         }
 
         if (this.options.ColumnCount < 1) {
@@ -64,6 +60,19 @@ $.widget('mre.menuoptions', {
         $(this.element).addClass('ui-menuoptions');
     },
 
+    _test_mask_cfg : function () {
+        if (this.options.Data.toString() === '' && this.options.Mask === '') {
+                return 'invalid';
+        } else if ( this.options.Data.toString() === '' && this.options.Mask.length > 0 ) {
+            this.options._mask_status.mask_only = true;
+            return 'mask';
+        } else if ( this.options.Data.toString() !== '' && this.options.Mask.length > 0 ) {
+            return 'mask_and_autocomplete';
+        } else if ( this.options.Data.toString() !== '' && this.options.Mask.length === 0 ) {
+            return 'autocomplete';
+        }
+    },
+
     _add_clear_btn : function () {
         var ClrBtn = '', id = '';
         if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType)) {
@@ -75,6 +84,7 @@ $.widget('mre.menuoptions', {
             $("span#"+id).position({ of: $(this.element), my:'center center', at:'right-10' });  
         }
         this._show_help();   
+        this.cached['.clearBtn']=$('span#CB_' + this._event_ns);
     },
 
     _show_help : function () { // show mask and help prompts here
@@ -191,8 +201,8 @@ $.widget('mre.menuoptions', {
             setTimeout( function() {
                 $($this.element).focus(); //chrome needs delay
             }, 80 );
-            $(this.element).removeClass('data_error data_good');
-            this.__set_help_msg('', 'good');
+            this._set_initial_mask_value();
+            this.cached['.mo_elem'].removeClass('data_good data_error');
         }
     },
 
@@ -231,35 +241,51 @@ $.widget('mre.menuoptions', {
     _cache_elems : function () {
         this.cached['.dropdownspan']=this.dropdownbox;
         this.cached['.dropdowncells']=this.dropdownbox.find('td');
-        this.cached['.clearBtn']=$('span#CB_' + this._event_ns);
         this.cached['.mo_elem']=this.element;
     },
 
-    _recreate_mo : function() {
-        var orig_val = $(this.element).val();
-        this._build_array_of_objs();
-        if (/Rocker/i.test(this.options.MenuOptionsType) ) {
-            this._rocker_main({ 'val' : orig_val });
-        } else {
-            if ($('div.rocker[id=RK_' + this._event_ns + ']').length) {
-                $('div.rocker[id=RK_' + this._event_ns + ']').remove();
-                $(this.element).show();
-                $(this.element).next('span.clearbtn').show();
-            }
-            if ( /Select/.test(this.options.MenuOptionsType) ) {
-                this._set_valid_mask ();  
-                $(this.element).attr('autocomplete', 'off');
-                this._add_clear_btn(); 
-            } else if ( /Navigate/.test(this.options.MenuOptionsType)) {
-                this._show_menu_arrs();
-            }
-            this._build_dropdown(this.orig_objs);
+    _justify : function() {
+        $(this.element).css({ 'text-align': this.options.Justify });
+        if ( /right/i.test(this.options.Justify) ) {
+            var new_rt_pad = parseInt($(this.element).css('padding-right')) + 12;
+            new_rt_pad = new_rt_pad + "px";
+            $(this.element).css({ 'padding-right': new_rt_pad });
         }
+    },
+    _recreate_mo : function() {
+        var orig_val = $(this.element).val(),
+            mo_type = this._test_mask_cfg();
+        this._justify();
+        if (/^mask_and|^autocomplete$/i.test(mo_type)) {
+                this._build_array_of_objs();
+        }
+        if (/^mask/i.test(mo_type)) {
+            this._set_valid_mask ();  
+            this._add_clear_btn(); 
+        } else { 
+            if (/Rocker/i.test(this.options.MenuOptionsType) ) {
+                this._rocker_main({ 'val' : orig_val });
+            } else {
+                if ($('div.rocker[id=RK_' + this._event_ns + ']').length) {
+                    $('div.rocker[id=RK_' + this._event_ns + ']').remove();
+                    $(this.element).show();
+                    $(this.element).next('span.clearbtn').show();
+                }
+                if ( /Select/.test(this.options.MenuOptionsType) ) {
+                    $(this.element).attr('autocomplete', 'off');
+                    this._add_clear_btn(); 
+                } else if ( /Navigate/.test(this.options.MenuOptionsType)) {
+                    this._show_menu_arrs();
+                }
+                this._build_dropdown(this.orig_objs);
+            }
+         }
     },
 
     _setOptions : function ( options ) {
-        this.cached={'.mo_elem':this.element};
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
+        this._event_ns = this.eventNamespace.replace(/^\./, '');
+        this.cached={'.mo_elem':this.element}; 
         var $dd_span = this;
         if (/Select|Rocker/.test(this.options.MenuOptionsType) ) { 
             this.add_menuoption_key();

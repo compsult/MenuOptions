@@ -61,6 +61,7 @@
     },
 
     _build_filtered_dropdown : function (event, matching) {
+        /*--  console.log("filtered cnt = "+matching.length);  --*/
         this._build_dropdown( matching );
         this._show_drop_down(event);
     },
@@ -68,34 +69,13 @@
     _build_dropdown: function (ary_of_objs) {
         this.options._currTD = [0, 1];
         var tablehtml = this._create_table(ary_of_objs);
-        this._event_ns = this.eventNamespace.replace(/^\./, '');
         this.dropdownbox = $(tablehtml);
         this._cache_elems();
         this._calcDropBoxCoordinates();
     },
 
-    _build_drop_down_test : function (e) {
-        if (e.type === this.options._prev.event && $(e.currentTarget).text() === this.options._prev.text) { 
-             this.__set_prev(e);
-             return false;
-        } 
-        this.__set_prev(e);
-        if ( this.options.Mask.length > 0 && /focus/.test(e.type)) {
-            this.__set_help_msg('', 'good');
-        }
-        if ( this.options.Data !== "" && $('span#SP_' + this.options._ID).length > 0) {
-            /* if wholeDropDown is visible and not a mouseover 'all' filtering operation, return */
-            if ( ! /keydown|keyup/.test(e.type) && !/(all)/.test($(e.target).text())) { 
-                return false;
-            }
-        }
-        if (e.type === 'search') { // clear menu_opt_key when input is cleared
-            this.cached['.mo_elem'].attr('menu_opt_key', '');
-        }
-        if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true) {
-            return false;
-        }
-        if ( this.options.Data === "" && this.options.Mask.length > 0 ) {
+    _mask_only : function (e) {
+        if ( this.options.Mask.length > 0 ) {
             if ( /keyup|input/.test(e.type)) {
                 this._check_mask(e, this.cached['.mo_elem'].val());
             }
@@ -103,9 +83,23 @@
                 this._add_const (this.cached['.mo_elem'].val());
                 this.__set_help_msg('', 'good');
             }
-            if ( this.options._mask_status.mask_only === true ) {
-                return false;
-            }
+        }
+    },
+    _build_drop_down_test : function (e) {
+        if (e.type === this.options._prev.event && $(e.currentTarget).text() === this.options._prev.text) { 
+             this.__set_prev(e);
+             return false;
+        } 
+        this.__set_prev(e);
+        if (/click/.test(e.type)) {  
+            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
+        }
+        this._mask_only(e);
+        if (e.type === 'search') { // clear menu_opt_key when input is cleared
+            this.cached['.mo_elem'].attr('menu_opt_key', '');
+        }
+        if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true && e.keyCode !== $.ui.keyCode.BACKSPACE) {
+            return false;
         }
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
@@ -116,9 +110,6 @@
             /*--  only focus and keyup create a dropdown (otherwise multiple calls to dropdown logic)  --*/
             $("span#HLP_"+this.options._ID).show();
             return false;
-        }
-        if (/click/.test(e.type)) {  
-            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
         }
         if (this.options.Data === "" ) {
             return false;
@@ -131,18 +122,18 @@
             return;
         }
         var curVal = this.cached['.mo_elem'].val();
-        // if there is text in input, filter results accordingly
-        if (curVal.length > 0 ) {
-            var matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
-            if ( matched.length > 0) {
-                this._build_filtered_dropdown (e, matched );
-            } 
+        /*--  console.log("type = "+e.type+" code = "+e.keyCode);  --*/
+         if (/mouseenter|focus|input/.test(e.type) || /keyup/.test(e.type) && e.keyCode === $.ui.keyCode.BACKSPACE) {
+            /*--  console.log("building ac");  --*/
+            var matched;
+            if ( curVal.length === 0 ) {
+                matched = this.orig_objs;
+            } else {
+                matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
+            }
+            this._build_filtered_dropdown (e, matched );
             return;
-        } else {
-            this.cached['.mo_elem'].removeClass('data_error data_good'); 
-            this._build_dropdown(this.orig_objs);
-            this._show_drop_down(e);
-        }
+         } 
     },
 
     _run_header_filter : function (e) {
@@ -247,7 +238,7 @@
         return true;
     },
 
-    _removeDropDown : function (e) {
+    _remove_dropdown : function (e) {
         this.options._prev.event = e.type;
         // prevent 2 calls in a row (we trigger one by calling .blur() )
         if (e.type === 'blur' && /mouseleave/.test(this.options._prev.event)) {
@@ -256,6 +247,7 @@
         // is the mouse over the drop down? If not, remove it from DOM
         if ($('span#SP_' + this.options._ID).length) {
             if (this._didMouseExitDropDown(e) === true) {
+                /*--  console.log("removing a/c type= "+e.type);  --*/
                 this.cached['.dropdownspan'].remove();
             }
         }

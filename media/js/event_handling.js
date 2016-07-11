@@ -32,13 +32,13 @@
         Sel[ky] = '_run_header_filter'; 
         /*--  remove dropdown if navbar-toggle clicked --*/
         ky = 'click button.navbar-toggle'; 
-        Sel[ky] = '_removeDropDown';
+        Sel[ky] = '_remove_dropdown';
         // when user chooses (clicks), insert text into input box
         ky = 'mousedown span#SP_' + this.options._ID + ' table.CrEaTeDtAbLeStYlE td ';
         Sel[ky] = '_choice_selected';
         // when mouse leaves the container, remove it from DOM
         ky = 'mouseleave span#SP_' + this.options._ID;
-        Sel[ky] = '_removeDropDown';
+        Sel[ky] = '_remove_dropdown';
         this._on($('body'), Sel); 
 
         // highlight the clear button
@@ -60,7 +60,7 @@
             'input': '_build_whole_dropdown',
             'keyup': '_build_whole_dropdown',
             'search':  '_build_whole_dropdown',
-            'mouseleave':  '_removeDropDown', 
-            'blur': '_removeDropDown',
+            'mouseleave':  '_remove_dropdown',
+            'blur': '_remove_dropdown',
         });
     },

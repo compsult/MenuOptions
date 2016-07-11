@@ -41,6 +41,7 @@ $.widget('mre.menuoptions', {
         Height: '', // let user specify the exact height they want
         Help: '', // prompt to show expected input
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
+        Justify : 'left', // allows initial value ot be set
         InitialValue : {}, // allows initial value ot be set
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
         MenuOptionsType: 'Select', //or Navigate (run JS,follow href) or Rocker (for binary choices)
@@ -84,12 +85,8 @@ $.widget('mre.menuoptions', {
   // the constructor
     _create: function () {
 
-        if (this.options.Data.toString() === '' ) {
-            if ( this.options.Mask === '') {
-                return this._validation_fail('MenuOptions requires the Data parameter to be populated','fatal');
-            } else {
-                this.options._mask_status.mask_only = true;
-            }
+        if ( /invalid/i.test(this._test_mask_cfg()) ) {
+            return this._validation_fail('MenuOptions requires the Data parameter to be populated','fatal');
         }
 
         if (this.options.ColumnCount < 1) {
@@ -121,6 +118,19 @@ $.widget('mre.menuoptions', {
         $(this.element).addClass('ui-menuoptions');
     },
 
+    _test_mask_cfg : function () {
+        if (this.options.Data.toString() === '' && this.options.Mask === '') {
+                return 'invalid';
+        } else if ( this.options.Data.toString() === '' && this.options.Mask.length > 0 ) {
+            this.options._mask_status.mask_only = true;
+            return 'mask';
+        } else if ( this.options.Data.toString() !== '' && this.options.Mask.length > 0 ) {
+            return 'mask_and_autocomplete';
+        } else if ( this.options.Data.toString() !== '' && this.options.Mask.length === 0 ) {
+            return 'autocomplete';
+        }
+    },
+
     _add_clear_btn : function () {
         var ClrBtn = '', id = '';
         if (this.options.ClearBtn && /Select/.test(this.options.MenuOptionsType)) {
@@ -132,6 +142,7 @@ $.widget('mre.menuoptions', {
             $("span#"+id).position({ of: $(this.element), my:'center center', at:'right-10' });  
         }
         this._show_help();   
+        this.cached['.clearBtn']=$('span#CB_' + this._event_ns);
     },
 
     _show_help : function () { // show mask and help prompts here
@@ -140,7 +151,6 @@ $.widget('mre.menuoptions', {
         if ( $('span#'+id).length === 0 ) {
             var HelpTxt = '<span class=helptext id=' + id +'>'+help_msg+'</span>'; 
             $(this.element).after(HelpTxt);
-            /*--  $("span#"+id).position({ of: $(this.element), my:'left+6', at:'right top+5' });   --*/
             $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
         }
         $('span#'+'HLP_'+this.options._ID).hide(); 
@@ -205,20 +215,36 @@ $.widget('mre.menuoptions', {
             '(999) 999-9999' : { 
                 'MaxLen' : 14,
                 'Help': '(999) 999-9999',
-                'valid' : { 2: { max_val: 9 },
-                            3: { max_val: 9 },
-                            4: { max_val: 9 },
-                            7: { max_val: 9 },
-                            8: { max_val: 9 },
-                            9: { max_val: 9 },
-                            11: { max_val: 9 },
-                            12: { max_val: 9 },
-                            13: { max_val: 9 },
-                            14: { max_val: 9 } },
+                'valid' : { 'all' : { max_val: 9 }},
+                'initial' : { 'val' : '(', 'ofs' : 0 },
                 'consts' : { 1: '(', 5:')', 6:' ', 10:'-'},
                 'Whole' : '^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$'
+            },
+            '$0,000.00' : { 
+                'Help': '$0,000.00',
+                'valid' : { 'all' : function( val,obj ) {return obj._check_money({ value: val, ofs : 3 }); } },
+                'initial' : { 'val' : '$0.00', 'ofs' : 3 },
+                'sep' : ',',
+                'Whole' : '^\$\d{1,3}\.[0-9]{2}$|^\$(\d{1,3},)+\d{3}\.[0-9]{2}$'
             }
         };
+    },
+
+    _set_initial_mask_value : function () {
+        var val, ofs;
+        if ( this.cached['.mo_elem'].val().length === 0 ) {
+            if ( this.options._mask.hasOwnProperty('initial') ) {
+                if ( this.options._mask.initial.hasOwnProperty('val') ) {
+                    val = this.options._mask.initial.val;
+                    this.element.val(val);
+                }
+                if ( this.options._mask.initial.hasOwnProperty('ofs') ) {
+                    ofs = val.length - this.options._mask.initial.ofs;
+                    this.element.focus().get(0).setSelectionRange(ofs,ofs);
+                    this.element.blur();
+                }
+            }
+        }
     },
 
     _set_valid_mask : function () {
@@ -455,10 +481,7 @@ $.widget('mre.menuoptions', {
             return;
         }
         if (/input/.test(e.type)) {
-            var $this=this;
-            /*--  setTimeout( function() {  --*/
-                $this._is_last_mask_char_valid(e, val);
-            /*--  }, 80 );  --*/
+             this._is_last_mask_char_valid(e, val);
         }
     },
 
@@ -506,29 +529,18 @@ $.widget('mre.menuoptions', {
             for (var x = str_len; str_len < this.options._mask.MaxLen; str_len++) {
                 if (this.options._mask.consts.hasOwnProperty(str_len+1)) {
                     this.cached['.mo_elem'].val(this.cached['.mo_elem'].val()+this.options._mask.consts[str_len+1]);
-                    if ( this._match_complete() === true ) {
-                        return true;
-                    }
+                    this._match_complete();
                 } else {
                     break;
                 }
             }
         }
-        return false;
     },
 
     _match_list_hilited : function (params) {
         if ( /Select|Rocker/.test(this.options.MenuOptionsType) && params.StrToCheck.length === 0 ) {
-                return [];
+            return [];
         }
-        if ( /Select/.test(this.options.MenuOptionsType) && this.options._CurrentFilter === '' &&
-             this.options.Mask.length > 0 && params.evt.hasOwnProperty('type') && /keyup/.test(params.evt.type)) {
-             if ( this._is_last_mask_char_valid(params.evt, params.StrToCheck) === true ) { 
-                 this._add_const (this.cached['.mo_elem'].val());
-             } else {
-                 return [];
-             }
-        } 
         var origImg = "",
             no_img='',
             newval = "",
@@ -582,8 +594,7 @@ $.widget('mre.menuoptions', {
                 this.options._mask_status.mask_passed = false;
                 break;
             case 'completed': 
-                if ( $("span#HLP_"+this.options._ID).hasOwnProperty('background-image') && 
-                     $("span#HLP_"+this.options._ID).css('background-image').match('greencheck.png') ) {
+                if ( $("span#HLP_"+this.options._ID).hasClass('mask_match')) {
                     $("span#HLP_"+this.options._ID).show();
                     return;
                 }
@@ -628,14 +639,9 @@ $.widget('mre.menuoptions', {
                     }
             }
         }
-        /*--  str_len = this.cached['.mo_elem'].val().length;  --*/
-        if ( StrToCheck.length === this.cached['.mo_elem'].val().length ) {
+        if ( StrToCheck.length === this.cached['.mo_elem'].val().length && this.options._mask_status.mask_passed) {
             this.__set_help_msg('', 'good');
         }
-        /*--  if ( this.options.Mask.length > 0 && str_len > 0 && str_len < this.options._mask.MaxLen ) {  --*/
-           /*--  this.cached['.mo_elem'].removeClass('data_good').addClass('data_error');   --*/
-        /*--  } else if ( ) {  --*/
-        /*--  }  --*/
     },
 
     _cut_last_char : function (err_msg, str_len) {
@@ -649,17 +655,19 @@ $.widget('mre.menuoptions', {
             if ( this.cached['.mo_elem'].val().substring(str_len-1,str_len) !== this.options._mask.consts[str_len]) {
                 this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
             } 
-        } else if ( this.options._mask.hasOwnProperty('valid') &&
-                this.options._mask.valid.hasOwnProperty(str_len)) {
-            if ( $.isFunction(this.options._mask.valid[str_len])){
-               var val_passed = this.options._mask.valid[str_len](this.cached['.mo_elem'].val(),this);
+        } else if ( this.options._mask.hasOwnProperty('valid') && this.options._mask.valid.hasOwnProperty(str_len) || 
+                    this.options._mask.hasOwnProperty('valid') && this.options._mask.valid.hasOwnProperty('all')) {
+            var valid_tst = this.options._mask.valid.hasOwnProperty('all') ? this.options._mask.valid.all :
+                            this.options._mask.valid[str_len];
+            if ( $.isFunction(valid_tst)){
+               var val_passed = valid_tst(this.cached['.mo_elem'].val(),this);
                this.options._mask_status.mask_passed = this.options._mask_status.mask_passed === false ? false : val_passed[0];
                if ( val_passed[0] === false ) {
                     this._cut_last_char(val_passed[1], str_len);
                     return false;
                }
-            } else if (this.options._mask.valid[str_len].hasOwnProperty('max_val')) {
-                var max_val = this.options._mask.valid[str_len].max_val;
+            } else if (valid_tst.hasOwnProperty('max_val')) {
+                var max_val = valid_tst.max_val;
                 if ( ! new RegExp('[0-'+max_val+']').test(this.cached['.mo_elem'].val()[str_len-1])) {
                     this._cut_last_char('0 - '+max_val+' only', str_len);
                     return false;
@@ -675,10 +683,13 @@ $.widget('mre.menuoptions', {
         }
         this._check_whole_input(this.cached['.mo_elem'].val());
         this._add_const (this.cached['.mo_elem'].val());
-        if ( $("span#HLP_"+this.options._ID).hasOwnProperty('background-image') === false &&
-             ! /greencheck.png/.test($("span#HLP_"+this.options._ID).css('background-image')) &&
-             this.options._mask_status.mask_passed === true ) {
+        if ( $("span#HLP_"+this.options._ID).hasClass('mask_match')) {
             this.__set_help_msg('', 'good');
+        }
+        if (this.options._mask.hasOwnProperty('MaxLen') && 
+            this.cached['.mo_elem'].val().length > 0 && 
+            this.cached['.mo_elem'].val().length < this.options._mask.MaxLen ) {
+                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
         return true; 
     },
@@ -716,6 +727,13 @@ $.widget('mre.menuoptions', {
         }
     },
 
+    _check_money : function ( params ) {
+        var cur_val = this.cached['.mo_elem'].val(),
+            ofs = cur_val.length - this.options._mask.initial.ofs;
+        this.element.focus().get(0).setSelectionRange(ofs,ofs);
+        return [true, '0 - 9 only'];
+    },
+
     _tab_and_enter_keypress : function (e, curVal) {
         if ( e.keyCode === $.ui.keyCode.ENTER ) {
             e.preventDefault();
@@ -750,13 +768,13 @@ $.widget('mre.menuoptions', {
         Sel[ky] = '_run_header_filter'; 
         /*--  remove dropdown if navbar-toggle clicked --*/
         ky = 'click button.navbar-toggle'; 
-        Sel[ky] = '_removeDropDown';
+        Sel[ky] = '_remove_dropdown';
         // when user chooses (clicks), insert text into input box
         ky = 'mousedown span#SP_' + this.options._ID + ' table.CrEaTeDtAbLeStYlE td ';
         Sel[ky] = '_choice_selected';
         // when mouse leaves the container, remove it from DOM
         ky = 'mouseleave span#SP_' + this.options._ID;
-        Sel[ky] = '_removeDropDown';
+        Sel[ky] = '_remove_dropdown';
         this._on($('body'), Sel); 
 
         // highlight the clear button
@@ -778,8 +796,8 @@ $.widget('mre.menuoptions', {
             'input': '_build_whole_dropdown',
             'keyup': '_build_whole_dropdown',
             'search':  '_build_whole_dropdown',
-            'mouseleave':  '_removeDropDown', 
-            'blur': '_removeDropDown',
+            'mouseleave':  '_remove_dropdown',
+            'blur': '_remove_dropdown',
         });
     },
 
@@ -791,8 +809,8 @@ $.widget('mre.menuoptions', {
             setTimeout( function() {
                 $($this.element).focus(); //chrome needs delay
             }, 80 );
-            $(this.element).removeClass('data_error data_good');
-            this.__set_help_msg('', 'good');
+            this._set_initial_mask_value();
+            this.cached['.mo_elem'].removeClass('data_good data_error');
         }
     },
 
@@ -913,35 +931,51 @@ $.widget('mre.menuoptions', {
     _cache_elems : function () {
         this.cached['.dropdownspan']=this.dropdownbox;
         this.cached['.dropdowncells']=this.dropdownbox.find('td');
-        this.cached['.clearBtn']=$('span#CB_' + this._event_ns);
         this.cached['.mo_elem']=this.element;
     },
 
-    _recreate_mo : function() {
-        var orig_val = $(this.element).val();
-        this._build_array_of_objs();
-        if (/Rocker/i.test(this.options.MenuOptionsType) ) {
-            this._rocker_main({ 'val' : orig_val });
-        } else {
-            if ($('div.rocker[id=RK_' + this._event_ns + ']').length) {
-                $('div.rocker[id=RK_' + this._event_ns + ']').remove();
-                $(this.element).show();
-                $(this.element).next('span.clearbtn').show();
-            }
-            if ( /Select/.test(this.options.MenuOptionsType) ) {
-                this._set_valid_mask ();  
-                $(this.element).attr('autocomplete', 'off');
-                this._add_clear_btn(); 
-            } else if ( /Navigate/.test(this.options.MenuOptionsType)) {
-                this._show_menu_arrs();
-            }
-            this._build_dropdown(this.orig_objs);
+    _justify : function() {
+        $(this.element).css({ 'text-align': this.options.Justify });
+        if ( /right/i.test(this.options.Justify) ) {
+            var new_rt_pad = parseInt($(this.element).css('padding-right')) + 12;
+            new_rt_pad = new_rt_pad + "px";
+            $(this.element).css({ 'padding-right': new_rt_pad });
         }
+    },
+    _recreate_mo : function() {
+        var orig_val = $(this.element).val(),
+            mo_type = this._test_mask_cfg();
+        this._justify();
+        if (/^mask_and|^autocomplete$/i.test(mo_type)) {
+                this._build_array_of_objs();
+        }
+        if (/^mask/i.test(mo_type)) {
+            this._set_valid_mask ();  
+            this._add_clear_btn(); 
+        } else { 
+            if (/Rocker/i.test(this.options.MenuOptionsType) ) {
+                this._rocker_main({ 'val' : orig_val });
+            } else {
+                if ($('div.rocker[id=RK_' + this._event_ns + ']').length) {
+                    $('div.rocker[id=RK_' + this._event_ns + ']').remove();
+                    $(this.element).show();
+                    $(this.element).next('span.clearbtn').show();
+                }
+                if ( /Select/.test(this.options.MenuOptionsType) ) {
+                    $(this.element).attr('autocomplete', 'off');
+                    this._add_clear_btn(); 
+                } else if ( /Navigate/.test(this.options.MenuOptionsType)) {
+                    this._show_menu_arrs();
+                }
+                this._build_dropdown(this.orig_objs);
+            }
+         }
     },
 
     _setOptions : function ( options ) {
-        this.cached={'.mo_elem':this.element};
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
+        this._event_ns = this.eventNamespace.replace(/^\./, '');
+        this.cached={'.mo_elem':this.element}; 
         var $dd_span = this;
         if (/Select|Rocker/.test(this.options.MenuOptionsType) ) { 
             this.add_menuoption_key();
@@ -1201,6 +1235,7 @@ $.widget('mre.menuoptions', {
     },
 
     _build_filtered_dropdown : function (event, matching) {
+        /*--  console.log("filtered cnt = "+matching.length);  --*/
         this._build_dropdown( matching );
         this._show_drop_down(event);
     },
@@ -1208,34 +1243,13 @@ $.widget('mre.menuoptions', {
     _build_dropdown: function (ary_of_objs) {
         this.options._currTD = [0, 1];
         var tablehtml = this._create_table(ary_of_objs);
-        this._event_ns = this.eventNamespace.replace(/^\./, '');
         this.dropdownbox = $(tablehtml);
         this._cache_elems();
         this._calcDropBoxCoordinates();
     },
 
-    _build_drop_down_test : function (e) {
-        if (e.type === this.options._prev.event && $(e.currentTarget).text() === this.options._prev.text) { 
-             this.__set_prev(e);
-             return false;
-        } 
-        this.__set_prev(e);
-        if ( this.options.Mask.length > 0 && /focus/.test(e.type)) {
-            this.__set_help_msg('', 'good');
-        }
-        if ( this.options.Data !== "" && $('span#SP_' + this.options._ID).length > 0) {
-            /* if wholeDropDown is visible and not a mouseover 'all' filtering operation, return */
-            if ( ! /keydown|keyup/.test(e.type) && !/(all)/.test($(e.target).text())) { 
-                return false;
-            }
-        }
-        if (e.type === 'search') { // clear menu_opt_key when input is cleared
-            this.cached['.mo_elem'].attr('menu_opt_key', '');
-        }
-        if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true) {
-            return false;
-        }
-        if ( this.options.Data === "" && this.options.Mask.length > 0 ) {
+    _mask_only : function (e) {
+        if ( this.options.Mask.length > 0 ) {
             if ( /keyup|input/.test(e.type)) {
                 this._check_mask(e, this.cached['.mo_elem'].val());
             }
@@ -1243,9 +1257,23 @@ $.widget('mre.menuoptions', {
                 this._add_const (this.cached['.mo_elem'].val());
                 this.__set_help_msg('', 'good');
             }
-            if ( this.options._mask_status.mask_only === true ) {
-                return false;
-            }
+        }
+    },
+    _build_drop_down_test : function (e) {
+        if (e.type === this.options._prev.event && $(e.currentTarget).text() === this.options._prev.text) { 
+             this.__set_prev(e);
+             return false;
+        } 
+        this.__set_prev(e);
+        if (/click/.test(e.type)) {  
+            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
+        }
+        this._mask_only(e);
+        if (e.type === 'search') { // clear menu_opt_key when input is cleared
+            this.cached['.mo_elem'].attr('menu_opt_key', '');
+        }
+        if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true && e.keyCode !== $.ui.keyCode.BACKSPACE) {
+            return false;
         }
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
@@ -1256,9 +1284,6 @@ $.widget('mre.menuoptions', {
             /*--  only focus and keyup create a dropdown (otherwise multiple calls to dropdown logic)  --*/
             $("span#HLP_"+this.options._ID).show();
             return false;
-        }
-        if (/click/.test(e.type)) {  
-            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
         }
         if (this.options.Data === "" ) {
             return false;
@@ -1271,18 +1296,18 @@ $.widget('mre.menuoptions', {
             return;
         }
         var curVal = this.cached['.mo_elem'].val();
-        // if there is text in input, filter results accordingly
-        if (curVal.length > 0 ) {
-            var matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
-            if ( matched.length > 0) {
-                this._build_filtered_dropdown (e, matched );
-            } 
+        /*--  console.log("type = "+e.type+" code = "+e.keyCode);  --*/
+         if (/mouseenter|focus|input/.test(e.type) || /keyup/.test(e.type) && e.keyCode === $.ui.keyCode.BACKSPACE) {
+            /*--  console.log("building ac");  --*/
+            var matched;
+            if ( curVal.length === 0 ) {
+                matched = this.orig_objs;
+            } else {
+                matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
+            }
+            this._build_filtered_dropdown (e, matched );
             return;
-        } else {
-            this.cached['.mo_elem'].removeClass('data_error data_good'); 
-            this._build_dropdown(this.orig_objs);
-            this._show_drop_down(e);
-        }
+         } 
     },
 
     _run_header_filter : function (e) {
@@ -1387,7 +1412,7 @@ $.widget('mre.menuoptions', {
         return true;
     },
 
-    _removeDropDown : function (e) {
+    _remove_dropdown : function (e) {
         this.options._prev.event = e.type;
         // prevent 2 calls in a row (we trigger one by calling .blur() )
         if (e.type === 'blur' && /mouseleave/.test(this.options._prev.event)) {
@@ -1396,6 +1421,7 @@ $.widget('mre.menuoptions', {
         // is the mouse over the drop down? If not, remove it from DOM
         if ($('span#SP_' + this.options._ID).length) {
             if (this._didMouseExitDropDown(e) === true) {
+                /*--  console.log("removing a/c type= "+e.type);  --*/
                 this.cached['.dropdownspan'].remove();
             }
         }
