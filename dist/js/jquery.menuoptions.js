@@ -65,7 +65,7 @@ $.widget('mre.menuoptions', {
         _bootstrap: false, // make changes if in bootstrap 3
         _vert_ofs : 0,
         _prev : { 'event': '', 'text': '' },
-        _mask_status : { mask_only: false, mask_passed : false },
+        _mask_status : { mask_only: false, mask_passed : false, cur_pos: -1 },
         _CurrentFilter : '',
         _currTD : [ 0, 1 ],
         _event_ns : '',
@@ -173,7 +173,7 @@ $.widget('mre.menuoptions', {
                 'Help': 'HH:MM AM',     
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'H:M'}); } },
                 'valid' : { 1: { max_val: 1}, 
-                            2: function( val,obj ) { return /1/.test(val[0]) ? obj._day_test(val,2,1) : obj._day_test(val,9,1); },
+                            2: function( val,obj ) { return /1/.test(val[0]) ? obj._max_val_test(val,2,1) : obj._max_val_test(val,9,1); },
                             4: { max_val : 5}, 5: { max_val : 9}, 
                             7: function( val,obj ) {return obj._is_char_valid(val,'AP','A or P only', 'one_char', 6);},
                             8: function( val,obj ) {return obj._is_char_valid(val,'M','M only', 'one_char', 7); }
@@ -207,7 +207,7 @@ $.widget('mre.menuoptions', {
                             3: { max_val: 9 },
                             4: { max_val: 9 },
                             5: { max_val: 1 },
-                            6: function( val,obj ) { return /1/.test(val[4]) ? obj._day_test(val,2,5) : obj._day_test(val,9,5); },
+                            6: function( val,obj ) { return /1/.test(val[4]) ? obj._max_val_test(val,2,5) : obj._max_val_test(val,9,5); },
                             7: function( val, obj ) { return obj._get_days(val,'YMD'); },
                             8: function( val, obj ) { return obj._get_days(val,'YMD'); } }, 
                 'Whole' : function( val, obj ) { return obj._get_days(val,'YMD'); }
@@ -220,7 +220,7 @@ $.widget('mre.menuoptions', {
                 'consts' : { 1: '(', 5:')', 6:' ', 10:'-'},
                 'Whole' : '^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$'
             },
-            '$0,000.00' : { 
+            'Money' : { 
                 'Help': '$0,000.00',
                 'valid' : { 'all' : function( val,obj ) {return obj._check_money({ value: val, ofs : 3 }); } },
                 'initial' : { 'val' : '$0.00', 'ofs' : 3 },
@@ -230,7 +230,7 @@ $.widget('mre.menuoptions', {
         };
     },
 
-    _set_initial_mask_value : function () {
+    _set_initial_mask_value : function ( flag ) {
         var val, ofs;
         if ( this.cached['.mo_elem'].val().length === 0 ) {
             if ( this.options._mask.hasOwnProperty('initial') ) {
@@ -241,7 +241,9 @@ $.widget('mre.menuoptions', {
                 if ( this.options._mask.initial.hasOwnProperty('ofs') ) {
                     ofs = val.length - this.options._mask.initial.ofs;
                     this.element.focus().get(0).setSelectionRange(ofs,ofs);
-                    this.element.blur();
+                    if ( /blur/i.test(flag) ) {
+                        this.element.blur();
+                    }
                 }
             }
         }
@@ -260,6 +262,76 @@ $.widget('mre.menuoptions', {
     },
 
 
+    _money_start : function (mony) {
+        this.__set_help_msg('', 'good');
+        if ( mony.cur_val.length === 0) {
+            this._set_initial_mask_value('focus');
+        } else {
+            var ofs = this.cached['.mo_elem'].val().length-3;
+            $(this.element).get(0).setSelectionRange(ofs,ofs);
+        }
+    },
+
+    _money_inv_key : function (mony) {
+        this.cached['.mo_elem'].removeClass('data_good data_error');
+        if ( ! /\d|,|\$|^$/.test(mony.cur_char) && ! /^\$[^\.]+\.\d$/.test(mony.cur_val)) {
+            this.cached['.mo_elem'].val(mony.cur_val.substring(0,mony.cur_pos-1)+mony.cur_val.substring(mony.cur_pos));
+            if ( mony.cur_char === '.' && mony.from_left === 3 ) {
+                mony.ofs = mony.cur_val.length - 3;
+                $(this.element).get(0).setSelectionRange(mony.ofs,mony.ofs);
+                return 'valid';
+            } else {
+                this.__set_help_msg('0 - 9 only', 'error');
+            }
+        }
+        return 'invalid';
+    },
+
+    _money_output : function (mony) {
+        if ( /^[^\$]+\$.*$/.test(mony.cur_val)) {
+            mony.cur_val = parseFloat(this.cached['.mo_elem'].val().replace(/\$.*$|\D+/,''),10).toFixed(2);
+        } else {
+            mony.cur_val = parseFloat(this.cached['.mo_elem'].val().replace(/[^\d.]/g,''),10).toFixed(2);
+        }
+        $(this.element).attr('menu_opt_key', mony.cur_val);
+        mony.cur_val = '$' + mony.cur_val.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+        mony.ofs = mony.cur_val.length - mony.from_left;
+        this.cached['.mo_elem'].val(mony.cur_val);
+        /*--  console.log("Set => type = "+e.type+" ofs = "+ofs+" cur pos = "+cur_pos+" cur char = "+cur_char+" pos from left = "+from_left+" len = "+cur_val.length);  --*/
+        $(this.element).get(0).setSelectionRange(mony.ofs,mony.ofs);
+    },
+
+    _money_init : function (mony) {
+        mony.cur_val = this.cached['.mo_elem'].val();
+        mony.ofs = mony.cur_val.length - this.options._mask.initial.ofs;
+        mony.cur_pos = $(this.element).get(0).selectionStart;
+        mony.cur_char = mony.cur_val.substring(mony.cur_pos-1, mony.cur_pos);
+        mony.from_left = $(this.element).val().length-mony.cur_pos;
+    },
+
+    _check_money : function (e) {
+        var mony = {};
+        this._money_init(mony);
+        if (/focus|click/.test(e.type) ) {
+            this._money_start(mony);
+            return;
+        }
+        if (/input/.test(e.type) ) {
+            this.__set_help_msg('', 'good');
+            if ( /^valid$/i.test(this._money_inv_key(mony))) {
+                return;
+            }
+            if ( mony.from_left <= 2 ) {
+                if ( /^\$[^\.]+\.\d{3}$/.test(mony.cur_val)) {
+                    this.cached['.mo_elem'].val(mony.cur_val.substring(0,mony.cur_pos)+mony.cur_val.substring(mony.cur_pos+1));
+                    mony.from_left--;
+                } else {
+                    mony.from_left = mony.from_left === 0 ? 1 : 3;
+                }
+            }
+        }
+        this._money_output(mony);
+    },
 
     _check_for_bootstrap : function (err_msg) {
         if ( $('script[src*=bootstrap]').length > 0 ) {
@@ -476,6 +548,13 @@ $.widget('mre.menuoptions', {
 
     _check_mask : function (e) {
         var val = this.cached['.mo_elem'].val();
+        if (/keydown/.test(e.type) ) {
+            if ( e.keyCode === $.ui.keyCode.BACKSPACE) {
+                e.preventDefault();
+                this._back_space (val);
+            }
+            return;
+        }
         if ( val.length === this.options._mask.MaxLen ) {
             this._match_complete();
             return;
@@ -613,7 +692,7 @@ $.widget('mre.menuoptions', {
         }
         if ( this.cached['.mo_elem'].val().length === 0 ) {
            this.cached['.mo_elem'].removeClass('data_good data_error');
-        } else if ( this.cached['.mo_elem'].val().length < this.options._mask.MaxLen ) {
+        } else if ( this.options._mask.hasOwnProperty('MaxLen') && this.cached['.mo_elem'].val().length < this.options._mask.MaxLen){
            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
     },
@@ -727,12 +806,6 @@ $.widget('mre.menuoptions', {
         }
     },
 
-    _check_money : function ( params ) {
-        var cur_val = this.cached['.mo_elem'].val(),
-            ofs = cur_val.length - this.options._mask.initial.ofs;
-        this.element.focus().get(0).setSelectionRange(ofs,ofs);
-        return [true, '0 - 9 only'];
-    },
 
     _tab_and_enter_keypress : function (e, curVal) {
         if ( e.keyCode === $.ui.keyCode.ENTER ) {
@@ -809,7 +882,7 @@ $.widget('mre.menuoptions', {
             setTimeout( function() {
                 $($this.element).focus(); //chrome needs delay
             }, 80 );
-            this._set_initial_mask_value();
+            this._set_initial_mask_value('blur');
             this.cached['.mo_elem'].removeClass('data_good data_error');
         }
     },
@@ -1235,7 +1308,6 @@ $.widget('mre.menuoptions', {
     },
 
     _build_filtered_dropdown : function (event, matching) {
-        /*--  console.log("filtered cnt = "+matching.length);  --*/
         this._build_dropdown( matching );
         this._show_drop_down(event);
     },
@@ -1250,12 +1322,15 @@ $.widget('mre.menuoptions', {
 
     _mask_only : function (e) {
         if ( this.options.Mask.length > 0 ) {
-            if ( /keyup|input/.test(e.type)) {
-                this._check_mask(e, this.cached['.mo_elem'].val());
-            }
-            if ( /focus/.test(e.type)) {
-                this._add_const (this.cached['.mo_elem'].val());
-                this.__set_help_msg('', 'good');
+            if ( /keyup|keydown|input|click|focus/.test(e.type)) {
+                if (/^Money$/i.test( this.options.Mask)) {
+                    this._check_money(e);
+                } else if (/keyup|keydown|input/.test(e.type)) {
+                    this._check_mask(e, this.cached['.mo_elem'].val());
+                } else if ( /focus/.test(e.type)) {
+                    this._add_const (this.cached['.mo_elem'].val());
+                    this.__set_help_msg('', 'good');
+                }
             }
         }
     },
@@ -1265,15 +1340,18 @@ $.widget('mre.menuoptions', {
              return false;
         } 
         this.__set_prev(e);
-        if (/click/.test(e.type)) {  
-            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
-        }
         this._mask_only(e);
         if (e.type === 'search') { // clear menu_opt_key when input is cleared
             this.cached['.mo_elem'].attr('menu_opt_key', '');
         }
+        if (this.options.Data === "" ) { // short circuit autocomplete logic here (if no Data)
+            return false;
+        }
         if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true && e.keyCode !== $.ui.keyCode.BACKSPACE) {
             return false;
+        }
+        if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {  
+            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
         }
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
@@ -1285,9 +1363,6 @@ $.widget('mre.menuoptions', {
             $("span#HLP_"+this.options._ID).show();
             return false;
         }
-        if (this.options.Data === "" ) {
-            return false;
-        }
         return true;
     },
 
@@ -1296,9 +1371,7 @@ $.widget('mre.menuoptions', {
             return;
         }
         var curVal = this.cached['.mo_elem'].val();
-        /*--  console.log("type = "+e.type+" code = "+e.keyCode);  --*/
          if (/mouseenter|focus|input/.test(e.type) || /keyup/.test(e.type) && e.keyCode === $.ui.keyCode.BACKSPACE) {
-            /*--  console.log("building ac");  --*/
             var matched;
             if ( curVal.length === 0 ) {
                 matched = this.orig_objs;
@@ -1421,7 +1494,6 @@ $.widget('mre.menuoptions', {
         // is the mouse over the drop down? If not, remove it from DOM
         if ($('span#SP_' + this.options._ID).length) {
             if (this._didMouseExitDropDown(e) === true) {
-                /*--  console.log("removing a/c type= "+e.type);  --*/
                 this.cached['.dropdownspan'].remove();
             }
         }
@@ -1531,9 +1603,9 @@ $.widget('mre.menuoptions', {
         }
     },
 
-    _day_test : function (val, maxval, offset) {
+    _max_val_test : function (val, maxval, offset) {
         if (/\d/.test(val[offset]) && val[offset] <= maxval ) {
-            return true;
+            return [true, ''];
         } 
         return [false, '0 - '+maxval+' only'];
     },
@@ -1541,16 +1613,17 @@ $.widget('mre.menuoptions', {
 
     _parse_days : function (val,dom_pos, maxdays) {
         if ( val.length === dom_pos ) {
-            return this._day_test(val, maxdays[0], val.length-1);
+            return this._max_val_test(val, maxdays[0], val.length-1);
         } else if ( val.length === dom_pos+1 ) {
             if (val[dom_pos-1] === maxdays[0]) {
-                return this._day_test(val, maxdays[1], val.length-1);
+                return this._max_val_test(val, maxdays[1], val.length-1);
             } else {
-                return this._day_test(val, 9, val.length-1);
+                return this._max_val_test(val, 9, val.length-1);
             }
         } else if ( val.length === this.options._mask.MaxLen ) {
             return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'error'];
         }
+        return [true,''];
     },
 
     _get_days : function (val,fmt) {
@@ -1561,7 +1634,7 @@ $.widget('mre.menuoptions', {
                 mon_num = parseInt(val.substring(4,6),10);
                 maxdays = new Date(val.substring(0,4),mon_num,0).getDate().toString();
                 if ( val.length === 7 ) {
-                    return this._day_test(val, maxdays[0], 6);
+                    return this._max_val_test(val, maxdays[0], 6);
                 } else if ( val.length === 8 ) {
                     if ( mon_num === 2 && val.substring(6,8) > maxdays ) {
                         return [false, 'not a leap year'];

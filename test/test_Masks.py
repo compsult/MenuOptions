@@ -305,6 +305,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'keys': '12:22 z',
                               'selector': 'input#Timetest'
                            })
+
     def test20_phone_num_paren(self):
         """
            verify only numbers accepted in phone number
@@ -321,6 +322,27 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'klass': 'data_error',
                               'rslt': '('
                            })
+
+    def test21_bot_ac_and_mask(self):
+        """
+           verify input mask and autocomplete work together
+        """
+        self.url='http://'+self.IP+'/examples/MaskCombos_test.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'masks'})
+        self.check_help_msg({
+                              'xpath': '//*[@id="starttime3"]',
+                              'help_id': '//*[@id="HLP_menuoptions4"]',
+                              'help_txt': 'A or P only',
+                              'klass': 'data_error',
+                              'rslt': '12:22 ',
+                              'keys': '12:22 z',
+                              'selector': 'input#starttime3'
+                           })
+        self.driver.execute_script("$('input#starttime3').val('');")
+        self.check_autocomplete({ 'xpath': '//*[@id="starttime3"]',
+                         'filt_rslts': '//*[@id="SP_menuoptions4"]',
+                         'expected': '12:00PM12:15PM12:30PM12:45PM',
+                         'test_key': '12' })
 
     def tearDown(self):
         super(testMasks,self).tearDown()

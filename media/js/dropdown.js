@@ -61,7 +61,6 @@
     },
 
     _build_filtered_dropdown : function (event, matching) {
-        /*--  console.log("filtered cnt = "+matching.length);  --*/
         this._build_dropdown( matching );
         this._show_drop_down(event);
     },
@@ -76,12 +75,15 @@
 
     _mask_only : function (e) {
         if ( this.options.Mask.length > 0 ) {
-            if ( /keyup|input/.test(e.type)) {
-                this._check_mask(e, this.cached['.mo_elem'].val());
-            }
-            if ( /focus/.test(e.type)) {
-                this._add_const (this.cached['.mo_elem'].val());
-                this.__set_help_msg('', 'good');
+            if ( /keyup|keydown|input|click|focus/.test(e.type)) {
+                if (/^Money$/i.test( this.options.Mask)) {
+                    this._check_money(e);
+                } else if (/keyup|keydown|input/.test(e.type)) {
+                    this._check_mask(e, this.cached['.mo_elem'].val());
+                } else if ( /focus/.test(e.type)) {
+                    this._add_const (this.cached['.mo_elem'].val());
+                    this.__set_help_msg('', 'good');
+                }
             }
         }
     },
@@ -91,15 +93,18 @@
              return false;
         } 
         this.__set_prev(e);
-        if (/click/.test(e.type)) {  
-            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
-        }
         this._mask_only(e);
         if (e.type === 'search') { // clear menu_opt_key when input is cleared
             this.cached['.mo_elem'].attr('menu_opt_key', '');
         }
+        if (this.options.Data === "" ) { // short circuit autocomplete logic here (if no Data)
+            return false;
+        }
         if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true && e.keyCode !== $.ui.keyCode.BACKSPACE) {
             return false;
+        }
+        if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {  
+            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
         }
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
@@ -111,9 +116,6 @@
             $("span#HLP_"+this.options._ID).show();
             return false;
         }
-        if (this.options.Data === "" ) {
-            return false;
-        }
         return true;
     },
 
@@ -122,9 +124,7 @@
             return;
         }
         var curVal = this.cached['.mo_elem'].val();
-        /*--  console.log("type = "+e.type+" code = "+e.keyCode);  --*/
          if (/mouseenter|focus|input/.test(e.type) || /keyup/.test(e.type) && e.keyCode === $.ui.keyCode.BACKSPACE) {
-            /*--  console.log("building ac");  --*/
             var matched;
             if ( curVal.length === 0 ) {
                 matched = this.orig_objs;
@@ -247,7 +247,6 @@
         // is the mouse over the drop down? If not, remove it from DOM
         if ($('span#SP_' + this.options._ID).length) {
             if (this._didMouseExitDropDown(e) === true) {
-                /*--  console.log("removing a/c type= "+e.type);  --*/
                 this.cached['.dropdownspan'].remove();
             }
         }

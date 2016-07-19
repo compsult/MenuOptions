@@ -110,6 +110,8 @@ $.widget('mre.menuoptions', {
 
     #import masks.js
 
+    #import money_logic.js
+
     _check_for_bootstrap : function (err_msg) {
         if ( $('script[src*=bootstrap]').length > 0 ) {
             this.options._bootstrap = true;
@@ -201,7 +203,7 @@ $.widget('mre.menuoptions', {
             setTimeout( function() {
                 $($this.element).focus(); //chrome needs delay
             }, 80 );
-            this._set_initial_mask_value();
+            this._set_initial_mask_value('blur');
             this.cached['.mo_elem'].removeClass('data_good data_error');
         }
     },

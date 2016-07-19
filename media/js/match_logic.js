@@ -1,5 +1,12 @@
     _check_mask : function (e) {
         var val = this.cached['.mo_elem'].val();
+        if (/keydown/.test(e.type) ) {
+            if ( e.keyCode === $.ui.keyCode.BACKSPACE) {
+                e.preventDefault();
+                this._back_space (val);
+            }
+            return;
+        }
         if ( val.length === this.options._mask.MaxLen ) {
             this._match_complete();
             return;
@@ -137,7 +144,7 @@
         }
         if ( this.cached['.mo_elem'].val().length === 0 ) {
            this.cached['.mo_elem'].removeClass('data_good data_error');
-        } else if ( this.cached['.mo_elem'].val().length < this.options._mask.MaxLen ) {
+        } else if ( this.options._mask.hasOwnProperty('MaxLen') && this.cached['.mo_elem'].val().length < this.options._mask.MaxLen){
            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
     },
@@ -251,9 +258,3 @@
         }
     },
 
-    _check_money : function ( params ) {
-        var cur_val = this.cached['.mo_elem'].val(),
-            ofs = cur_val.length - this.options._mask.initial.ofs;
-        this.element.focus().get(0).setSelectionRange(ofs,ofs);
-        return [true, '0 - 9 only'];
-    },

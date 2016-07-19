@@ -45,6 +45,13 @@ HH:MM AM
     "Mask": "HH:MM AM"
 
 
+$0,000.00
+~~~~~~~~~
+
+.. code-block:: javascript
+
+    "Mask": "$0,000.00"
+
 
 
 `See masks demo <http://menuoptions.org/examples/Masks.html>`_

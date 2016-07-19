@@ -63,6 +63,7 @@ class SetupByLocation(object):
             "public": "public",
             "passed": "true",
             "build": TST_BUILD,
+            #--- 'version': 'latest', ---#
             'version': TST_VERSION,
             'deviceName': TST_DEVICE,
             'deviceOrientation': TST_DEVICE_ORIENT,
@@ -253,6 +254,12 @@ class SeleniumUtils(object):
         self.driver.find_element_by_xpath(params['xpath']).click()
         if self.SLEEP: time.sleep(2)
         self._check_js_result( params )
+
+    def check_menu_opt_key (self, params ):
+        elem=self.driver.find_element_by_xpath(params['xpath'])
+        menu_opt_key=elem.get_attribute('menu_opt_key')
+        print ' '.join(['Checking expected menu_opt_key ',params['menu_opt'],'Actual:',menu_opt_key])
+        assert menu_opt_key == params['menu_opt']
 
     def check_add_menu_opt_key (self, params ):
         self.driver.find_element_by_xpath(params['clr_xpath']).click()

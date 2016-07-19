@@ -112,6 +112,8 @@ class testSL(SeleniumUtils, SetupByLocation):
         self.check_ENTER_exit({ 'xpath': '//*[@id="starttime2"]',
                               'rslt': '09:00 AM',
                               'klass': 'data_good' })
+        self.check_menu_opt_key({ 'xpath': '//*[@id="starttime2"]',
+                                'menu_opt': '09:00 AM' })
 
     def test11_chk_initial_data_validation(self):
         """

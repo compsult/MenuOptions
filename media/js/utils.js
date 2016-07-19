@@ -1,6 +1,6 @@
-    _day_test : function (val, maxval, offset) {
+    _max_val_test : function (val, maxval, offset) {
         if (/\d/.test(val[offset]) && val[offset] <= maxval ) {
-            return true;
+            return [true, ''];
         } 
         return [false, '0 - '+maxval+' only'];
     },
@@ -8,16 +8,17 @@
 
     _parse_days : function (val,dom_pos, maxdays) {
         if ( val.length === dom_pos ) {
-            return this._day_test(val, maxdays[0], val.length-1);
+            return this._max_val_test(val, maxdays[0], val.length-1);
         } else if ( val.length === dom_pos+1 ) {
             if (val[dom_pos-1] === maxdays[0]) {
-                return this._day_test(val, maxdays[1], val.length-1);
+                return this._max_val_test(val, maxdays[1], val.length-1);
             } else {
-                return this._day_test(val, 9, val.length-1);
+                return this._max_val_test(val, 9, val.length-1);
             }
         } else if ( val.length === this.options._mask.MaxLen ) {
             return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'error'];
         }
+        return [true,''];
     },
 
     _get_days : function (val,fmt) {
@@ -28,7 +29,7 @@
                 mon_num = parseInt(val.substring(4,6),10);
                 maxdays = new Date(val.substring(0,4),mon_num,0).getDate().toString();
                 if ( val.length === 7 ) {
-                    return this._day_test(val, maxdays[0], 6);
+                    return this._max_val_test(val, maxdays[0], 6);
                 } else if ( val.length === 8 ) {
                     if ( mon_num === 2 && val.substring(6,8) > maxdays ) {
                         return [false, 'not a leap year'];

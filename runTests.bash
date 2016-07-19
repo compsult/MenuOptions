@@ -13,7 +13,7 @@ function runTest {
 	export TST_NAME="${4}_${TS}"
     export TST_VERSION=$5
     export TST_BUILD=`grep version package.json | perl -ane '{ s/,|:|"|version| //g; print $_; }'`
-    #--- cd test; nosetests "test_Rocker.py:test_rocker.test02_rocker" ---#
+    #--- export PYTHONPATH=.; cd test; nosetests "test_Money:testMoney.test02_click_pos" ---#
 	nosetests --stop -v 
     if [[ $? -ne 0 ]]; then
         echo "nosetest failed (runTest $@)"
