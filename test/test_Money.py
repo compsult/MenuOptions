@@ -15,8 +15,8 @@ class testMoney(SeleniumUtils, SetupByLocation, MoneyUtils):
         """
            verify money mask initial click pos is 3 from right
         """
-        #--- if re.search(r'firefox', self.TST_BROWSER, re.I): ---#
-            #--- return ---#
+        if re.search(r'firefox', self.TST_BROWSER, re.I):
+            return
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_pos ({ 'xpath': '//*[@id="Moneytest"]',
                           'id': 'Moneytest',
@@ -26,8 +26,8 @@ class testMoney(SeleniumUtils, SetupByLocation, MoneyUtils):
         """
            verify money mask cursor pos stays at 3 from right
         """
-        #--- if re.search(r'firefox', self.TST_BROWSER, re.I): ---#
-            #--- return ---#
+        if re.search(r'firefox', self.TST_BROWSER, re.I):
+            return
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_pos ({ 'xpath': '//*[@id="Moneytest"]',
                           'id': 'Moneytest',
