@@ -90,9 +90,13 @@ $.widget('mre.menuoptions', {
     _show_help : function () { // show mask and help prompts here
         var id = 'HLP_' + this.options._ID,
             help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
-        if ( $('span#'+id).length === 0 ) {
+        if ( $('span#'+id).length === 0 && this.options.Mask.length > 0 ) {
             var HelpTxt = '<span class=helptext id=' + id +'>'+help_msg+'</span>'; 
-            $(this.element).after(HelpTxt);
+            if ( $('#CB_'+this.options._ID).length > 0) {
+                $('#CB_'+this.options._ID).after(HelpTxt);
+            } else {
+                $(this.element).after(HelpTxt);
+            }
             $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
         }
         $('span#'+'HLP_'+this.options._ID).hide(); 
