@@ -30,10 +30,11 @@ function runLocal {
 #--- runLocal "test_Menus.py:testMO.test03_google" ---#
 #--- runLocal "test_set_value.py:test_set_vals" ---#
 #--- runLocal "test_SelectList.py:testSL.test08_tab_with_data" ---#
+runLocal "test_SelectList.py:testSL.test12_check_bad_paste_autocompl_only"
 #--- runLocal "test_SelectList.py:testSL.test04_regexp" ---#
 #--- runLocal "test_SelectList.py:testSL.test03_autocomplete" ---#
-runLocal "test_Money:testMoney.test02_click_pos"
-runLocal "test_Money:testMoney.test03_after_entry_pos"
+#--- runLocal "test_Money:testMoney.test02_click_pos" ---#
+#--- runLocal "test_Money:testMoney.test03_after_entry_pos" ---#
 #--- runLocal "test_SelectList.py:testSL.test08_tab_with_data" ---#
 #--- runLocal "test_SelectList.py" ---#
 #--- runLocal test_addons.py:test_addons.test03_down_arrow ---#

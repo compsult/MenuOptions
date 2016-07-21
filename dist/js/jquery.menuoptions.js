@@ -652,7 +652,7 @@ $.widget('mre.menuoptions', {
     __check_match_results : function (matching, StrToCheck, e) {
         if ( matching.length === 0 ) { 
             this._check_whole_input(StrToCheck);
-        } else {
+        } else if ( this.options.Mask.length > 0) {
             if ( StrToCheck === matching[0].val.replace(/<span[\w\W]*?>|<\/span>/g,'') ) {
                 this.__set_help_msg('', 'completed');
             } else if ( matching.length > 1 ) {
@@ -725,8 +725,12 @@ $.widget('mre.menuoptions', {
 
     _cut_last_char : function (err_msg, str_len) {
         this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
-        this.options._mask_status.mask_passed = false;
-        this.__set_help_msg(err_msg, 'error');
+        if ( this.options.Mask.length > 0 ) {
+            this.options._mask_status.mask_passed = false;
+            this.__set_help_msg(err_msg, 'error');
+        } else {
+            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+        }
     },
 
     _single_char_valid_mask : function ( StrToCheck, str_len) {
