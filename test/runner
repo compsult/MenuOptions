@@ -19,6 +19,7 @@ function runLocal {
 #--- runLocal "test_Masks:testMasks.test01_mask_initial_focus" ---#
 #--- runLocal "test_Masks:testMasks.test03_mask_valid" ---#
 #--- runLocal "test_Masks:testMasks.test20_phone_num_paren" ---#
+runLocal "test_Masks:testMasks.test21_bot_ac_and_mask"
 #--- runLocal "test_Masks:testMasks.test02_mask_error" ---#
 #--- runLocal "test_bootstrap.py:test_bootstrap.test02_bs" ---#
 #--- runLocal sauce "safari" "OS X 10.10" "Safari test" test/test_Rocker:test_rocker.test02_rocker ---#
@@ -30,7 +31,7 @@ function runLocal {
 #--- runLocal "test_Menus.py:testMO.test03_google" ---#
 #--- runLocal "test_set_value.py:test_set_vals" ---#
 #--- runLocal "test_SelectList.py:testSL.test08_tab_with_data" ---#
-runLocal "test_SelectList.py:testSL.test12_check_bad_paste_autocompl_only"
+#--- runLocal "test_SelectList.py:testSL.test12_check_bad_paste_autocompl_only" ---#
 #--- runLocal "test_SelectList.py:testSL.test04_regexp" ---#
 #--- runLocal "test_SelectList.py:testSL.test03_autocomplete" ---#
 #--- runLocal "test_Money:testMoney.test02_click_pos" ---#

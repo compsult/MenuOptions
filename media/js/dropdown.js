@@ -100,7 +100,7 @@
         if (this.options.Data === "" ) { // short circuit autocomplete logic here (if no Data)
             return false;
         }
-        if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true && e.keyCode !== $.ui.keyCode.BACKSPACE) {
+        if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){
             return false;
         }
         if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {  

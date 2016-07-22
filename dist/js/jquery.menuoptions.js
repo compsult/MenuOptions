@@ -654,14 +654,14 @@ $.widget('mre.menuoptions', {
     },
 
     __check_match_results : function (matching, StrToCheck, e) {
-        if ( matching.length === 0 ) { 
+        if ( matching.length === 0 && this.options.Mask.length === 0) { 
             this._check_whole_input(StrToCheck);
-        } else if ( this.options.Mask.length > 0) {
+        } else if ( matching.length > 0 && this.options.Mask.length > 0) {
             if ( StrToCheck === matching[0].val.replace(/<span[\w\W]*?>|<\/span>/g,'') ) {
                 this.__set_help_msg('', 'completed');
             } else if ( matching.length > 1 ) {
                 this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
-            } else {
+            } else if ( this.options._mask_status.mask_passed === true) {
                 this.__set_help_msg('', 'good');
             }
         }
@@ -712,6 +712,7 @@ $.widget('mre.menuoptions', {
 
     _check_whole_input : function (StrToCheck) {
         var str_len = this.cached['.mo_elem'].val().length;
+        this.options._mask_status.mask_passed=true;
         for (var x = str_len; str_len > 0; str_len--) {
             if ( this.options.Data !== ""  && this._matches(this.cached['.mo_elem'].val(), 'partial').length === 0 ||
                  this.options.Mask.length > 0 ) {
@@ -1355,7 +1356,7 @@ $.widget('mre.menuoptions', {
         if (this.options.Data === "" ) { // short circuit autocomplete logic here (if no Data)
             return false;
         }
-        if (/keydown|keyup/.test(e.type) && this._arrow_keys(e) === true && e.keyCode !== $.ui.keyCode.BACKSPACE) {
+        if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){
             return false;
         }
         if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {  
