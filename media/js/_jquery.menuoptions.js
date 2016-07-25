@@ -293,7 +293,7 @@ $.widget('mre.menuoptions', {
         this._event_ns = this.eventNamespace.replace(/^\./, '');
         this.cached={'.mo_elem':this.element}; 
         var $dd_span = this;
-        if (/Select|Rocker/.test(this.options.MenuOptionsType) && this.options.Data !== '') { 
+        if (/Select|Rocker/.test(this.options.MenuOptionsType)) { // && this.options.Data !== '') { 
             this.add_menuoption_key();
             if ( Object.keys(options).length === 0 ) {
                 /*--  MenuOptions with no params will just run add_menuoption_key()   --*/
