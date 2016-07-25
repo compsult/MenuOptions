@@ -251,11 +251,11 @@ $.widget('mre.menuoptions', {
     },
 
     _justify : function() {
+        var left_pad=18;
         $(this.element).css({ 'text-align': this.options.Justify });
         if ( /right/i.test(this.options.Justify) ) {
-            var new_rt_pad = parseInt($(this.element).css('padding-right')) + 12;
-            new_rt_pad = new_rt_pad + "px";
-            $(this.element).css({ 'padding-right': new_rt_pad });
+            var width = parseInt($(this.element).css('width')) - left_pad;
+            $(this.element).css({ 'padding-right': left_pad + 'px', 'width': width + 'px'});
         }
     },
     _recreate_mo : function() {
@@ -294,7 +294,11 @@ $.widget('mre.menuoptions', {
         this.cached={'.mo_elem':this.element}; 
         var $dd_span = this;
         if (/Select|Rocker/.test(this.options.MenuOptionsType)) { // && this.options.Data !== '') { 
-            this.add_menuoption_key();
+            if ( this.options.Data !== '') {
+                this.add_menuoption_key();
+            } else {
+                this._add_clear_btn();
+            }
             if ( Object.keys(options).length === 0 ) {
                 /*--  MenuOptions with no params will just run add_menuoption_key()   --*/
                 return;
