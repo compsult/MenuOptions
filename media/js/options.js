@@ -41,7 +41,7 @@
         _bootstrap: false, // make changes if in bootstrap 3
         _vert_ofs : 0,
         _prev : { 'event': '', 'text': '' },
-        _mask_status : { mask_only: false, mask_passed : false, cur_pos: -1 },
+        _mask_status : { mask_only: false, mask_passed : false },
         _CurrentFilter : '',
         _currTD : [ 0, 1 ],
         _event_ns : '',

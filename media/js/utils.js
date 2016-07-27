@@ -16,7 +16,7 @@
                 return this._max_val_test(val, 9, val.length-1);
             }
         } else if ( val.length === this.options._mask.MaxLen ) {
-            return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'error'];
+            return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'day of mon error'];
         }
         return [true,''];
     },

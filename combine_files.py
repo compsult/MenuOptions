@@ -36,9 +36,11 @@ acb = combineFiles()
 more_incls = acb.combine(sys.argv[1], 'firstpass')
 if more_incls:
     acb.combine('firstpass', 'secondpass')
-    os.rename('secondpass',  "../../dist/js/"+str(sys.argv[1][1:]))
+    if os.path.isfile('secondpass'):
+        os.rename('secondpass',  "../../dist/js/"+str(sys.argv[1][1:]))
 else:
-    os.rename('firstpass',  "../../dist/js/"+str(sys.argv[1][1:]))
+    if os.path.isfile('firstpass'):
+        os.rename('firstpass',  "../../dist/js/"+str(sys.argv[1][1:]))
 if os.path.isfile('firstpass'):
     os.unlink('firstpass')
 if os.path.isfile('secondpass'):

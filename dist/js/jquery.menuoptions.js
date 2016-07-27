@@ -65,7 +65,7 @@ $.widget('mre.menuoptions', {
         _bootstrap: false, // make changes if in bootstrap 3
         _vert_ofs : 0,
         _prev : { 'event': '', 'text': '' },
-        _mask_status : { mask_only: false, mask_passed : false, cur_pos: -1 },
+        _mask_status : { mask_only: false, mask_passed : false },
         _CurrentFilter : '',
         _currTD : [ 0, 1 ],
         _event_ns : '',
@@ -301,7 +301,6 @@ $.widget('mre.menuoptions', {
         mony.cur_val = '$' + mony.cur_val.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
         mony.ofs = mony.cur_val.length - mony.from_left;
         this.cached['.mo_elem'].val(mony.cur_val);
-        /*--  console.log("Set => type = "+e.type+" ofs = "+ofs+" cur pos = "+cur_pos+" cur char = "+cur_char+" pos from left = "+from_left+" len = "+cur_val.length);  --*/
         $(this.element).get(0).setSelectionRange(mony.ofs,mony.ofs);
     },
 
@@ -964,19 +963,24 @@ $.widget('mre.menuoptions', {
     },
 
     _back_space : function (val) {
-        var str_len = val.length;
+        /*--  var str_len = val.length;  --*/
+        var str_len = $(this.element).get(0).selectionStart,
+            new_str = '';
         for (var x = str_len; str_len > 0; str_len--) {
+            new_str = val.substring(0,str_len-1) + val.substring(str_len);
             if ( this.options._mask.hasOwnProperty('consts') &&
                 this.options._mask.consts.hasOwnProperty(str_len) ) {
                 if ( str_len > 1 ) {
-                    $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
+                    $(this.element).val(new_str);
+                    val = new_str;
                 }
                 continue;
             } else {
-                $(this.element).val(this.cached['.mo_elem'].val().substring(0, str_len-1));
+                $(this.element).val(new_str);
                 break;
             }
         }
+        $(this.element).get(0).setSelectionRange(str_len-1,str_len-1);
         this.__set_help_msg('', 'good');
     },
 
@@ -1363,9 +1367,9 @@ $.widget('mre.menuoptions', {
         if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){
             return false;
         }
-        if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {  
-            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
-        }
+        /*--  if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {    --*/
+            /*--  this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());  --*/
+        /*--  }  --*/
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
             $("span#HLP_"+this.options._ID).hide();
@@ -1634,7 +1638,7 @@ $.widget('mre.menuoptions', {
                 return this._max_val_test(val, 9, val.length-1);
             }
         } else if ( val.length === this.options._mask.MaxLen ) {
-            return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'error'];
+            return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'day of mon error'];
         }
         return [true,''];
     },

@@ -103,9 +103,9 @@
         if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){
             return false;
         }
-        if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {  
-            this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());
-        }
+        /*--  if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {    --*/
+            /*--  this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());  --*/
+        /*--  }  --*/
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
             $("span#HLP_"+this.options._ID).hide();
