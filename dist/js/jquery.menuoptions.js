@@ -270,13 +270,14 @@ $.widget('mre.menuoptions', {
         this.__set_help_msg('', 'good');
         if ( mony.cur_val.length === 0) {
             this._set_initial_mask_value('focus');
+            $(this.element).attr('menu_opt_key', '0.00');
         } else {
             var ofs = this.cached['.mo_elem'].val().length-3;
             $(this.element).get(0).setSelectionRange(ofs,ofs);
         }
     },
 
-    _money_inv_key : function (mony) {
+    _money_invalid_key : function (mony) {
         this.cached['.mo_elem'].removeClass('data_good data_error');
         if ( ! /\d|,|\$|^$/.test(mony.cur_char) && ! /^\$[^\.]+\.\d$/.test(mony.cur_val)) {
             this.cached['.mo_elem'].val(mony.cur_val.substring(0,mony.cur_pos-1)+mony.cur_val.substring(mony.cur_pos));
@@ -321,7 +322,7 @@ $.widget('mre.menuoptions', {
         }
         if (/input/.test(e.type) ) {
             this.__set_help_msg('', 'good');
-            if ( /^valid$/i.test(this._money_inv_key(mony))) {
+            if ( /^valid$/i.test(this._money_invalid_key(mony))) {
                 return;
             }
             if ( mony.from_left <= 2 ) {
