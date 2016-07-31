@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-10
+ * @version         Version 1.8.1-3
  *
  *
  ******************************************/
@@ -160,6 +160,13 @@ $.widget('mre.menuoptions', {
                 $(this.element).after(HelpTxt);
             }
             this._set_valid_mask ();  
+            this._set_help_position(id);
+        }
+        $('span#'+'HLP_'+this.options._ID).hide(); 
+    },
+
+    _set_help_position : function (id) {
+        if ( this.options._mask_status.mask_only === true ) {
             if ( /right/.test(this.options.Help) ) {  
                 $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
             }  else if ( /bottom/.test(this.options.Help) ) {  
@@ -168,9 +175,7 @@ $.widget('mre.menuoptions', {
                 $("span#"+id).position({ of: $(this.element), my:'center bottom-18', at:'left+10 top' });
             }
         }
-        $('span#'+'HLP_'+this.options._ID).hide(); 
     },
-
 
     _validation_fail : function (err_msg, severity) {
         var prefix = "input id #"+ $(this.element).attr('id') + ": ";

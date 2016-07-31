@@ -11,6 +11,31 @@ How masks work
 
 `See masks demo here <http://menuoptions.org/examples/Masks.html>`_
 
+Mask position options
+---------------------
+
+position
+~~~~~~~~
+You can specify one of three positons to show help (and error) messages
+
+Notes: 
+
+1. this options is only available for mask only (disbaled for multi-column autocomplete)
+2. the default is 'right'
+
+.. code-block:: javascript
+    :emphasize-lines: 6
+
+    $('input#YMDtest').menuoptions({ 
+        "onSelect": function(mo, data) {  
+             console.log(mo, data.newVal, data.newCode, data.type );   
+         },  
+        "ClearBtn": true,
+        "Help": 'bottom',
+        "Mask": "YYYYMMDD"
+    });  
+
+
 Available masks
 ---------------
 
