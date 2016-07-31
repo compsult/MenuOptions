@@ -15,7 +15,7 @@
         Filters: [], // header filters (pass mouse over them & they filter choices)
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#height
         Height: '', // let user specify the exact height they want
-        Help: '', // prompt to show expected input
+        Help: 'right',
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
         Justify : 'left', // allows initial value ot be set
         InitialValue : {}, // allows initial value ot be set
@@ -31,7 +31,7 @@
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
         UseValueForKey: false, // if user wants value = text()
-        Mask : '', 
+        Mask : '',
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#width
         Width: '', // let user specify the exact width they want
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#window

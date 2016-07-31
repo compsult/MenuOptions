@@ -1,5 +1,5 @@
                 'MaxLen' : 12,
-                'Help': 'Mon DD, YYYY',     
+                'Help': 'Mon DD, YYYY',
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'MdY'}); },
                              2: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':2, 'fmt': 'MdY'}); } },
                 'valid' : { 1: function( val, obj ) { return obj._is_char_valid(val,'JFMASOND','invalid month', 'one_char',0); },

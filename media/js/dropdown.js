@@ -97,15 +97,12 @@
         if (e.type === 'search') { // clear menu_opt_key when input is cleared
             this.cached['.mo_elem'].attr('menu_opt_key', '');
         }
-        if (this.options.Data === "" ) { // short circuit autocomplete logic here (if no Data)
+        if (this.options.Data === "") { // short circuit autocomplete logic here (if no Data)
             return false;
         }
         if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){
             return false;
         }
-        /*--  if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {    --*/
-            /*--  this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());  --*/
-        /*--  }  --*/
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
             $("span#HLP_"+this.options._ID).hide();
@@ -131,9 +128,27 @@
             } else {
                 matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
             }
+            if ( curVal.length > this.cached['.mo_elem'].val().length ) {
+                matched = this._matches(this.cached['.mo_elem'].val(), 'partial');
+            } else if ( this.options.Mask === '' ) {
+                $("span#HLP_"+this.options._ID).hide(); 
+            }
+            matched = matched.length === 0 && this.options.Mask === '' ?  this.orig_objs : matched;
             this._build_filtered_dropdown (e, matched );
+            this._set_ac_bg_color (e, matched );
             return;
          } 
+    },
+
+    _set_ac_bg_color : function (e, matched) {
+        if ( /input/.test(e.type) && this.options.Mask === '') {
+            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+            if ( this._matches(this.cached['.mo_elem'].val(), 'exact').length === 1) {
+                this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+                this.cached['.mo_elem'].val($('table.CrEaTeDtAbLeStYlE td:first').text());
+                $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+            }
+        }
     },
 
     _run_header_filter : function (e) {

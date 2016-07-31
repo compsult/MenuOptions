@@ -20,7 +20,8 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'help_id': '//*[@id="HLP_menuoptions0"]',
                               'rslt': '',
                               'click': True,
-                              'help_txt': 'HH:MM AM'
+                              'help_txt': 'HH:MM AM',
+                              'position': 'bottom'
                            })
 
     def test02_mask_error(self):
@@ -175,7 +176,8 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'klass': 'data_error',
                               'rslt': 'Feb ', # deletes constant and previous char
                               'keys': 'Feb 3',
-                              'selector': 'input#MdYtest'
+                              'selector': 'input#MdYtest',
+                              'position': 'right'
                            })
 
     def test12_MdY_bad_day_2(self):
@@ -320,10 +322,11 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'keys': 'zz',
                               'selector': 'input#Phonetest',
                               'klass': 'data_error',
+                              'position': 'top',
                               'rslt': '('
                            })
 
-    def test21_bot_ac_and_mask(self):
+    def test21_both_ac_and_mask(self):
         """
            verify input mask and autocomplete work together
         """

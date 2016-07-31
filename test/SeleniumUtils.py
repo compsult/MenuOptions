@@ -122,15 +122,28 @@ class SeleniumUtils(object):
             print ' '.join(['Found:   ',found.encode('utf-8'),'\nExpected:',params['expected'].encode('utf-8')])
             assert params['expected'] == found
 
+    def check_help_position (self, params ):
+        if 'position' in params and params['position'] in ['top', 'bottom', 'right']:
+            input_id = re.match(r'^(.*)"([^"]+)"(.*)$', params['xpath']).groups()[1]
+            input_ht = self.driver.execute_script("return $('input#"+input_id+"').offset().top;")
+            help_id = re.match(r'^(.*)"([^"]+)"(.*)$', params['help_id']).groups()[1]
+            help_top = self.driver.execute_script("return $('span#"+help_id+"').show().offset().top;")
+            if params['position'] == 'top':
+                assert input_ht > help_top
+            elif params['position'] == 'bottom':
+                assert input_ht < help_top
+            elif params['position'] == 'right':
+                input_left = self.driver.execute_script("return $('input#"+input_id+"').offset().left;")
+                input_width =  self.driver.execute_script("return $('input#"+input_id+"').width();")
+                help_rt = self.driver.execute_script("return $('span#"+help_id+"').show().offset().left;")
+                assert help_rt > input_left + input_width
+
     def check_help_msg (self, params ):
         #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
         elem =  self.driver.find_element_by_xpath(params['xpath'])
         if 'selector' in params:
-            #--- if re.search(r'chrome|safari', self.TST_BROWSER, re.I): ---#
             self.driver.execute_script("$('"+params['selector']+"').val('"+params['keys']+"');")
             self.driver.execute_script("$('"+params['selector']+"').trigger('input')")
-            #--- else: ---#
-                #--- elem.send_keys(params['keys']) ---#
         if 'click' in params:
             elem.click()
         if self.SLEEP: time.sleep(1)
@@ -145,6 +158,8 @@ class SeleniumUtils(object):
         if 'notKlass' in params and len(params['notKlass']) > 0:
             params['elem']=elem
             self.check_not_class (params)
+        self.check_help_position(params)
+
 
 
     def check_regexp_validation (self, params ):
@@ -159,6 +174,8 @@ class SeleniumUtils(object):
             elem.send_keys(params['fill_str'])
         if 'TABout' in params and params['TABout'] == True:
             elem.send_keys(Keys.TAB) # needed when followed by check_ENTER_exit
+        if 'back_spc' in params and params['back_spc'] == True:
+            elem.send_keys(Keys.BACKSPACE)
         value, klass = (elem.get_attribute("value"), elem.get_attribute("class"))
         assert value == params['rslt'] and re.search(r'%s' % params['klass'], klass)
 

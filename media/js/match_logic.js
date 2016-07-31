@@ -103,7 +103,7 @@
 
     __check_match_results : function (matching, StrToCheck, e) {
         if ( matching.length === 0 && this.options.Mask.length === 0) { 
-            this._check_whole_input(StrToCheck);
+            this._check_whole_input(StrToCheck); 
         } else if ( matching.length > 0 && this.options.Mask.length > 0) {
             if ( StrToCheck === matching[0].val.replace(/<span[\w\W]*?>|<\/span>/g,'') ) {
                 this.__set_help_msg('', 'completed');
@@ -118,9 +118,11 @@
     __set_help_msg : function (help_msg, err_or_good) {
         switch ( err_or_good ) {
             case 'error':
-                $("span#HLP_"+this.options._ID).show()
-                        .html('<span style="margin-left:16px">'+help_msg+"</span>")
-                        .removeClass('helptext mask_match').addClass('err_text');
+                if ( this.options.Help ) {
+                    $("span#HLP_"+this.options._ID).show()
+                            .html('<span style="margin-left:16px">'+help_msg+"</span>")
+                            .removeClass('helptext mask_match').addClass('err_text');
+                } 
                 this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
                 this.options._mask_status.mask_passed = false;
                 break;
@@ -153,8 +155,8 @@
         var re = /(\{|\}|\\|\*|\(|\))|\[|\]/g;
         StrToCheck=StrToCheck.replace(re, '\\$&');
         return $.map(this.orig_objs, function (o) { 
-            if (exact === 'exact' && StrToCheck === o.val.replace(/<img[\w\W]*?>/, '')) { return o; }
-            else if (exact === 'partial' && new RegExp(StrToCheck).test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
+            if (exact === 'exact' && StrToCheck.toUpperCase() === o.val.replace(/<img[\w\W]*?>/, '').toUpperCase()) { return o; }
+            else if (exact === 'partial' && new RegExp(StrToCheck, 'i').test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
         });
     },
 
@@ -180,10 +182,10 @@
         this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
         if ( this.options.Mask.length > 0 ) {
             this.options._mask_status.mask_passed = false;
-            this.__set_help_msg(err_msg, 'error');
         } else {
             this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
+        this.__set_help_msg(err_msg, 'error');
     },
 
     _single_char_valid_mask : function ( StrToCheck, str_len) {

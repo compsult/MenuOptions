@@ -39,7 +39,7 @@ $.widget('mre.menuoptions', {
         Filters: [], // header filters (pass mouse over them & they filter choices)
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#height
         Height: '', // let user specify the exact height they want
-        Help: '', // prompt to show expected input
+        Help: 'right',
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
         Justify : 'left', // allows initial value ot be set
         InitialValue : {}, // allows initial value ot be set
@@ -55,7 +55,7 @@ $.widget('mre.menuoptions', {
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
         UseValueForKey: false, // if user wants value = text()
-        Mask : '', 
+        Mask : '',
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#width
         Width: '', // let user specify the exact width they want
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#window
@@ -146,16 +146,27 @@ $.widget('mre.menuoptions', {
     },
 
     _show_help : function () { // show mask and help prompts here
+        if (this.options.Help === false)  {
+            this._set_valid_mask ();  
+            return; 
+        }
         var id = 'HLP_' + this.options._ID,
             help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
-        if ( $('span#'+id).length === 0 && this.options.Mask.length > 0 ) {
+        if ( $('span#'+id).length === 0 ) {
             var HelpTxt = '<span class=helptext id=' + id +'>'+help_msg+'</span>'; 
             if ( $('#CB_'+this.options._ID).length > 0) {
                 $('#CB_'+this.options._ID).after(HelpTxt);
             } else {
                 $(this.element).after(HelpTxt);
             }
-            $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
+            this._set_valid_mask ();  
+            if ( /right/.test(this.options.Help) ) {  
+                $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
+            }  else if ( /bottom/.test(this.options.Help) ) {  
+                $("span#"+id).position({ of: $(this.element), my:'center top', at:'left+10 bottom+4' });
+            }  else if ( /top/.test(this.options.Help) ) {  
+                $("span#"+id).position({ of: $(this.element), my:'center bottom-18', at:'left+10 top' });
+            }
         }
         $('span#'+'HLP_'+this.options._ID).hide(); 
     },
@@ -174,7 +185,7 @@ $.widget('mre.menuoptions', {
         return {
             'HH:MM AM' : { 
                 'MaxLen' : 8,
-                'Help': 'HH:MM AM',     
+                'Help': 'HH:MM AM', 
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'H:M'}); } },
                 'valid' : { 1: { max_val: 1}, 
                             2: function( val,obj ) { return /1/.test(val[0]) ? obj._max_val_test(val,2,1) : obj._max_val_test(val,9,1); },
@@ -187,7 +198,7 @@ $.widget('mre.menuoptions', {
             },
             'Mon DD, YYYY' : { 
                 'MaxLen' : 12,
-                'Help': 'Mon DD, YYYY',     
+                'Help': 'Mon DD, YYYY',
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'MdY'}); },
                              2: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':2, 'fmt': 'MdY'}); } },
                 'valid' : { 1: function( val, obj ) { return obj._is_char_valid(val,'JFMASOND','invalid month', 'one_char',0); },
@@ -204,7 +215,7 @@ $.widget('mre.menuoptions', {
             },
             'YYYYMMDD' : { 
                 'MaxLen' : 8,
-                'Help': 'YYYYMMDD',     
+                'Help': 'YYYYMMDD',
                 'hotkey' : { 1: function( val,obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'YMD'}); } }, 
                 'valid' : { 1: { max_val: 9 },
                             2: { max_val: 9 },
@@ -218,14 +229,14 @@ $.widget('mre.menuoptions', {
             },
             '(999) 999-9999' : { 
                 'MaxLen' : 14,
-                'Help': '(999) 999-9999',
+                'Help': '(999) 999-9999', 
                 'valid' : { 'all' : { max_val: 9 }},
                 'initial' : { 'val' : '(', 'ofs' : 0 },
                 'consts' : { 1: '(', 5:')', 6:' ', 10:'-'},
                 'Whole' : '^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$'
             },
             'Money' : { 
-                'Help': '$0,000.00',
+                'Help': '$0,000.00', 
                 'valid' : { 'all' : function( val,obj ) {return obj._check_money({ value: val, ofs : 3 }); } },
                 'initial' : { 'val' : '$0.00', 'ofs' : 3 },
                 'sep' : ',',
@@ -254,6 +265,10 @@ $.widget('mre.menuoptions', {
     },
 
     _set_valid_mask : function () {
+        var mo_type = this._test_mask_cfg();
+        if ( ! /^mask/i.test(mo_type)) {
+            return;
+        }
         var all_masks = this._mask_vars();
         if ( this.options.Mask.length > 0 ) {
             if ( all_masks.hasOwnProperty(this.options.Mask) ) {
@@ -655,7 +670,7 @@ $.widget('mre.menuoptions', {
 
     __check_match_results : function (matching, StrToCheck, e) {
         if ( matching.length === 0 && this.options.Mask.length === 0) { 
-            this._check_whole_input(StrToCheck);
+            this._check_whole_input(StrToCheck); 
         } else if ( matching.length > 0 && this.options.Mask.length > 0) {
             if ( StrToCheck === matching[0].val.replace(/<span[\w\W]*?>|<\/span>/g,'') ) {
                 this.__set_help_msg('', 'completed');
@@ -670,9 +685,11 @@ $.widget('mre.menuoptions', {
     __set_help_msg : function (help_msg, err_or_good) {
         switch ( err_or_good ) {
             case 'error':
-                $("span#HLP_"+this.options._ID).show()
-                        .html('<span style="margin-left:16px">'+help_msg+"</span>")
-                        .removeClass('helptext mask_match').addClass('err_text');
+                if ( this.options.Help ) {
+                    $("span#HLP_"+this.options._ID).show()
+                            .html('<span style="margin-left:16px">'+help_msg+"</span>")
+                            .removeClass('helptext mask_match').addClass('err_text');
+                } 
                 this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
                 this.options._mask_status.mask_passed = false;
                 break;
@@ -705,8 +722,8 @@ $.widget('mre.menuoptions', {
         var re = /(\{|\}|\\|\*|\(|\))|\[|\]/g;
         StrToCheck=StrToCheck.replace(re, '\\$&');
         return $.map(this.orig_objs, function (o) { 
-            if (exact === 'exact' && StrToCheck === o.val.replace(/<img[\w\W]*?>/, '')) { return o; }
-            else if (exact === 'partial' && new RegExp(StrToCheck).test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
+            if (exact === 'exact' && StrToCheck.toUpperCase() === o.val.replace(/<img[\w\W]*?>/, '').toUpperCase()) { return o; }
+            else if (exact === 'partial' && new RegExp(StrToCheck, 'i').test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
         });
     },
 
@@ -732,10 +749,10 @@ $.widget('mre.menuoptions', {
         this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(0,str_len-1));
         if ( this.options.Mask.length > 0 ) {
             this.options._mask_status.mask_passed = false;
-            this.__set_help_msg(err_msg, 'error');
         } else {
             this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
+        this.__set_help_msg(err_msg, 'error');
     },
 
     _single_char_valid_mask : function ( StrToCheck, str_len) {
@@ -1037,7 +1054,6 @@ $.widget('mre.menuoptions', {
                 this._build_array_of_objs();
         }
         if (/^mask/i.test(mo_type)) {
-            this._set_valid_mask ();  
             this._add_clear_btn(); 
         } else { 
             if (/Rocker/i.test(this.options.MenuOptionsType) ) {
@@ -1049,7 +1065,6 @@ $.widget('mre.menuoptions', {
                     $(this.element).next('span.clearbtn').show();
                 }
                 if ( /Select/.test(this.options.MenuOptionsType) ) {
-                    $(this.element).attr('autocomplete', 'off');
                     this._add_clear_btn(); 
                 } else if ( /Navigate/.test(this.options.MenuOptionsType)) {
                     this._show_menu_arrs();
@@ -1063,11 +1078,13 @@ $.widget('mre.menuoptions', {
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
         this._event_ns = this.eventNamespace.replace(/^\./, '');
         this.cached={'.mo_elem':this.element}; 
+        $(this.element).attr('autocomplete', 'off');
         var $dd_span = this;
-        if (/Select|Rocker/.test(this.options.MenuOptionsType)) { // && this.options.Data !== '') { 
+        if (/Select|Rocker/.test(this.options.MenuOptionsType)) {
             if ( this.options.Data !== '') {
                 this.add_menuoption_key();
-            } else {
+            } 
+            else {
                 this._add_clear_btn();
             }
             if ( Object.keys(options).length === 0 ) {
@@ -1362,15 +1379,12 @@ $.widget('mre.menuoptions', {
         if (e.type === 'search') { // clear menu_opt_key when input is cleared
             this.cached['.mo_elem'].attr('menu_opt_key', '');
         }
-        if (this.options.Data === "" ) { // short circuit autocomplete logic here (if no Data)
+        if (this.options.Data === "") { // short circuit autocomplete logic here (if no Data)
             return false;
         }
         if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){
             return false;
         }
-        /*--  if (/click/.test(e.type) && ! /^Money$/i.test( this.options.Mask)) {    --*/
-            /*--  this.cached['.mo_elem'].val(this.cached['.mo_elem'].val());  --*/
-        /*--  }  --*/
         if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
             $("span#HLP_"+this.options._ID).hide();
@@ -1396,9 +1410,27 @@ $.widget('mre.menuoptions', {
             } else {
                 matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
             }
+            if ( curVal.length > this.cached['.mo_elem'].val().length ) {
+                matched = this._matches(this.cached['.mo_elem'].val(), 'partial');
+            } else if ( this.options.Mask === '' ) {
+                $("span#HLP_"+this.options._ID).hide(); 
+            }
+            matched = matched.length === 0 && this.options.Mask === '' ?  this.orig_objs : matched;
             this._build_filtered_dropdown (e, matched );
+            this._set_ac_bg_color (e, matched );
             return;
          } 
+    },
+
+    _set_ac_bg_color : function (e, matched) {
+        if ( /input/.test(e.type) && this.options.Mask === '') {
+            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+            if ( this._matches(this.cached['.mo_elem'].val(), 'exact').length === 1) {
+                this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+                this.cached['.mo_elem'].val($('table.CrEaTeDtAbLeStYlE td:first').text());
+                $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+            }
+        }
     },
 
     _run_header_filter : function (e) {

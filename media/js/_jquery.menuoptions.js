@@ -88,16 +88,27 @@ $.widget('mre.menuoptions', {
     },
 
     _show_help : function () { // show mask and help prompts here
+        if (this.options.Help === false)  {
+            this._set_valid_mask ();  
+            return; 
+        }
         var id = 'HLP_' + this.options._ID,
             help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
-        if ( $('span#'+id).length === 0 && this.options.Mask.length > 0 ) {
+        if ( $('span#'+id).length === 0 ) {
             var HelpTxt = '<span class=helptext id=' + id +'>'+help_msg+'</span>'; 
             if ( $('#CB_'+this.options._ID).length > 0) {
                 $('#CB_'+this.options._ID).after(HelpTxt);
             } else {
                 $(this.element).after(HelpTxt);
             }
-            $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
+            this._set_valid_mask ();  
+            if ( /right/.test(this.options.Help) ) {  
+                $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
+            }  else if ( /bottom/.test(this.options.Help) ) {  
+                $("span#"+id).position({ of: $(this.element), my:'center top', at:'left+10 bottom+4' });
+            }  else if ( /top/.test(this.options.Help) ) {  
+                $("span#"+id).position({ of: $(this.element), my:'center bottom-18', at:'left+10 top' });
+            }
         }
         $('span#'+'HLP_'+this.options._ID).hide(); 
     },
@@ -266,7 +277,6 @@ $.widget('mre.menuoptions', {
                 this._build_array_of_objs();
         }
         if (/^mask/i.test(mo_type)) {
-            this._set_valid_mask ();  
             this._add_clear_btn(); 
         } else { 
             if (/Rocker/i.test(this.options.MenuOptionsType) ) {
@@ -278,7 +288,6 @@ $.widget('mre.menuoptions', {
                     $(this.element).next('span.clearbtn').show();
                 }
                 if ( /Select/.test(this.options.MenuOptionsType) ) {
-                    $(this.element).attr('autocomplete', 'off');
                     this._add_clear_btn(); 
                 } else if ( /Navigate/.test(this.options.MenuOptionsType)) {
                     this._show_menu_arrs();
@@ -292,11 +301,13 @@ $.widget('mre.menuoptions', {
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
         this._event_ns = this.eventNamespace.replace(/^\./, '');
         this.cached={'.mo_elem':this.element}; 
+        $(this.element).attr('autocomplete', 'off');
         var $dd_span = this;
-        if (/Select|Rocker/.test(this.options.MenuOptionsType)) { // && this.options.Data !== '') { 
+        if (/Select|Rocker/.test(this.options.MenuOptionsType)) {
             if ( this.options.Data !== '') {
                 this.add_menuoption_key();
-            } else {
+            } 
+            else {
                 this._add_clear_btn();
             }
             if ( Object.keys(options).length === 0 ) {

@@ -135,6 +135,20 @@ class testSL(SeleniumUtils, SetupByLocation):
                               'klass': 'data_error',
                               'rslt': 'm' })
 
+    def test13_check_backspace(self):
+        """
+           verify BACKSPACE function on mask and autocomplete combo fields
+        """
+        self.url='http://'+self.IP+'/examples/MaskCombos_test.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
+        self.check_regexp_validation({ 'xpath': '//*[@id="starttime3"]',
+                              'clearbtn': '//*[@id="CB_menuoptions3"]',
+                              'fill_str': '09:',
+                              'back_spc': True,
+                              'klass': 'data_error',
+                              'rslt': '0' })
+
+
     def tearDown(self):
         super(testSL,self).tearDown()
         self.driver.quit()

@@ -38,6 +38,10 @@
     },
 
     _set_valid_mask : function () {
+        var mo_type = this._test_mask_cfg();
+        if ( ! /^mask/i.test(mo_type)) {
+            return;
+        }
         var all_masks = this._mask_vars();
         if ( this.options.Mask.length > 0 ) {
             if ( all_masks.hasOwnProperty(this.options.Mask) ) {
