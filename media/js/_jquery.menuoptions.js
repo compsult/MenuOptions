@@ -116,6 +116,8 @@ $.widget('mre.menuoptions', {
             }  else if ( /top/.test(this.options.Help) ) {  
                 $("span#"+id).position({ of: $(this.element), my:'center bottom-18', at:'left+10 top' });
             }
+        } else {
+            $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
         }
     },
 

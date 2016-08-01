@@ -21,7 +21,7 @@ You can specify one of three positons to show help (and error) messages
 Notes: 
 
 1. this options is only available for mask only (disbaled for multi-column autocomplete)
-2. the default is 'right'
+2. the default is 'right' (the other options are 'top' and 'bottom')
 
 .. code-block:: javascript
     :emphasize-lines: 6
@@ -31,7 +31,7 @@ Notes:
              console.log(mo, data.newVal, data.newCode, data.type );   
          },  
         "ClearBtn": true,
-        "Help": 'bottom',
+        "Help": 'bottom', // or 'top' or 'right'
         "Mask": "YYYYMMDD"
     });  
 
