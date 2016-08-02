@@ -159,7 +159,9 @@ $.widget('mre.menuoptions', {
         } else if ( $(this.element).val().length > 0 ) {
                 $(this.element).removeClass('data_good').addClass('data_error'); 
         }
-        this._add_clear_btn();
+        if (/Select/i.test(this.options.MenuOptionsType) ) {
+            this._add_clear_btn();
+        }
     },
 
     set_select_value : function (new_rec_obj) {
@@ -283,7 +285,7 @@ $.widget('mre.menuoptions', {
         if (/^mask_and|^autocomplete$/i.test(mo_type)) {
                 this._build_array_of_objs();
         }
-        if (/^mask/i.test(mo_type)) {
+        if (/^mask/i.test(mo_type) && /Select/i.test(this.options.MenuOptionsType)) {
             this._add_clear_btn(); 
         } else { 
             if (/Rocker/i.test(this.options.MenuOptionsType) ) {
@@ -313,8 +315,7 @@ $.widget('mre.menuoptions', {
         if (/Select|Rocker/.test(this.options.MenuOptionsType)) {
             if ( this.options.Data !== '') {
                 this.add_menuoption_key();
-            } 
-            else {
+            } else if ( /Select/i.test(this.options.MenuOptionsType)) {
                 this._add_clear_btn();
             }
             if ( Object.keys(options).length === 0 ) {

@@ -14,9 +14,9 @@ How masks work
 Mask position options
 ---------------------
 
-position
-~~~~~~~~
-You can specify one of three positons to show help (and error) messages
+Help
+~~~~
+You can specify one of three positions to show help (and error) messages
 
 Notes: 
 
