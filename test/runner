@@ -16,11 +16,12 @@ function runLocal {
 #--- runLocal "test_Masks.py:testMasks.test10_YMD_bad_day_2" ---#
 #--- runLocal "test_Masks:testMasks.test21_HHMM_AM_bad_AM" ---#
 #--- runLocal "test_Masks:testMasks.test10_YMD_bad_day_2" ---#
-runLocal "test_Masks:testMasks.test20_phone_num_paren"
+#--- runLocal "test_Masks:testMasks.test20_phone_num_paren" ---#
 #--- runLocal "test_Masks:testMasks.test03_mask_valid" ---#
 #--- runLocal "test_Masks:testMasks.test20_phone_num_paren" ---#
 #--- runLocal "test_Masks:testMasks.test21_bot_ac_and_mask" ---#
 #--- runLocal "test_Masks:testMasks.test02_mask_error" ---#
+#--- runLocal "test_Masks:testMasks.test10_YMD_bad_day_2" ---#
 #--- runLocal "test_bootstrap.py:test_bootstrap.test02_bs" ---#
 #--- runLocal sauce "safari" "OS X 10.10" "Safari test" test/test_Rocker:test_rocker.test02_rocker ---#
 #--- runLocal "test_Rocker.py:test_rocker.test02_rocker" ---#
@@ -34,13 +35,14 @@ runLocal "test_Masks:testMasks.test20_phone_num_paren"
 #--- runLocal "test_SelectList.py:testSL.test12_check_bad_paste_autocompl_only" ---#
 #--- runLocal "test_SelectList.py:testSL.test13_check_backspace" ---#
 #--- runLocal "test_SelectList.py:testSL.test04_regexp" ---#
+#--- runLocal "test_SelectList.py:testSL.test08_tab_with_data" ---#
 #--- runLocal "test_SelectList.py:testSL.test03_autocomplete" ---#
 #--- runLocal "test_Money:testMoney.test02_click_pos" ---#
 #--- runLocal "test_Money:testMoney.test03_after_entry_pos" ---#
 #--- runLocal "test_SelectList.py:testSL.test08_tab_with_data" ---#
 #--- runLocal "test_SelectList.py" ---#
 #--- runLocal test_addons.py:test_addons.test03_down_arrow ---#
-#--- runLocal test_scroll.py ---#
+runLocal test_scroll.py
 #--- runLocal test_SelectList.py ---#
 #--- runLocal test_Rocker.py ---#
 #--- runLocal test_set_value.py ---#

@@ -12,7 +12,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
 
     def test01_mask_initial_focus(self):
         """
-           verify initial focus shows Help msg
+           verify initial focus shows Help msg. Verify mask error handling (if user enter invalid data, error msg shows and char is deleted)
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_help_msg({
@@ -23,12 +23,6 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'help_txt': 'HH:MM AM',
                               'position': 'bottom'
                            })
-
-    def test02_mask_error(self):
-        """
-           verify mask error handling (if user enter invalid data, error msg shows and char is deleted)
-        """
-        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_help_msg({
                             'xpath': '//*[@id="starttime1"]',
                             'help_id': '//*[@id="HLP_menuoptions0"]',
@@ -41,7 +35,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
 
     def test03_mask_valid(self):
         """
-           verify mask for valid data (default help is shown)
+           verify mask for valid data (default help is shown). Verify constants are automatically added when their position is reached
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
         self.check_help_msg({
@@ -54,12 +48,6 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'selector': 'input#starttime1',
                               'keys': '1'
                            })
-
-    def test04_mask_valid(self):
-        """
-           verify constants are automatically added when their position is reached
-        """
-        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
         self.check_help_msg({ 'xpath': '//*[@id="starttime1"]',
                               'help_id': '//*[@id="HLP_menuoptions0"]',
                               'selector': 'input#starttime1',
@@ -69,7 +57,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
 
     def test05_check_backspace(self):
         """
-           verify BACKSPACE key deletes constants properly and changes bg color class
+           verify BACKSPACE key deletes constants properly and changes bg color class. Verify BACKSPACE key deletes first char and changes class
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
         self.check_help_msg({
@@ -82,12 +70,6 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'selector': 'input#starttime1',
                               'keys': '09:29 A'
                            })
-
-    def test06_check_backspace(self):
-        """
-           verify BACKSPACE key deletes first char and changes class
-        """
-        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
         self.check_help_msg({
                               'xpath': '//*[@id="starttime1"]',
                               'help_id': '//*[@id="HLP_menuoptions0"]',
@@ -101,7 +83,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
 
     def test07_YMD_bad_mon(self):
         """
-           verify YYYYMMDD rejects invalid month
+           verify YYYYMMDD rejects invalid month. Verify YYYYMMDD rejects invalid month in 2nd digit. Verify YYYYMMDD rejects invalid day
         """
         self.url='http://'+self.IP+'/examples/Masks_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'masks'})
@@ -114,12 +96,6 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'keys': '20165',
                               'selector': 'input#YMDtest' # should result in '09:29 AM'
                            })
-
-    def test08_YMD_bad_mon_2(self):
-        """
-           verify YYYYMMDD rejects invalid month in 2nd digit
-        """
-        self.url='http://'+self.IP+'/examples/Masks_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'masks'})
         self.check_help_msg({
                               'xpath': '//*[@id="YMDtest"]',
@@ -130,12 +106,6 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'keys': '201618',
                               'selector': 'input#YMDtest'
                            })
-
-    def test09_YMD_bad_day(self):
-        """
-           verify YYYYMMDD rejects invalid day
-        """
-        self.url='http://'+self.IP+'/examples/Masks_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'masks'})
         self.check_help_msg({
                               'xpath': '//*[@id="YMDtest"]',
@@ -149,7 +119,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
 
     def test10_YMD_bad_day_2(self):
         """
-           verify YYYYMMDD rejects invalid day in 2nd digit
+           verify YYYYMMDD rejects invalid day in 2nd digit.  Verify Mon DD, YYYY rejects invalid day
         """
         self.url='http://'+self.IP+'/examples/Masks_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'masks'})
@@ -162,13 +132,6 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'keys': '20150229',
                               'selector': 'input#YMDtest'
                            })
-
-    def test11_MdY_bad_day(self):
-        """
-           verify Mon DD, YYYY rejects invalid day
-        """
-        self.url='http://'+self.IP+'/examples/Masks_test.html'
-        self.open_n_tst_title({'url': self.url, 'title': 'masks'})
         self.check_help_msg({
                               'xpath': '//*[@id="MdYtest"]',
                               'help_id': '//*[@id="HLP_menuoptions0"]',

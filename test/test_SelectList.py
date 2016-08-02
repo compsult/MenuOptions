@@ -20,7 +20,7 @@ class testSL(SeleniumUtils, SetupByLocation):
 
     def test03_autocomplete(self):
         """
-           check that MenuOptions select list autocomplete works and that any character not in select list is deleted
+           check that select list autocomplete works & that any character not in select list is deleted. Also, verify entry of item that matches mask (and not in select list)
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_clr({ 'xpath': '//*[@id="CB_menuoptions0"]',
@@ -31,11 +31,6 @@ class testSL(SeleniumUtils, SetupByLocation):
                          'test_key': 'a' })
         self.check_invalid_key ({ 'xpath': '//*[@id="selecttest"]',
                                   'inv_key': 'x' })
-
-    def test04_regexp(self):
-        """
-           check that MenuOptions allows entry of item that matches mask (and not in select list)
-        """
         self.url='http://'+self.IP+'/examples/MaskCombos_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'masks'})
         self.check_regexp_validation({ 'xpath': '//*[@id="starttime3"]',
@@ -84,7 +79,7 @@ class testSL(SeleniumUtils, SetupByLocation):
 
     def test08_tab_with_data(self):
         """
-           check that MenuOptions chooses 1st matching item in select list when TAB is used to exit
+           check MenuOptions chooses 1st matching item in select list when TAB is used to exit. Check MenuOptions leaves input element empty on TAB (when no chars in input). Check that MenuOptions chooses 1st  item in select list when ENTER is pressed
         """
         self.url='http://'+self.IP+'/examples/MaskCombos_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'masks'})
@@ -92,22 +87,10 @@ class testSL(SeleniumUtils, SetupByLocation):
                               'rslt': '09:15 AM',
                               'klass': 'data_good',
                               'test_key': '1' })
-
-    def test09_tab_with_no_data(self):
-        """
-           check that MenuOptions leaves input element empty on TAB (when no chars in input)
-        """
-        self.url='http://'+self.IP+'/examples/MaskCombos_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'masks'})
         self.check_TAB_exit({ 'xpath': '//*[@id="starttime1"]',
                               'rslt': '',
                               'notKlass': ['data_error','data_good'] })
-
-    def test10_enter(self):
-        """
-           check that MenuOptions chooses 1st  item in select list when ENTER is pressed
-        """
-        self.url='http://'+self.IP+'/examples/MaskCombos_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'masks'})
         self.check_ENTER_exit({ 'xpath': '//*[@id="starttime2"]',
                               'rslt': '09:00 AM',
