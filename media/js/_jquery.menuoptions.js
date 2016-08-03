@@ -109,7 +109,7 @@ $.widget('mre.menuoptions', {
 
     _set_help_position : function (id) {
         if ( this.options._mask_status.mask_only === true ) {
-            if ( /right/.test(this.options.Help) ) {  
+            if ( /right/.test(this.options.Help) || this.options.Help === true) {  
                 $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
             }  else if ( /bottom/.test(this.options.Help) ) {  
                 $("span#"+id).position({ of: $(this.element), my:'center top', at:'left+10 bottom+4' });

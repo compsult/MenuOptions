@@ -54,12 +54,12 @@ Mon DD, YYYY
 
     "Mask": "Mon DD, YYYY"
 
-(999) 999-9999
-~~~~~~~~~~~~~~
+USphone
+~~~~~~~
 
 .. code-block:: javascript
 
-    "Mask": "(999) 999-9999"
+    "Mask": "USphone"
 
 
 HH:MM AM

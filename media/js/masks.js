@@ -9,7 +9,7 @@
             'YYYYMMDD' : { 
                 #import yyyymmdd_mask.js
             },
-            '(999) 999-9999' : { 
+            'USphone' : { 
                 #import phone_mask.js
             },
             'Money' : { 

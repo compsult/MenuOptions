@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-6
+ * @version         Version 1.8.1-7
  *
  *
  ******************************************/
@@ -167,7 +167,7 @@ $.widget('mre.menuoptions', {
 
     _set_help_position : function (id) {
         if ( this.options._mask_status.mask_only === true ) {
-            if ( /right/.test(this.options.Help) ) {  
+            if ( /right/.test(this.options.Help) || this.options.Help === true) {  
                 $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
             }  else if ( /bottom/.test(this.options.Help) ) {  
                 $("span#"+id).position({ of: $(this.element), my:'center top', at:'left+10 bottom+4' });
@@ -234,7 +234,7 @@ $.widget('mre.menuoptions', {
                             8: function( val, obj ) { return obj._get_days(val,'YMD'); } }, 
                 'Whole' : function( val, obj ) { return obj._get_days(val,'YMD'); }
             },
-            '(999) 999-9999' : { 
+            'USphone' : { 
                 'MaxLen' : 14,
                 'Help': '(999) 999-9999', 
                 'valid' : { 'all' : { max_val: 9 }},
@@ -384,7 +384,9 @@ $.widget('mre.menuoptions', {
         } else if ( $(this.element).val().length > 0 ) {
                 $(this.element).removeClass('data_good').addClass('data_error'); 
         }
-        this._add_clear_btn();
+        if (/Select/i.test(this.options.MenuOptionsType) ) {
+            this._add_clear_btn();
+        }
     },
 
     set_select_value : function (new_rec_obj) {
@@ -1060,7 +1062,7 @@ $.widget('mre.menuoptions', {
         if (/^mask_and|^autocomplete$/i.test(mo_type)) {
                 this._build_array_of_objs();
         }
-        if (/^mask/i.test(mo_type)) {
+        if (/^mask/i.test(mo_type) && /Select/i.test(this.options.MenuOptionsType)) {
             this._add_clear_btn(); 
         } else { 
             if (/Rocker/i.test(this.options.MenuOptionsType) ) {
@@ -1090,8 +1092,7 @@ $.widget('mre.menuoptions', {
         if (/Select|Rocker/.test(this.options.MenuOptionsType)) {
             if ( this.options.Data !== '') {
                 this.add_menuoption_key();
-            } 
-            else {
+            } else if ( /Select/i.test(this.options.MenuOptionsType)) {
                 this._add_clear_btn();
             }
             if ( Object.keys(options).length === 0 ) {
