@@ -1,4 +1,4 @@
-                'MaxLen' : 8,
+                'FixedLen' : 8,
                 'Help': 'YYYYMMDD',
                 'hotkey' : { 1: function( val,obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'YMD'}); } }, 
                 'valid' : { 1: { max_val: 9 },

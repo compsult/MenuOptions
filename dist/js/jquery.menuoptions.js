@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-7
+ * @version         Version 1.8.1-8
  *
  *
  ******************************************/
@@ -95,13 +95,11 @@ $.widget('mre.menuoptions', {
 
         if ( this.options._mask_status.mask_only === false ) {
             this._check_for_bootstrap();
-
             // make sure incoming data is in required format
             this._build_array_of_objs();
             if (this.orig_objs === false) {
                 return this._validation_fail('Invalid Data format supplied to menuoptions','fatal');
             }
-
             if (/Rocker/i.test(this.options.MenuOptionsType) && this.orig_objs.length !== 2) {
                     return this._validation_fail('When using the rocker control, exactly 2 elements need to be supplied to menuoptions','fatal');
             }
@@ -115,7 +113,16 @@ $.widget('mre.menuoptions', {
 
         this._detect_destroyed_input();
 
+        this._fmt_existing_input();
+
         $(this.element).addClass('ui-menuoptions');
+    },
+
+    _fmt_existing_input : function() {
+         if ( this.options._mask.hasOwnProperty('fmt_initial') === true &&
+              this.element.val().length > 0 ) {
+              this.options._mask.fmt_initial(this.element.val(), this);
+         }
     },
 
     _test_mask_cfg : function () {
@@ -191,7 +198,7 @@ $.widget('mre.menuoptions', {
     _mask_vars : function() {
         return {
             'HH:MM AM' : { 
-                'MaxLen' : 8,
+                'FixedLen' : 8,
                 'Help': 'HH:MM AM', 
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'H:M'}); } },
                 'valid' : { 1: { max_val: 1}, 
@@ -204,7 +211,7 @@ $.widget('mre.menuoptions', {
                 'Whole' : function( val, obj ) { if (/^[01][0-9]:[0-5][0-9] [AP]M$/.test(val)) {return [true,''];} else {return [false,'invalid time'];} }
             },
             'Mon DD, YYYY' : { 
-                'MaxLen' : 12,
+                'FixedLen' : 12,
                 'Help': 'Mon DD, YYYY',
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'MdY'}); },
                              2: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':2, 'fmt': 'MdY'}); } },
@@ -221,7 +228,7 @@ $.widget('mre.menuoptions', {
                 'Whole' : function( val, obj ) { return obj._get_days(val,'MdY'); }
             },
             'YYYYMMDD' : { 
-                'MaxLen' : 8,
+                'FixedLen' : 8,
                 'Help': 'YYYYMMDD',
                 'hotkey' : { 1: function( val,obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'YMD'}); } }, 
                 'valid' : { 1: { max_val: 9 },
@@ -235,8 +242,9 @@ $.widget('mre.menuoptions', {
                 'Whole' : function( val, obj ) { return obj._get_days(val,'YMD'); }
             },
             'USphone' : { 
-                'MaxLen' : 14,
+                'FixedLen' : 14,
                 'Help': '(999) 999-9999', 
+                'fmt_initial' : function( val, obj ) { obj._initial_phone({ valid_regex: '\\d', mask: this }); },
                 'valid' : { 'all' : { max_val: 9 }},
                 'initial' : { 'val' : '(', 'ofs' : 0 },
                 'consts' : { 1: '(', 5:')', 6:' ', 10:'-'},
@@ -244,10 +252,12 @@ $.widget('mre.menuoptions', {
             },
             'Money' : { 
                 'Help': '$0,000.00', 
+                'currency': '$',
+                'fmt_initial' : function( val, obj ) { obj._initial_money({ valid_regex: '\\d\\.', mask: this }); },
                 'valid' : { 'all' : function( val,obj ) {return obj._check_money({ value: val, ofs : 3 }); } },
                 'initial' : { 'val' : '$0.00', 'ofs' : 3 },
                 'sep' : ',',
-                'Whole' : '^\$\d{1,3}\.[0-9]{2}$|^\$(\d{1,3},)+\d{3}\.[0-9]{2}$'
+                'Whole' : '^\\$\\d{1,3}\\.\\d{2}$|^\\$(\\d{1,3},)+\\d{3}\\.[0-9]{2}$'
             }
         };
     },
@@ -280,11 +290,44 @@ $.widget('mre.menuoptions', {
         if ( this.options.Mask.length > 0 ) {
             if ( all_masks.hasOwnProperty(this.options.Mask) ) {
                 this.options._mask = all_masks[this.options.Mask];
-                $(this.element).prop('maxLength', this.options._mask.MaxLen);
+                $(this.element).prop('FixedLength', this.options._mask.FixedLen);
             } else {
                 return this._validation_fail(this.options.Mask+" is not a valid mask.",'fatal');
             }
         }
+    },
+
+    _initial_bg : function ( params ){
+
+        if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
+           this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+        } else {
+           this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+        }
+    },
+
+    _initial_money : function ( params ){
+        var raw_data=this.element.val().replace(new RegExp('[^'+params.valid_regex+']', 'g'), '');
+        var mony = this._money_init();
+        this._money_output(mony);
+        this._initial_bg( params );
+    },
+
+    _initial_phone : function ( params ){
+        var raw_data=this.element.val().replace(new RegExp('[^'+params.valid_regex+']', 'g'), ''),
+            consts = params.mask.consts,
+            len = params.mask.FixedLen,
+            fmted_str = '';
+        for ( var x = 1; x <= len; x++) {
+            if ( consts.hasOwnProperty(x) ) {
+                fmted_str = fmted_str + consts[x];
+            } else {
+                fmted_str = fmted_str + raw_data.charAt(0);
+                raw_data = raw_data.substring(1);
+            }
+        }
+        this.element.val(fmted_str);
+        this._initial_bg( params );
     },
 
 
@@ -328,16 +371,19 @@ $.widget('mre.menuoptions', {
     },
 
     _money_init : function (mony) {
-        mony.cur_val = this.cached['.mo_elem'].val();
-        mony.ofs = mony.cur_val.length - this.options._mask.initial.ofs;
-        mony.cur_pos = $(this.element).get(0).selectionStart;
-        mony.cur_char = mony.cur_val.substring(mony.cur_pos-1, mony.cur_pos);
-        mony.from_left = $(this.element).val().length-mony.cur_pos;
+        var val = this.cached['.mo_elem'].val(),
+            cur_pos = $(this.element).get(0).selectionStart;
+        return {
+            cur_val : val,
+            ofs : val.length - this.options._mask.initial.ofs,
+            cur_pos : cur_pos,
+            cur_char : val.substring(cur_pos-1, cur_pos),
+            from_left : $(this.element).val().length-cur_pos
+        }
     },
 
     _check_money : function (e) {
-        var mony = {};
-        this._money_init(mony);
+        var mony = this._money_init();
         if (/focus|click/.test(e.type) ) {
             this._money_start(mony);
             return;
@@ -381,9 +427,9 @@ $.widget('mre.menuoptions', {
                 $(this.element).attr('menu_opt_key', matched[0].ky);
                 $(this.element).removeClass('data_error').addClass('data_good'); 
             }
-        } else if ( $(this.element).val().length > 0 ) {
-                $(this.element).removeClass('data_good').addClass('data_error'); 
-        }
+        } else if ( $(this.element).val().length > 0 ) { 
+              $(this.element).removeClass('data_good').addClass('data_error');  
+         } 
         if (/Select/i.test(this.options.MenuOptionsType) ) {
             this._add_clear_btn();
         }
@@ -583,7 +629,7 @@ $.widget('mre.menuoptions', {
             }
             return;
         }
-        if ( val.length === this.options._mask.MaxLen ) {
+        if ( val.length === this.options._mask.FixedLen ) {
             this._match_complete();
             return;
         }
@@ -594,11 +640,11 @@ $.widget('mre.menuoptions', {
 
     _match_complete : function () {
         if ( this.options._mask.hasOwnProperty('Whole') === false ||
-             this.options._mask.hasOwnProperty('MaxLen') === false ) {
+             this.options._mask.hasOwnProperty('FixedLen') === false ) {
             return false;
         }
         var val = this.cached['.mo_elem'].val();
-        if ( val.length === this.options._mask.MaxLen ) {
+        if ( val.length === this.options._mask.FixedLen ) {
             if ( $.isFunction(this.options._mask.Whole)) {
                  var result = this.options._mask.Whole(val, this);
                  if ( result[0] === false ) {
@@ -633,7 +679,7 @@ $.widget('mre.menuoptions', {
         /*--  append constant value to end of string  --*/
         var str_len = StrToCheck.length;
         if (this.options._mask.hasOwnProperty('consts')) {
-            for (var x = str_len; str_len < this.options._mask.MaxLen; str_len++) {
+            for (var x = str_len; str_len < this.options._mask.FixedLen; str_len++) {
                 if (this.options._mask.consts.hasOwnProperty(str_len+1)) {
                     this.cached['.mo_elem'].val(this.cached['.mo_elem'].val()+this.options._mask.consts[str_len+1]);
                     this._match_complete();
@@ -722,7 +768,7 @@ $.widget('mre.menuoptions', {
         }
         if ( this.cached['.mo_elem'].val().length === 0 ) {
            this.cached['.mo_elem'].removeClass('data_good data_error');
-        } else if ( this.options._mask.hasOwnProperty('MaxLen') && this.cached['.mo_elem'].val().length < this.options._mask.MaxLen){
+        } else if ( this.options._mask.hasOwnProperty('FixedLen') && this.cached['.mo_elem'].val().length < this.options._mask.FixedLen){
            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
     },
@@ -792,25 +838,25 @@ $.widget('mre.menuoptions', {
     },
 
     _valid_test : function (StrToCheck) {
-        if ( StrToCheck.length > this.options._mask.MaxLen ) {
-            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.MaxLen));
+        if ( StrToCheck.length > this.options._mask.FixedLen ) {
+            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
         }
         this._check_whole_input(this.cached['.mo_elem'].val());
         this._add_const (this.cached['.mo_elem'].val());
         if ( $("span#HLP_"+this.options._ID).hasClass('mask_match')) {
             this.__set_help_msg('', 'good');
         }
-        if (this.options._mask.hasOwnProperty('MaxLen') && 
+        if (this.options._mask.hasOwnProperty('FixedLen') && 
             this.cached['.mo_elem'].val().length > 0 && 
-            this.cached['.mo_elem'].val().length < this.options._mask.MaxLen ) {
+            this.cached['.mo_elem'].val().length < this.options._mask.FixedLen ) {
                 this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
         return true; 
     },
 
     _is_last_mask_char_valid : function (e, StrToCheck) {
-        if ( StrToCheck.length > this.options._mask.MaxLen ) {
-            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.MaxLen));
+        if ( StrToCheck.length > this.options._mask.FixedLen ) {
+            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
             return true;
         }
         if ( this.options._mask.hasOwnProperty('hotkey') &&
@@ -1055,6 +1101,7 @@ $.widget('mre.menuoptions', {
             $(this.element).css({ 'padding-right': left_pad + 'px', 'width': width + 'px'});
         }
     },
+
     _recreate_mo : function() {
         var orig_val = $(this.element).val(),
             mo_type = this._test_mask_cfg();
@@ -1092,9 +1139,7 @@ $.widget('mre.menuoptions', {
         if (/Select|Rocker/.test(this.options.MenuOptionsType)) {
             if ( this.options.Data !== '') {
                 this.add_menuoption_key();
-            } else if ( /Select/i.test(this.options.MenuOptionsType)) {
-                this._add_clear_btn();
-            }
+            } 
             if ( Object.keys(options).length === 0 ) {
                 /*--  MenuOptions with no params will just run add_menuoption_key()   --*/
                 return;
@@ -1678,7 +1723,7 @@ $.widget('mre.menuoptions', {
             } else {
                 return this._max_val_test(val, 9, val.length-1);
             }
-        } else if ( val.length === this.options._mask.MaxLen ) {
+        } else if ( val.length === this.options._mask.FixedLen ) {
             return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'day of mon error'];
         }
         return [true,''];

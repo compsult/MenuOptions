@@ -37,13 +37,11 @@ $.widget('mre.menuoptions', {
 
         if ( this.options._mask_status.mask_only === false ) {
             this._check_for_bootstrap();
-
             // make sure incoming data is in required format
             this._build_array_of_objs();
             if (this.orig_objs === false) {
                 return this._validation_fail('Invalid Data format supplied to menuoptions','fatal');
             }
-
             if (/Rocker/i.test(this.options.MenuOptionsType) && this.orig_objs.length !== 2) {
                     return this._validation_fail('When using the rocker control, exactly 2 elements need to be supplied to menuoptions','fatal');
             }
@@ -57,7 +55,16 @@ $.widget('mre.menuoptions', {
 
         this._detect_destroyed_input();
 
+        this._fmt_existing_input();
+
         $(this.element).addClass('ui-menuoptions');
+    },
+
+    _fmt_existing_input : function() {
+         if ( this.options._mask.hasOwnProperty('fmt_initial') === true &&
+              this.element.val().length > 0 ) {
+              this.options._mask.fmt_initial(this.element.val(), this);
+         }
     },
 
     _test_mask_cfg : function () {
@@ -156,9 +163,9 @@ $.widget('mre.menuoptions', {
                 $(this.element).attr('menu_opt_key', matched[0].ky);
                 $(this.element).removeClass('data_error').addClass('data_good'); 
             }
-        } else if ( $(this.element).val().length > 0 ) {
-                $(this.element).removeClass('data_good').addClass('data_error'); 
-        }
+        } else if ( $(this.element).val().length > 0 ) { 
+              $(this.element).removeClass('data_good').addClass('data_error');  
+         } 
         if (/Select/i.test(this.options.MenuOptionsType) ) {
             this._add_clear_btn();
         }
@@ -278,6 +285,7 @@ $.widget('mre.menuoptions', {
             $(this.element).css({ 'padding-right': left_pad + 'px', 'width': width + 'px'});
         }
     },
+
     _recreate_mo : function() {
         var orig_val = $(this.element).val(),
             mo_type = this._test_mask_cfg();
@@ -315,9 +323,7 @@ $.widget('mre.menuoptions', {
         if (/Select|Rocker/.test(this.options.MenuOptionsType)) {
             if ( this.options.Data !== '') {
                 this.add_menuoption_key();
-            } else if ( /Select/i.test(this.options.MenuOptionsType)) {
-                this._add_clear_btn();
-            }
+            } 
             if ( Object.keys(options).length === 0 ) {
                 /*--  MenuOptions with no params will just run add_menuoption_key()   --*/
                 return;

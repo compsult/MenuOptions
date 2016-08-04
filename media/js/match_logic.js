@@ -7,7 +7,7 @@
             }
             return;
         }
-        if ( val.length === this.options._mask.MaxLen ) {
+        if ( val.length === this.options._mask.FixedLen ) {
             this._match_complete();
             return;
         }
@@ -18,11 +18,11 @@
 
     _match_complete : function () {
         if ( this.options._mask.hasOwnProperty('Whole') === false ||
-             this.options._mask.hasOwnProperty('MaxLen') === false ) {
+             this.options._mask.hasOwnProperty('FixedLen') === false ) {
             return false;
         }
         var val = this.cached['.mo_elem'].val();
-        if ( val.length === this.options._mask.MaxLen ) {
+        if ( val.length === this.options._mask.FixedLen ) {
             if ( $.isFunction(this.options._mask.Whole)) {
                  var result = this.options._mask.Whole(val, this);
                  if ( result[0] === false ) {
@@ -57,7 +57,7 @@
         /*--  append constant value to end of string  --*/
         var str_len = StrToCheck.length;
         if (this.options._mask.hasOwnProperty('consts')) {
-            for (var x = str_len; str_len < this.options._mask.MaxLen; str_len++) {
+            for (var x = str_len; str_len < this.options._mask.FixedLen; str_len++) {
                 if (this.options._mask.consts.hasOwnProperty(str_len+1)) {
                     this.cached['.mo_elem'].val(this.cached['.mo_elem'].val()+this.options._mask.consts[str_len+1]);
                     this._match_complete();
@@ -146,7 +146,7 @@
         }
         if ( this.cached['.mo_elem'].val().length === 0 ) {
            this.cached['.mo_elem'].removeClass('data_good data_error');
-        } else if ( this.options._mask.hasOwnProperty('MaxLen') && this.cached['.mo_elem'].val().length < this.options._mask.MaxLen){
+        } else if ( this.options._mask.hasOwnProperty('FixedLen') && this.cached['.mo_elem'].val().length < this.options._mask.FixedLen){
            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
     },
@@ -216,25 +216,25 @@
     },
 
     _valid_test : function (StrToCheck) {
-        if ( StrToCheck.length > this.options._mask.MaxLen ) {
-            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.MaxLen));
+        if ( StrToCheck.length > this.options._mask.FixedLen ) {
+            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
         }
         this._check_whole_input(this.cached['.mo_elem'].val());
         this._add_const (this.cached['.mo_elem'].val());
         if ( $("span#HLP_"+this.options._ID).hasClass('mask_match')) {
             this.__set_help_msg('', 'good');
         }
-        if (this.options._mask.hasOwnProperty('MaxLen') && 
+        if (this.options._mask.hasOwnProperty('FixedLen') && 
             this.cached['.mo_elem'].val().length > 0 && 
-            this.cached['.mo_elem'].val().length < this.options._mask.MaxLen ) {
+            this.cached['.mo_elem'].val().length < this.options._mask.FixedLen ) {
                 this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
         return true; 
     },
 
     _is_last_mask_char_valid : function (e, StrToCheck) {
-        if ( StrToCheck.length > this.options._mask.MaxLen ) {
-            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.MaxLen));
+        if ( StrToCheck.length > this.options._mask.FixedLen ) {
+            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
             return true;
         }
         if ( this.options._mask.hasOwnProperty('hotkey') &&

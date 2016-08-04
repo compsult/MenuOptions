@@ -46,10 +46,43 @@
         if ( this.options.Mask.length > 0 ) {
             if ( all_masks.hasOwnProperty(this.options.Mask) ) {
                 this.options._mask = all_masks[this.options.Mask];
-                $(this.element).prop('maxLength', this.options._mask.MaxLen);
+                $(this.element).prop('FixedLength', this.options._mask.FixedLen);
             } else {
                 return this._validation_fail(this.options.Mask+" is not a valid mask.",'fatal');
             }
         }
+    },
+
+    _initial_bg : function ( params ){
+
+        if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
+           this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+        } else {
+           this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+        }
+    },
+
+    _initial_money : function ( params ){
+        var raw_data=this.element.val().replace(new RegExp('[^'+params.valid_regex+']', 'g'), '');
+        var mony = this._money_init();
+        this._money_output(mony);
+        this._initial_bg( params );
+    },
+
+    _initial_phone : function ( params ){
+        var raw_data=this.element.val().replace(new RegExp('[^'+params.valid_regex+']', 'g'), ''),
+            consts = params.mask.consts,
+            len = params.mask.FixedLen,
+            fmted_str = '';
+        for ( var x = 1; x <= len; x++) {
+            if ( consts.hasOwnProperty(x) ) {
+                fmted_str = fmted_str + consts[x];
+            } else {
+                fmted_str = fmted_str + raw_data.charAt(0);
+                raw_data = raw_data.substring(1);
+            }
+        }
+        this.element.val(fmted_str);
+        this._initial_bg( params );
     },
 
