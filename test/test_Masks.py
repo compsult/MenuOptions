@@ -112,9 +112,9 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'help_id': '//*[@id="HLP_menuoptions1"]',
                               'help_txt': '0 - 2 only',
                               'klass': 'data_error',
-                              'rslt': '201602', # deletes constant and previous char
+                              'rslt': '201602',
                               'keys': '2016023',
-                              'selector': 'input#YMDtest' # should result in '09:29 AM'
+                              'selector': 'input#YMDtest'
                            })
 
     def test10_YMD_bad_day_2(self):
@@ -128,7 +128,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'help_id': '//*[@id="HLP_menuoptions1"]',
                               'help_txt': 'not a leap year',
                               'klass': 'data_error',
-                              'rslt': '2015022', # deletes constant and previous char
+                              'rslt': '2015022',
                               'keys': '20150229',
                               'selector': 'input#YMDtest'
                            })
@@ -137,7 +137,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'help_id': '//*[@id="HLP_menuoptions0"]',
                               'help_txt': '0 - 2 only',
                               'klass': 'data_error',
-                              'rslt': 'Feb ', # deletes constant and previous char
+                              'rslt': 'Feb ',
                               'keys': 'Feb 3',
                               'selector': 'input#MdYtest',
                               'position': 'right'

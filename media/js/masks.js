@@ -53,14 +53,21 @@
         }
     },
 
-    _initial_bg : function ( params ){
-
+    _initial_bg : function ( params ) {
         if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
            this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
         } else {
            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
     },
+
+     _initial_MdY : function ( params ) { 
+         var val = this.element.val();
+         if ( params.mask.FixedLen === val.length && this._get_days(val,'MdY') === true ) {
+            this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+            $(this.element).attr('menu_opt_key', val);
+         }
+     }, 
 
     _initial_money : function ( params ){
         var raw_data=this.element.val().replace(new RegExp('[^'+params.valid_regex+']', 'g'), '');

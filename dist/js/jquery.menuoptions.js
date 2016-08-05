@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-8
+ * @version         Version 1.8.1-9
  *
  *
  ******************************************/
@@ -212,6 +212,7 @@ $.widget('mre.menuoptions', {
             },
             'Mon DD, YYYY' : { 
                 'FixedLen' : 12,
+                'fmt_initial' : function( val, obj ) { obj._initial_MdY({ mask: this }); }, 
                 'Help': 'Mon DD, YYYY',
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'MdY'}); },
                              2: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':2, 'fmt': 'MdY'}); } },
@@ -297,14 +298,21 @@ $.widget('mre.menuoptions', {
         }
     },
 
-    _initial_bg : function ( params ){
-
+    _initial_bg : function ( params ) {
         if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
            this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
         } else {
            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
         }
     },
+
+     _initial_MdY : function ( params ) { 
+         var val = this.element.val();
+         if ( params.mask.FixedLen === val.length && this._get_days(val,'MdY') === true ) {
+            this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+            $(this.element).attr('menu_opt_key', val);
+         }
+     }, 
 
     _initial_money : function ( params ){
         var raw_data=this.element.val().replace(new RegExp('[^'+params.valid_regex+']', 'g'), '');
@@ -379,7 +387,7 @@ $.widget('mre.menuoptions', {
             cur_pos : cur_pos,
             cur_char : val.substring(cur_pos-1, cur_pos),
             from_left : $(this.element).val().length-cur_pos
-        }
+        };
     },
 
     _check_money : function (e) {
@@ -1753,13 +1761,13 @@ $.widget('mre.menuoptions', {
                     return [false, 'invalid month'];
                 }
                 maxdays = /^2$/.test(mon_num) ? '29' : (/^(1|3|5|7|8|10|12)$/.test(mon_num) ? '31' : '30');
-                if ( mon_num === 2 && val.length === 12) {
+                if ( val.length === 12) {
                     if ( val.substring(4,6) > new Date(val.substring(8,12),mon_num,0).getDate() ) {
-                        return [false, 'not a leap year'];
+                        return (mon_num === 2) ? [false, 'not a leap year'] : [false, 'invalid day'];
                     }
-                } else {
-                    return this._parse_days(val, 5, maxdays);
-                } 
+                } else { 
+                     return this._parse_days(val, 5, maxdays); 
+                 }  
         }
         return ret;
     },

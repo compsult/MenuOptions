@@ -70,12 +70,14 @@ HH:MM AM
     "Mask": "HH:MM AM"
 
 
-$0,000.00
-~~~~~~~~~
+Money
+~~~~~
+
+Note: the "Money" mask saves the amount as a float in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`
 
 .. code-block:: javascript
 
-    "Mask": "$0,000.00"
+    "Mask": "Money"
 
 
 

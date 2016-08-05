@@ -1,4 +1,5 @@
                 'FixedLen' : 12,
+                'fmt_initial' : function( val, obj ) { obj._initial_MdY({ mask: this }); }, 
                 'Help': 'Mon DD, YYYY',
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'MdY'}); },
                              2: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':2, 'fmt': 'MdY'}); } },

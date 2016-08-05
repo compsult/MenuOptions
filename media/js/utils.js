@@ -45,13 +45,13 @@
                     return [false, 'invalid month'];
                 }
                 maxdays = /^2$/.test(mon_num) ? '29' : (/^(1|3|5|7|8|10|12)$/.test(mon_num) ? '31' : '30');
-                if ( mon_num === 2 && val.length === 12) {
+                if ( val.length === 12) {
                     if ( val.substring(4,6) > new Date(val.substring(8,12),mon_num,0).getDate() ) {
-                        return [false, 'not a leap year'];
+                        return (mon_num === 2) ? [false, 'not a leap year'] : [false, 'invalid day'];
                     }
-                } else {
-                    return this._parse_days(val, 5, maxdays);
-                } 
+                } else { 
+                     return this._parse_days(val, 5, maxdays); 
+                 }  
         }
         return ret;
     },
