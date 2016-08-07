@@ -85,7 +85,7 @@ class testMO(SeleniumUtils, SetupByLocation):
         self.click_menu_item({ 'menu': 'menu_divs_filts',
                           'xpath': '//span[text()="CNBC"]',
                           'fltr' : 'hdr_fltrBiz',
-                          'sleep': 3 })
+                          'sleep': 5 })
 
     def test10_mousefiltering(self):
         """

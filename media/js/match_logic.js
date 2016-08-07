@@ -207,7 +207,7 @@
             } else if (valid_tst.hasOwnProperty('max_val')) {
                 var max_val = valid_tst.max_val;
                 if ( ! new RegExp('[0-'+max_val+']').test(this.cached['.mo_elem'].val()[str_len-1])) {
-                    this._cut_last_char('0 - '+max_val+' only', str_len);
+                    this._cut_last_char('0 - '+max_val+this._cfg.only, str_len);
                     return false;
                 }
             }

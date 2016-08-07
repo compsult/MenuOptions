@@ -24,24 +24,28 @@ $.widget('mre.menuoptions', {
 
     #import options.js
 
+
   // the constructor
     _create: function () {
 
+        // text messages and currency definitions
+        #import english_dollar.js
+
         if ( /invalid/i.test(this._test_mask_cfg()) ) {
-            return this._validation_fail('MenuOptions requires the Data parameter to be populated','fatal');
+            return this._validation_fail(this._cfg.no_dt,'fatal');
         }
         if (this.options.ColumnCount < 1) {
-            return this._validation_fail('MenuOptions requires ColumnCount parameter be > 0','fatal');
+            return this._validation_fail(this._cfg.col_cnt,'fatal');
         }
         if ( this.options._mask_status.mask_only === false ) {
             this._check_for_bootstrap();
             // make sure incoming data is in required format
             this._build_array_of_objs();
             if (this.orig_objs === false) {
-                return this._validation_fail('Invalid Data format supplied to menuoptions','fatal');
+                return this._validation_fail(this._cfg.inv_data,'fatal');
             }
             if (/Rocker/i.test(this.options.MenuOptionsType) && this.orig_objs.length !== 2) {
-                    return this._validation_fail('When using the rocker control, exactly 2 elements need to be supplied to menuoptions','fatal');
+                    return this._validation_fail(this._cfg.rkr_err,'fatal');
             }
         }
 

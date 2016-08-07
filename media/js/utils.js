@@ -2,7 +2,7 @@
         if (/\d/.test(val[offset]) && val[offset] <= maxval ) {
             return [true, ''];
         } 
-        return [false, '0 - '+maxval+' only'];
+        return [false, '0 - '+maxval+this._cfg.only];
     },
 
 
@@ -16,14 +16,13 @@
                 return this._max_val_test(val, 9, val.length-1);
             }
         } else if ( val.length === this.options._mask.FixedLen ) {
-            return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'day of mon error'];
+            return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, this._cfg.dm_err];
         }
         return [true,''];
     },
 
     _get_days : function (val,fmt) {
         var maxdays, ret=true, mon_num=-1;
-        var mon_ary=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
         switch (fmt) {
            case 'YMD': 
                 mon_num = parseInt(val.substring(4,6),10);
@@ -32,22 +31,22 @@
                     return this._max_val_test(val, maxdays[0], 6);
                 } else if ( val.length === 8 ) {
                     if ( mon_num === 2 && val.substring(6,8) > maxdays ) {
-                        return [false, 'not a leap year'];
+                        return [false, this._cfg.inv_feb];
                     } else {
                         return this._parse_days(val,7, maxdays);
                     }
                 } 
                 break;
            case 'MdY': // might not know year at this point, so can't use leap year calc
-                mon_num = mon_ary.indexOf(val.substring(0,3))+1;
+                mon_num = this._cfg.mon_ary.indexOf(val.substring(0,3))+1;
                 if ( mon_num === 0 ) {
                     this.cached['.mo_elem'].val('');
-                    return [false, 'invalid month'];
+                    return [false, this._cfg.inv_mon];
                 }
                 maxdays = /^2$/.test(mon_num) ? '29' : (/^(1|3|5|7|8|10|12)$/.test(mon_num) ? '31' : '30');
                 if ( val.length === 12) {
                     if ( val.substring(4,6) > new Date(val.substring(8,12),mon_num,0).getDate() ) {
-                        return (mon_num === 2) ? [false, 'not a leap year'] : [false, 'invalid day'];
+                        return (mon_num === 2) ? [false, this._cfg.inv_feb] : [false, this._cfg.inv_day];
                     }
                 } else { 
                      return this._parse_days(val, 5, maxdays); 
@@ -99,7 +98,6 @@
 
     __todays_date : function (fmt) {
         var ret = false;
-        var mon_ary=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
         var dt = new Date(),
             dd = ("0" + dt.getDate()).slice(-2),
             mm = ("0" + (dt.getMonth()+1)).slice(-2),
@@ -108,7 +106,7 @@
             case 'YMD': 
                 $(this.element).val(yyyy+''+mm+''+dd); ret=true; break;
             case 'MdY': 
-                $(this.element).val(mon_ary[dt.getMonth()]+' '+dd+', '+yyyy); ret=true; break;
+                $(this.element).val(this._cfg.mon_ary[dt.getMonth()]+' '+dd+', '+yyyy); ret=true; break;
         }
         return ret;
     },
@@ -125,8 +123,7 @@
     __mon_first_ltr : function (hotkey) {
         var ret = false;
         if ( /[FOSND]/i.test(hotkey) ) {
-            var mons = {'F':'Feb', 'S':'Sep', 'O':'Oct', 'N':'Nov', 'D':'Dec'};
-            $(this.element).val(mons[hotkey.toUpperCase()]+' ');
+            $(this.element).val(this._cfg.mon_hotkeys[hotkey.toUpperCase()]+' ');
             ret=true;
         } else if ( /[JAM]/i.test(hotkey) ) {
             $(this.element).val(hotkey.toUpperCase());

@@ -80,9 +80,7 @@
                     return n; 
             });
         if ( valid_kys.length != 2 ) {
-            return this._validation_fail(" Data error: DataKeyNames is invalid "+
-                                  " (it only matched "+valid_kys.length+
-                                  " keys in the Data parameter)",'fatal');
+            return this._validation_fail(this._cfg.dt_keys_err, 'fatal');
         } else {
             ary_of_objs.push({ ky: obj[obj_ky].toString(), 
                 val: obj[obj_val].toString() });
@@ -104,9 +102,7 @@
                     if (value.hasOwnProperty(kys[i])) {
                         ary_of_objs.push({ ky: kys[i], val: value[kys[i]] });
                     } else {
-                        this._validation_fail(" Data error: Key with no value error" + 
-                                " in incoming Data parameter");
-                        return false;
+                        return this._validation_fail(this._cfg.missing_val, 'fatal');
                     }
                 }
             }

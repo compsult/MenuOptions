@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-10
+ * @version         Version 1.8.1-11
  *
  *
  ******************************************/
@@ -83,24 +83,44 @@ $.widget('mre.menuoptions', {
         },
     },
 
+
   // the constructor
     _create: function () {
 
+        // text messages and currency definitions
+this._cfg={
+            curcy:'$',
+            no_dt : 'MenuOptions requires the Data parameter to be populated', 
+            col_cnt : 'MenuOptions requires ColumnCount parameter be > 0',
+            inv_data : 'Invalid Data format supplied to menuoptions',
+            rkr_err : 'When using the rocker control, exactly 2 elements need to be supplied to menuoptions',
+            only : ' only',
+            inv_mon : 'invalid month',
+            inv_day : 'invalid day',
+            inv_tm : 'invalid time',
+            inv_feb : 'not a leap year',
+            dm_err : 'day of mon error',
+            mon_ary : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            mon_hotkeys : {'F':'Feb', 'S':'Sep', 'O':'Oct', 'N':'Nov', 'D':'Dec'},
+            dt_keys_err : "Data error: DataKeyNames is invalid (there must be 2 matching keys)",
+            missing_val : "Data error: Key with no value error in incoming Data parameter"
+         };
+
         if ( /invalid/i.test(this._test_mask_cfg()) ) {
-            return this._validation_fail('MenuOptions requires the Data parameter to be populated','fatal');
+            return this._validation_fail(this._cfg.no_dt,'fatal');
         }
         if (this.options.ColumnCount < 1) {
-            return this._validation_fail('MenuOptions requires ColumnCount parameter be > 0','fatal');
+            return this._validation_fail(this._cfg.col_cnt,'fatal');
         }
         if ( this.options._mask_status.mask_only === false ) {
             this._check_for_bootstrap();
             // make sure incoming data is in required format
             this._build_array_of_objs();
             if (this.orig_objs === false) {
-                return this._validation_fail('Invalid Data format supplied to menuoptions','fatal');
+                return this._validation_fail(this._cfg.inv_data,'fatal');
             }
             if (/Rocker/i.test(this.options.MenuOptionsType) && this.orig_objs.length !== 2) {
-                    return this._validation_fail('When using the rocker control, exactly 2 elements need to be supplied to menuoptions','fatal');
+                    return this._validation_fail(this._cfg.rkr_err,'fatal');
             }
         }
 
@@ -215,11 +235,11 @@ $.widget('mre.menuoptions', {
                 'valid' : { 1: { max_val: 1}, 
                             2: function( val,obj ) { return /1/.test(val[0]) ? obj._max_val_test(val,2,1) : obj._max_val_test(val,9,1); },
                             4: { max_val : 5}, 5: { max_val : 9}, 
-                            7: function( val,obj ) {return obj._is_char_valid(val,'AP','A or P only', 'one_char', 6);},
-                            8: function( val,obj ) {return obj._is_char_valid(val,'M','M only', 'one_char', 7); }
+                            7: function( val,obj ) {return obj._is_char_valid(val,'AP','A or P'+obj._cfg.only, 'one_char', 6);},
+                            8: function( val,obj ) {return obj._is_char_valid(val,'M','M'+obj._cfg.only, 'one_char', 7); }
                             },
                 'consts' : { 3: ':', 6: ' ', 8:'M'},
-                'Whole' : function( val, obj ) { if (/^[01][0-9]:[0-5][0-9] [AP]M$/.test(val)) {return [true,''];} else {return [false,'invalid time'];} }
+                'Whole' : function( val, obj ) { if (/^[01][0-9]:[0-5][0-9] [AP]M$/.test(val)) {return [true,''];} else {return [false,obj._cfg.inv_tm];} }
             },
             'Mon DD, YYYY' : { 
                 'FixedLen' : 12,
@@ -227,9 +247,10 @@ $.widget('mre.menuoptions', {
                 'Help': 'Mon DD, YYYY',
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'MdY'}); },
                              2: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':2, 'fmt': 'MdY'}); } },
-                'valid' : { 1: function( val, obj ) { return obj._is_char_valid(val,'JFMASOND','invalid month', 'one_char',0); },
-                            2: function( val, obj ) { return obj._is_char_valid(val.substring(0,2),'Ja|Fe|Ma|Ap|Ju|Au|Se|Oc|No|De','invalid month', 'string', 0); },
-                            3: function( val, obj ) { return obj._is_char_valid(val.substring(0,3),'Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec','invalid month', 'string', 0); },
+                'valid' : { 1: function( val, obj ) { return obj._is_char_valid(val,'JFMASOND',obj._cfg.inv_mon, 'one_char',0); },
+                            2: function( val, obj ) { return obj._is_char_valid(val.substring(0,2),
+                                                      $.map(obj._cfg.mon_ary, function(obj) { return obj.substring(0,2); }).join('|'),obj._cfg.inv_mon, 'string', 0); },
+                            3: function( val, obj ) { return obj._is_char_valid(val.substring(0,3),obj._cfg.mon_ary.join('|'),obj._cfg.inv_mon, 'string', 0); },
                             5: function( val, obj ) { return obj._get_days(val,'MdY'); },
                             6: function( val, obj ) { return obj._get_days(val,'MdY'); },
                             9: { max_val: 9 },
@@ -263,13 +284,12 @@ $.widget('mre.menuoptions', {
                 'Whole' : '^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$'
             },
             'Money' : { 
-                'Help': '$0,000.00', 
-                'currency': '$',
+                'Help': this._cfg.curcy+'0,000.00', 
                 'fmt_initial' : function( val, obj ) { obj._initial_money({ valid_regex: '\\d\\.', mask: this }); },
                 'valid' : { 'all' : function( val,obj ) {return obj._check_money({ value: val, ofs : 3 }); } },
-                'initial' : { 'val' : '$0.00', 'ofs' : 3 },
+                'initial' : { 'val' : this._cfg.curcy+'0.00', 'ofs' : 3 },
                 'sep' : ',',
-                'Whole' : '^\\$\\d{1,3}\\.\\d{2}$|^\\$(\\d{1,3},)+\\d{3}\\.[0-9]{2}$'
+                'Whole' : '^\\'+this._cfg.curcy+'\\d{1,3}\\.\\d{2}$|^\\'+this._cfg.curcy+'(\\d{1,3},)+\\d{3}\\.[0-9]{2}$'
             }
         };
     },
@@ -363,27 +383,28 @@ $.widget('mre.menuoptions', {
 
     _money_invalid_key : function (mony) {
         this._set_bg_color('clear');
-        if ( ! /\d|,|\$|^$/.test(mony.cur_char) && ! /^\$[^\.]+\.\d$/.test(mony.cur_val)) {
+        if ( ! new RegExp('\\d|,|\\'+this._cfg.curcy+'|^'+this._cfg.curcy).test(mony.cur_char) && 
+             ! new RegExp('/^\\'+this._cfg.curcy+'[^\\.]+\\.\\d$').test(mony.cur_val)) {
             this.cached['.mo_elem'].val(mony.cur_val.substring(0,mony.cur_pos-1)+mony.cur_val.substring(mony.cur_pos));
             if ( mony.cur_char === '.' && mony.from_left === 3 ) {
                 mony.ofs = mony.cur_val.length - 3;
                 $(this.element).get(0).setSelectionRange(mony.ofs,mony.ofs);
                 return 'valid';
             } else {
-                this.__set_help_msg('0 - 9 only', 'error');
+                this.__set_help_msg('0 - 9'+ this._cfg.only, 'error');
             }
         }
         return 'invalid';
     },
 
     _money_output : function (mony) {
-        if ( /^[^\$]+\$.*$/.test(mony.cur_val)) {
+        if ( new RegExp('^[^\\'+this._cfg.curcy+']+\\'+this._cfg.curcy+'.*$').test(mony.cur_val)) {
             mony.cur_val = parseFloat(this.cached['.mo_elem'].val().replace(/\$.*$|\D+/,''),10).toFixed(2);
         } else {
             mony.cur_val = parseFloat(this.cached['.mo_elem'].val().replace(/[^\d.]/g,''),10).toFixed(2);
         }
         $(this.element).attr('menu_opt_key', mony.cur_val);
-        mony.cur_val = '$' + mony.cur_val.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+        mony.cur_val = this._cfg.curcy + mony.cur_val.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
         mony.ofs = mony.cur_val.length - mony.from_left;
         this.cached['.mo_elem'].val(mony.cur_val);
         $(this.element).get(0).setSelectionRange(mony.ofs,mony.ofs);
@@ -413,7 +434,7 @@ $.widget('mre.menuoptions', {
                 return;
             }
             if ( mony.from_left <= 2 ) {
-                if ( /^\$[^\.]+\.\d{3}$/.test(mony.cur_val)) {
+                if ( new RegExp('^\\'+this._cfg.curcy+'[^\\.]+\\.\\d{3}$').test(mony.cur_val)) {
                     this.cached['.mo_elem'].val(mony.cur_val.substring(0,mony.cur_pos)+mony.cur_val.substring(mony.cur_pos+1));
                     mony.from_left--;
                 } else {
@@ -848,7 +869,7 @@ $.widget('mre.menuoptions', {
             } else if (valid_tst.hasOwnProperty('max_val')) {
                 var max_val = valid_tst.max_val;
                 if ( ! new RegExp('[0-'+max_val+']').test(this.cached['.mo_elem'].val()[str_len-1])) {
-                    this._cut_last_char('0 - '+max_val+' only', str_len);
+                    this._cut_last_char('0 - '+max_val+this._cfg.only, str_len);
                     return false;
                 }
             }
@@ -1318,9 +1339,7 @@ $.widget('mre.menuoptions', {
                     return n; 
             });
         if ( valid_kys.length != 2 ) {
-            return this._validation_fail(" Data error: DataKeyNames is invalid "+
-                                  " (it only matched "+valid_kys.length+
-                                  " keys in the Data parameter)",'fatal');
+            return this._validation_fail(this._cfg.dt_keys_err, 'fatal');
         } else {
             ary_of_objs.push({ ky: obj[obj_ky].toString(), 
                 val: obj[obj_val].toString() });
@@ -1342,9 +1361,7 @@ $.widget('mre.menuoptions', {
                     if (value.hasOwnProperty(kys[i])) {
                         ary_of_objs.push({ ky: kys[i], val: value[kys[i]] });
                     } else {
-                        this._validation_fail(" Data error: Key with no value error" + 
-                                " in incoming Data parameter");
-                        return false;
+                        return this._validation_fail(this._cfg.missing_val, 'fatal');
                     }
                 }
             }
@@ -1729,7 +1746,7 @@ $.widget('mre.menuoptions', {
         if (/\d/.test(val[offset]) && val[offset] <= maxval ) {
             return [true, ''];
         } 
-        return [false, '0 - '+maxval+' only'];
+        return [false, '0 - '+maxval+this._cfg.only];
     },
 
 
@@ -1743,14 +1760,13 @@ $.widget('mre.menuoptions', {
                 return this._max_val_test(val, 9, val.length-1);
             }
         } else if ( val.length === this.options._mask.FixedLen ) {
-            return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, 'day of mon error'];
+            return  [val.substring(dom_pos-1, dom_pos+1) <= maxdays, this._cfg.dm_err];
         }
         return [true,''];
     },
 
     _get_days : function (val,fmt) {
         var maxdays, ret=true, mon_num=-1;
-        var mon_ary=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
         switch (fmt) {
            case 'YMD': 
                 mon_num = parseInt(val.substring(4,6),10);
@@ -1759,22 +1775,22 @@ $.widget('mre.menuoptions', {
                     return this._max_val_test(val, maxdays[0], 6);
                 } else if ( val.length === 8 ) {
                     if ( mon_num === 2 && val.substring(6,8) > maxdays ) {
-                        return [false, 'not a leap year'];
+                        return [false, this._cfg.inv_feb];
                     } else {
                         return this._parse_days(val,7, maxdays);
                     }
                 } 
                 break;
            case 'MdY': // might not know year at this point, so can't use leap year calc
-                mon_num = mon_ary.indexOf(val.substring(0,3))+1;
+                mon_num = this._cfg.mon_ary.indexOf(val.substring(0,3))+1;
                 if ( mon_num === 0 ) {
                     this.cached['.mo_elem'].val('');
-                    return [false, 'invalid month'];
+                    return [false, this._cfg.inv_mon];
                 }
                 maxdays = /^2$/.test(mon_num) ? '29' : (/^(1|3|5|7|8|10|12)$/.test(mon_num) ? '31' : '30');
                 if ( val.length === 12) {
                     if ( val.substring(4,6) > new Date(val.substring(8,12),mon_num,0).getDate() ) {
-                        return (mon_num === 2) ? [false, 'not a leap year'] : [false, 'invalid day'];
+                        return (mon_num === 2) ? [false, this._cfg.inv_feb] : [false, this._cfg.inv_day];
                     }
                 } else { 
                      return this._parse_days(val, 5, maxdays); 
@@ -1826,7 +1842,6 @@ $.widget('mre.menuoptions', {
 
     __todays_date : function (fmt) {
         var ret = false;
-        var mon_ary=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
         var dt = new Date(),
             dd = ("0" + dt.getDate()).slice(-2),
             mm = ("0" + (dt.getMonth()+1)).slice(-2),
@@ -1835,7 +1850,7 @@ $.widget('mre.menuoptions', {
             case 'YMD': 
                 $(this.element).val(yyyy+''+mm+''+dd); ret=true; break;
             case 'MdY': 
-                $(this.element).val(mon_ary[dt.getMonth()]+' '+dd+', '+yyyy); ret=true; break;
+                $(this.element).val(this._cfg.mon_ary[dt.getMonth()]+' '+dd+', '+yyyy); ret=true; break;
         }
         return ret;
     },
@@ -1852,8 +1867,7 @@ $.widget('mre.menuoptions', {
     __mon_first_ltr : function (hotkey) {
         var ret = false;
         if ( /[FOSND]/i.test(hotkey) ) {
-            var mons = {'F':'Feb', 'S':'Sep', 'O':'Oct', 'N':'Nov', 'D':'Dec'};
-            $(this.element).val(mons[hotkey.toUpperCase()]+' ');
+            $(this.element).val(this._cfg.mon_hotkeys[hotkey.toUpperCase()]+' ');
             ret=true;
         } else if ( /[JAM]/i.test(hotkey) ) {
             $(this.element).val(hotkey.toUpperCase());
