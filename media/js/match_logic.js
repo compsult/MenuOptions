@@ -108,7 +108,7 @@
             if ( StrToCheck === matching[0].val.replace(/<span[\w\W]*?>|<\/span>/g,'') ) {
                 this.__set_help_msg('', 'completed');
             } else if ( matching.length > 1 ) {
-                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+                this._set_bg_color('err');
             } else if ( this.options._mask_status.mask_passed === true) {
                 this.__set_help_msg('', 'good');
             }
@@ -123,7 +123,7 @@
                             .html('<span style="margin-left:16px">'+help_msg+"</span>")
                             .removeClass('helptext mask_match').addClass('err_text');
                 } 
-                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+                this._set_bg_color('err');
                 this.options._mask_status.mask_passed = false;
                 break;
             case 'completed': 
@@ -131,7 +131,7 @@
                     $("span#HLP_"+this.options._ID).show();
                     return;
                 }
-                this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+                this._set_bg_color('good');
                 $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
                 var val = this.cached['.mo_elem'].val();
                 this.options._mask_status.mask_passed = true;
@@ -145,9 +145,9 @@
                 break;
         }
         if ( this.cached['.mo_elem'].val().length === 0 ) {
-           this.cached['.mo_elem'].removeClass('data_good data_error');
+           this._set_bg_color('clear');
         } else if ( this.options._mask.hasOwnProperty('FixedLen') && this.cached['.mo_elem'].val().length < this.options._mask.FixedLen){
-           this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+           this._set_bg_color('err');
         }
     },
 
@@ -183,7 +183,7 @@
         if ( this.options.Mask.length > 0 ) {
             this.options._mask_status.mask_passed = false;
         } else {
-            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+            this._set_bg_color('err');
         }
         this.__set_help_msg(err_msg, 'error');
     },
@@ -227,7 +227,7 @@
         if (this.options._mask.hasOwnProperty('FixedLen') && 
             this.cached['.mo_elem'].val().length > 0 && 
             this.cached['.mo_elem'].val().length < this.options._mask.FixedLen ) {
-                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+                this._set_bg_color('err');
         }
         return true; 
     },

@@ -30,11 +30,9 @@ $.widget('mre.menuoptions', {
         if ( /invalid/i.test(this._test_mask_cfg()) ) {
             return this._validation_fail('MenuOptions requires the Data parameter to be populated','fatal');
         }
-
         if (this.options.ColumnCount < 1) {
             return this._validation_fail('MenuOptions requires ColumnCount parameter be > 0','fatal');
         }
-
         if ( this.options._mask_status.mask_only === false ) {
             this._check_for_bootstrap();
             // make sure incoming data is in required format
@@ -53,18 +51,30 @@ $.widget('mre.menuoptions', {
 
         this._refresh(); 
 
-        this._detect_destroyed_input();
-
-        this._fmt_existing_input();
+        this._startup();
 
         $(this.element).addClass('ui-menuoptions');
     },
 
-    _fmt_existing_input : function() {
+    _startup : function() {
          if ( this.options._mask.hasOwnProperty('fmt_initial') === true &&
               this.element.val().length > 0 ) {
               this.options._mask.fmt_initial(this.element.val(), this);
          }
+         if ( this.options.DisableHiLiting === true) {
+            this.options._bgcolor = { 'valid': 'data_neutral', 'invalid': 'data_neutral' };
+         }
+        this._detect_destroyed_input();
+    },
+
+    _set_bg_color : function(instruct) {
+        if ( /err/.test(instruct) ) {
+           $(this.element).removeClass(this.options._bgcolor.valid).addClass(this.options._bgcolor.invalid);
+        } else if ( /good/.test(instruct) ) {
+           $(this.element).removeClass(this.options._bgcolor.invalid).addClass(this.options._bgcolor.valid); 
+        } else if ( /clear/.test(instruct) ) {
+           $(this.element).removeClass(this.options._bgcolor.valid).removeClass(this.options._bgcolor.invalid); 
+        }
     },
 
     _test_mask_cfg : function () {
@@ -161,10 +171,10 @@ $.widget('mre.menuoptions', {
                 $(this.element).removeAttr('value');
                 $(this.element).val(raw_val);
                 $(this.element).attr('menu_opt_key', matched[0].ky);
-                $(this.element).removeClass('data_error').addClass('data_good'); 
+                $(this.element).removeClass('data_error').addClass(this.options._bgcolor.valid);
             }
         } else if ( $(this.element).val().length > 0 ) { 
-              $(this.element).removeClass('data_good').addClass('data_error');  
+              $(this.element).removeClass(this.options._bgcolor.valid).addClass('data_error');  
          } 
         if (/Select/i.test(this.options.MenuOptionsType) ) {
             this._add_clear_btn();
@@ -196,7 +206,7 @@ $.widget('mre.menuoptions', {
             if ( val.length > 0 ) { // skip for clearing out input
                 this.add_menuoption_key();
             } else {
-                $(this.element).removeClass('data_error data_good');
+                this._set_bg_color('clear');
             }
         }
     },
@@ -235,7 +245,7 @@ $.widget('mre.menuoptions', {
                 $($this.element).focus(); //chrome needs delay
             }, 80 );
             this._set_initial_mask_value('blur');
-            this.cached['.mo_elem'].removeClass('data_good data_error');
+            this._set_bg_color('clear');
         }
     },
 

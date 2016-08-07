@@ -55,16 +55,16 @@
 
     _initial_bg : function ( params ) {
         if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
-           this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+           this._set_bg_color('good');
         } else {
-           this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+           this._set_bg_color('err');
         }
     },
 
      _initial_MdY : function ( params ) { 
          var val = this.element.val();
          if ( params.mask.FixedLen === val.length && this._get_days(val,'MdY') === true ) {
-            this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+            this._set_bg_color('good');
             $(this.element).attr('menu_opt_key', val);
          }
      }, 

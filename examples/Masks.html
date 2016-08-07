@@ -56,7 +56,8 @@ $(document).ready(function() {
              console.log(mo, data.newVal, data.newCode, data.type );   
          },  
         "ClearBtn": true,
-        "Mask" : 'HH:MM AM'
+        "Mask" : 'HH:MM AM',
+        'DisableHiLiting': true
     });  
     $('input#Moneytest').menuoptions({
         "onSelect": function(mo, data) {  
@@ -180,7 +181,7 @@ $(document).ready(function() {
             <div class="row" style='height:76px'>
                 <div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'>
                     <span class=lg>Mask for time</span><br>
-                    <span class=sub>(hotkey n = now)</span>
+                    <span class=sub>(hotkey n = now, bg color disabled)</span>
                 </div>
                 <div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'>
                     <input class="form-control" style='width:150px' type=text name=time id='Timetest'  placeholder='HH:MM AM' >
@@ -245,7 +246,8 @@ $(document).ready(function() {
              console.log(mo, data.newVal, data.newCode, data.type );   
          },  
         "ClearBtn": true,
-        "Mask" : 'HH:MM AM'
+        "Mask" : 'HH:MM AM',
+        'DisableHiLiting': true
     });  
     $('input#Moneytest').menuoptions({
         "onSelect": function(mo, data) {  
@@ -296,7 +298,7 @@ $(document).ready(function() {
             &lt;div class="row" style='height:76px'&gt;
                 &lt;div class="col-md-6 col-xs-6 text-right" style='height:50px;border: 0px solid silver;'&gt;
                     &lt;span class=lg&gt;Mask for time&lt;/span&gt;&lt;br&gt;
-                    &lt;span class=sub&gt;(hotkey n = now)&lt;/span&gt;
+                    &lt;span class=sub&gt;(hotkey n = now, bg color disabled)&lt;/span&gt;
                 &lt;/div&gt;
                 &lt;div class="col-md-6 col-xs-6 text-left" style='height:50px;border: 0px solid silver;'&gt;
                     &lt;input class="form-control" style='width:150px' type=text name=time id='Timetest'  placeholder='HH:MM AM' &gt;

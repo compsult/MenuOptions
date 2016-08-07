@@ -37,6 +37,7 @@
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#window
         Window : "repl", // "repl" means replace current window, new mean open new browser window
         _mask: {},
+        _bgcolor: { 'valid': 'data_good', 'invalid': 'data_error' },
         _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
         _bootstrap: false, // make changes if in bootstrap 3
         _vert_ofs : 0,

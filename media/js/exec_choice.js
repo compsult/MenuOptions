@@ -8,7 +8,7 @@
             "type": params.type
         });
         if ( ! /Rocker/i.test(this.options.MenuOptionsType) ) {
-            this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+            this._set_bg_color('good');
             $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
         }
     },

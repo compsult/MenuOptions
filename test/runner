@@ -15,7 +15,7 @@ function runLocal {
 #--- runLocal "test_Masks:testMasks.test18_HHMM_AM_chk_bad_paste" ---#
 #--- runLocal "test_Masks.py:testMasks.test10_YMD_bad_day_2" ---#
 #--- runLocal "test_Masks:testMasks.test21_HHMM_AM_bad_AM" ---#
-runLocal "test_Masks:testMasks.test10_YMD_bad_day_2"
+runLocal "test_Masks:testMasks.test07_YMD_bad_mon"
 #--- runLocal "test_Masks:testMasks.test20_phone_num_paren" ---#
 #--- runLocal "test_Masks:testMasks.test03_mask_valid" ---#
 #--- runLocal "test_Masks:testMasks.test20_phone_num_paren" ---#

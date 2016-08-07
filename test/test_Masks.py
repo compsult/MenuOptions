@@ -42,7 +42,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'xpath': '//*[@id="starttime1"]',
                               'help_id': '//*[@id="HLP_menuoptions0"]',
                               'help_txt': 'HH:MM AM',
-                              'klass': 'data_error',
+                              'notKlass': ['data_neutral'],
                               'click': True,
                               'rslt': '1',
                               'selector': 'input#starttime1',
@@ -64,7 +64,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'xpath': '//*[@id="starttime1"]',
                               'help_id': '//*[@id="HLP_menuoptions0"]',
                               'help_txt': 'HH:MM AM',
-                              'klass': 'data_error',
+                              'notKlass': ['data_neutral'],
                               'back_spc': True,
                               'rslt': '09:29 ', # deletes constant and previous char
                               'selector': 'input#starttime1',
@@ -74,7 +74,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'xpath': '//*[@id="starttime1"]',
                               'help_id': '//*[@id="HLP_menuoptions0"]',
                               'help_txt': 'HH:MM AM',
-                              'notKlass': ['data_error','data_good'],
+                              'notKlass': ['data_neutral'],
                               'back_spc': True,
                               'rslt': '',
                               'keys': '1',
@@ -217,7 +217,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'xpath': '//*[@id="Timetest"]',
                               'help_id': '//*[@id="HLP_menuoptions3"]',
                               'help_txt': '0 - 2 only',
-                              'klass': 'data_error',
+                              'klass': 'data_neutral',
                               'rslt': '1',
                               'keys': '13',
                               'selector': 'input#Timetest'
@@ -233,7 +233,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'xpath': '//*[@id="Timetest"]',
                               'help_id': '//*[@id="HLP_menuoptions3"]',
                               'help_txt': '0 - 5 only',
-                              'klass': 'data_error',
+                              'klass': 'data_neutral',
                               'rslt': '12:',
                               'keys': '12:7',
                               'selector': 'input#Timetest'
@@ -249,7 +249,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'xpath': '//*[@id="Timetest"]',
                               'help_id': '//*[@id="HLP_menuoptions3"]',
                               'help_txt': '0 - 5 only',
-                              'klass': 'data_error',
+                              'klass': 'data_neutral',
                               'keys': '12:74zzz',
                               'selector': 'input#Timetest',
                               'rslt': '12:'
@@ -265,7 +265,7 @@ class testMasks(SeleniumUtils, SetupByLocation):
                               'xpath': '//*[@id="Timetest"]',
                               'help_id': '//*[@id="HLP_menuoptions3"]',
                               'help_txt': 'A or P only',
-                              'klass': 'data_error',
+                              'klass': 'data_neutral',
                               'rslt': '12:22 ',
                               'keys': '12:22 z',
                               'selector': 'input#Timetest'

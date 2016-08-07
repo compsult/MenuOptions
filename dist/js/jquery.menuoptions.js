@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-9
+ * @version         Version 1.8.1-10
  *
  *
  ******************************************/
@@ -61,6 +61,7 @@ $.widget('mre.menuoptions', {
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#window
         Window : "repl", // "repl" means replace current window, new mean open new browser window
         _mask: {},
+        _bgcolor: { 'valid': 'data_good', 'invalid': 'data_error' },
         _ID: 'UnIqDrOpDoWnSeLeCt', // will be substituted later by the eventNamespace
         _bootstrap: false, // make changes if in bootstrap 3
         _vert_ofs : 0,
@@ -88,11 +89,9 @@ $.widget('mre.menuoptions', {
         if ( /invalid/i.test(this._test_mask_cfg()) ) {
             return this._validation_fail('MenuOptions requires the Data parameter to be populated','fatal');
         }
-
         if (this.options.ColumnCount < 1) {
             return this._validation_fail('MenuOptions requires ColumnCount parameter be > 0','fatal');
         }
-
         if ( this.options._mask_status.mask_only === false ) {
             this._check_for_bootstrap();
             // make sure incoming data is in required format
@@ -111,18 +110,30 @@ $.widget('mre.menuoptions', {
 
         this._refresh(); 
 
-        this._detect_destroyed_input();
-
-        this._fmt_existing_input();
+        this._startup();
 
         $(this.element).addClass('ui-menuoptions');
     },
 
-    _fmt_existing_input : function() {
+    _startup : function() {
          if ( this.options._mask.hasOwnProperty('fmt_initial') === true &&
               this.element.val().length > 0 ) {
               this.options._mask.fmt_initial(this.element.val(), this);
          }
+         if ( this.options.DisableHiLiting === true) {
+            this.options._bgcolor = { 'valid': 'data_neutral', 'invalid': 'data_neutral' };
+         }
+        this._detect_destroyed_input();
+    },
+
+    _set_bg_color : function(instruct) {
+        if ( /err/.test(instruct) ) {
+           $(this.element).removeClass(this.options._bgcolor.valid).addClass(this.options._bgcolor.invalid);
+        } else if ( /good/.test(instruct) ) {
+           $(this.element).removeClass(this.options._bgcolor.invalid).addClass(this.options._bgcolor.valid); 
+        } else if ( /clear/.test(instruct) ) {
+           $(this.element).removeClass(this.options._bgcolor.valid).removeClass(this.options._bgcolor.invalid); 
+        }
     },
 
     _test_mask_cfg : function () {
@@ -300,16 +311,16 @@ $.widget('mre.menuoptions', {
 
     _initial_bg : function ( params ) {
         if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
-           this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+           this._set_bg_color('good');
         } else {
-           this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+           this._set_bg_color('err');
         }
     },
 
      _initial_MdY : function ( params ) { 
          var val = this.element.val();
          if ( params.mask.FixedLen === val.length && this._get_days(val,'MdY') === true ) {
-            this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+            this._set_bg_color('good');
             $(this.element).attr('menu_opt_key', val);
          }
      }, 
@@ -351,7 +362,7 @@ $.widget('mre.menuoptions', {
     },
 
     _money_invalid_key : function (mony) {
-        this.cached['.mo_elem'].removeClass('data_good data_error');
+        this._set_bg_color('clear');
         if ( ! /\d|,|\$|^$/.test(mony.cur_char) && ! /^\$[^\.]+\.\d$/.test(mony.cur_val)) {
             this.cached['.mo_elem'].val(mony.cur_val.substring(0,mony.cur_pos-1)+mony.cur_val.substring(mony.cur_pos));
             if ( mony.cur_char === '.' && mony.from_left === 3 ) {
@@ -433,10 +444,10 @@ $.widget('mre.menuoptions', {
                 $(this.element).removeAttr('value');
                 $(this.element).val(raw_val);
                 $(this.element).attr('menu_opt_key', matched[0].ky);
-                $(this.element).removeClass('data_error').addClass('data_good'); 
+                $(this.element).removeClass('data_error').addClass(this.options._bgcolor.valid);
             }
         } else if ( $(this.element).val().length > 0 ) { 
-              $(this.element).removeClass('data_good').addClass('data_error');  
+              $(this.element).removeClass(this.options._bgcolor.valid).addClass('data_error');  
          } 
         if (/Select/i.test(this.options.MenuOptionsType) ) {
             this._add_clear_btn();
@@ -468,7 +479,7 @@ $.widget('mre.menuoptions', {
             if ( val.length > 0 ) { // skip for clearing out input
                 this.add_menuoption_key();
             } else {
-                $(this.element).removeClass('data_error data_good');
+                this._set_bg_color('clear');
             }
         }
     },
@@ -581,7 +592,7 @@ $.widget('mre.menuoptions', {
             "type": params.type
         });
         if ( ! /Rocker/i.test(this.options.MenuOptionsType) ) {
-            this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+            this._set_bg_color('good');
             $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
         }
     },
@@ -738,7 +749,7 @@ $.widget('mre.menuoptions', {
             if ( StrToCheck === matching[0].val.replace(/<span[\w\W]*?>|<\/span>/g,'') ) {
                 this.__set_help_msg('', 'completed');
             } else if ( matching.length > 1 ) {
-                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+                this._set_bg_color('err');
             } else if ( this.options._mask_status.mask_passed === true) {
                 this.__set_help_msg('', 'good');
             }
@@ -753,7 +764,7 @@ $.widget('mre.menuoptions', {
                             .html('<span style="margin-left:16px">'+help_msg+"</span>")
                             .removeClass('helptext mask_match').addClass('err_text');
                 } 
-                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+                this._set_bg_color('err');
                 this.options._mask_status.mask_passed = false;
                 break;
             case 'completed': 
@@ -761,7 +772,7 @@ $.widget('mre.menuoptions', {
                     $("span#HLP_"+this.options._ID).show();
                     return;
                 }
-                this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+                this._set_bg_color('good');
                 $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
                 var val = this.cached['.mo_elem'].val();
                 this.options._mask_status.mask_passed = true;
@@ -775,9 +786,9 @@ $.widget('mre.menuoptions', {
                 break;
         }
         if ( this.cached['.mo_elem'].val().length === 0 ) {
-           this.cached['.mo_elem'].removeClass('data_good data_error');
+           this._set_bg_color('clear');
         } else if ( this.options._mask.hasOwnProperty('FixedLen') && this.cached['.mo_elem'].val().length < this.options._mask.FixedLen){
-           this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+           this._set_bg_color('err');
         }
     },
 
@@ -813,7 +824,7 @@ $.widget('mre.menuoptions', {
         if ( this.options.Mask.length > 0 ) {
             this.options._mask_status.mask_passed = false;
         } else {
-            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+            this._set_bg_color('err');
         }
         this.__set_help_msg(err_msg, 'error');
     },
@@ -857,7 +868,7 @@ $.widget('mre.menuoptions', {
         if (this.options._mask.hasOwnProperty('FixedLen') && 
             this.cached['.mo_elem'].val().length > 0 && 
             this.cached['.mo_elem'].val().length < this.options._mask.FixedLen ) {
-                this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+                this._set_bg_color('err');
         }
         return true; 
     },
@@ -972,7 +983,7 @@ $.widget('mre.menuoptions', {
                 $($this.element).focus(); //chrome needs delay
             }, 80 );
             this._set_initial_mask_value('blur');
-            this.cached['.mo_elem'].removeClass('data_good data_error');
+            this._set_bg_color('clear');
         }
     },
 
@@ -1485,9 +1496,9 @@ $.widget('mre.menuoptions', {
 
     _set_ac_bg_color : function (e, matched) {
         if ( /input/.test(e.type) && this.options.Mask === '') {
-            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+            this._set_bg_color('err');
             if ( this._matches(this.cached['.mo_elem'].val(), 'exact').length === 1) {
-                this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+                this._set_bg_color('good');
                 this.cached['.mo_elem'].val($('table.CrEaTeDtAbLeStYlE td:first').text());
                 $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
             }

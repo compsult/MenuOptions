@@ -142,9 +142,9 @@
 
     _set_ac_bg_color : function (e, matched) {
         if ( /input/.test(e.type) && this.options.Mask === '') {
-            this.cached['.mo_elem'].removeClass('data_good').addClass('data_error'); 
+            this._set_bg_color('err');
             if ( this._matches(this.cached['.mo_elem'].val(), 'exact').length === 1) {
-                this.cached['.mo_elem'].removeClass('data_error').addClass('data_good'); 
+                this._set_bg_color('good');
                 this.cached['.mo_elem'].val($('table.CrEaTeDtAbLeStYlE td:first').text());
                 $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
             }
