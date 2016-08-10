@@ -14,7 +14,7 @@ function runLocal {
 #--- runLocal test_addons.py:test_addons.test04_rt_arrow ---#
 #--- runLocal "test_Masks:testMasks.test18_HHMM_AM_chk_bad_paste" ---#
 #--- runLocal "test_Masks.py:testMasks.test10_YMD_bad_day_2" ---#
-#--- runLocal "test_Masks:testMasks.test21_HHMM_AM_bad_AM" ---#
+runLocal "test_Masks:testMasks.test10_YMD_bad_day_2" 
 #--- runLocal "test_Masks:testMasks.test07_YMD_bad_mon" ---#
 #--- runLocal "test_Masks:testMasks.test20_phone_num_paren" ---#
 #--- runLocal "test_Masks:testMasks.test03_mask_valid" ---#
@@ -39,7 +39,7 @@ function runLocal {
 #--- runLocal "test_SelectList.py:testSL.test03_autocomplete" ---#
 #--- runLocal "test_Money:testMoney.test02_click_pos" ---#
 #--- runLocal "test_Money:testMoney.test03_after_entry_pos" ---#
-runLocal "test_Money:testMoney"
+#--- runLocal "test_Money:testMoney" ---#
 #--- runLocal "test_Masks:testMasks" ---#
 #--- runLocal "test_SelectList.py:testSL.test08_tab_with_data" ---#
 #--- runLocal "test_SelectList.py" ---#

@@ -143,7 +143,7 @@ span.err_text {
 span.mask_match {
     position: absolute; 
     display:inline-block;
-    width: 18px;
+    width: 18px; 
     background:url(../imgs/greencheck.png) no-repeat top left;
 }
 /*--  put clear X in input --*/
@@ -164,6 +164,9 @@ span.clearbtn.ClearButtonMO {
 input.data_error { background: #FFE9E6 !important; }
 input.data_good  { background: #E1EDDD !important; }
 input.data_neutral  { background: inherit; }
-.ui-menuoptions::-ms-clear {
-    display:none;
-}
+
+.ui-menuoptions::-ms-clear { display:none; }
+
+span.match {  color:brown; background-color: beige   !important; }
+
+input.underlined { border:0; border-bottom:solid 1px #000; outline:none; }

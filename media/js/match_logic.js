@@ -86,7 +86,7 @@
                 return o;
             }
             if ( RegExStr.test(no_img) ) {
-                newval = no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">' +
+                newval = no_img.replace(RegExStr, '<span class=match>' +
                         RegExStr.exec(no_img)[0] + '</span>');
                 origImg = o.val.match(/<img[\w\W]*?>/);
                 if (origImg) {
@@ -140,8 +140,15 @@
                 break;
             case 'good':
                 help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
+                 if (this.options._mask.hasOwnProperty('Help') && ! /Money/.test(this.options.Mask)) {  
+                    if (! /Money/.test(this.options.Mask)) {  
+                        var match_len = this.cached['.mo_elem'].val().length; 
+                        help_msg = '<span class=match>'+help_msg.substring(0,match_len)+'</span>'+ 
+                                    help_msg.substring(match_len);
+                    }
+                 } 
                 $("span#HLP_"+this.options._ID).show().html(help_msg)
-                    .removeClass('err_text mask_match').addClass('helptext');
+                    .removeClass('err_text mask_match').addClass('helptext'); 
                 break;
         }
         if ( this.cached['.mo_elem'].val().length === 0 ) {

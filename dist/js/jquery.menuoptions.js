@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-11
+ * @version         Version 1.8.1-12
  *
  *
  ******************************************/
@@ -204,17 +204,15 @@ this._cfg={
     },
 
     _set_help_position : function (id) {
-        if ( this.options._mask_status.mask_only === true ) {
+         if (/Select/i.test(this.options.MenuOptionsType) ) {
             if ( /right/.test(this.options.Help) || this.options.Help === true) {  
                 $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
             }  else if ( /bottom/.test(this.options.Help) ) {  
-                $("span#"+id).position({ of: $(this.element), my:'center top', at:'left+10 bottom+4' });
+                $("span#"+id).position({ of: $(this.element), my:'center top', at:'left bottom+4' });
             }  else if ( /top/.test(this.options.Help) ) {  
-                $("span#"+id).position({ of: $(this.element), my:'center bottom-18', at:'left+10 top' });
+                $("span#"+id).position({ of: $(this.element), my:'center bottom-18', at:'left top-2' });
             }
-        } else {
-            $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
-        }
+         } 
     },
 
     _validation_fail : function (err_msg, severity) {
@@ -748,7 +746,7 @@ this._cfg={
                 return o;
             }
             if ( RegExStr.test(no_img) ) {
-                newval = no_img.replace(RegExStr, '<span style="color:brown;font-size:110%;">' +
+                newval = no_img.replace(RegExStr, '<span class=match>' +
                         RegExStr.exec(no_img)[0] + '</span>');
                 origImg = o.val.match(/<img[\w\W]*?>/);
                 if (origImg) {
@@ -802,8 +800,15 @@ this._cfg={
                 break;
             case 'good':
                 help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
+                 if (this.options._mask.hasOwnProperty('Help') && ! /Money/.test(this.options.Mask)) {  
+                    if (! /Money/.test(this.options.Mask)) {  
+                        var match_len = this.cached['.mo_elem'].val().length; 
+                        help_msg = '<span class=match>'+help_msg.substring(0,match_len)+'</span>'+ 
+                                    help_msg.substring(match_len);
+                    }
+                 } 
                 $("span#HLP_"+this.options._ID).show().html(help_msg)
-                    .removeClass('err_text mask_match').addClass('helptext');
+                    .removeClass('err_text mask_match').addClass('helptext'); 
                 break;
         }
         if ( this.cached['.mo_elem'].val().length === 0 ) {
@@ -1138,14 +1143,16 @@ this._cfg={
         $(this.element).css({ 'text-align': this.options.Justify });
         if ( /right/i.test(this.options.Justify) ) {
             var width = parseInt($(this.element).css('width')) - left_pad;
-            $(this.element).css({ 'padding-right': left_pad + 'px', 'width': width + 'px'});
+            $(this.element).css({ 'padding-right': left_pad + 'px', 'width': width+left_pad + 'px !important'});
         }
     },
 
     _recreate_mo : function() {
         var orig_val = $(this.element).val(),
             mo_type = this._test_mask_cfg();
-        this._justify();
+        if ( /Select/i.test(this.options.MenuOptionsType)) {
+            this._justify();
+        }
         if (/^mask_and|^autocomplete$/i.test(mo_type)) {
                 this._build_array_of_objs();
         }

@@ -19,7 +19,7 @@ class test_addons(SetupByLocation, SeleniumUtils):
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_html({ 'xpath': '//*[@id="scrolltest"]',
                              'cell': '//*[@id="SP_menuoptions1"]/table/tbody/tr/td',
-                             'expected': '<span style="color:brown;font-size:110%;">December</span>'})
+                             'expected': '<span class="match">December</span>' })
 
     def test03_down_arrow(self):
         """

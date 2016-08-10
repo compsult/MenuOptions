@@ -129,17 +129,15 @@ $.widget('mre.menuoptions', {
     },
 
     _set_help_position : function (id) {
-        if ( this.options._mask_status.mask_only === true ) {
+         if (/Select/i.test(this.options.MenuOptionsType) ) {
             if ( /right/.test(this.options.Help) || this.options.Help === true) {  
                 $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
             }  else if ( /bottom/.test(this.options.Help) ) {  
-                $("span#"+id).position({ of: $(this.element), my:'center top', at:'left+10 bottom+4' });
+                $("span#"+id).position({ of: $(this.element), my:'center top', at:'left bottom+4' });
             }  else if ( /top/.test(this.options.Help) ) {  
-                $("span#"+id).position({ of: $(this.element), my:'center bottom-18', at:'left+10 top' });
+                $("span#"+id).position({ of: $(this.element), my:'center bottom-18', at:'left top-2' });
             }
-        } else {
-            $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
-        }
+         } 
     },
 
     _validation_fail : function (err_msg, severity) {
@@ -296,14 +294,16 @@ $.widget('mre.menuoptions', {
         $(this.element).css({ 'text-align': this.options.Justify });
         if ( /right/i.test(this.options.Justify) ) {
             var width = parseInt($(this.element).css('width')) - left_pad;
-            $(this.element).css({ 'padding-right': left_pad + 'px', 'width': width + 'px'});
+            $(this.element).css({ 'padding-right': left_pad + 'px', 'width': width+left_pad + 'px !important'});
         }
     },
 
     _recreate_mo : function() {
         var orig_val = $(this.element).val(),
             mo_type = this._test_mask_cfg();
-        this._justify();
+        if ( /Select/i.test(this.options.MenuOptionsType)) {
+            this._justify();
+        }
         if (/^mask_and|^autocomplete$/i.test(mo_type)) {
                 this._build_array_of_objs();
         }

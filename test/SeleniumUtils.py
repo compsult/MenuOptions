@@ -141,9 +141,10 @@ class SeleniumUtils(object):
     def check_help_msg (self, params ):
         #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
         elem =  self.driver.find_element_by_xpath(params['xpath'])
-        if 'selector' in params:
-            self.driver.execute_script("$('"+params['selector']+"').val('"+params['keys']+"');")
-            self.driver.execute_script("$('"+params['selector']+"').trigger('input')")
+        if 'keys' in params:
+            input_id = re.match(r'^(.*)"([^"]+)"(.*)$', params['xpath']).groups()[1]
+            self.driver.execute_script("$('input#"+input_id+"').val('"+params['keys']+"');")
+            self.driver.execute_script("$('input#"+input_id+"').trigger('input')")
         if 'click' in params:
             elem.click()
         if self.SLEEP: time.sleep(1)
