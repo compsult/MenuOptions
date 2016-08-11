@@ -140,7 +140,7 @@
                 break;
             case 'good':
                 help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
-                 if (this.options._mask.hasOwnProperty('Help') && ! /Money/.test(this.options.Mask)) {  
+                 if (this.options._mask.hasOwnProperty('Help') && this.options._mask.hasOwnProperty('FixedLen')) {
                     if (! /Money/.test(this.options.Mask)) {  
                         var match_len = this.cached['.mo_elem'].val().length; 
                         help_msg = '<span class=match>'+help_msg.substring(0,match_len)+'</span>'+ 

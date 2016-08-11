@@ -37,8 +37,8 @@ $.widget('mre.menuoptions', {
         if (this.options.ColumnCount < 1) {
             return this._validation_fail(this._cfg.col_cnt,'fatal');
         }
+        this._check_for_bootstrap();
         if ( this.options._mask_status.mask_only === false ) {
-            this._check_for_bootstrap();
             // make sure incoming data is in required format
             this._build_array_of_objs();
             if (this.orig_objs === false) {
@@ -49,25 +49,27 @@ $.widget('mre.menuoptions', {
             }
         }
 
+        this._startup();
+
         this._setOptions( this.options );  
 
         this._bind_events();
 
         this._refresh(); 
 
-        this._startup();
-
         $(this.element).addClass('ui-menuoptions');
     },
 
     _startup : function() {
-         if ( this.options._mask.hasOwnProperty('fmt_initial') === true &&
-              this.element.val().length > 0 ) {
-              this.options._mask.fmt_initial(this.element.val(), this);
-         }
-         if ( this.options.DisableHiLiting === true) {
-            this.options._bgcolor = { 'valid': 'data_neutral', 'invalid': 'data_neutral' };
-         }
+        if (/Select/.test(this.options.MenuOptionsType)) {
+            if ( this.options._mask.hasOwnProperty('fmt_initial') === true &&
+                this.element.val().length > 0 ) {
+                this.options._mask.fmt_initial(this.element.val(), this);
+            }
+            if ( this.options.DisableHiLiting === true) {
+                this.options._bgcolor = { 'valid': 'data_neutral', 'invalid': 'data_neutral' };
+            }
+        }
         this._detect_destroyed_input();
     },
 
@@ -293,8 +295,14 @@ $.widget('mre.menuoptions', {
         var left_pad=18;
         $(this.element).css({ 'text-align': this.options.Justify });
         if ( /right/i.test(this.options.Justify) ) {
-            var width = parseInt($(this.element).css('width')) - left_pad;
-            $(this.element).css({ 'padding-right': left_pad + 'px', 'width': width+left_pad + 'px !important'});
+            var orig_width = parseInt($(this.element).css('width'));
+            $(this.element).css({ 'padding-right': left_pad + 'px'});
+            /*--  this.element.removeAttr('width');  --*/
+            if ( this.options._bootstrap && /form-control/.test(this.element.attr('class'))){
+                 $(this.element).css({ 'width': (orig_width-left_pad) + 'px !important' }); 
+            } else {
+                this.element.width(orig_width-left_pad);
+            }
         }
     },
 

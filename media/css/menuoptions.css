@@ -163,7 +163,7 @@ span.clearbtn.ClearButtonMO {
 }
 input.data_error { background: #FFE9E6 !important; }
 input.data_good  { background: #E1EDDD !important; }
-input.data_neutral  { background: inherit; }
+input.data_neutral  { background: white; }
 
 .ui-menuoptions::-ms-clear { display:none; }
 
