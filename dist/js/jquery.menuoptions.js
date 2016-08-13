@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-13
+ * @version         Version 1.8.1-14
  *
  *
  ******************************************/
@@ -492,8 +492,8 @@ this._cfg={
                 $('div#RK_RT_' + this._event_ns).attr('class', 'rtup');
                 $('div#RK_LT_' + this._event_ns).attr('class', 'ltup');
             } else {
-                this._change_rocker($(this.element).parent()
-                        .find('span:contains(' + val + ')').parent());
+                 this._change_rocker($(this.element).parent() 
+                         .find('span:contains(' + val + ')').parent()); 
             }
         } else {
             this.element.val(val);
@@ -512,9 +512,6 @@ this._cfg={
         this.cached['.mo_elem'].hide();
         this.cached['.mo_elem'].next('span.clearbtn').hide();
         this._event_ns = this.eventNamespace.replace(/^\./, '');
-        if (this._initval_exists()) {
-            this.set_select_value(this.options.InitialValue);
-        }
         if (currval.length > 0 && new RegExp(currval).test(this.orig_objs[0].val)) {
             ltclass = "ltdown";
         }
@@ -531,6 +528,9 @@ this._cfg={
             .append('<span class=innertext>' + this.orig_objs[0].val + '</span>');
         $('div#RK_RT_' + this._event_ns)
             .append('<span class=innertext>' + this.orig_objs[1].val + '</span>');
+        if (this._initval_exists()) {
+            this.set_select_value(this.options.InitialValue);
+        }
     },
 
     _rocker_click : function (event) {

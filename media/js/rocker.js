@@ -5,9 +5,6 @@
         this.cached['.mo_elem'].hide();
         this.cached['.mo_elem'].next('span.clearbtn').hide();
         this._event_ns = this.eventNamespace.replace(/^\./, '');
-        if (this._initval_exists()) {
-            this.set_select_value(this.options.InitialValue);
-        }
         if (currval.length > 0 && new RegExp(currval).test(this.orig_objs[0].val)) {
             ltclass = "ltdown";
         }
@@ -24,6 +21,9 @@
             .append('<span class=innertext>' + this.orig_objs[0].val + '</span>');
         $('div#RK_RT_' + this._event_ns)
             .append('<span class=innertext>' + this.orig_objs[1].val + '</span>');
+        if (this._initval_exists()) {
+            this.set_select_value(this.options.InitialValue);
+        }
     },
 
     _rocker_click : function (event) {

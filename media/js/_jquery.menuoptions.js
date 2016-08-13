@@ -202,8 +202,8 @@ $.widget('mre.menuoptions', {
                 $('div#RK_RT_' + this._event_ns).attr('class', 'rtup');
                 $('div#RK_LT_' + this._event_ns).attr('class', 'ltup');
             } else {
-                this._change_rocker($(this.element).parent()
-                        .find('span:contains(' + val + ')').parent());
+                 this._change_rocker($(this.element).parent() 
+                         .find('span:contains(' + val + ')').parent()); 
             }
         } else {
             this.element.val(val);
