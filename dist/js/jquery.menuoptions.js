@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-14
+ * @version         Version 1.8.1-15
  *
  *
  ******************************************/
@@ -397,9 +397,14 @@ this._cfg={
         return 'invalid';
     },
 
+    _money_to_float : function () {
+        var regx = new RegExp('^\\'+this._cfg.curcy+'.*$|[^\\d\\.]+', 'g');
+        return parseFloat(this.cached['.mo_elem'].val().replace(regx,''),10).toFixed(2);
+    },
+
     _money_output : function (mony) {
         if ( new RegExp('^[^\\'+this._cfg.curcy+']+\\'+this._cfg.curcy+'.*$').test(mony.cur_val)) {
-            mony.cur_val = parseFloat(this.cached['.mo_elem'].val().replace(/\$.*$|\D+/,''),10).toFixed(2);
+            mony.cur_val = this._money_to_float();
         } else {
             mony.cur_val = parseFloat(this.cached['.mo_elem'].val().replace(/[^\d.]/g,''),10).toFixed(2);
         }
@@ -1185,16 +1190,29 @@ this._cfg={
          }
     },
 
+    _setup_mask_mo_key : function () {
+        if ( /money/i.test(this.options.Mask)) {
+            /*--  var mony = this._money_init();  --*/
+            /*--  this._money_output(mony);    --*/
+            this._money_output(this._money_init());  
+        } else {
+            $(this.element).attr('menu_opt_key',this.cached['.mo_elem'].val());
+        }
+    },
+
     _setOptions : function ( options ) {
         this._setOption('_ID', this.eventNamespace.replace(/^\./, ''));
         this._event_ns = this.eventNamespace.replace(/^\./, '');
         this.cached={'.mo_elem':this.element}; 
         $(this.element).attr('autocomplete', 'off');
+        this._set_valid_mask();
         var $dd_span = this;
         if (/Select|Rocker/.test(this.options.MenuOptionsType)) {
             if ( this.options.Data !== '') {
                 this.add_menuoption_key();
-            } 
+            } else {
+                this._setup_mask_mo_key();
+            }
             if ( Object.keys(options).length === 0 ) {
                 /*--  MenuOptions with no params will just run add_menuoption_key()   --*/
                 return;
