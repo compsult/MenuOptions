@@ -36,27 +36,27 @@ $(document).ready(function() {
         "Mask": "Mon DD, YYYY"
         /*--  "InitialValue": { val: "Feb 27, 2016"}  --*/
     });  
-    $('input#MdYtest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "Mon DD, YYYY" });
-    $('input#MdYtest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "Mon DD, YYYY" });
+    $('input#MdYtest2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "Mon DD, YYYY" });
+    $('input#MdYtest3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "Mon DD, YYYY" });
     $('input#YMDtest').menuoptions({ 
         "onSelect": function(mo, data) {  
              console.log(mo, data.newVal, data.newCode, data.type );   
          },  
         "ClearBtn": true,
-        "Help": 'top',
+        "Help": 'bottom',
         "Mask": "YYYYMMDD"
     });  
     $('input#YMDtest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "YYYYMMDD" });
-    $('input#YMDtest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "YYYYMMDD" });
+    $('input#YMDtest3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "YYYYMMDD" });
     $('input#Phonetest').menuoptions({ 
         "onSelect": function(mo, data) {  
              console.log(mo, data.newVal, data.newCode, data.type );   
          },  
         "ClearBtn": true,
-        "Help": 'top',
+        "Help": 'right',
         "Mask": "USphone"
     });  
-    $('input#Phonetest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "USphone" });
+    $('input#Phonetest2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "USphone" });
     $('input#Phonetest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "USphone" });
     $('input#Timetest').menuoptions({
         "Data": ['12:00 PM', '12:30 PM', '01:00 PM','01:30 PM', '02:00 PM','02:30 PM', '03:00 PM','03:30 PM', '04:00 PM', '04:30 PM'],
@@ -67,11 +67,11 @@ $(document).ready(function() {
          },  
         "ClearBtn": true,
         "Mask" : 'HH:MM AM',
-        "Help": 'top',
+        "Help": 'right',
         'DisableHiLiting': true
     });  
-    $('input#Timetest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "HH:MM AM" });
-    $('input#Timetest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "HH:MM AM" });
+    $('input#Timetest2').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "HH:MM AM" });
+    $('input#Timetest3').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "HH:MM AM" });
     $('input#Moneytest').menuoptions({
         "onSelect": function(mo, data) {  
              console.log(mo, data.newVal, data.newCode, data.type );   
@@ -81,8 +81,8 @@ $(document).ready(function() {
         "Help": 'top',
         "Mask" : 'Money'
     });  
-    $('input#Moneytest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "Money", "Justify": 'right' });
-    $('input#Moneytest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "Money", "Justify": 'right' });
+    $('input#Moneytest2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "Money", "Justify": 'right' });
+    $('input#Moneytest3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "Money", "Justify": 'right' });
    /*--  END_JAVASCRIPT  --*/
     $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
@@ -165,20 +165,20 @@ $(document).ready(function() {
         <!--  START_HTML  -->
         <div id=main_column class="col-md-10 col-xs-10">
         <div class="row" style="border: 0px solid green;">
-          <div class="col-md-9 col-xs-9" style='height:70px;border: 0px solid silver;'>
-            <div class="row" style='height:76px'></div>
+          <div class="col-md-9 col-xs-9" style='height:70px;border: 0px solid silver;width:1000px;'>
+            <div class="row" style='height:76px; border: 0px solid silver;'></div>
             <div class="row" style='height:76px'>
                 <div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;'>
                     <span class=lg>Mask for YYYYMMDD</span><br>
                     <span class=sub>(hotkey t = today, help on bottom)</span>
                 </div>
-                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='underlined'   style='width:124px' type=text name=MdY id='YMDtest'  placeholder='YYYYMMDD'>
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='form-control'   style='width:140px !important' type=text name=MdY id='YMDtest2'  placeholder='YYYYMMDD'>
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input style='width:124px !important' type=text name=MdY id='YMDtest3'  placeholder='YYYYMMDD'>
                 </div>
             </div>
@@ -187,13 +187,13 @@ $(document).ready(function() {
                     <span class=lg>Mask for Mon DD, YYYY</span><br>
                     <span class=sub>(hotkey t = today)</span>
                 </div>
-                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='underlined'   style='width:124px' type=text name=YMD id='MdYtest'  placeholder='Mon DD, YYYY' >
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='form-control'   style='width:140px !important' type=text name=YMD id='MdYtest2'  placeholder='Mon DD, YYYY' >
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input style='width:124px !important' type=text name=YMD id='MdYtest3'  placeholder='Mon DD, YYYY' >
                 </div>
             </div>
@@ -202,13 +202,13 @@ $(document).ready(function() {
                     <span class=lg>Mask for time</span><br>
                     <span class=sub>(hotkey n = now, bg color disabled)</span>
                 </div>
-                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='underlined'   style='width:124px' type=text name=time id='Timetest'  placeholder='HH:MM AM' >
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='form-control'   style='width:140px !important' type=text name=time id='Timetest2'  placeholder='HH:MM AM' >
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input style='width:124px !important' type=text name=time id='Timetest3'  placeholder='HH:MM AM' >
                 </div>
             </div>
@@ -217,13 +217,13 @@ $(document).ready(function() {
                     <span class=lg>Mask for Phone number</span><br>
                     <span class=sub>(help on top)</span>
                 </div>
-                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='underlined'   style='width:124px' type=text name=phone id='Phonetest'  placeholder='(999) 999-9999' >
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='form-control'   style='width:140px !important' type=text name=phone id='Phonetest2'  placeholder='(999) 999-9999' >
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input style='width:124px !important' type=text name=phone id='Phonetest3'  placeholder='(999) 999-9999' >
                 </div>
             </div>
@@ -231,13 +231,13 @@ $(document).ready(function() {
                 <div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;'>
                     <span class=lg>Mask for money</span><br>
                 </div>
-                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='underlined'   style='width:124px' type=text name=money id='Moneytest'  placeholder='$0,000.00' >
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='form-control'   style='width:140px !important' type=text name=money2 id='Moneytest2'  placeholder='$0,000.00' >
                 </div>
-                <div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input style='width:124px !important' type=text name=money3 id='Moneytest3'  placeholder='$0,000.00' >
                 </div>
             </div>
@@ -272,27 +272,27 @@ $(document).ready(function() {
         "Mask": "Mon DD, YYYY"
         /*--  "InitialValue": { val: "Feb 27, 2016"}  --*/
     });  
-    $('input#MdYtest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "Mon DD, YYYY" });
-    $('input#MdYtest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "Mon DD, YYYY" });
+    $('input#MdYtest2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "Mon DD, YYYY" });
+    $('input#MdYtest3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "Mon DD, YYYY" });
     $('input#YMDtest').menuoptions({ 
         "onSelect": function(mo, data) {  
              console.log(mo, data.newVal, data.newCode, data.type );   
          },  
         "ClearBtn": true,
-        "Help": 'top',
+        "Help": 'bottom',
         "Mask": "YYYYMMDD"
     });  
     $('input#YMDtest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "YYYYMMDD" });
-    $('input#YMDtest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "YYYYMMDD" });
+    $('input#YMDtest3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "YYYYMMDD" });
     $('input#Phonetest').menuoptions({ 
         "onSelect": function(mo, data) {  
              console.log(mo, data.newVal, data.newCode, data.type );   
          },  
         "ClearBtn": true,
-        "Help": 'top',
+        "Help": 'right',
         "Mask": "USphone"
     });  
-    $('input#Phonetest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "USphone" });
+    $('input#Phonetest2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "USphone" });
     $('input#Phonetest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "USphone" });
     $('input#Timetest').menuoptions({
         "Data": ['12:00 PM', '12:30 PM', '01:00 PM','01:30 PM', '02:00 PM','02:30 PM', '03:00 PM','03:30 PM', '04:00 PM', '04:30 PM'],
@@ -303,11 +303,11 @@ $(document).ready(function() {
          },  
         "ClearBtn": true,
         "Mask" : 'HH:MM AM',
-        "Help": 'top',
+        "Help": 'right',
         'DisableHiLiting': true
     });  
-    $('input#Timetest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "HH:MM AM" });
-    $('input#Timetest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "HH:MM AM" });
+    $('input#Timetest2').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "HH:MM AM" });
+    $('input#Timetest3').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "HH:MM AM" });
     $('input#Moneytest').menuoptions({
         "onSelect": function(mo, data) {  
              console.log(mo, data.newVal, data.newCode, data.type );   
@@ -317,8 +317,8 @@ $(document).ready(function() {
         "Help": 'top',
         "Mask" : 'Money'
     });  
-    $('input#Moneytest2').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "Money", "Justify": 'right' });
-    $('input#Moneytest3').menuoptions({ "ClearBtn": true, "Help": 'top', "Mask": "Money", "Justify": 'right' });
+    $('input#Moneytest2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "Money", "Justify": 'right' });
+    $('input#Moneytest3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "Money", "Justify": 'right' });
    
             </code></pre>
         </div>
@@ -328,20 +328,20 @@ $(document).ready(function() {
             
         &lt;div id=main_column class="col-md-10 col-xs-10"&gt;
         &lt;div class="row" style="border: 0px solid green;"&gt;
-          &lt;div class="col-md-9 col-xs-9" style='height:70px;border: 0px solid silver;'&gt;
-            &lt;div class="row" style='height:76px'&gt;&lt;/div&gt;
+          &lt;div class="col-md-9 col-xs-9" style='height:70px;border: 0px solid silver;width:1000px;'&gt;
+            &lt;div class="row" style='height:76px; border: 0px solid silver;'&gt;&lt;/div&gt;
             &lt;div class="row" style='height:76px'&gt;
                 &lt;div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;span class=lg&gt;Mask for YYYYMMDD&lt;/span&gt;&lt;br&gt;
                     &lt;span class=sub&gt;(hotkey t = today, help on bottom)&lt;/span&gt;
                 &lt;/div&gt;
-                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='underlined'   style='width:124px' type=text name=MdY id='YMDtest'  placeholder='YYYYMMDD'&gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='form-control'   style='width:140px !important' type=text name=MdY id='YMDtest2'  placeholder='YYYYMMDD'&gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input style='width:124px !important' type=text name=MdY id='YMDtest3'  placeholder='YYYYMMDD'&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
@@ -350,13 +350,13 @@ $(document).ready(function() {
                     &lt;span class=lg&gt;Mask for Mon DD, YYYY&lt;/span&gt;&lt;br&gt;
                     &lt;span class=sub&gt;(hotkey t = today)&lt;/span&gt;
                 &lt;/div&gt;
-                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='underlined'   style='width:124px' type=text name=YMD id='MdYtest'  placeholder='Mon DD, YYYY' &gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='form-control'   style='width:140px !important' type=text name=YMD id='MdYtest2'  placeholder='Mon DD, YYYY' &gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input style='width:124px !important' type=text name=YMD id='MdYtest3'  placeholder='Mon DD, YYYY' &gt;
                 &lt;/div&gt;
             &lt;/div&gt;
@@ -365,13 +365,13 @@ $(document).ready(function() {
                     &lt;span class=lg&gt;Mask for time&lt;/span&gt;&lt;br&gt;
                     &lt;span class=sub&gt;(hotkey n = now, bg color disabled)&lt;/span&gt;
                 &lt;/div&gt;
-                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='underlined'   style='width:124px' type=text name=time id='Timetest'  placeholder='HH:MM AM' &gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='form-control'   style='width:140px !important' type=text name=time id='Timetest2'  placeholder='HH:MM AM' &gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input style='width:124px !important' type=text name=time id='Timetest3'  placeholder='HH:MM AM' &gt;
                 &lt;/div&gt;
             &lt;/div&gt;
@@ -380,13 +380,13 @@ $(document).ready(function() {
                     &lt;span class=lg&gt;Mask for Phone number&lt;/span&gt;&lt;br&gt;
                     &lt;span class=sub&gt;(help on top)&lt;/span&gt;
                 &lt;/div&gt;
-                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='underlined'   style='width:124px' type=text name=phone id='Phonetest'  placeholder='(999) 999-9999' &gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='form-control'   style='width:140px !important' type=text name=phone id='Phonetest2'  placeholder='(999) 999-9999' &gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input style='width:124px !important' type=text name=phone id='Phonetest3'  placeholder='(999) 999-9999' &gt;
                 &lt;/div&gt;
             &lt;/div&gt;
@@ -394,13 +394,13 @@ $(document).ready(function() {
                 &lt;div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;span class=lg&gt;Mask for money&lt;/span&gt;&lt;br&gt;
                 &lt;/div&gt;
-                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='underlined'   style='width:124px' type=text name=money id='Moneytest'  placeholder='$0,000.00' &gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='form-control'   style='width:140px !important' type=text name=money2 id='Moneytest2'  placeholder='$0,000.00' &gt;
                 &lt;/div&gt;
-                &lt;div class="visible-lg col-lg-3" style='height:70px;width:160px;border: 0px solid silver;'&gt;
+                &lt;div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input style='width:124px !important' type=text name=money3 id='Moneytest3'  placeholder='$0,000.00' &gt;
                 &lt;/div&gt;
             &lt;/div&gt;

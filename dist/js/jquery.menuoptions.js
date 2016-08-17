@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-16
+ * @version         Version 1.8.1-17
  *
  *
  ******************************************/
@@ -124,9 +124,9 @@ this._cfg={
             }
         }
 
-        this._startup();
-
         this._setOptions( this.options );  
+
+        this._startup();
 
         this._bind_events();
 
@@ -140,9 +140,6 @@ this._cfg={
             if ( this.options._mask.hasOwnProperty('fmt_initial') === true &&
                 this.element.val().length > 0 ) {
                 this.options._mask.fmt_initial(this.element.val(), this);
-            }
-            if ( this.options.DisableHiLiting === true) {
-                this.options._bgcolor = { 'valid': 'data_neutral', 'invalid': 'data_neutral' };
             }
         }
         this._detect_destroyed_input();
@@ -206,13 +203,17 @@ this._cfg={
     },
 
     _set_help_position : function (id) {
+         var my_left = 'left';
+         if ( this.options._bootstrap && /form-control/.test(this.element.attr('class'))){
+             my_left = 'left+10 ';
+         }
          if (/Select/i.test(this.options.MenuOptionsType) ) {
             if ( /right/.test(this.options.Help) || this.options.Help === true) {  
-                $("span#"+id).position({ of: $(this.element), my:'center center-8', at:'right+4' });
+                $("span#"+id).position({ of: $(this.element), my:'left center', at:'right+10 center'});
             }  else if ( /bottom/.test(this.options.Help) ) {  
-                $("span#"+id).position({ of: $(this.element), my:'center top', at:'left bottom+4' });
+                $("span#"+id).position({ of: $(this.element), my: my_left+' top', at:'left bottom+10' });
             }  else if ( /top/.test(this.options.Help) ) {  
-                $("span#"+id).position({ of: $(this.element), my:'center bottom-18', at:'left top-2' });
+                $("span#"+id).position({ of: $(this.element), my: my_left+' top-12', at:'left top-12'});
             }
          } 
     },
@@ -1195,8 +1196,6 @@ this._cfg={
 
     _setup_mask_mo_key : function () {
         if ( /money/i.test(this.options.Mask)) {
-            /*--  var mony = this._money_init();  --*/
-            /*--  this._money_output(mony);    --*/
             this._money_output(this._money_init());  
         } else {
             $(this.element).attr('menu_opt_key',this.cached['.mo_elem'].val());
@@ -1208,6 +1207,9 @@ this._cfg={
         this._event_ns = this.eventNamespace.replace(/^\./, '');
         this.cached={'.mo_elem':this.element}; 
         $(this.element).attr('autocomplete', 'off');
+        if ( this.options.DisableHiLiting === true) {
+            this.options._bgcolor = { 'valid': 'data_neutral', 'invalid': 'data_neutral' };
+        }
         this._set_valid_mask();
         var $dd_span = this;
         if (/Select|Rocker/.test(this.options.MenuOptionsType)) {
