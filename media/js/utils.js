@@ -55,6 +55,15 @@
         return ret;
     },
 
+    _future_test : function (val) {
+        if ( ! /\d/.test(val[val.length-1]) ) {
+            return [false, '0 - 9'+this._cfg.only];
+        }
+        var mmyy = val.substring(3)+val.substring(0,2),
+           curr_mmyy = new Date().getFullYear().toString().substring(2)+("0" + (new Date().getMonth() + 1)).slice(-2);
+        return mmyy > curr_mmyy ? [true,''] : [false,this._cfg.card_expired];
+    },
+
     _is_char_valid : function (val, regex, err_msg, str_flag, offset) {
         var str = str_flag === 'string' ? '^('+regex+')$' : '['+regex+']',
             value = str_flag === 'string' ? val : val[offset];

@@ -14,6 +14,9 @@
             },
             'Money' : { 
                 #import money_mask.js
+            },
+            'CredCdExp' : {
+                #import cc_exp.js
             }
         };
     },

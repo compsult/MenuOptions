@@ -78,10 +78,16 @@ class testMasks(SeleniumUtils, SetupByLocation):
 
     def test07_YMD_bad_mon(self):
         """
-           verify YYYYMMDD rejects invalid month. Verify YYYYMMDD rejects invalid month in 2nd digit. Verify YYYYMMDD rejects invalid day
+           verify YYYYMMDD rejects invalid month. Verify YYYYMMDD rejects invalid month in 2nd digit. Verify YYYYMMDD rejects invalid day. Verify card expiration works
         """
         self.url='http://'+self.IP+'/examples/Masks_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'masks'})
+        self.check_help_msg({ 'xpath': '//*[@id="CrdCdExp"]',
+                              'help_id': '//*[@id="HLP_menuoptions15"]',
+                              'keys': '11/11',
+                              'klass': 'data_error',
+                              'help_txt': 'Card expired',
+                              'rslt': '11/1' })
         self.check_help_msg({
                               'xpath': '//*[@id="YMDtest"]',
                               'help_id': '//*[@id="HLP_menuoptions3"]',

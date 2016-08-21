@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-17
+ * @version         Version 1.8.1-18
  *
  *
  ******************************************/
@@ -103,7 +103,8 @@ this._cfg={
             mon_ary : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
             mon_hotkeys : {'F':'Feb', 'S':'Sep', 'O':'Oct', 'N':'Nov', 'D':'Dec'},
             dt_keys_err : "Data error: DataKeyNames is invalid (there must be 2 matching keys)",
-            missing_val : "Data error: Key with no value error in incoming Data parameter"
+            missing_val : "Data error: Key with no value error in incoming Data parameter",
+            card_expired : "Card expired"
          };
 
         if ( /invalid/i.test(this._test_mask_cfg()) ) {
@@ -291,6 +292,18 @@ this._cfg={
                 'initial' : { 'val' : this._cfg.curcy+'0.00', 'ofs' : 3 },
                 'sep' : ',',
                 'Whole' : '^\\'+this._cfg.curcy+'\\d{1,3}\\.\\d{2}$|^\\'+this._cfg.curcy+'(\\d{1,3},)+\\d{3}\\.[0-9]{2}$'
+            },
+            'CredCdExp' : {
+                'FixedLen' : 5,
+                'Help': 'MM/YY',
+                'valid' : { 
+                            1: { max_val: 1 },
+                            2: function( val,obj ) { return /1/.test(val[0]) ? obj._max_val_test(val,2,1) : obj._max_val_test(val,9,1); },
+                            4: { max_val: 9 },
+                            5 : function(val,obj) {  return obj._future_test(val); }
+                },
+                'consts' : { 3: '/' },
+                'Whole' : function(val,obj) {  return obj._future_test(val); }
             }
         };
     },
@@ -1835,6 +1848,15 @@ this._cfg={
                  }  
         }
         return ret;
+    },
+
+    _future_test : function (val) {
+        if ( ! /\d/.test(val[val.length-1]) ) {
+            return [false, '0 - 9'+this._cfg.only];
+        }
+        var mmyy = val.substring(3)+val.substring(0,2),
+           curr_mmyy = new Date().getFullYear().toString().substring(2)+("0" + (new Date().getMonth() + 1)).slice(-2);
+        return mmyy > curr_mmyy ? [true,''] : [false,this._cfg.card_expired];
     },
 
     _is_char_valid : function (val, regex, err_msg, str_flag, offset) {

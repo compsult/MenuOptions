@@ -79,6 +79,17 @@ $(document).ready(function() {
     });  
     $('input#Moneytest2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "Money", "Justify": 'right' });
     $('input#Moneytest3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "Money", "Justify": 'right' });
+    $('input#CrdCdExp').menuoptions({
+        "onSelect": function(mo, data) {  
+             console.log(mo, data.newVal, data.newCode, data.type );   
+         },  
+        "Justify": 'left',
+        "ClearBtn": true,
+        "Help": 'top',
+        "Mask" : 'CredCdExp'
+    });  
+    $('input#CrdCdExp2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": "CredCdExp", "Justify": 'left' });
+    $('input#CrdCdExp3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": "CredCdExp", "Justify": 'left' });
    /*--  END_JAVASCRIPT  --*/
 });
 </script>
@@ -119,7 +130,7 @@ $(document).ready(function() {
             <div class="row" style='height:76px'>
                 <div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;'>
                     <span class=lg>Mask for Mon DD, YYYY</span><br>
-                    <span class=sub>(hotkey t = today)</span>
+                    <span class=sub>(hotkey t = today, help on top)</span>
                 </div>
                 <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='underlined'   style='width:124px' type=text name=YMD id='MdYtest'  placeholder='Mon DD, YYYY' >
@@ -149,7 +160,7 @@ $(document).ready(function() {
             <div class="row" style='height:76px'>
                 <div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;vertical-align: middle'>
                     <span class=lg>Mask for Phone number</span><br>
-                    <span class=sub>(help on top)</span>
+                    <span class=sub>(help on right)</span>
                 </div>
                 <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='underlined'   style='width:124px' type=text name=phone id='Phonetest'  placeholder='(999) 999-9999' >
@@ -173,6 +184,20 @@ $(document).ready(function() {
                 </div>
                 <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input style='width:124px !important' type=text name=money3 id='Moneytest3'  placeholder='$0,000.00' >
+                </div>
+            </div>
+            <div class="row" style='height:76px'>
+                <div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;'>
+                    <span class=lg>Credit card expiration</span><br>
+                </div>
+                <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
+                    <input class='underlined'   style='width:72px' type=text id='CrdCdExp'  placeholder='MM/YY' >
+                </div>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
+                    <input class='form-control'   style='width:76px !important' type=text id='CrdCdExp2'  placeholder='MM/YY' >
+                </div>
+                <div class="visible-lg col-lg-3" style='height:70px;width:240px;border: 0px solid silver;'>
+                    <input style='width:72px !important' type=text id='CrdCdExp3'  placeholder='MM/YY' >
                 </div>
             </div>
           </div>
