@@ -93,6 +93,7 @@
             }
         }
         this.element.val(fmted_str);
+        this.element.attr('menu_opt_key', fmted_str);
         this._initial_bg( params );
     },
 
