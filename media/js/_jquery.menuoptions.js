@@ -243,15 +243,13 @@ $.widget('mre.menuoptions', {
 
     _clearInput : function (e) {
         var $this=this;
-        if ( ! $(this.element).prop('disabled') ) {
-            $(this.element).attr('menu_opt_key', '');
-            $(this.element).val('');
-            setTimeout( function() {
-                $($this.element).focus(); //chrome needs delay
-            }, 80 );
-            this._set_initial_mask_value('blur');
-            this._set_bg_color('clear');
-        }
+        $(this.element).attr('menu_opt_key', '');
+        $(this.element).val('');
+        setTimeout( function() {
+            $($this.element).focus(); //chrome needs delay
+        }, 80 );
+        this._set_initial_mask_value('blur');
+        this._set_bg_color('clear');
     },
 
     #import arrow_keys.js
