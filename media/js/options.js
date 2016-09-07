@@ -3,7 +3,6 @@
         BootMenuOfs: 140,   // how far to left of expanded menu should dropdown appear
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
         ClearBtn: false,   // if set, will clear the input field to it's left
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
         Data: '',  // pass in your array, object or array of objects here
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#columncount
         ColumnCount: 1, // display data in this number of columns
@@ -25,7 +24,7 @@
         ShowAt: 'bottom', // 'bottom' or 'right' are the options
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
         Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
         SelectOnly: false,  // if true, will not allow user to type input
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow

@@ -77,7 +77,9 @@
         if ( this.options.Mask.length > 0 ) {
             if ( /keyup|keydown|input|click|focus/.test(e.type)) {
                 if (/^Money$/i.test( this.options.Mask)) {
-                    this._check_money(e);
+                    /*--  if ( /keyup/.test(e.type)) {  --*/
+                        this._check_money(e);
+                    /*--  }  --*/
                 } else if (/keyup|keydown|input/.test(e.type)) {
                     this._check_mask(e, this.cached['.mo_elem'].val());
                 } else if ( /focus/.test(e.type)) {

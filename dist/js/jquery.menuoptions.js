@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-20
+ * @version         Version 1.8.1-21
  *
  *
  ******************************************/
@@ -27,7 +27,6 @@ $.widget('mre.menuoptions', {
         BootMenuOfs: 140,   // how far to left of expanded menu should dropdown appear
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
         ClearBtn: false,   // if set, will clear the input field to it's left
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
         Data: '',  // pass in your array, object or array of objects here
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#columncount
         ColumnCount: 1, // display data in this number of columns
@@ -49,7 +48,7 @@ $.widget('mre.menuoptions', {
         ShowAt: 'bottom', // 'bottom' or 'right' are the options
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
         Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
         SelectOnly: false,  // if true, will not allow user to type input
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
@@ -392,16 +391,24 @@ this._cfg={
             $(this.element).attr('menu_opt_key', '0.00');
         } else {
             var ofs = this.cached['.mo_elem'].val().length-3;
-            $(this.element).get(0).setSelectionRange(ofs,ofs);
+            /*--  if text has been selected, leave it selected  --*/
+            /*--  console.log("selection = "+window.getSelection().toString());  --*/
+            if ( window.getSelection().toString().length === 0 ) {
+                $(this.element).get(0).setSelectionRange(ofs,ofs);
+            }
         }
     },
 
-    _money_invalid_key : function (mony) {
+    _money_invalid_key : function (mony, e) {
         this._set_bg_color('clear');
+        /*--  console.log("val = "+this.cached['.mo_elem'].val());  --*/
         if ( ! new RegExp('\\d|,|\\'+this._cfg.curcy+'|^'+this._cfg.curcy).test(mony.cur_char) && 
              ! new RegExp('/^\\'+this._cfg.curcy+'[^\\.]+\\.\\d$').test(mony.cur_val)) {
-            this.cached['.mo_elem'].val(mony.cur_val.substring(0,mony.cur_pos-1)+mony.cur_val.substring(mony.cur_pos));
-            if ( mony.cur_char === '.' && mony.from_left === 3 ) {
+            if ( ! /\.\d$/.test(this.cached['.mo_elem'].val())) {
+               this.cached['.mo_elem'].val(mony.cur_val.substring(0,mony.cur_pos-1)+mony.cur_val.substring(mony.cur_pos));
+            } 
+            /*--  console.log("val = "+this.cached['.mo_elem'].val());  --*/
+            if ( mony.cur_char === '.' ) { // && mony.from_left === 3 ) {
                 mony.ofs = mony.cur_val.length - 3;
                 $(this.element).get(0).setSelectionRange(mony.ofs,mony.ofs);
                 return 'valid';
@@ -418,13 +425,16 @@ this._cfg={
     },
 
     _money_output : function (mony) {
+        /*--  console.log("1 - cur_val = "+mony.cur_val);  --*/
         if ( new RegExp('^[^\\'+this._cfg.curcy+']+\\'+this._cfg.curcy+'.*$').test(mony.cur_val)) {
             mony.cur_val = this._money_to_float();
         } else {
             mony.cur_val = parseFloat(this.cached['.mo_elem'].val().replace(/[^\d.]/g,''),10).toFixed(2);
         }
+        /*--  console.log("2 - cur_val = "+mony.cur_val);  --*/
         $(this.element).attr('menu_opt_key', mony.cur_val);
         mony.cur_val = this._cfg.curcy + mony.cur_val.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+        /*--  console.log("3 - cur_val = "+mony.cur_val);  --*/
         mony.ofs = mony.cur_val.length - mony.from_left;
         this.cached['.mo_elem'].val(mony.cur_val);
         $(this.element).get(0).setSelectionRange(mony.ofs,mony.ofs);
@@ -453,7 +463,7 @@ this._cfg={
         }
         if (/input/.test(e.type) ) {
             this.__set_help_msg('', 'good');
-            if ( /^valid$/i.test(this._money_invalid_key(mony))) {
+            if ( /^valid$/i.test(this._money_invalid_key(mony,e))) {
                 return;
             }
             if ( mony.from_left <= 2 ) {
@@ -1027,15 +1037,13 @@ this._cfg={
 
     _clearInput : function (e) {
         var $this=this;
-        if ( ! $(this.element).prop('disabled') ) {
-            $(this.element).attr('menu_opt_key', '');
-            $(this.element).val('');
-            setTimeout( function() {
-                $($this.element).focus(); //chrome needs delay
-            }, 80 );
-            this._set_initial_mask_value('blur');
-            this._set_bg_color('clear');
-        }
+        $(this.element).attr('menu_opt_key', '');
+        $(this.element).val('');
+        setTimeout( function() {
+            $($this.element).focus(); //chrome needs delay
+        }, 80 );
+        this._set_initial_mask_value('blur');
+        this._set_bg_color('clear');
     },
 
     _arrow_keys : function (event) {
@@ -1109,6 +1117,7 @@ this._cfg={
         /*--  var str_len = val.length;  --*/
         var str_len = $(this.element).get(0).selectionStart,
             new_str = '';
+        console.log("in _back_space");
         for (var x = str_len; str_len > 0; str_len--) {
             new_str = val.substring(0,str_len-1) + val.substring(str_len);
             if ( this.options._mask.hasOwnProperty('consts') &&
@@ -1500,7 +1509,9 @@ this._cfg={
         if ( this.options.Mask.length > 0 ) {
             if ( /keyup|keydown|input|click|focus/.test(e.type)) {
                 if (/^Money$/i.test( this.options.Mask)) {
-                    this._check_money(e);
+                    /*--  if ( /keyup/.test(e.type)) {  --*/
+                        this._check_money(e);
+                    /*--  }  --*/
                 } else if (/keyup|keydown|input/.test(e.type)) {
                     this._check_mask(e, this.cached['.mo_elem'].val());
                 } else if ( /focus/.test(e.type)) {
