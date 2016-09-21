@@ -296,6 +296,34 @@ class testMasks(SeleniumUtils, SetupByLocation):
                          'expected': '12:00PM12:15PM12:30PM12:45PM',
                          'test_key': '12' })
 
+    def test22_cc_exp_invalid_mon(self):
+        """
+           verify cc_exp rejects invalid month name and prepends a zero to any mon > 1
+        """
+        self.url='http://'+self.IP+'/examples/Masks_test.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'masks'})
+        self.check_help_msg({
+                              'xpath': '//*[@id="CrdCdExp"]',
+                              'help_id': '//*[@id="HLP_menuoptions15"]',
+                              'help_txt': '0 - 9 only',
+                              'notKlass': ['data_error','data_good'],
+                              'rslt': '',
+                              'keys': 'x',
+                           })
+        self.check_help_msg({
+                              'xpath': '//*[@id="CrdCdExp"]',
+                              'help_id': '//*[@id="HLP_menuoptions15"]',
+                              'rslt': '03/',
+                              'sendkeys': '3',
+                           })
+        self.driver.find_element_by_xpath('//*[@id="CB_menuoptions15"]').click()
+        self.check_help_msg({
+                              'xpath': '//*[@id="CrdCdExp"]',
+                              'help_id': '//*[@id="HLP_menuoptions15"]',
+                              'rslt': '1',
+                              'sendkeys': '1',
+                           })
+
     def tearDown(self):
         super(testMasks,self).tearDown()
         self.driver.quit()

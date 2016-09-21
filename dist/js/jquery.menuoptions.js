@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-21
+ * @version         Version 1.8.1-22
  *
  *
  ******************************************/
@@ -296,7 +296,8 @@ this._cfg={
                 'FixedLen' : 5,
                 'Help': 'MM/YY',
                 'valid' : { 
-                            1: { max_val: 1 },
+                            /*--  1: { max_val: 1 },  --*/
+                            1: function( val,obj ) { return obj._cc_exp_mon(val); },
                             2: function( val,obj ) { return /1/.test(val[0]) ? obj._max_val_test(val,2,1) : obj._max_val_test(val,9,1); },
                             4: { max_val: 9 },
                             5 : function(val,obj) {  return obj._future_test(val); }
@@ -384,7 +385,7 @@ this._cfg={
     },
 
 
-    _money_start : function (mony) {
+    _money_start : function (mony,e) {
         this.__set_help_msg('', 'good');
         if ( mony.cur_val.length === 0) {
             this._set_initial_mask_value('focus');
@@ -392,8 +393,7 @@ this._cfg={
         } else {
             var ofs = this.cached['.mo_elem'].val().length-3;
             /*--  if text has been selected, leave it selected  --*/
-            /*--  console.log("selection = "+window.getSelection().toString());  --*/
-            if ( window.getSelection().toString().length === 0 ) {
+            if ( window.getSelection().toString().length === 0 || /focus/.test(e.type) ) {
                 $(this.element).get(0).setSelectionRange(ofs,ofs);
             }
         }
@@ -458,7 +458,7 @@ this._cfg={
     _check_money : function (e) {
         var mony = this._money_init();
         if (/focus|click/.test(e.type) ) {
-            this._money_start(mony);
+            this._money_start(mony,e);
             return;
         }
         if (/input/.test(e.type) ) {
@@ -1869,6 +1869,17 @@ this._cfg={
         var mmyy = val.substring(3)+val.substring(0,2),
            curr_mmyy = new Date().getFullYear().toString().substring(2)+("0" + (new Date().getMonth() + 1)).slice(-2);
         return mmyy > curr_mmyy ? [true,''] : [false,this._cfg.card_expired];
+    },
+
+    _cc_exp_mon : function (val) {
+        if ( /\D/.test(val[0]) ) {
+            return [false, '0 - 9'+this._cfg.only];
+        } else if ( val.length === 1 && val > 1 ) {
+            this.cached['.mo_elem'].val("0"+val[0].toString());
+            return [true,''];
+        } else {
+            return [true,''];
+        }
     },
 
     _is_char_valid : function (val, regex, err_msg, str_flag, offset) {

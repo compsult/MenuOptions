@@ -64,6 +64,17 @@
         return mmyy > curr_mmyy ? [true,''] : [false,this._cfg.card_expired];
     },
 
+    _cc_exp_mon : function (val) {
+        if ( /\D/.test(val[0]) ) {
+            return [false, '0 - 9'+this._cfg.only];
+        } else if ( val.length === 1 && val > 1 ) {
+            this.cached['.mo_elem'].val("0"+val[0].toString());
+            return [true,''];
+        } else {
+            return [true,''];
+        }
+    },
+
     _is_char_valid : function (val, regex, err_msg, str_flag, offset) {
         var str = str_flag === 'string' ? '^('+regex+')$' : '['+regex+']',
             value = str_flag === 'string' ? val : val[offset];
