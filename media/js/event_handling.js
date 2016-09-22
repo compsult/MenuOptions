@@ -45,8 +45,8 @@
         this._on(this.cached['.clearBtn'], {
             'mouseleave': '_hiLiteOnOff',
             'mouseenter': '_hiLiteOnOff',
-            'mousedown': '_clearInput',
-            'click': '_clearInput'
+            'mousedown': '_clearInput'
+            /*--  'click': '_clearInput'  --*/
         });
         // bind events to this.element
         this._on({
