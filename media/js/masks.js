@@ -83,7 +83,8 @@
         var raw_data=this.element.val().replace(new RegExp('[^'+params.valid_regex+']', 'g'), ''),
             consts = params.mask.consts,
             len = params.mask.FixedLen,
-            fmted_str = '';
+            fmted_str = '',
+            nums_only = raw_data;
         for ( var x = 1; x <= len; x++) {
             if ( consts.hasOwnProperty(x) ) {
                 fmted_str = fmted_str + consts[x];
@@ -93,7 +94,7 @@
             }
         }
         this.element.val(fmted_str);
-        this.element.attr('menu_opt_key', fmted_str);
+        this.element.attr('menu_opt_key', nums_only);
         this._initial_bg( params );
     },
 

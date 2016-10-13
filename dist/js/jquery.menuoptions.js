@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.1-24
+ * @version         Version 1.8.2-0
  *
  *
  ******************************************/
@@ -370,7 +370,8 @@ this._cfg={
         var raw_data=this.element.val().replace(new RegExp('[^'+params.valid_regex+']', 'g'), ''),
             consts = params.mask.consts,
             len = params.mask.FixedLen,
-            fmted_str = '';
+            fmted_str = '',
+            nums_only = raw_data;
         for ( var x = 1; x <= len; x++) {
             if ( consts.hasOwnProperty(x) ) {
                 fmted_str = fmted_str + consts[x];
@@ -380,7 +381,7 @@ this._cfg={
             }
         }
         this.element.val(fmted_str);
-        this.element.attr('menu_opt_key', fmted_str);
+        this.element.attr('menu_opt_key', nums_only);
         this._initial_bg( params );
     },
 
@@ -1220,6 +1221,8 @@ this._cfg={
     _setup_mask_mo_key : function () {
         if ( /money/i.test(this.options.Mask)) {
             this._money_output(this._money_init());  
+        } else if ( /phone/i.test(this.options.Mask)) {
+            this._initial_phone({ valid_regex: '\\d', mask: this.options._mask });
         } else {
             $(this.element).attr('menu_opt_key',this.cached['.mo_elem'].val());
         }
