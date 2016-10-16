@@ -57,6 +57,8 @@ Mon DD, YYYY
 USphone
 ~~~~~~~
 
+Note: the "Phone" mask saves the phone number as numbers (formatting is stripped) in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_
+
 .. code-block:: javascript
 
     "Mask": "USphone"
@@ -73,7 +75,7 @@ HH:MM AM
 Money
 ~~~~~
 
-Note: the "Money" mask saves the amount as a float in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`
+Note: the "Money" mask saves the amount as a float in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_
 
 .. code-block:: javascript
 
