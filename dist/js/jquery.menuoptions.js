@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-1
+ * @version         Version 1.8.2-2
  *
  *
  ******************************************/
@@ -126,23 +126,13 @@ this._cfg={
 
         this._setOptions( this.options );  
 
-        this._startup();
+        this._detect_destroyed_input();
 
         this._bind_events();
 
         this._refresh(); 
 
         $(this.element).addClass('ui-menuoptions');
-    },
-
-    _startup : function() {
-        if (/Select/.test(this.options.MenuOptionsType)) {
-            if ( this.options._mask.hasOwnProperty('fmt_initial') === true &&
-                this.element.val().length > 0 ) {
-                this.options._mask.fmt_initial(this.element.val(), this);
-            }
-        }
-        this._detect_destroyed_input();
     },
 
     _set_bg_color : function(instruct) {
@@ -372,12 +362,16 @@ this._cfg={
             len = params.mask.FixedLen,
             fmted_str = '',
             nums_only = raw_data;
-        for ( var x = 1; x <= len; x++) {
-            if ( consts.hasOwnProperty(x) ) {
-                fmted_str = fmted_str + consts[x];
-            } else {
-                fmted_str = fmted_str + raw_data.charAt(0);
-                raw_data = raw_data.substring(1);
+        if ( this.cached['.mo_elem'].val().length === 0 ) {
+            fmted_str = consts[1];
+        } else {
+            for ( var x = 1; x <= len; x++) {
+                if ( consts.hasOwnProperty(x) ) {
+                    fmted_str = fmted_str + consts[x];
+                } else {
+                    fmted_str = fmted_str + raw_data.charAt(0);
+                    raw_data = raw_data.substring(1);
+                }
             }
         }
         this.element.val(fmted_str);
@@ -638,11 +632,12 @@ this._cfg={
     },
 
     __exec_trigger : function(params) {
-        var newVal = $.trim(params.newVal);
+        var newVal = $.trim(params.newVal),
+            key = /phone/i.test(this.options.Mask) ? params.newCode.replace(new RegExp('[^\\d]', 'g'), '') : params.newCode;
         this.cached['.mo_elem'].val(newVal);
-        this.cached['.mo_elem'].attr('menu_opt_key',params.newCode);
+        this.cached['.mo_elem'].attr('menu_opt_key',key);
         this._trigger("onSelect", this, {
-            "newCode": params.newCode,
+            "newCode": key,
             "newVal" : newVal,
             "type": params.type
         });
@@ -1691,6 +1686,9 @@ this._cfg={
     },
 
     _remove_dropdown : function (e) {
+        if (/phone/i.test(this.options.Mask) && this.cached['.mo_elem'].val() === '(') {
+            this.cached['.mo_elem'].val('');
+        }
         this.options._prev.event = e.type;
         // prevent 2 calls in a row (we trigger one by calling .blur() )
         if (e.type === 'blur' && /mouseleave/.test(this.options._prev.event)) {

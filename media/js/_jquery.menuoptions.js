@@ -51,23 +51,13 @@ $.widget('mre.menuoptions', {
 
         this._setOptions( this.options );  
 
-        this._startup();
+        this._detect_destroyed_input();
 
         this._bind_events();
 
         this._refresh(); 
 
         $(this.element).addClass('ui-menuoptions');
-    },
-
-    _startup : function() {
-        if (/Select/.test(this.options.MenuOptionsType)) {
-            if ( this.options._mask.hasOwnProperty('fmt_initial') === true &&
-                this.element.val().length > 0 ) {
-                this.options._mask.fmt_initial(this.element.val(), this);
-            }
-        }
-        this._detect_destroyed_input();
     },
 
     _set_bg_color : function(instruct) {

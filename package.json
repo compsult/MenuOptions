@@ -1,6 +1,6 @@
 {
   "name": "menuoptions",
-  "version": "1.8.2-1",
+  "version": "1.8.2-2",
   "description": "A jQuery widget that combines multi-column autocomplete with input masks",
   "main": "media/javascript/jquery.menuoptions.js",
   "homepage": "https://github.com/compsult/MenuOptions",

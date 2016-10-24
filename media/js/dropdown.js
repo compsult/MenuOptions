@@ -256,6 +256,9 @@
     },
 
     _remove_dropdown : function (e) {
+        if (/phone/i.test(this.options.Mask) && this.cached['.mo_elem'].val() === '(') {
+            this.cached['.mo_elem'].val('');
+        }
         this.options._prev.event = e.type;
         // prevent 2 calls in a row (we trigger one by calling .blur() )
         if (e.type === 'blur' && /mouseleave/.test(this.options._prev.event)) {

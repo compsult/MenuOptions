@@ -31,16 +31,17 @@ te.buildMenu = function ( ) {
            "ShowDownArrow": "orange",
            'Sort': []
       }); 
-    var Docs =[ {  'Another input widget, really?'  :'http://menuoptions.readthedocs.org/en/latest/FAQ.html#why-do-we-need-another-input-widget' }, 
-                {  'All documentation'  :'http://menuoptions.readthedocs.org/en/latest/index.html' }, 
-                {  'Quick start instructions'  :'http://menuoptions.readthedocs.org/en/latest/QuickStart.html' },
-                {  'Menu reference'  :'http://menuoptions.readthedocs.org/en/latest/MenuParams.html' },
-                {  'Select list  reference'  :'http://menuoptions.readthedocs.org/en/latest/SelectParams.html' },
-                {  'Re-serialize reference'  :'http://menuoptions.readthedocs.org/en/latest/Serialize.html' },
-                {  'User methods': 'http://menuoptions.readthedocs.org/en/latest/UserMethods.html' },
-                {  'I want to use scrolling': 'http://menuoptions.readthedocs.org/en/latest/FAQ.html/#how-can-i-create-a-vertical-scroll-bar-for-large-lists' },
-                {  'FAQ': 'http://menuoptions.readthedocs.org/en/latest/FAQ.html' },
-                {  'change log': 'http://menuoptions.readthedocs.org/en/latest/ChangeLog.html' } ];
+    var Docs =[ {  'Another input widget, really?'  :'http://menuoptions.readthedocs.io/en/latest/FAQ.html#why-do-we-need-another-input-widget' }, 
+                {  'All documentation'  :'http://menuoptions.readthedocs.io/en/latest/index.html' }, 
+                {  'Quick start instructions'  :'http://menuoptions.readthedocs.io/en/latest/QuickStart.html' },
+                {  'Mask reference'  :'http://menuoptions.readthedocs.io/en/latest/Masks.html' },
+                {  'Menu reference'  :'http://menuoptions.readthedocs.io/en/latest/MenuParams.html' },
+                {  'Select list  reference'  :'http://menuoptions.readthedocs.io/en/latest/SelectParams.html' },
+                {  'Re-serialize reference'  :'http://menuoptions.readthedocs.io/en/latest/Serialize.html' },
+                {  'User methods': 'http://menuoptions.readthedocs.io/en/latest/UserMethods.html' },
+                {  'I want to use scrolling': 'http://menuoptions.readthedocs.io/en/latest/FAQ.html/#how-can-i-create-a-vertical-scroll-bar-for-large-lists' },
+                {  'FAQ': 'http://menuoptions.readthedocs.io/en/latest/FAQ.html' },
+                {  'change log': 'http://menuoptions.readthedocs.io/en/latest/ChangeLog.html' } ];
 
 	  $('a.docmenu').menuoptions({ 
            'Data': Docs,

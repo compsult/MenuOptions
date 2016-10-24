@@ -1,9 +1,10 @@
     __exec_trigger : function(params) {
-        var newVal = $.trim(params.newVal);
+        var newVal = $.trim(params.newVal),
+            key = /phone/i.test(this.options.Mask) ? params.newCode.replace(new RegExp('[^\\d]', 'g'), '') : params.newCode;
         this.cached['.mo_elem'].val(newVal);
-        this.cached['.mo_elem'].attr('menu_opt_key',params.newCode);
+        this.cached['.mo_elem'].attr('menu_opt_key',key);
         this._trigger("onSelect", this, {
-            "newCode": params.newCode,
+            "newCode": key,
             "newVal" : newVal,
             "type": params.type
         });

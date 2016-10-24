@@ -85,12 +85,16 @@
             len = params.mask.FixedLen,
             fmted_str = '',
             nums_only = raw_data;
-        for ( var x = 1; x <= len; x++) {
-            if ( consts.hasOwnProperty(x) ) {
-                fmted_str = fmted_str + consts[x];
-            } else {
-                fmted_str = fmted_str + raw_data.charAt(0);
-                raw_data = raw_data.substring(1);
+        if ( this.cached['.mo_elem'].val().length === 0 ) {
+            fmted_str = consts[1];
+        } else {
+            for ( var x = 1; x <= len; x++) {
+                if ( consts.hasOwnProperty(x) ) {
+                    fmted_str = fmted_str + consts[x];
+                } else {
+                    fmted_str = fmted_str + raw_data.charAt(0);
+                    raw_data = raw_data.substring(1);
+                }
             }
         }
         this.element.val(fmted_str);
