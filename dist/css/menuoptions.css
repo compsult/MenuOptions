@@ -157,9 +157,14 @@ span.clearbtnpos {
     /*--  border: 1px solid silver;  --*/
 }
 
+span.clearbtn { 
+    background-color: beige   !important; 
+    border: 1px solid silver;  
+}
 span.clearbtn.ClearButtonMO { 
    font-weight: bold;
-   color: red;
+   color: white;
+   background-color: red   !important; 
 }
 input.data_error { background: #FFE9E6 !important; }
 input.data_good  { background: #E1EDDD !important; }
