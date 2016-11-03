@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-3
+ * @version         Version 1.8.2-4
  *
  *
  ******************************************/
@@ -388,7 +388,7 @@ this._cfg={
         } else {
             var ofs = this.cached['.mo_elem'].val().length-3;
             /*--  if text has been selected, leave it selected  --*/
-            if ( window.getSelection().toString().length === 0 || /focus/.test(e.type) ) {
+            if ( window.getSelection().toString().length === 0 || /focus/.test(e.type) ) { 
                 $(this.element).get(0).setSelectionRange(ofs,ofs);
             }
         }
@@ -415,24 +415,28 @@ this._cfg={
     },
 
     _money_to_float : function () {
-        var regx = new RegExp('^\\'+this._cfg.curcy+'.*$|[^\\d\\.]+', 'g');
+        var regx = new RegExp('^\\'+this._cfg.curcy+'|[^\\d\\.]+', 'g');
         return parseFloat(this.cached['.mo_elem'].val().replace(regx,''),10).toFixed(2);
     },
 
     _money_output : function (mony) {
-        /*--  console.log("1 - cur_val = "+mony.cur_val);  --*/
+         /*--  console.log("1 - cur_val = "+mony.cur_val);    --*/
         if ( new RegExp('^[^\\'+this._cfg.curcy+']+\\'+this._cfg.curcy+'.*$').test(mony.cur_val)) {
             mony.cur_val = this._money_to_float();
         } else {
             mony.cur_val = parseFloat(this.cached['.mo_elem'].val().replace(/[^\d.]/g,''),10).toFixed(2);
         }
-        /*--  console.log("2 - cur_val = "+mony.cur_val);  --*/
+        /*--  console.log("2 - cur_val = "+mony.cur_val);    --*/
         $(this.element).attr('menu_opt_key', mony.cur_val);
         mony.cur_val = this._cfg.curcy + mony.cur_val.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-        /*--  console.log("3 - cur_val = "+mony.cur_val);  --*/
-        mony.ofs = mony.cur_val.length - mony.from_left;
+        /*--  console.log("cur_val = "+mony.cur_val.length+" cur_pos = "+mony.cur_pos);    --*/
         this.cached['.mo_elem'].val(mony.cur_val);
-        $(this.element).get(0).setSelectionRange(mony.ofs,mony.ofs);
+        if ( mony.cur_val.length - mony.cur_pos <= 1 ) {
+            $(this.element).get(0).setSelectionRange(mony.cur_pos,mony.cur_pos);
+        } else {
+            mony.ofs = mony.cur_val.length - 3;
+            $(this.element).get(0).setSelectionRange(mony.ofs,mony.ofs);
+        }
     },
 
     _money_init : function (mony) {
@@ -446,21 +450,40 @@ this._cfg={
             ofs : val.length - this.options._mask.initial.ofs,
             cur_pos : cur_pos,
             cur_char : val.substring(cur_pos-1, cur_pos),
-            from_left : $(this.element).val().length-cur_pos
+            from_left : this.cached['.mo_elem'].val().length-cur_pos
         };
     },
 
     _check_money : function (e) {
+        /*--  console.log(" key code = "+e.keyCode);    --*/
         var mony = this._money_init();
         if (/focus|click/.test(e.type) ) {
             this._money_start(mony,e);
             return;
         }
+        if (/keydown/.test(e.type) ) {
+            /*--  console.log("_check_money keydown - cur_val = "+mony.cur_val+" key code = "+e.keyCode);    --*/
+            if ( window.getSelection().toString().length > 0 && ! /^37$|^38$/.test(e.keyCode) ) {
+                this.cached['.mo_elem'].val(this.cached['.mo_elem'].val().substring(1,this.cached['.mo_elem'][0].selectionStart)+
+                    String.fromCharCode(e.keyCode)+
+                    this.cached['.mo_elem'].val().substring(this.cached['.mo_elem'][0].selectionEnd));
+                mony.cur_val = this._money_to_float();
+                e.preventDefault();
+                this._money_output(mony);
+            }
+        }
         if (/input/.test(e.type) ) {
+            /*--  console.log("_check_money input - cur_val = "+mony.cur_val);    --*/
             this.__set_help_msg('', 'good');
+            if ( /\.\d$/.test(this.cached['.mo_elem'].val())) {
+                mony.cur_val = this._money_to_float();
+                this._money_output(mony);
+                return;
+            }
             if ( /^valid$/i.test(this._money_invalid_key(mony,e))) {
                 return;
             }
+            /*--  console.log("_check_money input 2 - cur_val = "+mony.cur_val);    --*/
             if ( mony.from_left <= 2 ) {
                 if ( new RegExp('^\\'+this._cfg.curcy+'[^\\.]+\\.\\d{3}$').test(mony.cur_val)) {
                     this.cached['.mo_elem'].val(mony.cur_val.substring(0,mony.cur_pos)+mony.cur_val.substring(mony.cur_pos+1));
@@ -469,8 +492,8 @@ this._cfg={
                     mony.from_left = mony.from_left === 0 ? 1 : 3;
                 }
             }
+            this._money_output(mony);
         }
-        this._money_output(mony);
     },
 
     _check_for_bootstrap : function (err_msg) {
@@ -1215,6 +1238,7 @@ this._cfg={
 
     _setup_mask_mo_key : function () {
         if ( /money/i.test(this.options.Mask)) {
+            /*--  console.log("Calling _money_output from _setup_mask_mo_key()");  --*/
             this._money_output(this._money_init());  
         } else if ( /phone/i.test(this.options.Mask)) {
             this._initial_phone({ valid_regex: '\\d', mask: this.options._mask });

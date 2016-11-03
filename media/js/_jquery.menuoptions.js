@@ -327,6 +327,7 @@ $.widget('mre.menuoptions', {
 
     _setup_mask_mo_key : function () {
         if ( /money/i.test(this.options.Mask)) {
+            /*--  console.log("Calling _money_output from _setup_mask_mo_key()");  --*/
             this._money_output(this._money_init());  
         } else if ( /phone/i.test(this.options.Mask)) {
             this._initial_phone({ valid_regex: '\\d', mask: this.options._mask });
