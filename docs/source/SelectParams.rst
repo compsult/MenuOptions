@@ -219,7 +219,6 @@ MenuOptionsType
     menuoptions with MenuOptionsType = "Navigate". To create a Rocker control,
     call menuoptions with MenuOptionsType = "Rocker"
 
-
 .. code-block:: javascript
 
     'MenuOptionsType': 'Navigate'

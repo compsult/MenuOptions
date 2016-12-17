@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-4
+ * @version         Version 1.8.2-5
  *
  *
  ******************************************/
@@ -563,10 +563,10 @@ this._cfg={
         this.cached['.mo_elem'].hide();
         this.cached['.mo_elem'].next('span.clearbtn').hide();
         this._event_ns = this.eventNamespace.replace(/^\./, '');
-        if (currval.length > 0 && new RegExp(currval).test(this.orig_objs[0].val)) {
+        if (currval.length > 0 && currval === this.orig_objs[0].val) {
             ltclass = "ltdown";
         }
-        if (currval.length > 0 && new RegExp(currval).test(this.orig_objs[1].val)) {
+        if (currval.length > 0 && currval === this.orig_objs[1].val) {
             rtclass = "rtdown";
         }
         this.cached['.mo_elem'].parent().append("<div class=rocker id=RK_" + this._event_ns +
@@ -592,14 +592,13 @@ this._cfg={
     },
 
     _set_rocker : function ( matchedRec, raw_val ) {
+        matchedRec=$.map(matchedRec, function(i,v) { if ( raw_val === i.val.replace(/<.*?>/g, '')) return i;});
         this.cached['.mo_elem'].attr('menu_opt_key', matchedRec[0].ky);
         this.cached['.mo_elem'].val(raw_val);
-        if ( new RegExp(raw_val).test($('div#RK_RT_' + 
-                    this.options._ID + " span").text()) ) {
+        if ( raw_val === $('div#RK_RT_' + this.options._ID + " span").text())  {
             $('div#RK_RT_' + this.options._ID).attr('class', 'rtdown');
             $('div#RK_LT_' + this.options._ID).attr('class', 'ltup');
-        } else if ( new RegExp(raw_val).test($('div#RK_LT_' + 
-                    this.options._ID + " span").text()) ) {
+        } else if ( raw_val === $('div#RK_LT_' + this.options._ID + " span").text()) {
             $('div#RK_RT_' + this.options._ID).attr('class', 'rtup');
             $('div#RK_LT_' + this.options._ID).attr('class', 'ltdown');
         }
