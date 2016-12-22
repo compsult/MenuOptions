@@ -22,6 +22,7 @@ Parameter list for select list
     `DisableHiLiting`_,boolean, "true or false", false, false
     `Filters`_, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     `Height`_,integer,positive integer, height of dropdown, false
+    `Help`_,strimg,'right'|'top'|'bottom', 'right', false
     `InitialValue <SelectParams.html#initialvalues>`_,object,{'ky'|'val': <value>}, {}, false
     `Justify`_,string,'right'|'left'|'center',"left", false
     `MenuOptionsType`_,string,'Select'|'Navigate'|'Rocker','Select',false
@@ -171,6 +172,26 @@ Height
     
     'Height': 200
 
+.. _Help:
+
+Help
+~~~~
+You can specify one of three positions to show help (and error) messages
+
+Notes: 
+
+1. the default is 'right' (the other options are 'top' and 'bottom')
+
+.. code-block:: javascript
+    :emphasize-lines: 6
+
+    $('input#YMDtest').menuoptions({ 
+        "onSelect": function(mo, data) {  
+             console.log(mo, data.newVal, data.newCode, data.type );   
+         },  
+        "ClearBtn": true,
+        "Help": 'bottom' // or 'top' or 'right'
+    });  
 
 .. _InitialValueS:
 

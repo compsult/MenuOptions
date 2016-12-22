@@ -31,6 +31,8 @@ $.widget('mre.menuoptions', {
         // text messages and currency definitions
         #import english_dollar.js
 
+        this._handleRegExpMasks();
+
         if ( /invalid/i.test(this._test_mask_cfg()) ) {
             return this._validation_fail(this._cfg.no_dt,'fatal');
         }
@@ -60,6 +62,16 @@ $.widget('mre.menuoptions', {
         $(this.element).addClass('ui-menuoptions');
     },
 
+    _handleRegExpMasks : function() {
+        if ( typeof this.options.Mask === "object" ) {
+            if ( ! this.options.Mask.hasOwnProperty('Whole') ) {
+                return this._validation_fail(this._cfg.missing_regex,'fatal');
+            }
+            this.options._mask = this.options.Mask;
+            this.options.Mask = "RegExp";
+        }
+    },
+
     _set_bg_color : function(instruct) {
         if ( /err/.test(instruct) ) {
            $(this.element).removeClass(this.options._bgcolor.valid).addClass(this.options._bgcolor.invalid);
@@ -71,7 +83,8 @@ $.widget('mre.menuoptions', {
     },
 
     _test_mask_cfg : function () {
-        if (this.options.Data.toString() === '' && this.options.Mask === '') {
+        if (this.options.Data.toString() === '' && this.options.Mask === '' && 
+            typeof this.options.Mask !== "object" ) {
                 return 'invalid';
         } else if ( this.options.Data.toString() === '' && this.options.Mask.length > 0 ) {
             this.options._mask_status.mask_only = true;
@@ -98,12 +111,8 @@ $.widget('mre.menuoptions', {
     },
 
     _show_help : function () { // show mask and help prompts here
-        if (this.options.Help === false)  {
-            this._set_valid_mask ();  
-            return; 
-        }
         var id = 'HLP_' + this.options._ID,
-            help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
+            help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.HelpMsg : '';
         if ( $('span#'+id).length === 0 ) {
             var HelpTxt = '<span class=helptext id=' + id +'>'+help_msg+'</span>'; 
             if ( $('#CB_'+this.options._ID).length > 0) {
@@ -123,7 +132,7 @@ $.widget('mre.menuoptions', {
              my_left = 'left+10 ';
          }
          if (/Select/i.test(this.options.MenuOptionsType) ) {
-            if ( /right/.test(this.options.Help) || this.options.Help === true) {  
+            if ( /right/.test(this.options.Help) ) {
                 $("span#"+id).position({ of: $(this.element), my:'left center', at:'right+10 center'});
             }  else if ( /bottom/.test(this.options.Help) ) {  
                 $("span#"+id).position({ of: $(this.element), my: my_left+' top', at:'left bottom+10' });

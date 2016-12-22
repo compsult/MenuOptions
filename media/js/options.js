@@ -3,10 +3,11 @@
         BootMenuOfs: 140,   // how far to left of expanded menu should dropdown appear
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
         ClearBtn: false,   // if set, will clear the input field to it's left
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         Data: '',  // pass in your array, object or array of objects here
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#columncount
         ColumnCount: 1, // display data in this number of columns
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
+        // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#datakeynames
         DataKeyNames: {}, // specify object keys that contain desired data
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
         DisableHiLiting : false, // set to false to enable autocomplete highlighting
@@ -14,10 +15,12 @@
         Filters: [], // header filters (pass mouse over them & they filter choices)
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#height
         Height: '', // let user specify the exact height they want
-        Help: 'right',
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#help
+        Help: 'right', // where help message should display
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#justify
+        Justify : 'left', // how to justify input inside input element
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
-        Justify : 'left', // allows initial value ot be set
-        InitialValue : {}, // allows initial value ot be set
+        InitialValue : {}, // allows initial value to be set
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
         MenuOptionsType: 'Select', //or Navigate (run JS,follow href) or Rocker (for binary choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#showat
@@ -26,10 +29,11 @@
         Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
         SelectOnly: false,  // if true, will not allow user to type input
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
-        ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
+        ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
+        // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#usevalueforkey
         UseValueForKey: false, // if user wants value = text()
+        // http://menuoptions.readthedocs.io/en/latest/Masks.html#masks
         Mask : '',
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#width
         Width: '', // let user specify the exact width they want

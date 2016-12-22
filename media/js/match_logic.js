@@ -5,13 +5,9 @@
                 e.preventDefault();
                 this._back_space (val);
             }
-            return;
-        }
-        if ( val.length === this.options._mask.FixedLen ) {
+        } else if ( val.length === this.options._mask.FixedLen ) {
             this._match_complete();
-            return;
-        }
-        if (/input/.test(e.type)) {
+        } else if (/input/.test(e.type)) {
              this._is_last_mask_char_valid(e, val);
         }
     },
@@ -74,10 +70,9 @@
         }
         var origImg = "",
             no_img='',
-            newval = "",
-            re = /(\{|\}|\\|\*|\(|\))|\[|\]/g;
+            newval = "";
         if ( !/Navigate/i.test(this.options.MenuOptionsType) ) {
-            params.StrToCheck=params.StrToCheck.replace(re, '\\$&');
+            params.StrToCheck=this._esc_spec_chars(params.StrToCheck);
         }
         var RegExStr = params.case_ins ? new RegExp(params.StrToCheck, 'i') : new RegExp(params.StrToCheck);
         var matching = $.map(this.orig_objs, function (o) {
@@ -118,11 +113,9 @@
     __set_help_msg : function (help_msg, err_or_good) {
         switch ( err_or_good ) {
             case 'error':
-                if ( this.options.Help ) {
-                    $("span#HLP_"+this.options._ID).show()
-                            .html('<span style="margin-left:16px">'+help_msg+"</span>")
-                            .removeClass('helptext mask_match').addClass('err_text');
-                } 
+                $("span#HLP_"+this.options._ID).show()
+                        .html('<span style="margin-left:16px">'+help_msg+"</span>")
+                        .removeClass('helptext mask_match').addClass('err_text');
                 this._set_bg_color('err');
                 this.options._mask_status.mask_passed = false;
                 break;
@@ -139,8 +132,8 @@
                 this.options._mask_status.mask_passed = true;
                 break;
             case 'good':
-                help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
-                 if (this.options._mask.hasOwnProperty('Help') && this.options._mask.hasOwnProperty('FixedLen')) {
+                help_msg = this.options._mask.hasOwnProperty('HelpMsg') ? this.options._mask.HelpMsg : '';
+                 if (this.options._mask.hasOwnProperty('HelpMsg') && this.options._mask.hasOwnProperty('FixedLen')) {
                     if (! /Money/.test(this.options.Mask)) {  
                         var match_len = this.cached['.mo_elem'].val().length; 
                         help_msg = '<span class=match>'+help_msg.substring(0,match_len)+'</span>'+ 
@@ -158,9 +151,12 @@
         }
     },
 
+    _esc_spec_chars  : function(StrToCheck) {
+        return StrToCheck.replace(/(\{|\}|\\|\*|\(|\))|\[|\]/g, '\\$&');
+    },
+
     _matches : function(StrToCheck, exact) {
-        var re = /(\{|\}|\\|\*|\(|\))|\[|\]/g;
-        StrToCheck=StrToCheck.replace(re, '\\$&');
+        StrToCheck=this._esc_spec_chars(StrToCheck);
         return $.map(this.orig_objs, function (o) { 
             if (exact === 'exact' && StrToCheck.toUpperCase() === o.val.replace(/<img[\w\W]*?>/, '').toUpperCase()) { return o; }
             else if (exact === 'partial' && new RegExp(StrToCheck, 'i').test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
@@ -174,7 +170,16 @@
             if ( this.options.Data !== ""  && this._matches(this.cached['.mo_elem'].val(), 'partial').length === 0 ||
                  this.options.Mask.length > 0 ) {
                     if ( this.options.Mask.length > 0 ) {
-                        this._single_char_valid_mask(this.cached['.mo_elem'].val(), str_len);
+                         if ( /RegExp/.test(this.options.Mask) ) {
+                             if ( ! new RegExp(this.options._mask.Whole).test(this._esc_spec_chars(this.cached['.mo_elem'].val())) ) {
+                                this._cut_last_char('Invalid char', str_len);
+                             } else {
+                                this.__set_help_msg('', 'good'); 
+                                return;
+                             }
+                         } else { 
+                            this._single_char_valid_mask(this.cached['.mo_elem'].val(), str_len);
+                         } 
                     } else {
                         this._cut_last_char('invalid char', this.cached['.mo_elem'].val().length);
                     }
@@ -223,7 +228,7 @@
     },
 
     _valid_test : function (StrToCheck) {
-        if ( StrToCheck.length > this.options._mask.FixedLen ) {
+        if ( this.options._mask.hasOwnProperty('FixedLen') && StrToCheck.length > this.options._mask.FixedLen ) {
             this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
         }
         this._check_whole_input(this.cached['.mo_elem'].val());
@@ -240,7 +245,7 @@
     },
 
     _is_last_mask_char_valid : function (e, StrToCheck) {
-        if ( StrToCheck.length > this.options._mask.FixedLen ) {
+        if ( this.options._mask.hasOwnProperty('FixedLen') && StrToCheck.length > this.options._mask.FixedLen ) {
             this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
             return true;
         }

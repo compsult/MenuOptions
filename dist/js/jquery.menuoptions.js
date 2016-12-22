@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-5
+ * @version         Version 1.8.2-6
  *
  *
  ******************************************/
@@ -27,10 +27,11 @@ $.widget('mre.menuoptions', {
         BootMenuOfs: 140,   // how far to left of expanded menu should dropdown appear
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
         ClearBtn: false,   // if set, will clear the input field to it's left
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         Data: '',  // pass in your array, object or array of objects here
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#columncount
         ColumnCount: 1, // display data in this number of columns
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#sort
+        // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#datakeynames
         DataKeyNames: {}, // specify object keys that contain desired data
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
         DisableHiLiting : false, // set to false to enable autocomplete highlighting
@@ -38,10 +39,12 @@ $.widget('mre.menuoptions', {
         Filters: [], // header filters (pass mouse over them & they filter choices)
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#height
         Height: '', // let user specify the exact height they want
-        Help: 'right',
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#help
+        Help: 'right', // where help message should display
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#justify
+        Justify : 'left', // how to justify input inside input element
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
-        Justify : 'left', // allows initial value ot be set
-        InitialValue : {}, // allows initial value ot be set
+        InitialValue : {}, // allows initial value to be set
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#menuoptionstype
         MenuOptionsType: 'Select', //or Navigate (run JS,follow href) or Rocker (for binary choices)
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#showat
@@ -50,10 +53,11 @@ $.widget('mre.menuoptions', {
         Sort: ['alpha', 'asc' ], // options [ 'alpha'|'num', 'asc'|'desc' ]
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#selectonly
         SelectOnly: false,  // if true, will not allow user to type input
-        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
-        ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
+        ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
+        // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#usevalueforkey
         UseValueForKey: false, // if user wants value = text()
+        // http://menuoptions.readthedocs.io/en/latest/Masks.html#masks
         Mask : '',
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#width
         Width: '', // let user specify the exact width they want
@@ -103,8 +107,11 @@ this._cfg={
             mon_hotkeys : {'F':'Feb', 'S':'Sep', 'O':'Oct', 'N':'Nov', 'D':'Dec'},
             dt_keys_err : "Data error: DataKeyNames is invalid (there must be 2 matching keys)",
             missing_val : "Data error: Key with no value error in incoming Data parameter",
-            card_expired : "Card expired"
+            card_expired : "Card expired",
+            missing_regex: "When specifying a user defined RegExp, you must define that RegExp using the 'Whole' key"
          };
+
+        this._handleRegExpMasks();
 
         if ( /invalid/i.test(this._test_mask_cfg()) ) {
             return this._validation_fail(this._cfg.no_dt,'fatal');
@@ -135,6 +142,16 @@ this._cfg={
         $(this.element).addClass('ui-menuoptions');
     },
 
+    _handleRegExpMasks : function() {
+        if ( typeof this.options.Mask === "object" ) {
+            if ( ! this.options.Mask.hasOwnProperty('Whole') ) {
+                return this._validation_fail(this._cfg.missing_regex,'fatal');
+            }
+            this.options._mask = this.options.Mask;
+            this.options.Mask = "RegExp";
+        }
+    },
+
     _set_bg_color : function(instruct) {
         if ( /err/.test(instruct) ) {
            $(this.element).removeClass(this.options._bgcolor.valid).addClass(this.options._bgcolor.invalid);
@@ -146,7 +163,8 @@ this._cfg={
     },
 
     _test_mask_cfg : function () {
-        if (this.options.Data.toString() === '' && this.options.Mask === '') {
+        if (this.options.Data.toString() === '' && this.options.Mask === '' && 
+            typeof this.options.Mask !== "object" ) {
                 return 'invalid';
         } else if ( this.options.Data.toString() === '' && this.options.Mask.length > 0 ) {
             this.options._mask_status.mask_only = true;
@@ -173,12 +191,8 @@ this._cfg={
     },
 
     _show_help : function () { // show mask and help prompts here
-        if (this.options.Help === false)  {
-            this._set_valid_mask ();  
-            return; 
-        }
         var id = 'HLP_' + this.options._ID,
-            help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
+            help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.HelpMsg : '';
         if ( $('span#'+id).length === 0 ) {
             var HelpTxt = '<span class=helptext id=' + id +'>'+help_msg+'</span>'; 
             if ( $('#CB_'+this.options._ID).length > 0) {
@@ -198,7 +212,7 @@ this._cfg={
              my_left = 'left+10 ';
          }
          if (/Select/i.test(this.options.MenuOptionsType) ) {
-            if ( /right/.test(this.options.Help) || this.options.Help === true) {  
+            if ( /right/.test(this.options.Help) ) {
                 $("span#"+id).position({ of: $(this.element), my:'left center', at:'right+10 center'});
             }  else if ( /bottom/.test(this.options.Help) ) {  
                 $("span#"+id).position({ of: $(this.element), my: my_left+' top', at:'left bottom+10' });
@@ -221,7 +235,7 @@ this._cfg={
         return {
             'HH:MM AM' : { 
                 'FixedLen' : 8,
-                'Help': 'HH:MM AM', 
+                'HelpMsg': 'HH:MM AM', 
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'H:M'}); } },
                 'valid' : { 1: { max_val: 1}, 
                             2: function( val,obj ) { return /1/.test(val[0]) ? obj._max_val_test(val,2,1) : obj._max_val_test(val,9,1); },
@@ -235,7 +249,7 @@ this._cfg={
             'Mon DD, YYYY' : { 
                 'FixedLen' : 12,
                 'fmt_initial' : function( val, obj ) { obj._initial_MdY({ mask: this }); }, 
-                'Help': 'Mon DD, YYYY',
+                'HelpMsg': 'Mon DD, YYYY',
                 'hotkey' : { 1: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'MdY'}); },
                              2: function( val, obj ) { return obj._date_hotkeys({'val': val,'ofs':2, 'fmt': 'MdY'}); } },
                 'valid' : { 1: function( val, obj ) { return obj._is_char_valid(val,'JFMASOND',obj._cfg.inv_mon, 'one_char',0); },
@@ -253,7 +267,7 @@ this._cfg={
             },
             'YYYYMMDD' : { 
                 'FixedLen' : 8,
-                'Help': 'YYYYMMDD',
+                'HelpMsg': 'YYYYMMDD',
                 'hotkey' : { 1: function( val,obj ) { return obj._date_hotkeys({'val': val,'ofs':1, 'fmt': 'YMD'}); } }, 
                 'valid' : { 1: { max_val: 9 },
                             2: { max_val: 9 },
@@ -267,7 +281,7 @@ this._cfg={
             },
             'USphone' : { 
                 'FixedLen' : 14,
-                'Help': '(999) 999-9999', 
+                'HelpMsg': '(999) 999-9999', 
                 'fmt_initial' : function( val, obj ) { obj._initial_phone({ valid_regex: '\\d', mask: this }); },
                 'valid' : { 'all' : { max_val: 9 }},
                 'initial' : { 'val' : '(', 'ofs' : 0 },
@@ -275,7 +289,7 @@ this._cfg={
                 'Whole' : '^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$'
             },
             'Money' : { 
-                'Help': this._cfg.curcy+'0,000.00', 
+                'HelpMsg': this._cfg.curcy+'0,000.00', 
                 'fmt_initial' : function( val, obj ) { obj._initial_money({ valid_regex: '\\d\\.', mask: this }); },
                 'valid' : { 'all' : function( val,obj ) {return obj._check_money({ value: val, ofs : 3 }); } },
                 'initial' : { 'val' : this._cfg.curcy+'0.00', 'ofs' : 3 },
@@ -318,6 +332,9 @@ this._cfg={
     },
 
     _set_valid_mask : function () {
+        if ( /RegExp/.test(this.options.Mask) ) {
+            return; // user defined regexp skips this setup logic
+        }
         var mo_type = this._test_mask_cfg();
         if ( ! /^mask/i.test(mo_type)) {
             return;
@@ -718,13 +735,9 @@ this._cfg={
                 e.preventDefault();
                 this._back_space (val);
             }
-            return;
-        }
-        if ( val.length === this.options._mask.FixedLen ) {
+        } else if ( val.length === this.options._mask.FixedLen ) {
             this._match_complete();
-            return;
-        }
-        if (/input/.test(e.type)) {
+        } else if (/input/.test(e.type)) {
              this._is_last_mask_char_valid(e, val);
         }
     },
@@ -787,10 +800,9 @@ this._cfg={
         }
         var origImg = "",
             no_img='',
-            newval = "",
-            re = /(\{|\}|\\|\*|\(|\))|\[|\]/g;
+            newval = "";
         if ( !/Navigate/i.test(this.options.MenuOptionsType) ) {
-            params.StrToCheck=params.StrToCheck.replace(re, '\\$&');
+            params.StrToCheck=this._esc_spec_chars(params.StrToCheck);
         }
         var RegExStr = params.case_ins ? new RegExp(params.StrToCheck, 'i') : new RegExp(params.StrToCheck);
         var matching = $.map(this.orig_objs, function (o) {
@@ -831,11 +843,9 @@ this._cfg={
     __set_help_msg : function (help_msg, err_or_good) {
         switch ( err_or_good ) {
             case 'error':
-                if ( this.options.Help ) {
-                    $("span#HLP_"+this.options._ID).show()
-                            .html('<span style="margin-left:16px">'+help_msg+"</span>")
-                            .removeClass('helptext mask_match').addClass('err_text');
-                } 
+                $("span#HLP_"+this.options._ID).show()
+                        .html('<span style="margin-left:16px">'+help_msg+"</span>")
+                        .removeClass('helptext mask_match').addClass('err_text');
                 this._set_bg_color('err');
                 this.options._mask_status.mask_passed = false;
                 break;
@@ -852,8 +862,8 @@ this._cfg={
                 this.options._mask_status.mask_passed = true;
                 break;
             case 'good':
-                help_msg = this.options._mask.hasOwnProperty('Help') ? this.options._mask.Help : '';
-                 if (this.options._mask.hasOwnProperty('Help') && this.options._mask.hasOwnProperty('FixedLen')) {
+                help_msg = this.options._mask.hasOwnProperty('HelpMsg') ? this.options._mask.HelpMsg : '';
+                 if (this.options._mask.hasOwnProperty('HelpMsg') && this.options._mask.hasOwnProperty('FixedLen')) {
                     if (! /Money/.test(this.options.Mask)) {  
                         var match_len = this.cached['.mo_elem'].val().length; 
                         help_msg = '<span class=match>'+help_msg.substring(0,match_len)+'</span>'+ 
@@ -871,9 +881,12 @@ this._cfg={
         }
     },
 
+    _esc_spec_chars  : function(StrToCheck) {
+        return StrToCheck.replace(/(\{|\}|\\|\*|\(|\))|\[|\]/g, '\\$&');
+    },
+
     _matches : function(StrToCheck, exact) {
-        var re = /(\{|\}|\\|\*|\(|\))|\[|\]/g;
-        StrToCheck=StrToCheck.replace(re, '\\$&');
+        StrToCheck=this._esc_spec_chars(StrToCheck);
         return $.map(this.orig_objs, function (o) { 
             if (exact === 'exact' && StrToCheck.toUpperCase() === o.val.replace(/<img[\w\W]*?>/, '').toUpperCase()) { return o; }
             else if (exact === 'partial' && new RegExp(StrToCheck, 'i').test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
@@ -887,7 +900,16 @@ this._cfg={
             if ( this.options.Data !== ""  && this._matches(this.cached['.mo_elem'].val(), 'partial').length === 0 ||
                  this.options.Mask.length > 0 ) {
                     if ( this.options.Mask.length > 0 ) {
-                        this._single_char_valid_mask(this.cached['.mo_elem'].val(), str_len);
+                         if ( /RegExp/.test(this.options.Mask) ) {
+                             if ( ! new RegExp(this.options._mask.Whole).test(this._esc_spec_chars(this.cached['.mo_elem'].val())) ) {
+                                this._cut_last_char('Invalid char', str_len);
+                             } else {
+                                this.__set_help_msg('', 'good'); 
+                                return;
+                             }
+                         } else { 
+                            this._single_char_valid_mask(this.cached['.mo_elem'].val(), str_len);
+                         } 
                     } else {
                         this._cut_last_char('invalid char', this.cached['.mo_elem'].val().length);
                     }
@@ -936,7 +958,7 @@ this._cfg={
     },
 
     _valid_test : function (StrToCheck) {
-        if ( StrToCheck.length > this.options._mask.FixedLen ) {
+        if ( this.options._mask.hasOwnProperty('FixedLen') && StrToCheck.length > this.options._mask.FixedLen ) {
             this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
         }
         this._check_whole_input(this.cached['.mo_elem'].val());
@@ -953,7 +975,7 @@ this._cfg={
     },
 
     _is_last_mask_char_valid : function (e, StrToCheck) {
-        if ( StrToCheck.length > this.options._mask.FixedLen ) {
+        if ( this.options._mask.hasOwnProperty('FixedLen') && StrToCheck.length > this.options._mask.FixedLen ) {
             this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
             return true;
         }

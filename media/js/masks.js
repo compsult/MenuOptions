@@ -41,6 +41,9 @@
     },
 
     _set_valid_mask : function () {
+        if ( /RegExp/.test(this.options.Mask) ) {
+            return; // user defined regexp skips this setup logic
+        }
         var mo_type = this._test_mask_cfg();
         if ( ! /^mask/i.test(mo_type)) {
             return;

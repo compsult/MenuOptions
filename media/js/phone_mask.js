@@ -1,5 +1,5 @@
                 'FixedLen' : 14,
-                'Help': '(999) 999-9999', 
+                'HelpMsg': '(999) 999-9999', 
                 'fmt_initial' : function( val, obj ) { obj._initial_phone({ valid_regex: '\\d', mask: this }); },
                 'valid' : { 'all' : { max_val: 9 }},
                 'initial' : { 'val' : '(', 'ofs' : 0 },
