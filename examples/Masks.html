@@ -101,10 +101,10 @@ $(document).ready(function() {
         "Justify": 'left',
         "ClearBtn": true,
         "Help": 'top',
-        "Mask" : {"Whole":'^[ A-Za-z0-9\-.,]*$', HelpMsg:"Doctor Name"}
+        "Mask" : {"Whole":'^[ A-Za-z\-.,]*$', HelpMsg:"Doctor Name"}
     });  
-    $('input#DrName2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": {"Whole":'^[ A-Za-z0-9\-.,]*$', HelpMsg:"Doctor Name"}, "Justify": 'left' });
-        $('input#DrName3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": {"Whole":'^[ A-Za-z0-9\-.,]*$', HelpMsg:"Doctor Name"}, "Justify": 'left' });
+    $('input#DrName2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": {"Whole":'^[ A-Za-z\-.,]*$', HelpMsg:"Doctor Name"}, "Justify": 'left' });
+        $('input#DrName3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": {"Whole":'^[ A-Za-z\-.,]*$', HelpMsg:"Doctor Name"}, "Justify": 'left' });
    /*--  END_JAVASCRIPT  --*/
     $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
@@ -286,7 +286,7 @@ $(document).ready(function() {
             <div class="row" style='height:70px'>
                 <div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;'>
                     <span class=lg>User supplied RegExp</span><br>
-                    <span class=sub>'^[ A-Za-z0-9\-.,]*$'</span>
+                    <span class=sub>'^[ A-Za-z\-.,]*$'</span>
                 </div>
                 <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='underlined'   style='width:124px' type=text id='DrName'  placeholder='Doctor Name' >
@@ -394,10 +394,10 @@ $(document).ready(function() {
         "Justify": 'left',
         "ClearBtn": true,
         "Help": 'top',
-        "Mask" : {"Whole":'^[ A-Za-z0-9\-.,]*$', HelpMsg:"Doctor Name"}
+        "Mask" : {"Whole":'^[ A-Za-z\-.,]*$', HelpMsg:"Doctor Name"}
     });  
-    $('input#DrName2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": {"Whole":'^[ A-Za-z0-9\-.,]*$', HelpMsg:"Doctor Name"}, "Justify": 'left' });
-        $('input#DrName3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": {"Whole":'^[ A-Za-z0-9\-.,]*$', HelpMsg:"Doctor Name"}, "Justify": 'left' });
+    $('input#DrName2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": {"Whole":'^[ A-Za-z\-.,]*$', HelpMsg:"Doctor Name"}, "Justify": 'left' });
+        $('input#DrName3').menuoptions({ "ClearBtn": true, "Help": 'right', "Mask": {"Whole":'^[ A-Za-z\-.,]*$', HelpMsg:"Doctor Name"}, "Justify": 'left' });
    /*--  END_JAVASCRIPT  --*/
    
             </code></pre>
@@ -501,7 +501,7 @@ $(document).ready(function() {
             &lt;div class="row" style='height:70px'&gt;
                 &lt;div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;span class=lg&gt;User supplied RegExp&lt;/span&gt;&lt;br&gt;
-                    &lt;span class=sub&gt;'^[ A-Za-z0-9\-.,]*$'&lt;/span&gt;
+                    &lt;span class=sub&gt;'^[ A-Za-z\-.,]*$'&lt;/span&gt;
                 &lt;/div&gt;
                 &lt;div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'&gt;
                     &lt;input class='underlined'   style='width:124px' type=text id='DrName'  placeholder='Doctor Name' &gt;

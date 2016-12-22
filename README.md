@@ -1,4 +1,6 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.2-6)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.2-7)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+
+#### A jQuery widget that combines multi-column autocomplete with input masks
 
 #### What it looks like:
 
@@ -8,6 +10,7 @@
 
 
 *  [Input masking](http://www.menuoptions.org/examples/Masks.html)
+    *   [user defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#how-pre-defined-masks-work) (via user supplied RegExp) and [pre-defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#id2)
     *   error messages that explain why the input key is invalid
     *   hotkeys - a single key can fill a field (e.g., 't' fills in todays date in date fields)
 *  [Multi column autocomplete (select lists)](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
