@@ -8,6 +8,7 @@
         if (typeof $dd_span.options.Data[0] === 'string') {
             /*--  take 1 dimensional array and make array of objs  --*/
             /*jslint unparam: true*/
+            $dd_span.options.Data = $.unique($dd_span.options.Data);
             ary_of_objs = $.map($dd_span.options.Data, function (k, v) {
                 return { ky: k, val: k };
             });
@@ -15,12 +16,11 @@
         } else {
             $.each($dd_span.options.Data, function (key, value) {
                 if ($.isPlainObject($dd_span.options.Data[0])) { 
-                    /*--  make sure objects follow {ky: "key", "val:"value} pattern --*/
+                    /*--  make sure objects follow {ky: "key", val:"value"} pattern --*/
                     if ($dd_span._obj_create(ary_of_objs, value) === false) { 
                              return false; 
                     } 
                 } else if (!$.isArray($dd_span.options.Data)) { 
-                    /*--  if (!$.isArray($dd_span.options.Data)) {  --*/
                     // handle single object
                     ary_of_objs.push({ ky: key, val: value });
                 } else if ($.isArray($dd_span.options.Data[0])) {

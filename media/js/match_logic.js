@@ -174,6 +174,7 @@
                              if ( ! new RegExp(this.options._mask.Whole).test(this._esc_spec_chars(this.cached['.mo_elem'].val())) ) {
                                 this._cut_last_char('Invalid char', str_len);
                              } else {
+                                this.cached['.mo_elem'].attr('menu_opt_key', this.cached['.mo_elem'].val());
                                 this.__set_help_msg('', 'good'); 
                                 return;
                              }

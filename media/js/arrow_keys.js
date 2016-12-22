@@ -66,10 +66,8 @@
     },
 
     _back_space : function (val) {
-        /*--  var str_len = val.length;  --*/
         var str_len = $(this.element).get(0).selectionStart,
             new_str = '';
-        console.log("in _back_space");
         for (var x = str_len; str_len > 0; str_len--) {
             new_str = val.substring(0,str_len-1) + val.substring(str_len);
             if ( this.options._mask.hasOwnProperty('consts') &&

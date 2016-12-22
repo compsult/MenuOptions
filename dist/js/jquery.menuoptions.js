@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-7
+ * @version         Version 1.8.2-8
  *
  *
  ******************************************/
@@ -213,7 +213,7 @@ this._cfg={
          }
          if (/Select/i.test(this.options.MenuOptionsType) ) {
             if ( /right/.test(this.options.Help) ) {
-                $("span#"+id).position({ of: $(this.element), my:'left center', at:'right+10 center'});
+                $("span#"+id).position({ of: $(this.element), my:'left center-8', at:'right+10 center'});
             }  else if ( /bottom/.test(this.options.Help) ) {  
                 $("span#"+id).position({ of: $(this.element), my: my_left+' top', at:'left bottom+10' });
             }  else if ( /top/.test(this.options.Help) ) {  
@@ -904,6 +904,7 @@ this._cfg={
                              if ( ! new RegExp(this.options._mask.Whole).test(this._esc_spec_chars(this.cached['.mo_elem'].val())) ) {
                                 this._cut_last_char('Invalid char', str_len);
                              } else {
+                                this.cached['.mo_elem'].attr('menu_opt_key', this.cached['.mo_elem'].val());
                                 this.__set_help_msg('', 'good'); 
                                 return;
                              }
@@ -1154,10 +1155,8 @@ this._cfg={
     },
 
     _back_space : function (val) {
-        /*--  var str_len = val.length;  --*/
         var str_len = $(this.element).get(0).selectionStart,
             new_str = '';
-        console.log("in _back_space");
         for (var x = str_len; str_len > 0; str_len--) {
             new_str = val.substring(0,str_len-1) + val.substring(str_len);
             if ( this.options._mask.hasOwnProperty('consts') &&
@@ -1371,6 +1370,7 @@ this._cfg={
         if (typeof $dd_span.options.Data[0] === 'string') {
             /*--  take 1 dimensional array and make array of objs  --*/
             /*jslint unparam: true*/
+            $dd_span.options.Data = $.unique($dd_span.options.Data);
             ary_of_objs = $.map($dd_span.options.Data, function (k, v) {
                 return { ky: k, val: k };
             });
@@ -1378,12 +1378,11 @@ this._cfg={
         } else {
             $.each($dd_span.options.Data, function (key, value) {
                 if ($.isPlainObject($dd_span.options.Data[0])) { 
-                    /*--  make sure objects follow {ky: "key", "val:"value} pattern --*/
+                    /*--  make sure objects follow {ky: "key", val:"value"} pattern --*/
                     if ($dd_span._obj_create(ary_of_objs, value) === false) { 
                              return false; 
                     } 
                 } else if (!$.isArray($dd_span.options.Data)) { 
-                    /*--  if (!$.isArray($dd_span.options.Data)) {  --*/
                     // handle single object
                     ary_of_objs.push({ ky: key, val: value });
                 } else if ($.isArray($dd_span.options.Data[0])) {

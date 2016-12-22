@@ -133,7 +133,7 @@ $.widget('mre.menuoptions', {
          }
          if (/Select/i.test(this.options.MenuOptionsType) ) {
             if ( /right/.test(this.options.Help) ) {
-                $("span#"+id).position({ of: $(this.element), my:'left center', at:'right+10 center'});
+                $("span#"+id).position({ of: $(this.element), my:'left center-8', at:'right+10 center'});
             }  else if ( /bottom/.test(this.options.Help) ) {  
                 $("span#"+id).position({ of: $(this.element), my: my_left+' top', at:'left bottom+10' });
             }  else if ( /top/.test(this.options.Help) ) {  
