@@ -89,7 +89,7 @@ class SeleniumUtils(object):
         self.driver.execute_script("$('.ui-menuoptions').menuoptions()")
         WebDriverWait(self.driver, 30).until(
               EC.presence_of_element_located((By.ID,'page_loaded')))
-        assert params['title'] in self.driver.title
+        assert re.search(params['title'], self.driver.title, re.I)
 
     def is_element_present(self, params):
         WebDriverWait(self.driver, 30).until(

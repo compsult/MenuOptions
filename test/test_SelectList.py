@@ -32,7 +32,7 @@ class testSL(SeleniumUtils, SetupByLocation):
         self.check_invalid_key ({ 'xpath': '//*[@id="selecttest"]',
                                   'inv_key': 'x' })
         self.url='http://'+self.IP+'/examples/MaskCombos_test.html'
-        self.open_n_tst_title({'url': self.url, 'title': 'masks'})
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
         self.check_regexp_validation({ 'xpath': '//*[@id="starttime3"]',
                               'clearbtn': '//*[@id="CB_menuoptions4"]',
                               'fill_str': '12:22 A',
@@ -50,7 +50,7 @@ class testSL(SeleniumUtils, SetupByLocation):
            check that MenuOptions select list autocomplete works with images
         """
         self.url='http://'+self.IP+'/examples/SelectWithImages_test.html'
-        self.open_n_tst_title({'url': self.url, 'title': 'Select'} )
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_autocomplete({ 'xpath': '//*[@id="CustSel"]',
                          'filt_rslts': '//*[@id="SP_menuoptions0"]',
                          'expected': 'CashChargeCheck',
@@ -61,7 +61,7 @@ class testSL(SeleniumUtils, SetupByLocation):
            check that MenuOptions select list autocomplete works special characters
         """
         self.url='http://'+self.IP+'/examples/MultiSelect_test.html'
-        self.open_n_tst_title({'url': self.url, 'title': 'multiple'} )
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_autocomplete({ 'xpath': '//*[@id="drivertip"]',
                          'filt_rslts': '//*[@id="SP_menuoptions7"]',
                          'expected': '1,000,000.00(verygooddriver)',
@@ -82,7 +82,7 @@ class testSL(SeleniumUtils, SetupByLocation):
            check MenuOptions chooses 1st matching item in select list when TAB is used to exit. Check MenuOptions leaves input element empty on TAB (when no chars in input). Check that MenuOptions chooses 1st  item in select list when ENTER is pressed
         """
         self.url='http://'+self.IP+'/examples/MaskCombos_test.html'
-        self.open_n_tst_title({'url': self.url, 'title': 'masks'})
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
         self.check_TAB_exit({ 'xpath': '//*[@id="starttime2"]',
                               'rslt': '09:15 AM',
                               'klass': 'data_good',
