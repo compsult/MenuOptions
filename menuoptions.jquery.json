@@ -1,14 +1,14 @@
 {
     "name": "menuoptions",
     "title": "Menu Options",
-    "description": "A jQuery widget that combines multi-column autocomplete with input masks",
+    "description": "Input masks and multi-column autocomplete combined",
     "keywords": [
         "ui",
         "form",
         "input",
         "menu"
     ],
-    "version": "1.8.2-8",
+    "version": "1.8.2-9",
     "author": {
         "name": "Michael Etts",
         "url": "https://github.com/compsult/menuoptions"

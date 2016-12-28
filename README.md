@@ -1,6 +1,7 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.2-8)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.2-9)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
-#### A jQuery widget that combines multi-column autocomplete with input masks
+#### Input masks and multi-column autocomplete combined
+
 
 #### What it looks like:
 
@@ -10,7 +11,7 @@
 
 
 *  [Input masking](http://www.menuoptions.org/examples/Masks.html)
-    *   [user defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#how-pre-defined-masks-work) (via user supplied RegExp) and [pre-defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#id2)
+    *   [user defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#id1) (via user supplied RegExp) and [pre-defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#id2)
     *   error messages that explain why the input key is invalid
     *   hotkeys - a single key can fill a field (e.g., 't' fills in todays date in date fields)
 *  [Multi column autocomplete (select lists)](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
@@ -89,10 +90,13 @@ $('button[id$="menutest"]').menuoptions({
 ```
 ![alt text](http://www.menuoptions.org/examples/imgs/SimpleMenu.jpg "simple menu image")
 
-### Autocomplete with images
-[See the demo](http://www.menuoptions.org/examples/SelectWithImages.html)
+### Multiple MenuOptions controls, including the rocker control
 
-![alt text](http://www.menuoptions.org/examples/imgs/AutoCompWithImgs.jpg "autocomplete with images")
+[See the demo](http://www.menuoptions.org/examples/MultiSelect.html)
+
+This demo illustrates using the using multiple MenuOptions controls, including the rocker control 
+
+![alt text](http://www.menuoptions.org/examples/imgs/MultiSelects.png "using multiple menuoptions on a page ")
 
 ### Mouseover filtering with dividers
 [See the demo](http://www.menuoptions.org/examples/Dividers.html)
@@ -120,10 +124,3 @@ $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').seria
 ```
 
 ![alt text](http://www.menuoptions.org/examples/imgs/re_serialize.png "using MenuOptions with serialize() ")
-### Multiple select lists on a page demo
-
-[See the demo](http://www.menuoptions.org/examples/MultiSelect.html)
-
-This demo illustrates using the using multiple MenuOptions controls, including the rocker control 
-
-![alt text](http://www.menuoptions.org/examples/imgs/MultiSelects.png "using multiple menuoptions on a page ")
