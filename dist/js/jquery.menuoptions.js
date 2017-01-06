@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-10
+ * @version         Version 1.8.2-11
  *
  *
  ******************************************/
@@ -105,7 +105,7 @@ this._cfg={
             dm_err : 'day of mon error',
             mon_ary : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
             mon_hotkeys : {'F':'Feb', 'S':'Sep', 'O':'Oct', 'N':'Nov', 'D':'Dec'},
-            dt_keys_err : "Data error: DataKeyNames is invalid (there must be 2 matching keys)",
+            dt_keys_err : "Data error: DataKeyNames is invalid - there must be 2 matching keys. \n\n(Probable cause - the keys in your Data do not \n match what you specified in DataKeyNames). \nGo to https://goo.gl/VvHcrZ for details",
             missing_val : "Data error: Key with no value error in incoming Data parameter",
             card_expired : "Card expired",
             missing_regex: "When specifying a user defined RegExp, you must define that RegExp using the 'Whole' key"

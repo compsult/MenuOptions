@@ -71,10 +71,10 @@ Data
     3. a single multikey object
            { 1:"Jan", 2:"Feb",...}
     4. an array of multikey or single key objects 
-           single key [{1:"Jan"},{2:"Feb"}...]
-
-           multikey [{1:"Jan",2:"Feb"},{3:"Mar", 4:"Apr"}...]
+           a. single key [{1:"Jan"},{2:"Feb"}...]
+           b. multikey [{1:"Jan",2:"Feb"},{3:"Mar", 4:"Apr"}...]
     5. an array of multikey objects where keys are specifed and extracted
+           (see `DataKeyNames <SelectParams.html#datakeynames>`_)
 
 Notes: 
     1. Use arrays when you want the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ to equal the displayed text, e.g., when using US State abbreviations. So the display would be 'AL' (for Alabama) and 'AL' would be stored in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_
