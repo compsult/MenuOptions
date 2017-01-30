@@ -76,6 +76,9 @@
         }
         var RegExStr = params.case_ins ? new RegExp(params.StrToCheck, 'i') : new RegExp(params.StrToCheck);
         var matching = $.map(this.orig_objs, function (o) {
+            if ( ! o.hasOwnProperty('val') ) { 
+                return this._validation_fail(this._cfg.dt_keys_err, 'fatal');
+            } 
             no_img = o.val.replace(/<img[\w\W]*?>/, '');
             if ( params.chk_key && RegExStr.test(o.ky.toString())) {
                 return o;

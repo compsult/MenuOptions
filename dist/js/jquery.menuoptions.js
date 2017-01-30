@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-11
+ * @version         Version 1.8.2-12
  *
  *
  ******************************************/
@@ -93,9 +93,9 @@ $.widget('mre.menuoptions', {
         // text messages and currency definitions
 this._cfg={
             curcy:'$',
-            no_dt : 'MenuOptions requires the Data parameter to be populated', 
+            no_dt : 'MenuOptions requires the Data parameter to be populated. See https://goo.gl/VvHcrZ for details', 
             col_cnt : 'MenuOptions requires ColumnCount parameter be > 0',
-            inv_data : 'Invalid Data format supplied to menuoptions',
+            inv_data : 'Invalid Data format supplied to menuoptions. See https://goo.gl/VvHcrZ for details',
             rkr_err : 'When using the rocker control, exactly 2 elements need to be supplied to menuoptions',
             only : ' only',
             inv_mon : 'invalid month',
@@ -105,8 +105,8 @@ this._cfg={
             dm_err : 'day of mon error',
             mon_ary : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
             mon_hotkeys : {'F':'Feb', 'S':'Sep', 'O':'Oct', 'N':'Nov', 'D':'Dec'},
-            dt_keys_err : "Data error: DataKeyNames is invalid - there must be 2 matching keys. \n\n(Probable cause - the keys in your Data do not \n match what you specified in DataKeyNames). \nGo to https://goo.gl/VvHcrZ for details",
-            missing_val : "Data error: Key with no value error in incoming Data parameter",
+            dt_keys_err : "Data error: DataKeyNames is invalid - there must be 2 matching keys. \n\n(Possible cause - the keys in your Data do not \n match what you specified in DataKeyNames). \nSee https://goo.gl/VvHcrZ for details",
+            missing_val : "Data error: Key with no value error in incoming Data parameter. See https://goo.gl/VvHcrZ for details",
             card_expired : "Card expired",
             missing_regex: "When specifying a user defined RegExp, you must define that RegExp using the 'Whole' key"
          };
@@ -806,6 +806,9 @@ this._cfg={
         }
         var RegExStr = params.case_ins ? new RegExp(params.StrToCheck, 'i') : new RegExp(params.StrToCheck);
         var matching = $.map(this.orig_objs, function (o) {
+            if ( ! o.hasOwnProperty('val') ) { 
+                return this._validation_fail(this._cfg.dt_keys_err, 'fatal');
+            } 
             no_img = o.val.replace(/<img[\w\W]*?>/, '');
             if ( params.chk_key && RegExStr.test(o.ky.toString())) {
                 return o;
