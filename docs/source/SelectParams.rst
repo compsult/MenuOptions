@@ -1,17 +1,17 @@
-Parameters specifications for select lists
-==========================================
+Parameters specifications for multi-column autocomplete
+=======================================================
 
-`Show me the select demo <http://menuoptions.org/examples/SelectWithImages.html>`_
+`Show me the multi-column autocomplete demo <http://menuoptions.org/examples/SelectWithImages.html>`_
 
 .. image:: _static/AutoCompWithImgs.jpg
-   :alt: Select example
+   :alt: multi-column autocomplete example
    :target: http://www.menuoptions.org/examples/SelectWithImages.html
 
 
-Parameter list for select list
--------------------------------
+Parameter list for multi-column autocomplete
+--------------------------------------------
 
-.. csv-table:: Paramters for select list
+.. csv-table:: Parameters for multi-column autocomplete
     :header: Parameter,Type,Allowable Values,Default,Required
     :widths: 22,22,35,35,25
 
@@ -36,8 +36,8 @@ Parameter list for select list
     `UseValueForKey`_,boolean,"true or false",false,false
     `Width`_,integer,positive integer, width of dropdown, false
 
-Parameters explained for MenuOption select
-------------------------------------------
+Parameters explained for MenuOption multi-column autocomplete
+-------------------------------------------------------------
 
 .. _ClearBtn:
 
@@ -91,7 +91,7 @@ DataKeyNames
     ``DataKeyNames`` allows you to utilize `Data <SelectParams.html#id3>`_ that has extra, unneeded data,
     only picking out the key and value fields that you specify.
 
-    Below is the code used in `Quick start select list <http://menuoptions.org/examples/QuickStartSelect.html?custom_key_names>`_ 
+    Below is the code used in `Quick start multi-column autocomplete <http://menuoptions.org/examples/QuickStartSelect.html?custom_key_names>`_ 
 
 .. code-block:: javascript
     :emphasize-lines: 18
@@ -133,8 +133,9 @@ Disabled
     
     default: **false**
 
-    Setting Diasbled to true will make the MenuOptions control disabled.
-    Setting Diasbled to false will make the MenuOptions control enabled.
+    Setting Disabled to true will make the MenuOptions control disabled.
+
+    Setting Disabled to false will make the MenuOptions control enabled.
 
 Note: 
 
@@ -153,7 +154,7 @@ DisableHiLiting
 
     There are 3 conditions that will cause the background of an MenuOptions input element to change to pink (indicating incomplete or error).
 
-    1. the user type in an invalid character (i.e., a character not in the select list).
+    1. the user type in an invalid character (i.e., a character not in the multi-column autocomplete).
     2. when leaving the MenuOptions input element (blur event) and the value is incomplete.
     3. when using setting the intial value (using `InitialValue <SelectParams.html#initialvalues>`_) and that initial value is invalid
 
@@ -166,7 +167,7 @@ Filters
 ~~~~~~~
     options: **[ { 'text : 'text' }, ...] or [ {'text': 'RegExp'}, ...]**
 
-    Filters enable mouseover filtering of select items
+    Filters enable mouseover filtering of multi-column autocomplete items
     You can filter by plain text or by regular expression
     (`Example of using Filters with a RegExp <http://menuoptions.org/examples/MenusBottom.html>`_ )
 
@@ -181,7 +182,7 @@ Height
 ~~~~~~
    options: **positive integer**
 
-   MenuOptions will default to the actual height of the select list. 
+   MenuOptions will default to the actual height of the multi-column autocomplete list. 
    Using the Height parameter is useful to get the exact height you
    want for your application. It is also useful for large list, since it will 
    create a vertical scroll bar. 
@@ -303,7 +304,7 @@ SelectOnly
     options: **true or false**
 
     This makes the <input> element read-only, i.e., data can only be entered 
-    by clicking a select item (note: this prevents the use of autocomplete).
+    by clicking a multi-column autocomplete item (note: this prevents the use of autocomplete).
 
 .. _ShowAt:
 
@@ -311,10 +312,10 @@ ShowAt
 ~~~~~~
     options: **'bottom' or 'right'**  
 
-    MenuOptions accepts a string to tell it where to display the select items ::
+    MenuOptions accepts a string to tell it where to display the multi-column autocomplete items ::
 
-    "Bottom" means that the select list will appear underneath
-    "Right" means that the select list will appear to the right
+    "Bottom" means that the multi-column autocomplete list will appear underneath
+    "Right" means that the multi-column autocomplete list will appear to the right
 
 .. _Sort:
 
