@@ -1,4 +1,4 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.2-12)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.2-13)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
 #### Input masks and multi-column autocomplete combined
 

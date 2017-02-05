@@ -309,6 +309,27 @@ class SeleniumUtils(object):
         elem.click()
         return elem
 
+    def disable_logic (self, params ):
+        result=False
+        self.driver.execute_script("$('#"+params['id']+".ui-menuoptions').menuoptions({'Disabled':true})")
+        if params['type'] == "dropdown":
+            self.hover_over({ 'menu': params['id']})
+            try:
+                self.driver.find_element_by_xpath(params['xpath'])
+            except NoSuchElementException, e:
+                print ' '.join(['Not found:',params['id'],' Disable succeeded'])
+                result=True
+            else:
+                print ' '.join(['Found:',params['id'],' Disable failed'])
+        else:
+            disabled = self.driver.execute_script("return $('#"+params['id']+".ui-menuoptions').attr('disabled');")
+            if disabled == "disabled":
+                print ' '.join(['Found:',params['id'],' Disable succeeded'])
+                result=True
+            else:
+                print ' '.join(['Found:',params['id'],' Disable failed'])
+        assert result
+
     def click_menu_item (self, params ):
         self.hover_over({ 'menu': params['menu']})
         if 'fltr' in params and params['fltr']:

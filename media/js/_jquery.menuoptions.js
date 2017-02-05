@@ -55,8 +55,6 @@ $.widget('mre.menuoptions', {
 
         this._detect_destroyed_input();
 
-        this._bind_events();
-
         this._refresh(); 
 
         $(this.element).addClass('ui-menuoptions');
@@ -380,6 +378,21 @@ $.widget('mre.menuoptions', {
             $(this.element).prop('readonly', true);
         }
         this._recreate_mo();  
+        this._disable_enable( );
+    },
+
+    _disable_enable: function ( ) {
+        if (this.options.Disabled) {
+            $(this.element).parent().css({'pointer-events': 'none', 'opacity':'0.4'});
+            $(this.element).prop('disabled',true);
+            this._bind_events('off');
+        }
+        else { 
+            $(this.element).parent().css({'pointer-events': 'auto', 'opacity':'1.0'});
+            $(this.element).prop('disabled',false);
+            this._bind_events('on');
+        }
+
     },
 
     /* 

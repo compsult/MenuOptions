@@ -16,7 +16,7 @@ te.buildMenu = function ( ) {
                 {  'Multiple select lists':  te.root+'MultiSelect.html' },
                 {  'Dynamically reloading':  te.root+'ReloadMenuOptions.html' },
                 {  'Rocker examples'  : 'divider' }, 
-                {  'Rocker switch':  te.root+'RockerControl.html' },
+                {  'Rocker switch':  te.root+'Rocker.html' },
                 {  'Mask examples'  : 'divider' }, 
                 {  'Mask and select list':  te.root+'MaskCombos.html' },
                 {  'Mask types':  te.root+'Masks.html' },

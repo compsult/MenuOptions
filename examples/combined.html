@@ -8,7 +8,7 @@
     <meta name="author" content="Michael Etts">
     <link rel="icon" href="./imgs/favicon.ico">
 
-	<title>MenuOptions - input masks and mutli-column autocomplete combined | Testing with Bootstrap 3</title>
+	<title>MenuOptions - input masks and mutli-column autocomplete combined | All widgets</title>
 
  <!--  START_INCLUDES  -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -64,6 +64,17 @@ $(document).ready(function() {
                 "Data": { 'Y': "Yes", 'N':"No" }, "MenuOptionsType":"Rocker",                    
                     "onSelect": function(mo, data) { console.log(data); }                                                                       
                 });                                                       
+        $('input#DisableEnable').menuoptions({"Sort": [], 
+                "Data": [ 'Disable','Enable' ], "MenuOptionsType":"Rocker", 'Disabled':false,
+                "onSelect": function(mo, data) { DisableEnable(data); }                                                                       
+                });                                                       
+    }
+    function DisableEnable ( data ) {
+        if ( /enable/i.test(data.newVal)) {
+            $('input#on_off,input#MaleFemale,input#TrueFalse,input#YesNo,button[id="menu_divs_filts"],input#starttime').menuoptions({'Disabled':false});
+        } else {
+            $('input#on_off,input#MaleFemale,input#TrueFalse,input#YesNo,button[id="menu_divs_filts"],input#starttime').menuoptions({'Disabled':true});
+        }
     }
     function get_hh_mm ( value ) {
         var hh = new Date(value).getHours(),
@@ -218,6 +229,9 @@ $(document).ready(function() {
                 </div>
           </div> <!--  column 2 (main)  -->
           <!--  END_HTML  -->
+          <div style="height:50px;margin-left:240px;margin-top:40px;">
+              <input type=text name=DisableEnable id='DisableEnable'>
+          </div>
         </div> <!--  end container row  -->
      </div> <!--  end container -->
 
@@ -275,6 +289,17 @@ $(document).ready(function() {
                 "Data": { 'Y': "Yes", 'N':"No" }, "MenuOptionsType":"Rocker",                    
                     "onSelect": function(mo, data) { console.log(data); }                                                                       
                 });                                                       
+        $('input#DisableEnable').menuoptions({"Sort": [], 
+                "Data": [ 'Disable','Enable' ], "MenuOptionsType":"Rocker", 'Disabled':false,
+                "onSelect": function(mo, data) { DisableEnable(data); }                                                                       
+                });                                                       
+    }
+    function DisableEnable ( data ) {
+        if ( /enable/i.test(data.newVal)) {
+            $('input#on_off,input#MaleFemale,input#TrueFalse,input#YesNo,button[id="menu_divs_filts"],input#starttime').menuoptions({'Disabled':false});
+        } else {
+            $('input#on_off,input#MaleFemale,input#TrueFalse,input#YesNo,button[id="menu_divs_filts"],input#starttime').menuoptions({'Disabled':true});
+        }
     }
     function get_hh_mm ( value ) {
         var hh = new Date(value).getHours(),

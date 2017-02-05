@@ -5,9 +5,11 @@
         ClearBtn: false,   // if set, will clear the input field to it's left
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         Data: '',  // pass in your array, object or array of objects here
+        // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disabled
+        Disabled: false,  // disable or enable MenuOptions control
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#columncount
         ColumnCount: 1, // display data in this number of columns
-        // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#datakeynames
+        // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#datakeynamesmk
         DataKeyNames: {}, // specify object keys that contain desired data
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disablehiliting
         DisableHiLiting : false, // set to false to enable autocomplete highlighting

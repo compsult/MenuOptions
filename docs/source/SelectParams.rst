@@ -18,7 +18,8 @@ Parameter list for select list
     `ClearBtn`_ ,boolean,"true or false",true,false
     `ColumnCount`_,integer,"positive integer",1,false
     `Data <SelectParams.html#id3>`_ ,JSON object, (see Data section), none, true
-    `DataKeyNames`_, object,(see DataKeyNames section), none, false
+    `DataKeyNames <SelectParams.html#datakeynamesmk>`_, object,(see DataKeyNames section), none, false
+    `Disabled`_,boolean, "true or false", false, false
     `DisableHiLiting`_,boolean, "true or false", false, false
     `Filters`_, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
     `Height`_,integer,positive integer, height of dropdown, false
@@ -80,7 +81,7 @@ Notes:
     1. Use arrays when you want the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ to equal the displayed text, e.g., when using US State abbreviations. So the display would be 'AL' (for Alabama) and 'AL' would be stored in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_
     2. Use objects  when you want to save a code in `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ For example, if you want to display 'January' but save the code 1 in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ (and later save that code in a database or other persistent storage).
 
-.. _DataKeyNames:
+.. _DataKeyNamesMk:
 
 DataKeyNames
 ~~~~~~~~~~~~
@@ -124,6 +125,24 @@ DataKeyNames
 Notes: 
     1. ``DataKeyNames`` requires that `Data <SelectParams.html#id3>`_ be an array of objects **[ {}, {}, ... ]**
 
+.. _Disabled:
+
+Disabled
+~~~~~~~~
+    options: **true or false**
+    
+    default: **false**
+
+    Setting Diasbled to true will make the MenuOptions control disabled.
+    Setting Diasbled to false will make the MenuOptions control enabled.
+
+Note: 
+
+1. Setting Diasbled to true will disable the parent <div> of the MenuOptions control. 
+   If you placed another element in that same <div>, it will disabled as well
+   To get around this, put the other element outside the <div> containing the MenuOptions control.
+
+
 .. _DisableHiLiting:
 
 DisableHiLiting
@@ -132,7 +151,7 @@ DisableHiLiting
     
     default: **false**
 
-    There are 3 conditions that will cause the background of an MenuOptions input element to flash red.
+    There are 3 conditions that will cause the background of an MenuOptions input element to change to pink (indicating incomplete or error).
 
     1. the user type in an invalid character (i.e., a character not in the select list).
     2. when leaving the MenuOptions input element (blur event) and the value is incomplete.

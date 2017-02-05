@@ -68,6 +68,18 @@ class test_addons(SetupByLocation, SeleniumUtils):
             'code': "4",
             'expected': u'April'})
 
+    def test06_disable_code(self):
+        """
+           verify that disable and enable logic work for menus, autocomplete and rocker controls
+        """
+        self.url='http://'+self.IP+'/examples/combined_test.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
+        self.disable_logic ({ 'type' : 'dropdown', 'id': 'menu_divs_filts',
+                             'xpath': '//span/following::table[@class="CrEaTeDtAbLeStYlE"]' })
+        self.disable_logic ({ 'type' : 'dropdown', 'id': 'starttime',
+                             'xpath': '//span/following::table[@class="CrEaTeDtAbLeStYlE"]' })
+        self.disable_logic ({ 'type' : 'rocker', 'id': 'YesNo' })
+
     def tearDown(self):
         super(test_addons,self).tearDown()
         self.driver.quit()

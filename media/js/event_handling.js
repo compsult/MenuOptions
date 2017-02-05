@@ -21,46 +21,54 @@
          this.options._CurrentFilter = '';
     },
 
-    _bind_events: function () {
+    _bind_events: function ( on_or_off ) {
         var ky = '',
-             Sel = {}; 
+            Sel = {},
+            elem_id = 'span#SP_' + this.options._ID; 
         // set mouseenter class for table cell
-        ky = 'mouseenter span#SP_' + this.options._ID + ' table.CrEaTeDtAbLeStYlE td.dflt'; 
+        ky = 'mouseenter ' + elem_id + ' table.CrEaTeDtAbLeStYlE td.dflt'; 
         Sel[ky] = '_hiLiteOnOff'; 
         /*--  header filter logic  --*/
-        ky = 'mouseenter span#SP_' + this.options._ID + ' table#HF_' + this._event_ns + ' td.hf_td'; 
+        ky = 'mouseenter ' + elem_id + ' table#HF_' + this._event_ns + ' td.hf_td'; 
         Sel[ky] = '_run_header_filter'; 
         /*--  remove dropdown if navbar-toggle clicked --*/
         ky = 'click button.navbar-toggle'; 
         Sel[ky] = '_remove_dropdown';
         // when user chooses (clicks), insert text into input box
-        ky = 'mousedown span#SP_' + this.options._ID + ' table.CrEaTeDtAbLeStYlE td ';
+        ky = 'mousedown ' + elem_id + ' table.CrEaTeDtAbLeStYlE td ';
         Sel[ky] = '_choice_selected';
         // when mouse leaves the container, remove it from DOM
-        ky = 'mouseleave span#SP_' + this.options._ID;
+        ky = 'mouseleave ' + elem_id;
         Sel[ky] = '_remove_dropdown';
-        this._on($('body'), Sel); 
+        if ( /on/i.test(on_or_off) ) {
+            this._on($('body'), Sel); 
+            // highlight the clear button
+            this._on(this.cached['.clearBtn'], {
+                'mouseleave': '_hiLiteOnOff',
+                'mouseenter': '_hiLiteOnOff',
+                'mousedown': '_clearInput'
+                /*--  'click': '_clearInput'  --*/
+            });
+            // bind events to this.element
+            this._on({
+                'touchend':  '_build_whole_dropdown',
+                'mousedown':  '_build_whole_dropdown',
+                'click':  '_build_whole_dropdown',
+                'mouseenter':  '_build_whole_dropdown',
+                'focus':  '_build_whole_dropdown',
+                'keypress': '_build_whole_dropdown',
+                'keydown': '_build_whole_dropdown',
+                'input': '_build_whole_dropdown',
+                'keyup': '_build_whole_dropdown',
+                'search':  '_build_whole_dropdown',
+                'mouseleave':  '_remove_dropdown',
+                'blur': '_remove_dropdown',
+            });
+        } else {
+            if ( this.cached['.clearBtn'] !== undefined ) {
+                this._off(this.cached['.clearBtn'], 'mouseleave mouseenter mousedown');
+            }
+            this._off(this.element, 'touchend mousedown click mouseenter focus keypress keydown input keyup search mouseleave blur');
+        }
 
-        // highlight the clear button
-        this._on(this.cached['.clearBtn'], {
-            'mouseleave': '_hiLiteOnOff',
-            'mouseenter': '_hiLiteOnOff',
-            'mousedown': '_clearInput'
-            /*--  'click': '_clearInput'  --*/
-        });
-        // bind events to this.element
-        this._on({
-            'touchend':  '_build_whole_dropdown',
-            'mousedown':  '_build_whole_dropdown',
-            'click':  '_build_whole_dropdown',
-            'mouseenter':  '_build_whole_dropdown',
-            'focus':  '_build_whole_dropdown',
-            'keypress': '_build_whole_dropdown',
-            'keydown': '_build_whole_dropdown',
-            'input': '_build_whole_dropdown',
-            'keyup': '_build_whole_dropdown',
-            'search':  '_build_whole_dropdown',
-            'mouseleave':  '_remove_dropdown',
-            'blur': '_remove_dropdown',
-        });
     },
