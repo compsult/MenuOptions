@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-14
+ * @version         Version 1.8.2-15
  *
  *
  ******************************************/
@@ -95,7 +95,7 @@ $.widget('mre.menuoptions', {
         // text messages and currency definitions
 this._cfg={
             curcy:'$',
-            no_dt : 'MenuOptions requires the Data parameter to be populated. See https://goo.gl/VvHcrZ for details', 
+            no_dt : '\n\nMenuOptions requires the Data parameter to be populated. \n\nSee https://goo.gl/VvHcrZ for details', 
             col_cnt : 'MenuOptions requires ColumnCount parameter be > 0',
             inv_data : 'Invalid Data format supplied to menuoptions. See https://goo.gl/VvHcrZ for details',
             rkr_err : 'When using the rocker control, exactly 2 elements need to be supplied to menuoptions',
@@ -806,7 +806,7 @@ this._cfg={
         }
         var RegExStr = params.case_ins ? new RegExp(params.StrToCheck, 'i') : new RegExp(params.StrToCheck);
         var matching = $.map(this.orig_objs, function (o) {
-            if ( ! o.hasOwnProperty('val') ) { 
+            if ( o.hasOwnProperty('val') === false || /string/i.test(typeof o.val) === false ) { 
                 return this._validation_fail(this._cfg.dt_keys_err, 'fatal');
             } 
             no_img = o.val.replace(/<img[\w\W]*?>/, '');
