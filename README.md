@@ -1,4 +1,4 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.2-15)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.2-16)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
 #### Input masks and multi-column autocomplete combined
 
@@ -14,8 +14,8 @@
     *   [user defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#id1) (via user supplied RegExp) and [pre-defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#id2)
     *   error messages that explain why the input key is invalid
     *   hotkeys - a single key can fill a field (e.g., 't' fills in todays date in date fields)
-*  [Multi column autocomplete (select lists)](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
-    *   intelligent autocomplete (characters not in any select list item are automatically removed, saving keystrokes)
+*  [Multi column autocomplete](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
+    *   intelligent autocomplete (characters not in any list item are automatically removed, saving keystrokes)
     *  mouseover filtering lets user reduce choices by moving their mouse over a filter element
     *  [auto-configuration](http://menuoptions.readthedocs.io/en/latest/FAQ.html#what-do-you-mean-auto-configuration)
 *  [Rocker control](http://www.menuoptions.org/examples/Rocker.html)
@@ -26,6 +26,7 @@
 
 #### Other benefits:
 
+*   can be [disabled](http://menuoptions.readthedocs.io/en/latest/SelectParams.html#disabled) with a simple call
 *   it can use data from a variety of JSON types (array, array of arrays, single object, array of objects)
 *   uses color highlighting to show autocomplete matches 
 *   the value associated with with the label string is saved in the input element automatically (in the menu_opt_key - no need to manually update a hidden field)
@@ -59,7 +60,7 @@ git clone https://github.com/compsult/MenuOptions.git
 
 ![alt text](http://www.menuoptions.org/examples/imgs/masks.png "masks image")
 
-### Getting started with a simple select list
+### Getting started with a simple multi-column autocomplete
 [See the demo](http://www.menuoptions.org/examples/QuickStartSelect.html).
 
 ```javascript
@@ -72,7 +73,7 @@ $('input#selecttest').menuoptions({
         "Sort": [] // don't sort                                                            
     });           
 ```
-![alt text](http://www.menuoptions.org/examples/imgs/SimpleSelect.jpg "select list image")
+![alt text](http://www.menuoptions.org/examples/imgs/SimpleSelect.jpg "multi-column autocomplete image")
 
 ### Getting started with a simple menu
 
@@ -104,19 +105,19 @@ This demo illustrates using the using multiple MenuOptions controls, including t
 ![alt text](http://www.menuoptions.org/examples/imgs/MenuWithMOandDivs.jpg "mouseover filtering with dividers")
 
 
-### Dynamic reloading of a MenuOptions select list
+### Dynamic reloading of a MenuOptions multi-column autocomplete
 [See the demo](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
 
 In this case, the user selects a start time and the end time will be modified to only display
 the start time plus 1 hour and 30 minutes later
 
-![alt text](http://www.menuoptions.org/examples/imgs/Reload.png "dynamic reload of MenuOptions select list")
+![alt text](http://www.menuoptions.org/examples/imgs/Reload.png "dynamic reload of MenuOptions multi-column autocomplete")
 
 ### Using MenuOptions with jQuery's serialize
 [See the demo](http://www.menuoptions.org/examples/Serialize.html)
 
-If you load MenuOptions select list using an object, the value will be written into the 'menu_opt_key'
-attribute.  jQuery's serialize will not pick up the value of a MenuOptions select list (menu_opt_key)
+If you load MenuOptions multi-column autocomplete using an object, the value will be written into the 'menu_opt_key'
+attribute.  jQuery's serialize will not pick up the value of a MenuOptions multi-column autocomplete (menu_opt_key)
 To account for this, wrap serialize() with re_serialize, like this:
 
 ```javascript

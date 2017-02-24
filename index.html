@@ -71,18 +71,18 @@
             <a class=underl_sm href=examples/QuickStartMenu.html>Quick start menu</a><br>
             <a class=underl_sm href=examples/MenusBottom.html>Drop down menus</a></br>
             <a class=underl_sm href=examples/RightMenu.html>Right side menus</a><br>
-            <p class=menu_left>Select Examples</p>
-            <a class=underl_sm href=examples/QuickStartSelect.html>Quick start select</a><br>
+            <p class=menu_left>Autcomplete Examples</p>
+            <a class=underl_sm href=examples/QuickStartSelect.html>Quick start autcomplete</a><br>
             <a class=underl_sm href=examples/QuickStartSelect.html?bad_data>Select with bad data</a><br>
             <!--  <a class=underl_sm href=examples/InlinEdit.html>Inline edit</a></br>  -->
-            <a class=underl_sm href=examples/SelectWithImages.html>Select with images</a><br>
+            <a class=underl_sm href=examples/SelectWithImages.html>Autcomplete with images</a><br>
             <a class=underl_sm href=examples/Serialize.html>Serialize (re_serialize)</a><br>
-            <a class=underl_sm href=examples/MultiSelect.html>Multiple select lists</a><br>
+            <a class=underl_sm href=examples/MultiSelect.html>Multiple autcomplete lists</a><br>
             <a class=underl_sm href=examples/ReloadMenuOptions.html>Dynamically reloading</a><br>
             <p class=menu_left>Rocker Examples</p>
             <a class=underl_sm href=examples/Rocker.html>Rocker switch</a><br>
             <p class=menu_left>Masks</p>
-            <a class=underl_sm href=examples/MaskCombos.html>Masks and select list</a><br>
+            <a class=underl_sm href=examples/MaskCombos.html>Masks and autcomplete list</a><br>
             <a class=underl_sm href=examples/Masks.html>Masks types</a><br>
             <p class=menu_left>All widgets</p>
             <a class=underl_sm href=examples/combined.html>All options</a><br>
@@ -121,7 +121,7 @@
                         </ul>
                         <li class=left_img><a style='line-height:40px' href='examples/ReloadMenuOptions.html'>Multi column autocomplete</a></li>
                         <ul style="list-style:circle">
-                            <li><p>intelligent autocomplete (characters not in any select list item are automatically removed, saving keystrokes)</p></li>
+                            <li><p>intelligent autocomplete (characters not in any autcomplete list item are automatically removed, saving keystrokes)</p></li>
                             <li><p>mouseover filtering lets user reduce choices by moving their mouse over a filter element</p></li>
                             <li><p><a class=underl_sm href='http://menuoptions.readthedocs.org/en/latest/FAQ.html#what-do-you-mean-auto-configuration'>auto-configuration</a></p</li>
                         </ul>
@@ -161,7 +161,7 @@
 
                     <a href="examples/Masks.html"><img src="examples/imgs/masks.png" alt="input mask " title="input mask example" /></a>
 
-                    <h2 class=lft>Getting started with a simple select list</h2>
+                    <h2 class=lft>Getting started with a simple multi-column autocomplete</h2>
 
                     <p><a href="examples/QuickStartSelect.html">See the demo</a></p>
 
@@ -174,7 +174,7 @@
                     });
                     </code></pre>
                     <a href="examples/QuickStartSelect.html">
-                    <img src="examples/imgs/SimpleSelect.jpg" alt="simple select list example" title="simple select list example" /></a>
+                    <img src="examples/imgs/SimpleSelect.jpg" alt="simple multi-column autocomplete example" title="simple multi-column autocomplete example" /></a>
 
                     <h2 class=lft>Getting started with a simple menu</h2>
 
@@ -203,20 +203,20 @@
                     <p><a href="examples/MenusBottom.html">See the demo</a></p> 
                     <a href="examples/MenusBottom.html"><img src="examples/imgs/MenuWithMOandDivs.jpg" alt="mouseover with dividers" title="mouseover with dividers" /></a>
 
-                    <h2 class=lft>Dynamic reloading of a MenuOptions select list</h2>
+                    <h2 class=lft>Dynamic reloading of a MenuOptions multi-column autocomplete</h2>
                     
                     <p><a href="examples/ReloadMenuOptions.html">See the demo</a></p>
                     
                     <p>In this case, the user selects a start time and the end time will be modified to only display<br />
                     the start time plus 1 hour and 30 minutes later<br /></p>
                     
-                    <a href="examples/ReloadMenuOptions.html"><img src="examples/imgs/Reload.png" alt="dynamic reload of MenuOptions select list" title="dynamic reload of MenuOptions select list" /></a>
+                    <a href="examples/ReloadMenuOptions.html"><img src="examples/imgs/Reload.png" alt="dynamic reload of MenuOptions multi-column autocomplete" title="dynamic reload of MenuOptions multi-column autocomplete" /></a>
                     <h2 class=lft>Using MenuOptions with jQuery's serialize</h2>
                     
                     <p><a href="examples/Serialize.html">See the demo</a></p>
                     
-                    <p>If you load MenuOptions select list using an object, the value will be written into the 'menu_opt_key'
-                    attribute.  jQuery's serialize will not pick up the value of a MenuOptions select list (menu_opt_key).<br /><br />
+                    <p>If you load MenuOptions multi-column autocomplete using an object, the value will be written into the 'menu_opt_key'
+                    attribute.  jQuery's serialize will not pick up the value of a MenuOptions multi-column autocomplete (menu_opt_key).<br /><br />
                     To account for this, wrap serialize() with re_serialize, like this:<br /></p>
                     
                     <pre><code class="javascript" style='text-align:left'>
@@ -225,13 +225,13 @@
                     
                     <a href="examples/Serialize.html"><img src="examples/imgs/re_serialize.png" alt="re_serialize" title="using MenuOptions with serialize() " /></a>
 
-                    <h2 class=lft>Multiple select lists on a page demo </h2>
+                    <h2 class=lft>Multiple multi-column autocomplete on a page demo </h2>
                     
                     <p><a href="examples/MultiSelect.html">See the demo</a></p>
                     
                     <p> This demo illustrates using the using multiple MenuOptions controls, including the rocker control </p>
                     
-                    <a href="examples/MultiSelect.html"><img src="examples/imgs/MultiSelects.png" alt="Multiple Selects" title="using MenuOptions with multiple select lists " /></a>
+                    <a href="examples/MultiSelect.html"><img src="examples/imgs/MultiSelects.png" alt="Multiple Selects" title="using MenuOptions with multiple multi-column autocomplete " /></a>
 
                     <br />
           </div> <!--  column 2 (main)  -->

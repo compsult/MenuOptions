@@ -37,8 +37,7 @@ table#serial_demo td { text-align:left; font-size:14px; border: 1px solid silver
 p { text-align:left;margin-left:20px; }
 
 a.underl { border-bottom:1px dotted gray; text-decoration:none; color:gray; line-height:40px;}
-a.underl_sm { border-bottom:1px dotted gray; text-decoration:none; 
-               color:gray; font-size:14px; line-height:22px;}
+a.underl_sm { border-bottom:1px dotted gray; text-decoration:none; color:gray; font-size:13px; line-height:22px;}
 a:hover { color: #6B696B; background:antiquewhite;  }
 
 div.wrapper {

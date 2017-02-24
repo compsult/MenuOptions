@@ -24,8 +24,8 @@
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function () {
    /*--  START_JAVASCRIPT  --*/
-   $('input#on_off').menuoptions({"Sort": [], 
-        "Data": { 1: "On", 2:"Off" }, "MenuOptionsType":"Rocker",
+   $('input#year_pick').menuoptions({"Sort": [], 
+        "Data": { 1: "2016", 2:"2017" }, "MenuOptionsType":"Rocker",
         "onSelect": function(mo, data) {  console.log(data); }
    }); 
    $('input#MaleFemale').menuoptions({"Sort": [], 
@@ -97,13 +97,13 @@ $(document).ready(function () {
             <a class=underl_sm href=QuickStartMenu.html>Quick start menu</a><br>
             <a class=underl_sm href=MenusBottom.html>Drop down menus</a></br>
             <a class=underl_sm href=RightMenu.html>Right side menus</a><br>
-            <p class=menu_left>Select Examples</p>
-            <a class=underl_sm href=QuickStartSelect.html>Quick start select</a><br>
-            <a class=underl_sm href=QuickStartSelect.html?bad_data>Select with Junk data</a><br>
+            <p class=menu_left>Autocomplete Examples</p>
+            <a class=underl_sm href=QuickStartSelect.html>Quick start Autocomplete</a><br>
+            <a class=underl_sm href=QuickStartSelect.html?bad_data>Autocomplete with bad data</a><br>
             <!--  <a class=underl_sm href=InlinEdit.html>Inline edit</a></br>  -->
-            <a class=underl_sm href=SelectWithImages.html>Select with images</a><br>
+            <a class=underl_sm href=SelectWithImages.html>Autocomplete with images</a><br>
             <a class=underl_sm href=Serialize.html>Serialize (re_serialize)</a><br>
-            <a class=underl_sm href=MultiSelect.html>Multiple select lists</a><br>
+            <a class=underl_sm href=MultiSelect.html>Multiple Autocomplete lists</a><br>
             <a class=underl_sm href=ReloadMenuOptions.html>Dynamically reloading</a><br>
             <p class=menu_left>Rocker Examples</p>
             <a class=underl_sm href=Rocker.html>Rocker switch</a><br>
@@ -153,10 +153,10 @@ $(document).ready(function () {
             </div>
             <div class="row">
                 <div class="col-md-4 col-xs-4 text-right" style='height:60px'>
-	                On or Off
+	                2016 or 2017
                 </div>
                 <div class="col-md-8 col-xs-8 text-left">
-		            <input type=text name=on_off id='on_off' >
+		            <input type=text name=year_pick id='year_pick' >
                 </div>
             </div>
             <div class="row">
@@ -187,8 +187,8 @@ $(document).ready(function () {
             <div id="tabs-1">
             <pre><code class="javascript" style='text-align:left'>
                 
-   $('input#on_off').menuoptions({"Sort": [], 
-        "Data": { 1: "On", 2:"Off" }, "MenuOptionsType":"Rocker",
+   $('input#year_pick').menuoptions({"Sort": [], 
+        "Data": { 1: "2016", 2:"2017" }, "MenuOptionsType":"Rocker",
         "onSelect": function(mo, data) {  console.log(data); }
    }); 
    $('input#MaleFemale').menuoptions({"Sort": [], 
@@ -241,10 +241,10 @@ $(document).ready(function () {
             &lt;/div&gt;
             &lt;div class="row"&gt;
                 &lt;div class="col-md-4 col-xs-4 text-right" style='height:60px'&gt;
-	                On or Off
+	                2016 or 2017
                 &lt;/div&gt;
                 &lt;div class="col-md-8 col-xs-8 text-left"&gt;
-		            &lt;input type=text name=on_off id='on_off' &gt;
+		            &lt;input type=text name=year_pick id='year_pick' &gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="row"&gt;

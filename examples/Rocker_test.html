@@ -20,8 +20,8 @@
 <script type='text/javascript'>//<![CDATA[ 
 $(document).ready(function () {
    /*--  START_JAVASCRIPT  --*/
-   $('input#on_off').menuoptions({"Sort": [], 
-        "Data": { 1: "On", 2:"Off" }, "MenuOptionsType":"Rocker",
+   $('input#year_pick').menuoptions({"Sort": [], 
+        "Data": { 1: "2016", 2:"2017" }, "MenuOptionsType":"Rocker",
         "onSelect": function(mo, data) {  console.log(data); }
    }); 
    $('input#MaleFemale').menuoptions({"Sort": [], 
@@ -88,10 +88,10 @@ $(document).ready(function () {
             </div>
             <div class="row">
                 <div class="col-md-4 col-xs-4 text-right" style='height:60px'>
-	                On or Off
+	                2016 or 2017
                 </div>
                 <div class="col-md-8 col-xs-8 text-left">
-		            <input type=text name=on_off id='on_off' >
+		            <input type=text name=year_pick id='year_pick' >
                 </div>
             </div>
             <div class="row">
