@@ -44,10 +44,10 @@ function runLocal {
 #--- runLocal "test_SelectList.py:testSL.test08_tab_with_data" ---#
 #--- runLocal "test_SelectList.py" ---#
 #--- runLocal test_addons.py:test_addons.test03_down_arrow ---#
-runLocal test_addons.py:test_addons.test06_disable_code
+#--- runLocal test_addons.py:test_addons.test06_disable_code ---#
 #--- runLocal test_scroll.py ---#
 #--- runLocal test_SelectList.py ---#
-#--- runLocal test_Rocker.py ---#
+runLocal test_Rocker.py
 #--- runLocal test_set_value.py ---#
 sleep 1
 kill -TERM -$(pgrep -o runner)

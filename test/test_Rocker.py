@@ -72,7 +72,7 @@ class test_rocker(SeleniumUtils, SetupByLocation):
         self.check_serialize({ 'xpath': '//*[@id="menutest"]',
                           'js_result': 'fake_alert',
                           'sleep': 1,
-                          'expected': 'TrueFalse=T&YesNo=N&MaleFemale=M&on_off=2' })
+                          'expected': 'TrueFalse=T&YesNo=N&MaleFemale=M&year_pick=2' })
 
 
     def tearDown(self):
