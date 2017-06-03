@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-17
+ * @version         Version 1.8.2-18
  *
  *
  ******************************************/
@@ -95,7 +95,7 @@ $.widget('mre.menuoptions', {
         // text messages and currency definitions
 this._cfg={
             curcy:'$',
-            no_dt : '\n\nMenuOptions requires the Data parameter to be populated. \n\nSee https://goo.gl/VvHcrZ for details', 
+            no_dt : '\n\nMenuOptions requires the Data parameter to be populated. \n\nSee https://goo.gl/VvHcrZ for details (note: this may be a DataKeyNames error)', 
             col_cnt : 'MenuOptions requires ColumnCount parameter be > 0',
             inv_data : 'Invalid Data format supplied to menuoptions. See https://goo.gl/VvHcrZ for details',
             rkr_err : 'When using the rocker control, exactly 2 elements need to be supplied to menuoptions',
@@ -1746,10 +1746,10 @@ this._cfg={
 
     _didMouseExitDropDown : function (e) {
         // this is where mouse is inside drop down 
-        if (e.pageX + 1  > this.options._menu_box.left  &&
-                e.pageX  < this.options._menu_box.right - 1 &&
-                e.pageY + 1 > this.options._menu_box.top &&
-                e.pageY  < this.options._menu_box.bottom) {
+        if (  e.pageX + 1  > this.options._menu_box.left  &&
+              e.pageX + 1 < this.options._menu_box.right &&
+              e.pageY + 1 > this.options._menu_box.top &&
+              e.pageY + 1 < this.options._menu_box.bottom) {
             return false;
         }
         return true;
