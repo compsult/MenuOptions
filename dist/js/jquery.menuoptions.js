@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.2-18
+ * @version         Version 1.8.2-19
  *
  *
  ******************************************/
@@ -800,14 +800,15 @@ this._cfg={
         }
         var origImg = "",
             no_img='',
-            newval = "";
+            newval = "",
+            $this=this;
         if ( !/Navigate/i.test(this.options.MenuOptionsType) ) {
             params.StrToCheck=this._esc_spec_chars(params.StrToCheck);
         }
         var RegExStr = params.case_ins ? new RegExp(params.StrToCheck, 'i') : new RegExp(params.StrToCheck);
         var matching = $.map(this.orig_objs, function (o) {
             if ( o.hasOwnProperty('val') === false || /string/i.test(typeof o.val) === false ) { 
-                return this._validation_fail(this._cfg.dt_keys_err, 'fatal');
+                return $this._validation_fail($this._cfg.dt_keys_err, 'fatal');
             } 
             no_img = o.val.replace(/<img[\w\W]*?>/, '');
             if ( params.chk_key && RegExStr.test(o.ky.toString())) {

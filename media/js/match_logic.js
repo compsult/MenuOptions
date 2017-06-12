@@ -70,14 +70,15 @@
         }
         var origImg = "",
             no_img='',
-            newval = "";
+            newval = "",
+            $this=this;
         if ( !/Navigate/i.test(this.options.MenuOptionsType) ) {
             params.StrToCheck=this._esc_spec_chars(params.StrToCheck);
         }
         var RegExStr = params.case_ins ? new RegExp(params.StrToCheck, 'i') : new RegExp(params.StrToCheck);
         var matching = $.map(this.orig_objs, function (o) {
             if ( o.hasOwnProperty('val') === false || /string/i.test(typeof o.val) === false ) { 
-                return this._validation_fail(this._cfg.dt_keys_err, 'fatal');
+                return $this._validation_fail($this._cfg.dt_keys_err, 'fatal');
             } 
             no_img = o.val.replace(/<img[\w\W]*?>/, '');
             if ( params.chk_key && RegExStr.test(o.ky.toString())) {
