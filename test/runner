@@ -29,7 +29,7 @@ function runLocal {
 #--- runLocal "test_addons.py:test_addons" ---#
 #--- runLocal "test_Menus.py:testMO.test09_mousefiltering" ---#
 #--- runLocal "test_Menus.py:testMO.test02_js" ---#
-#--- runLocal "test_Menus.py:testMO.test03_google" ---#
+runLocal "test_Menus.py:testMO.test03_google"
 #--- runLocal "test_set_value.py:test_set_vals" ---#
 #--- runLocal "test_SelectList.py:testSL.test08_tab_with_data" ---#
 #--- runLocal "test_SelectList.py:testSL.test12_check_bad_paste_autocompl_only" ---#

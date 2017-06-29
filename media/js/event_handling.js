@@ -1,9 +1,10 @@
     _tab_and_enter_keypress : function (e, curVal) {
-        if ( e.keyCode === $.ui.keyCode.ENTER ) {
-            e.preventDefault();
-            this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'), 
-                        'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': "ENTERKey" }); 
-        } else if (e.keyCode === $.ui.keyCode.TAB ) {
+         if ( e.keyCode === $.ui.keyCode.ENTER && $('table.CrEaTeDtAbLeStYlE td.mo').length === 0 ) { 
+             e.preventDefault(); 
+             /*--  console.log("Highlighted cells = "+$('table.CrEaTeDtAbLeStYlE td.mo').length.toString());  --*/
+             this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'),  
+                         'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': "ENTERKey" });  
+         } else if (e.keyCode === $.ui.keyCode.TAB ) { 
             if ( curVal.length > 0) {
                 var matched =  this._build_match_ary(e, curVal);
                 if ( matched.length > 0 ) {

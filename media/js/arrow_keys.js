@@ -48,8 +48,11 @@
                     arr_key_pressed = false;
                 } else if (highlited.length > 0) {
                     if (/Select/.test(this.options.MenuOptionsType)) {
-                        this.__exec_trigger({ 'newCode': $('.CrEaTeDtAbLeStYlE tr td.mo').attr('menu_opt_key'),
-                               'newVal' : $('.CrEaTeDtAbLeStYlE tr td.mo').text(), 'type': "EnterKey" });
+                        if (/keyup/.test(event.type)) {
+                            /*--  console.log("Enter key from arrow keys, event = "+event.type);  --*/
+                            this.__exec_trigger({ 'newCode': $('.CrEaTeDtAbLeStYlE tr td.mo').attr('menu_opt_key'),
+                                'newVal' : $('.CrEaTeDtAbLeStYlE tr td.mo').text(), 'type': "EnterKey" });
+                        }
                     } else if (/keydown/.test(event.type)) {
                         this._run_menu_item(event);
                     }
