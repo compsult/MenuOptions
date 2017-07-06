@@ -2,7 +2,7 @@
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#bootmenuofs
         BootMenuOfs: 140,   // how far to left of expanded menu should dropdown appear
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
-        ClearBtn: false,   // if set, will clear the input field to it's left
+        ClearBtn: true,   // if set, will clear the input field to it's left
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         Data: '',  // pass in your array, object or array of objects here
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disabled

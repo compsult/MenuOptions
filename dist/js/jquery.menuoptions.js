@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.3-0
+ * @version         Version 1.8.3-1
  *
  *
  ******************************************/
@@ -26,7 +26,7 @@ $.widget('mre.menuoptions', {
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#bootmenuofs
         BootMenuOfs: 140,   // how far to left of expanded menu should dropdown appear
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#clearbtn
-        ClearBtn: false,   // if set, will clear the input field to it's left
+        ClearBtn: true,   // if set, will clear the input field to it's left
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#data
         Data: '',  // pass in your array, object or array of objects here
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#disabled
