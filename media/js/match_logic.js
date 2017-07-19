@@ -81,17 +81,25 @@
                 return $this._validation_fail($this._cfg.dt_keys_err, 'fatal');
             } 
             no_img = o.val.replace(/<img[\w\W]*?>/, '');
-            if ( params.chk_key && RegExStr.test(o.ky.toString())) {
-                return o;
-            }
-            if ( RegExStr.test(no_img) ) {
-                newval = no_img.replace(RegExStr, '<span class=match>' +
-                        RegExStr.exec(no_img)[0] + '</span>');
-                origImg = o.val.match(/<img[\w\W]*?>/);
-                if (origImg) {
-                    newval = origImg + newval;
+            /*--  rocker needs whole field matches (no partials)  --*/
+            if ( /Rocker/.test($this.options.MenuOptionsType)) {
+                 if ( o.ky.toString() === params.StrToCheck ||
+                      o.val.toString() === params.StrToCheck) {
+                    return o;
+                 }
+            } else {
+                if ( params.chk_key && RegExStr.test(o.ky.toString())) {
+                    return o;
                 }
-                return { ky: o.ky, val: newval };
+                if ( RegExStr.test(no_img) ) {
+                    newval = no_img.replace(RegExStr, '<span class=match>' +
+                            RegExStr.exec(no_img)[0] + '</span>');
+                    origImg = o.val.match(/<img[\w\W]*?>/);
+                    if (origImg) {
+                        newval = origImg + newval;
+                    }
+                    return { ky: o.ky, val: newval };
+                }
             }
         });
         if ( this.options._CurrentFilter.length === 0 ) {
