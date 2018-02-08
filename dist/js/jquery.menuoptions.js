@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.3-2
+ * @version         Version 1.8.3-3
  *
  *
  ******************************************/
@@ -658,7 +658,7 @@ this._cfg={
         if ((this.options.InitialValue.hasOwnProperty('val') &&
                 this.options.InitialValue.val.length >= 0) ||
                 (this.options.InitialValue.hasOwnProperty('ky') &&
-                this.options.InitialValue.ky.length > 0)) {
+                this.options.InitialValue.ky.toString().length > 0)) {
             retval = true;
         }
         return retval;
@@ -1022,7 +1022,8 @@ this._cfg={
 
 
     _tab_and_enter_keypress : function (e, curVal) {
-         if ( e.keyCode === $.ui.keyCode.ENTER && $('table.CrEaTeDtAbLeStYlE td.mo').length === 0 ) { 
+         if ( e.keyCode === $.ui.keyCode.ENTER && $('table.CrEaTeDtAbLeStYlE td.mo').length === 0 ||
+                 e.keyCode === $.ui.keyCode.TAB && curVal.length === 0 ) { 
              e.preventDefault(); 
              /*--  console.log("Highlighted cells = "+$('table.CrEaTeDtAbLeStYlE td.mo').length.toString());  --*/
              this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'),  
@@ -1383,6 +1384,7 @@ this._cfg={
             this.element.append("<span id=arr_" + this.options._ID + " class=" + direction + "_arrow></span>");
         }
         $('#arr_' + this.options._ID + '.' + direction + '_arrow').css('border-' + arr_dir, '4px solid ' + this.options.ShowDownArrow);
+        this.element.width(this.element.width()+1);
     },
 
     _show_menu_arrs : function () {

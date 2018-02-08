@@ -53,7 +53,7 @@ class SetupByLocation(object):
         TST_NAME=os.getenv("TST_NAME")
         TST_PLATFORM=os.getenv("TST_PLATFORM") # linux, windows, mac
         TST_BUILD=os.getenv("TST_BUILD") # build id
-        TST_VERSION=os.getenv("TST_VERSION,") or ""
+        TST_VERSION=os.getenv("TST_VERSION,") or "latest"
         TST_DEVICE=os.getenv("TST_DEVICE") or ""
         TST_DEVICE_ORIENT=os.getenv("TST_DEVICE_ORIENT") or ""
         sauce_url = ''.join(["http://", USERNAME,":",SECRET_KEY,"@",SE_HUB])
@@ -335,7 +335,7 @@ class SeleniumUtils(object):
         if 'fltr' in params and params['fltr']:
             self.hover_over({ 'menu': params['fltr']})
         WebDriverWait(self.driver, 30).until(
-              EC.presence_of_element_located((By.XPATH,params['xpath'])))
+              EC.visibility_of_element_located((By.XPATH,params['xpath'])))
         self.click_item ( params )
         if self.SLEEP: time.sleep(params['sleep'])
         self._check_js_result( params )
@@ -347,10 +347,12 @@ class SeleniumUtils(object):
            self.driver.switch_to.window(window_name=self.driver.window_handles[0])
 
     def find_tab (self, tab_title ):
+        #--- import ipdb; ipdb.def_colors='NoColor'; ipdb.set_trace() # BREAKPOINT ---#
         result=False
+        time.sleep(1)
         for handle in self.driver.window_handles:
             self.driver.switch_to_window(handle)
-            if re.search(tab_title,self.driver.title, re.IGNORECASE):
+            if bool(re.search(tab_title,self.driver.title, re.IGNORECASE)) == True:
                 result=True
                 break
         assert result == True

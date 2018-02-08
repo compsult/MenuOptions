@@ -84,8 +84,8 @@ class testMO(SeleniumUtils, SetupByLocation):
              'expected': 'CNBCMarketWatch' })
         self.click_menu_item({ 'menu': 'menu_divs_filts',
                           'xpath': '//span[text()="CNBC"]',
-                          'fltr' : 'hdr_fltrBiz',
-                          'sleep': 5 })
+                          'sleep': 1,
+                          'fltr' : 'hdr_fltrBiz' })
 
     def test10_mousefiltering(self):
         """
@@ -108,16 +108,16 @@ class testMO(SeleniumUtils, SetupByLocation):
             'sleep': 3 })
         assert len(self.driver.window_handles) == 1
 
-    def test12_replace_window(self):
+    #--- def test12_replace_window(self): ---#
         """
            click menu item and make sure current window is replaced
         """
-        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
-        self.click_menu_item({ 'menu': 'menu_divs_filts',
-                          'xpath': '//td[text()="Google"]',
-                          'fltr' : 'hdr_fltrAll',
-                          'sleep': 3 })
-        assert len(self.driver.window_handles) == 1
+        #--- self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} ) ---#
+        #--- self.click_menu_item({ 'menu': 'menu_divs_filts', ---#
+                          #--- 'xpath': '//span[text()="CNBC"]', ---#
+                          #--- 'sleep': 1, ---#
+                          #--- 'fltr' : 'hdr_fltrAll' }) ---#
+        #--- assert len(self.driver.window_handles) == 1 ---#
 
 
     def tearDown(self):

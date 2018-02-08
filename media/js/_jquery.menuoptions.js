@@ -220,7 +220,7 @@ $.widget('mre.menuoptions', {
         if ((this.options.InitialValue.hasOwnProperty('val') &&
                 this.options.InitialValue.val.length >= 0) ||
                 (this.options.InitialValue.hasOwnProperty('ky') &&
-                this.options.InitialValue.ky.length > 0)) {
+                this.options.InitialValue.ky.toString().length > 0)) {
             retval = true;
         }
         return retval;

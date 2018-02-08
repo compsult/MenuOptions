@@ -103,9 +103,12 @@ span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr {
 /*--  menu arrows  --*/
 .down_arrow {
     display: inline-block;
+    *zoom: 1;
+    *display: inline;
     width: 0;
     height: 0;
-    margin-left: 6px;
+    margin: 8px;
+    /*--  margin-top: 8px;  --*/
     vertical-align: middle;
     border-top: 4px solid silver;
     border-right: 4px solid transparent;

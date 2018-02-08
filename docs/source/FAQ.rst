@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-2
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-3
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult

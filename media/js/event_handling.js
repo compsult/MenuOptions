@@ -1,5 +1,6 @@
     _tab_and_enter_keypress : function (e, curVal) {
-         if ( e.keyCode === $.ui.keyCode.ENTER && $('table.CrEaTeDtAbLeStYlE td.mo').length === 0 ) { 
+         if ( e.keyCode === $.ui.keyCode.ENTER && $('table.CrEaTeDtAbLeStYlE td.mo').length === 0 ||
+                 e.keyCode === $.ui.keyCode.TAB && curVal.length === 0 ) { 
              e.preventDefault(); 
              /*--  console.log("Highlighted cells = "+$('table.CrEaTeDtAbLeStYlE td.mo').length.toString());  --*/
              this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'),  

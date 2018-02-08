@@ -103,9 +103,12 @@ span table.CrEaTeDtAbLeStYlE td.divider, span table.CrEaTeDtAbLeStYlE td.hdr {
 /*--  menu arrows  --*/
 .down_arrow {
     display: inline-block;
+    *zoom: 1;
+    *display: inline;
     width: 0;
     height: 0;
-    margin-left: 6px;
+    margin: 8px;
+    /*--  margin-top: 8px;  --*/
     vertical-align: middle;
     border-top: 4px solid silver;
     border-right: 4px solid transparent;
@@ -157,14 +160,9 @@ span.clearbtnpos {
     /*--  border: 1px solid silver;  --*/
 }
 
-span.clearbtn { 
-    background-color: beige   !important; 
-    border: 1px solid silver;  
-}
 span.clearbtn.ClearButtonMO { 
    font-weight: bold;
-   color: white;
-   background-color: red   !important; 
+   color: red;
 }
 input.data_error { background: #FFE9E6 !important; }
 input.data_good  { background: #E1EDDD !important; }
