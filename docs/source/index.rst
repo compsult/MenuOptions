@@ -6,7 +6,7 @@
 Welcome to MenuOptions
 =====================================================
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-3
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-4
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult

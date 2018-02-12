@@ -27,6 +27,7 @@
         var ky = '',
             Sel = {},
             elem_id = 'span#SP_' + this.options._ID; 
+        this._off(this.element, 'touchend mousedown click mouseenter focus keypress keydown input keyup search mouseleave blur');
         // set mouseenter class for table cell
         ky = 'mouseenter ' + elem_id + ' table.CrEaTeDtAbLeStYlE td.dflt'; 
         Sel[ky] = '_hiLiteOnOff'; 

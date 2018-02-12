@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.3-3
+ * @version         Version 1.8.3-4
  *
  *
  ******************************************/
@@ -1050,6 +1050,7 @@ this._cfg={
         var ky = '',
             Sel = {},
             elem_id = 'span#SP_' + this.options._ID; 
+        this._off(this.element, 'touchend mousedown click mouseenter focus keypress keydown input keyup search mouseleave blur');
         // set mouseenter class for table cell
         ky = 'mouseenter ' + elem_id + ' table.CrEaTeDtAbLeStYlE td.dflt'; 
         Sel[ky] = '_hiLiteOnOff'; 
