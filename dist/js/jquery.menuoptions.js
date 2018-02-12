@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.3-4
+ * @version         Version 1.7.5-10
  *
  *
  ******************************************/
@@ -1372,7 +1372,7 @@ this._cfg={
 
     _destroy : function () {
         $(this.element).removeClass('ui-menuoptions');
-        $('span#SP_' + this.options._ID).remove();
+        $('span[id$=' + this.options._ID + ']').remove();
         this._super();
     },
 

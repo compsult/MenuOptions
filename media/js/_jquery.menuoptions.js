@@ -422,7 +422,7 @@ $.widget('mre.menuoptions', {
 
     _destroy : function () {
         $(this.element).removeClass('ui-menuoptions');
-        $('span#SP_' + this.options._ID).remove();
+        $('span[id$=' + this.options._ID + ']').remove();
         this._super();
     },
 
