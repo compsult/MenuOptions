@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-10
+ * @version         Version 1.8.3-6
  *
  *
  ******************************************/
@@ -351,10 +351,12 @@ this._cfg={
     },
 
     _initial_bg : function ( params ) {
-        if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
-           this._set_bg_color('good');
-        } else {
-           this._set_bg_color('err');
+        if ( params.mask.FixedLen === this.element.val().length ) {
+            if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
+            this._set_bg_color('good');
+            } else {
+            this._set_bg_color('err');
+            }
         }
     },
 
@@ -381,6 +383,7 @@ this._cfg={
             nums_only = raw_data;
         if ( this.cached['.mo_elem'].val().length === 0 ) {
             fmted_str = consts[1];
+            this.element.focus().get(0).setSelectionRange(1,1);
         } else {
             for ( var x = 1; x <= len; x++) {
                 if ( consts.hasOwnProperty(x) ) {
@@ -971,6 +974,7 @@ this._cfg={
     },
 
     _valid_test : function (StrToCheck) {
+        /*--  cut off any chars in excess of FixedLen  --*/
         if ( this.options._mask.hasOwnProperty('FixedLen') && StrToCheck.length > this.options._mask.FixedLen ) {
             this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
         }
@@ -988,10 +992,7 @@ this._cfg={
     },
 
     _is_last_mask_char_valid : function (e, StrToCheck) {
-        if ( this.options._mask.hasOwnProperty('FixedLen') && StrToCheck.length > this.options._mask.FixedLen ) {
-            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
-            return true;
-        }
+        /*--  handle when user enters a "hotkey"  --*/
         if ( this.options._mask.hasOwnProperty('hotkey') &&
              this.options._mask.hotkey.hasOwnProperty(StrToCheck.length)) {
                if (this.options._mask.hotkey[StrToCheck.length](StrToCheck,this) === true) {

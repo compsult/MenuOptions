@@ -241,6 +241,7 @@
     },
 
     _valid_test : function (StrToCheck) {
+        /*--  cut off any chars in excess of FixedLen  --*/
         if ( this.options._mask.hasOwnProperty('FixedLen') && StrToCheck.length > this.options._mask.FixedLen ) {
             this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
         }
@@ -258,10 +259,7 @@
     },
 
     _is_last_mask_char_valid : function (e, StrToCheck) {
-        if ( this.options._mask.hasOwnProperty('FixedLen') && StrToCheck.length > this.options._mask.FixedLen ) {
-            this.cached['.mo_elem'].val(StrToCheck.substring(0, this.options._mask.FixedLen));
-            return true;
-        }
+        /*--  handle when user enters a "hotkey"  --*/
         if ( this.options._mask.hasOwnProperty('hotkey') &&
              this.options._mask.hotkey.hasOwnProperty(StrToCheck.length)) {
                if (this.options._mask.hotkey[StrToCheck.length](StrToCheck,this) === true) {

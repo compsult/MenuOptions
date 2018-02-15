@@ -60,10 +60,12 @@
     },
 
     _initial_bg : function ( params ) {
-        if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
-           this._set_bg_color('good');
-        } else {
-           this._set_bg_color('err');
+        if ( params.mask.FixedLen === this.element.val().length ) {
+            if ( new RegExp(params.mask.Whole).test(this.element.val()) === true ) {
+            this._set_bg_color('good');
+            } else {
+            this._set_bg_color('err');
+            }
         }
     },
 
@@ -90,6 +92,7 @@
             nums_only = raw_data;
         if ( this.cached['.mo_elem'].val().length === 0 ) {
             fmted_str = consts[1];
+            this.element.focus().get(0).setSelectionRange(1,1);
         } else {
             for ( var x = 1; x <= len; x++) {
                 if ( consts.hasOwnProperty(x) ) {
