@@ -26,6 +26,11 @@
         }
     },
 
+    _reset_rockers : function () {
+        $('div#RK_RT_' + this._event_ns).attr('class', 'rtup');
+        $('div#RK_LT_' + this._event_ns).attr('class', 'ltup');
+    },
+
     _rocker_click : function (event) {
         var tgt = $(event.target).is('[menu_opt_key]') ? $(event.target) : $(event.target.parentElement);
         this._change_rocker(tgt);

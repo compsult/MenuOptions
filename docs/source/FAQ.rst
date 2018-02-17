@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-7
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-8
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -25,7 +25,7 @@ MenuOptions widgets on a page:
 
 .. code-block:: javascript
 
-      $('.ui-menuoptions').menuoptions();
+      $('input.ui-menuoptions').menuoptions();
 
 
 For example:
@@ -58,19 +58,28 @@ so you will likely have to call the destroy () method, for example:
 
       $(YourSelector + ' .ui-menuoptions').menuoptions('destroy');
 
-I pasted data into a MenuOptions select list and now have errors when saving
-----------------------------------------------------------------------------
+I pasted data into a MenuOptions mulit-column autocomplete and now have errors when saving
+------------------------------------------------------------------------------------------
 
 MenuOptions expects that you have either clicked a selection or 
 typed one in and pressed enter.  When you paste data into a MenuOptions 
-select list, just call MenuOptions again with no parameters
+mulit-column autocomplete, just call MenuOptions again with no parameters
 
 .. code-block:: javascript
 
-      $(YourSelector + ' .ui-menuoptions').menuoptions();
+      $(YourSelector + ' input.ui-menuoptions').menuoptions();
 
 This will populate the attribute `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ that `re_serialize() <Serialize.html>`_ 
 uses to get the value that corresponds with the text the user sees.
+
+How would I reset (clear the data from) all MenuOptions mulit-column autocomplete and Rocker controls?
+------------------------------------------------------------------------------------------------------
+
+.. code-block:: javascript
+
+      $(YourSelector + ' input.ui-menuoptions').val(''); // clear out the values
+      //  clear the menu_opt_key and clear Rocker to show no selection  
+      $(YourSelector + ' input.ui-menuoptions').menuoptions(); 
 
 The clear button (or 'X') is not aligned correctly
 --------------------------------------------------
@@ -88,7 +97,7 @@ immediately after adding the element or after the layout change.
 
 .. code-block:: javascript
 
-      $(YourSelector + ' .ui-menuoptions').menuoptions();
+      $(YourSelector + ' input.ui-menuoptions').menuoptions();
 
 
 For dynamically added elements, you can wrap the menuoptions call with a setTimeout, like this:
@@ -149,7 +158,7 @@ This code is in `quick start select demo <http://menuoptions.org/examples/QuickS
 How can I create a vertical scroll bar for large lists?
 -------------------------------------------------------
 Below is an example. Whenever you specify a `Height <SelectParams.html#height>`_ that is less than
-the height of the select list dropdown, a vertical scroll bar will be created.
+the height of the mulit-column autocomplete dropdown, a vertical scroll bar will be created.
 
 .. code-block:: javascript
 
@@ -166,12 +175,12 @@ the height of the select list dropdown, a vertical scroll bar will be created.
 
 This code is in `quick start select demo <http://menuoptions.org/examples/QuickStartSelect.html>`_
 
-When I enter certain characters in a MenuOptions select list they disappear, why?
-----------------------------------------------------------------------------------
-It only disappears when you enter a character that is not in any of the select list options
+When I enter certain characters in a MenuOptions mulit-column autocomplete they disappear, why?
+-----------------------------------------------------------------------------------------------
+It only disappears when you enter a character that is not in any of the mulit-column autocomplete options
 
-Can I use 'special' characters in a MenuOptions select list ( parens, curly braces )?
--------------------------------------------------------------------------------------
+Can I use 'special' characters in a MenuOptions mulit-column autocomplete ( parens, curly braces )?
+---------------------------------------------------------------------------------------------------
 Yes
 
 Why do we need another input widget?
@@ -188,7 +197,7 @@ Features:
     - error messages that explain why the input key is invalid
     - hotkeys - a single key can fill a field (e.g., 't' fills in todays date in date fields)
 - Multi column autocomplete
-    - intelligent autocomplete (characters not in any select list item are automatically removed, saving keystrokes)
+    - intelligent autocomplete (characters not in any mulit-column autocomplete item are automatically removed, saving keystrokes)
     - mouseover filtering lets user reduce choices by moving their mouse over a filter element
     - `auto-configuration <FAQ.html#what-do-you-mean-auto-configuration>`_
 - Rocker control
