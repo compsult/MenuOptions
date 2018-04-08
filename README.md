@@ -1,4 +1,4 @@
-## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-8)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
+## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-9)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
 #### Input masks and multi-column autocomplete combined
 
@@ -100,7 +100,7 @@ This demo illustrates using the using multiple MenuOptions controls, including t
 ![alt text](http://www.menuoptions.org/examples/imgs/MultiSelects.png "using multiple menuoptions on a page ")
 
 ### Mouseover filtering with dividers
-[See the demo](http://www.menuoptions.org/examples/Dividers.html)
+[See the demo](http://www.menuoptions.org/examples/MenusBottom.html)
 
 ![alt text](http://www.menuoptions.org/examples/imgs/MenuWithMOandDivs.jpg "mouseover filtering with dividers")
 

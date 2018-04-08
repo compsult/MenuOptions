@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-8
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.8.3-9
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -72,7 +72,7 @@ mulit-column autocomplete, just call MenuOptions again with no parameters
 This will populate the attribute `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ that `re_serialize() <Serialize.html>`_ 
 uses to get the value that corresponds with the text the user sees.
 
-How would I reset (clear the data from) all MenuOptions mulit-column autocomplete and Rocker controls?
+How would I reset (clear the data from) all MenuOptions multi-column autocomplete and Rocker controls?
 ------------------------------------------------------------------------------------------------------
 
 .. code-block:: javascript
