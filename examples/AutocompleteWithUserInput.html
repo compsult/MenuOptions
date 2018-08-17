@@ -85,8 +85,8 @@ $(document).ready(function() {
         "DataKeyNames": DataKeyNames,
         "ClearBtn": true,
         "InitialValue": { 'val': init_data },
-        "ShowAt": 'bottom',
-        "NotInListWarns": false,
+        "UserInputAllowed": true,
+        "Help": 'right',
         "Sort": []
     });  
     $('input#scrolltest').menuoptions({ 
@@ -97,7 +97,8 @@ $(document).ready(function() {
         "ClearBtn": true,
         "DataKeyNames": DataKeyNames,
         "InitialValue": { 'val': init_data },
-        "NotInListWarns": false,
+        "UserInputAllowed": true,
+        "Help": 'right',
         "Height": 200,
         "Sort": [] 
     });  
@@ -146,9 +147,10 @@ $(document).ready(function() {
       <div class="row">
         <div class="col-lg-12" style='height:120px'>
 	        <h1>MenuOptions - input masks and multi-column autocomplete combined </h1> 
-	        <h2 >Example of simple select list with autocomplete </h2>
+	        <h2 >Example of autocomplete that allows user to enter items <span style='color:red;font-style:italic'>not in autocomplete list</span></h2>
         </div>
       </div>
+      <br>
       <div class="row">
         <div id=menu_column class="visible-lg visible-md col-lg-2 col-md-2">
             <p class=menu_left>Menu Examples</p>
@@ -189,10 +191,10 @@ $(document).ready(function() {
             <div class="row">
                 <div class="col-lg-2" style="height:60px"> </div>
                 <div class="col-lg-5" style="height:60px">
-                    <h3 class="text-left">Select list with default height</h3>
+                    <h3 class="text-left">Choose an autocomplete item...</h3>
                 </div>
                 <div class="col-lg-5 text-right" style="height:60px">
-                    <h3 class="text-left">Select list with height set (with scroll)</h3>
+                    <h3 class="text-left">...or type in any string</h3>
                 </div>
             </div>
             <div class="row">
@@ -287,8 +289,8 @@ $(document).ready(function() {
         "DataKeyNames": DataKeyNames,
         "ClearBtn": true,
         "InitialValue": { 'val': init_data },
-        "ShowAt": 'bottom',
-        "NotInListWarns": false,
+        "UserInputAllowed": true,
+        "Help": 'right',
         "Sort": []
     });  
     $('input#scrolltest').menuoptions({ 
@@ -299,7 +301,8 @@ $(document).ready(function() {
         "ClearBtn": true,
         "DataKeyNames": DataKeyNames,
         "InitialValue": { 'val': init_data },
-        "NotInListWarns": false,
+        "UserInputAllowed": true,
+        "Help": 'right',
         "Height": 200,
         "Sort": [] 
     });  
@@ -318,10 +321,10 @@ $(document).ready(function() {
             &lt;div class="row"&gt;
                 &lt;div class="col-lg-2" style="height:60px"&gt; &lt;/div&gt;
                 &lt;div class="col-lg-5" style="height:60px"&gt;
-                    &lt;h3 class="text-left"&gt;Select list with default height&lt;/h3&gt;
+                    &lt;h3 class="text-left"&gt;Choose an autocomplete item...&lt;/h3&gt;
                 &lt;/div&gt;
                 &lt;div class="col-lg-5 text-right" style="height:60px"&gt;
-                    &lt;h3 class="text-left"&gt;Select list with height set (with scroll)&lt;/h3&gt;
+                    &lt;h3 class="text-left"&gt;...or type in any string&lt;/h3&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="row"&gt;

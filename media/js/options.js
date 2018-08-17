@@ -34,6 +34,7 @@
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
         // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#usevalueforkey
+        UserInputAllowed: false, // if user can enter any value, even if it is not is autocomplete list
         UseValueForKey: false, // if user wants value = text()
         // http://menuoptions.readthedocs.io/en/latest/Masks.html#masks
         Mask : '',

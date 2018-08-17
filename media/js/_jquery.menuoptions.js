@@ -39,6 +39,9 @@ $.widget('mre.menuoptions', {
         if (this.options.ColumnCount < 1) {
             return this._validation_fail(this._cfg.col_cnt,'fatal');
         }
+        if (this.options.UserInputAllowed === true && this.options.Mask.length > 0) {
+            return this._validation_fail(this._cfg.bad_combo,'fatal');
+        }
         this._check_for_bootstrap();
         if ( this.options._mask_status.mask_only === false ) {
             // make sure incoming data is in required format

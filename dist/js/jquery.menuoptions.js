@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.8.3-11
+ * @version         Version 1.9.0.0
  *
  *
  ******************************************/
@@ -58,6 +58,7 @@ $.widget('mre.menuoptions', {
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
         // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#usevalueforkey
+        UserInputAllowed: false, // if user can enter any value, even if it is not is autocomplete list
         UseValueForKey: false, // if user wants value = text()
         // http://menuoptions.readthedocs.io/en/latest/Masks.html#masks
         Mask : '',
@@ -96,6 +97,7 @@ $.widget('mre.menuoptions', {
 this._cfg={
             curcy:'$',
             no_dt : '\n\nMenuOptions requires the Data parameter to be populated. \n\nSee https://goo.gl/VvHcrZ for details (note: this may be a DataKeyNames error)', 
+            bad_combo : 'You cannot specify UserInputAllowed and a Mask (one or the other)',
             col_cnt : 'MenuOptions requires ColumnCount parameter be > 0',
             inv_data : 'Invalid Data format supplied to menuoptions. See https://goo.gl/VvHcrZ for details',
             rkr_err : 'When using the rocker control, exactly 2 elements need to be supplied to menuoptions',
@@ -120,6 +122,9 @@ this._cfg={
         }
         if (this.options.ColumnCount < 1) {
             return this._validation_fail(this._cfg.col_cnt,'fatal');
+        }
+        if (this.options.UserInputAllowed === true && this.options.Mask.length > 0) {
+            return this._validation_fail(this._cfg.bad_combo,'fatal');
         }
         this._check_for_bootstrap();
         if ( this.options._mask_status.mask_only === false ) {
@@ -843,6 +848,10 @@ this._cfg={
                 }
             }
         });
+        if ( matching.length === 0 && this.options.UserInputAllowed === true ) {
+            this.__set_help_msg('no list matches', 'caution');
+            return [];
+        }
         if ( this.options._CurrentFilter.length === 0 ) {
             this.__check_match_results(matching, params.StrToCheck, params.evt);
         }
@@ -865,6 +874,13 @@ this._cfg={
 
     __set_help_msg : function (help_msg, err_or_good) {
         switch ( err_or_good ) {
+            case 'caution':
+                $("span#HLP_"+this.options._ID).show()
+                        .html('<span style="margin-left:16px">'+help_msg+"</span>")
+                        .removeClass('helptext mask_match').addClass('warn_text');
+                this._set_bg_color('err');
+                this.options._mask_status.mask_passed = false;
+                break;
             case 'error':
                 $("span#HLP_"+this.options._ID).show()
                         .html('<span style="margin-left:16px">'+help_msg+"</span>")
@@ -1034,8 +1050,9 @@ this._cfg={
          if ( e.keyCode === $.ui.keyCode.ENTER && $('table.CrEaTeDtAbLeStYlE td.mo').length === 0 ||
                  e.keyCode === $.ui.keyCode.TAB && curVal.length === 0 ) { 
              e.preventDefault(); 
+             var keytype = e.keyCode === $.ui.keyCode.ENTER ? "ENTERKey" : "TABKey";
              this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'),  
-                         'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': "ENTERKey" });  
+                         'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': keytype });  
          } else if (e.keyCode === $.ui.keyCode.TAB ) { 
             if ( curVal.length > 0) {
                 var matched =  this._build_match_ary(e, curVal);
@@ -1649,11 +1666,14 @@ this._cfg={
         }
         var curVal = this.cached['.mo_elem'].val();
          if (/mouseenter|focus|input/.test(e.type) || /keyup/.test(e.type) && e.keyCode === $.ui.keyCode.BACKSPACE) {
-            var matched;
+            var matched = [];
             if ( curVal.length === 0 ) {
                 matched = this.orig_objs;
             } else {
                 matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
+            }
+            if ( matched.length === 0 && this.options.UserInputAllowed === true ) {
+                return;
             }
             if ( curVal.length > this.cached['.mo_elem'].val().length ) {
                 matched = this._matches(this.cached['.mo_elem'].val(), 'partial');

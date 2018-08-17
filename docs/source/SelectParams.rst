@@ -34,6 +34,7 @@ Parameter list for multi-column autocomplete
     `Sort`_,array of strings,"['alpha'|'num', 'desc'|'asc']","['alpha','asc']",false
     TriggerEvent, <deleted>,<as of v1.5.1>,--,--
     `UseValueForKey`_,boolean,"true or false",false,false
+    `UserInputAllowed`_,boolean,"true or false",false,false
     `Width`_,integer,positive integer, width of dropdown, false
 
 Parameters explained for MenuOption multi-column autocomplete
@@ -340,6 +341,18 @@ UseValueForKey
 .. code-block:: html
 
     <td menu_opt_key="CA">"CA"</td>. 
+
+.. _UserInputAllowed:
+
+UserInputAllowed
+~~~~~~~~~~~~~~~~
+    options: **true or false**
+
+    UserInputAllowed = true means that 
+    the user can type in anything 
+    OR
+    can choose an autocomplete item from the list
+    (`see a demo that uses UserInputAllowed <http://menuoptions.org/examples/AutocompleteWithUserInput.html>`_ ) 
 
 .. _Width:
 

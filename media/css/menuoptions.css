@@ -135,19 +135,28 @@ span.helptext {
     font: normal 12px arial;
     color: gray;
 }
-span.err_text {
+span.warn_text {
     position: absolute; 
-    background:url(../imgs/red_x.png) no-repeat center left;
+    background:url(../imgs/Caution.png) no-repeat center left;
+    margin-left: -3px;
     display:inline-block;
     white-space: nowrap;
     font: italic 12px arial;
-    color: red;
+    color: brown;
 }
+ span.err_text { 
+     position: absolute;  
+    background:url(../imgs/red_x.png) no-repeat center left;
+     display:inline-block; 
+     white-space: nowrap; 
+     font: italic 12px arial; 
+     color: red; 
+ } 
 span.mask_match {
     position: absolute; 
     display:inline-block;
     width: 18px; 
-    background:url(../imgs/greencheck.png) no-repeat top left;
+    background:url(../imgs/icons.png) no-repeat top left; background-position: 18px 0px;
 }
 /*--  put clear X in input --*/
 span.clearbtnpos {

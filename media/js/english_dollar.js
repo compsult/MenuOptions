@@ -1,0 +1,20 @@
+this._cfg={
+            curcy:'$',
+            no_dt : '\n\nMenuOptions requires the Data parameter to be populated. \n\nSee https://goo.gl/VvHcrZ for details (note: this may be a DataKeyNames error)', 
+            bad_combo : 'You cannot specify UserInputAllowed and a Mask (one or the other)',
+            col_cnt : 'MenuOptions requires ColumnCount parameter be > 0',
+            inv_data : 'Invalid Data format supplied to menuoptions. See https://goo.gl/VvHcrZ for details',
+            rkr_err : 'When using the rocker control, exactly 2 elements need to be supplied to menuoptions',
+            only : ' only',
+            inv_mon : 'invalid month',
+            inv_day : 'invalid day',
+            inv_tm : 'invalid time',
+            inv_feb : 'not a leap year',
+            dm_err : 'day of mon error',
+            mon_ary : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            mon_hotkeys : {'F':'Feb', 'S':'Sep', 'O':'Oct', 'N':'Nov', 'D':'Dec'},
+            dt_keys_err : "Data error: DataKeyNames is invalid - there must be 2 matching keys. \n\n(Possible cause - the keys in your Data do not \n match what you specified in DataKeyNames). \nSee https://goo.gl/VvHcrZ for details",
+            missing_val : "Data error: Key with no value error in incoming Data parameter. See https://goo.gl/VvHcrZ for details",
+            card_expired : "Card expired",
+            missing_regex: "When specifying a user defined RegExp, you must define that RegExp using the 'Whole' key"
+         };

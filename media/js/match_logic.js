@@ -102,6 +102,10 @@
                 }
             }
         });
+        if ( matching.length === 0 && this.options.UserInputAllowed === true ) {
+            this.__set_help_msg('no list matches', 'caution');
+            return [];
+        }
         if ( this.options._CurrentFilter.length === 0 ) {
             this.__check_match_results(matching, params.StrToCheck, params.evt);
         }
@@ -124,6 +128,13 @@
 
     __set_help_msg : function (help_msg, err_or_good) {
         switch ( err_or_good ) {
+            case 'caution':
+                $("span#HLP_"+this.options._ID).show()
+                        .html('<span style="margin-left:16px">'+help_msg+"</span>")
+                        .removeClass('helptext mask_match').addClass('warn_text');
+                this._set_bg_color('err');
+                this.options._mask_status.mask_passed = false;
+                break;
             case 'error':
                 $("span#HLP_"+this.options._ID).show()
                         .html('<span style="margin-left:16px">'+help_msg+"</span>")

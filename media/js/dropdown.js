@@ -124,11 +124,14 @@
         }
         var curVal = this.cached['.mo_elem'].val();
          if (/mouseenter|focus|input/.test(e.type) || /keyup/.test(e.type) && e.keyCode === $.ui.keyCode.BACKSPACE) {
-            var matched;
+            var matched = [];
             if ( curVal.length === 0 ) {
                 matched = this.orig_objs;
             } else {
                 matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
+            }
+            if ( matched.length === 0 && this.options.UserInputAllowed === true ) {
+                return;
             }
             if ( curVal.length > this.cached['.mo_elem'].val().length ) {
                 matched = this._matches(this.cached['.mo_elem'].val(), 'partial');
