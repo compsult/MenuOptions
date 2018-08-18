@@ -9,7 +9,7 @@
             if ( curVal.length > 0) {
                 var matched =  this._build_match_ary(e, curVal);
                 if ( matched.length > 0 ) {
-                    var newval = matched[0].val.replace(/<span class=match>|<\/span>/g, '');
+                    var newval = matched[0].val.replace(/<span class=match>|<\/span>|<img[\w\W ]*?>/g, '');
                     this.__exec_trigger({ 'newCode': matched[0].ky, 
                                  'newVal' : newval, 'type': "TABKey" });  
                 } else if ( this._match_complete() === true ) {

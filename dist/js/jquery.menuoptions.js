@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.9.0.0
+ * @version         Version 1.9.0-1
  *
  *
  ******************************************/
@@ -57,8 +57,9 @@ $.widget('mre.menuoptions', {
         SelectOnly: false,  // if true, will not allow user to type input
         // http://menuoptions.readthedocs.org/en/latest/MenuParams.html#showdownarrow 
         ShowDownArrow : "black", // set to None to hide down arrow on menus, else pass in color of arrow
-        // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#usevalueforkey
+        // https://menuoptions.readthedocs.io/en/latest/SelectParams.html#userinputallowed
         UserInputAllowed: false, // if user can enter any value, even if it is not is autocomplete list
+        // http://menuoptions.readthedocs.io/en/latest/SelectParams.html#usevalueforkey
         UseValueForKey: false, // if user wants value = text()
         // http://menuoptions.readthedocs.io/en/latest/Masks.html#masks
         Mask : '',
@@ -1057,7 +1058,7 @@ this._cfg={
             if ( curVal.length > 0) {
                 var matched =  this._build_match_ary(e, curVal);
                 if ( matched.length > 0 ) {
-                    var newval = matched[0].val.replace(/<span class=match>|<\/span>/g, '');
+                    var newval = matched[0].val.replace(/<span class=match>|<\/span>|<img[\w\W ]*?>/g, '');
                     this.__exec_trigger({ 'newCode': matched[0].ky, 
                                  'newVal' : newval, 'type': "TABKey" });  
                 } else if ( this._match_complete() === true ) {
@@ -1647,9 +1648,11 @@ this._cfg={
         if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){
             return false;
         }
-        if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
+        if (/keydown/.test(e.type) && (e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB)) {
+            console.log("_build_drop_down_test for TAB or ENTER");
+            console.log(e.type);
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
-            $("span#HLP_"+this.options._ID).hide();
+            /*--  $("span#HLP_"+this.options._ID).hide();  --*/
             return false;
         }  
         if (/keydown|mousedown|click/.test(e.type)) {  
@@ -2035,7 +2038,7 @@ this._cfg={
         h = ( h + 11 ) % 12 + 1;
         h = ( h < 10 ) ? "0" + h : h;
         $(this.element).val(h+':'+m+''+AMPM);
-        this.__match_complete();
+        this._match_complete();
         return true;
     },
 

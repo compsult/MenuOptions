@@ -112,7 +112,7 @@
         h = ( h + 11 ) % 12 + 1;
         h = ( h < 10 ) ? "0" + h : h;
         $(this.element).val(h+':'+m+''+AMPM);
-        this.__match_complete();
+        this._match_complete();
         return true;
     },
 

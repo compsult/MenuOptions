@@ -156,7 +156,7 @@ span.mask_match {
     position: absolute; 
     display:inline-block;
     width: 18px; 
-    background:url(../imgs/icons.png) no-repeat top left; background-position: 18px 0px;
+    background:url(../imgs/greencheck.png) no-repeat top left;
 }
 /*--  put clear X in input --*/
 span.clearbtnpos {

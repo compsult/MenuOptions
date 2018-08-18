@@ -105,9 +105,11 @@
         if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){
             return false;
         }
-        if (/keydown/.test(e.type) && e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB) {  
+        if (/keydown/.test(e.type) && (e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB)) {
+            console.log("_build_drop_down_test for TAB or ENTER");
+            console.log(e.type);
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
-            $("span#HLP_"+this.options._ID).hide();
+            /*--  $("span#HLP_"+this.options._ID).hide();  --*/
             return false;
         }  
         if (/keydown|mousedown|click/.test(e.type)) {  
