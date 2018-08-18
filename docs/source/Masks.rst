@@ -80,7 +80,7 @@ When using a User Defined masks, you can specify the Help message text to displa
 
 
 FixedLen (optional)
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 When using a User Defined masks, you can specify a FixedLen. To pass validation, the input string must be this exact length.
 
 Pre-defined masks

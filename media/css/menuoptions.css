@@ -146,7 +146,7 @@ span.warn_text {
 }
  span.err_text { 
      position: absolute;  
-    background:url(../imgs/red_x.png) no-repeat center left;
+     background:url(../imgs/red_x.png) no-repeat center left;
      display:inline-block; 
      white-space: nowrap; 
      font: italic 12px arial; 

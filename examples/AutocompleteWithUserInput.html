@@ -80,7 +80,8 @@ $(document).ready(function() {
     $('input#selecttest').menuoptions({ 
         "Data": data,
         "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
+            $('input#NewVal').val(data.newVal);
+            $('input#NewKey').val(data.newCode);
         }, 
         "DataKeyNames": DataKeyNames,
         "ClearBtn": true,
@@ -92,7 +93,7 @@ $(document).ready(function() {
     $('input#scrolltest').menuoptions({ 
         "Data": data,
         "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
+            console.log(data.newVal, data.newCode, data.type );  
         }, 
         "ClearBtn": true,
         "DataKeyNames": DataKeyNames,
@@ -213,6 +214,10 @@ $(document).ready(function() {
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12"><input id="NewVal" name="NewVal" type="hidden">
+                <input id="NewKey" name="NewKey" type="hidden"> </div>
+            </div>
             <div class="col-md-2 col-xs-2">
           </div> <!--  column 2 (main)  -->
           <!--  END_HTML  -->
@@ -284,7 +289,8 @@ $(document).ready(function() {
     $('input#selecttest').menuoptions({ 
         "Data": data,
         "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
+            $('input#NewVal').val(data.newVal);
+            $('input#NewKey').val(data.newCode);
         }, 
         "DataKeyNames": DataKeyNames,
         "ClearBtn": true,
@@ -296,7 +302,7 @@ $(document).ready(function() {
     $('input#scrolltest').menuoptions({ 
         "Data": data,
         "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
+            console.log(data.newVal, data.newCode, data.type );  
         }, 
         "ClearBtn": true,
         "DataKeyNames": DataKeyNames,
@@ -342,6 +348,10 @@ $(document).ready(function() {
                         &lt;span class="text-left"&gt;&lt;button class="a" type="button" id="menutest" &gt;Show serialize values&lt;/button&gt;&lt;/span&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="row"&gt;
+                &lt;div class="col-lg-12"&gt;&lt;input id="NewVal" name="NewVal" type="hidden"&gt;
+                &lt;input id="NewKey" name="NewKey" type="hidden"&gt; &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class="col-md-2 col-xs-2"&gt;
           &lt;/div&gt; &lt;!--  column 2 (main)  --&gt;

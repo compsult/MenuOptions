@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.9.0-1
+ * @version         Version 1.9.0-2
  *
  *
  ******************************************/
@@ -699,7 +699,9 @@ this._cfg={
         });
         if ( ! /Rocker/i.test(this.options.MenuOptionsType) ) {
             this._set_bg_color('good');
-            $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+            if ( ! params.hasOwnProperty(('noGreenChk'))) {
+                $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+            }
         }
     },
 
@@ -1052,8 +1054,15 @@ this._cfg={
                  e.keyCode === $.ui.keyCode.TAB && curVal.length === 0 ) { 
              e.preventDefault(); 
              var keytype = e.keyCode === $.ui.keyCode.ENTER ? "ENTERKey" : "TABKey";
-             this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'),  
-                         'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': keytype });  
+             if ( curVal.length > 0 && this.options.UserInputAllowed === true &&
+                  e.keyCode === $.ui.keyCode.ENTER && $('table.CrEaTeDtAbLeStYlE tr').length === 0 ) {
+                 /*--  this catches user input that is not in the autocomplete list  --*/
+                this.__exec_trigger({ 'newCode': -1, 'noGreenChk': true,
+                            'newVal' : curVal, 'type': keytype });
+             } else {
+                this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'),
+                            'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': keytype });
+             }
          } else if (e.keyCode === $.ui.keyCode.TAB ) { 
             if ( curVal.length > 0) {
                 var matched =  this._build_match_ary(e, curVal);
@@ -1649,8 +1658,6 @@ this._cfg={
             return false;
         }
         if (/keydown/.test(e.type) && (e.keyCode === $.ui.keyCode.ENTER || e.keyCode === $.ui.keyCode.TAB)) {
-            console.log("_build_drop_down_test for TAB or ENTER");
-            console.log(e.type);
             this._tab_and_enter_keypress(e, this.cached['.mo_elem'].val());
             /*--  $("span#HLP_"+this.options._ID).hide();  --*/
             return false;
@@ -1676,6 +1683,7 @@ this._cfg={
                 matched = this._match_list_hilited({'StrToCheck': curVal, 'chk_key': false, 'case_ins': true, 'evt': e});
             }
             if ( matched.length === 0 && this.options.UserInputAllowed === true ) {
+                this._build_filtered_dropdown (e, matched );
                 return;
             }
             if ( curVal.length > this.cached['.mo_elem'].val().length ) {

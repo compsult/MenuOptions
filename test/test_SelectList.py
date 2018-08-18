@@ -20,7 +20,7 @@ class testSL(SeleniumUtils, SetupByLocation):
 
     def test03_autocomplete(self):
         """
-           check select list autocomplete works & any character not in select list is deleted. Also, verify entry of item that matches mask (and not in select list). Also, verify UserInputAllowed works
+           check select list autocomplete works (any character not in list is deleted). Verify entry of item that matches mask (and not in autocomplete list). Verify UserInputAllowed works (help, icons & ret values)
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_clr({ 'xpath': '//*[@id="CB_menuoptions0"]',
@@ -42,6 +42,7 @@ class testSL(SeleniumUtils, SetupByLocation):
         self.check_ENTER_exit({ 'xpath': '//*[@id="endtime3"]',
                               'clearbtn': '//*[@id="CB_menuoptions5"]',
                               'rslt': '12:27 AM',
+                              'help_cls': 'mask_match',
                               'klass': 'data_good',
                               'instruct': 'ENTER' })
         self.url='http://'+self.IP+'/examples/AutocompleteWithUserInput_test.html'
@@ -49,9 +50,17 @@ class testSL(SeleniumUtils, SetupByLocation):
         self.check_help_msg({ 'xpath': '//*[@id="selecttest"]',
                               'help_id': '//*[@id="HLP_menuoptions0"]',
                               'help_txt': 'no list matches',
+                              'help_cls': 'warn_text',
                               'keys': 'zzzz',
                               'klass': 'data_error',
                               'rslt': 'zzzz' })
+        self.url='http://'+self.IP+'/examples/AutocompleteWithUserInput_test.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
+        self.check_user_input({ 'xpath': '//*[@id="selecttest"]',
+                              'clearbtn': '//*[@id="CB_menuoptions0"]',
+                              'sendkeys': 'zzzz',
+                              'newVal': 'NewVal',
+                              'newKey': 'NewKey' })
 
     def test05_select_w_imgs(self):
         """

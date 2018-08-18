@@ -138,6 +138,17 @@ class SeleniumUtils(object):
                 help_rt = self.driver.execute_script("return $('span#"+help_id+"').show().offset().left;")
                 assert help_rt > input_left + input_width
 
+    def check_user_input (self, params ):
+        # requires defined: sendkeys, newKey and newVal params 
+        elem = self.driver.find_element_by_xpath(params['xpath'])
+        self.driver.find_element_by_xpath(params['clearbtn']).click()
+        elem.send_keys(params['sendkeys'])
+        elem.send_keys(Keys.ENTER)
+        if self.SLEEP: time.sleep(1)
+        newVal = self.driver.execute_script("return $('input#"+params['newVal']+"').val();")
+        newKey = self.driver.execute_script("return $('input#"+params['newKey']+"').val();")
+        assert newKey == str(-1) and params['sendkeys'] == newVal
+
     def check_help_msg (self, params ):
         #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#
         elem =  self.driver.find_element_by_xpath(params['xpath'])
@@ -156,14 +167,14 @@ class SeleniumUtils(object):
         if 'help_txt' in params:
             assert params['help_txt'] == elem2.text
         assert params['rslt'] == elem.get_attribute("value")
+        if 'help_cls' in params and len(params['help_cls']) > 0:
+            assert re.search(r'%s' % params['help_cls'], elem2.get_attribute("class"))
         if 'klass' in params and len(params['klass']) > 0:
             assert re.search(r'%s' % params['klass'], elem.get_attribute("class"))
         if 'notKlass' in params and len(params['notKlass']) > 0:
             params['elem']=elem
             self.check_not_class (params)
         self.check_help_position(params)
-
-
 
     def check_regexp_validation (self, params ):
         #--- import ipdb; ipdb.set_trace() # BREAKPOINT ---#

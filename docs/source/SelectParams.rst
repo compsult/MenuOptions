@@ -18,7 +18,7 @@ Parameter list for multi-column autocomplete
     `ClearBtn`_ ,boolean,"true or false",true,false
     `ColumnCount`_,integer,"positive integer",1,false
     `Data <SelectParams.html#id3>`_ ,JSON object, (see Data section), none, true
-    `DataKeyNames <SelectParams.html#datakeynamesmk>`_, object,(see DataKeyNames section), none, false
+    `DataKeyNames <SelectParams.html#datakeynamesmk>`__, object,(see DataKeyNames section), none, false
     `Disabled`_,boolean, "true or false", false, false
     `DisableHiLiting`_,boolean, "true or false", false, false
     `Filters`_, array of objects,"{'str':'str'} or {'str':'RegExp'}", none, false
@@ -348,11 +348,19 @@ UserInputAllowed
 ~~~~~~~~~~~~~~~~
     options: **true or false**
 
-    UserInputAllowed = true means that 
-    the user can type in anything 
+    UserInputAllowed = true means that
+    the user can type in anything
     OR
     can choose an autocomplete item from the list
-    (`see a demo that uses UserInputAllowed <http://menuoptions.org/examples/AutocompleteWithUserInput.html>`_ ) 
+    (`see a demo that uses UserInputAllowed <http://menuoptions.org/examples/AutocompleteWithUserInput.html>`_ )
+
+Notes:
+
+1. user input will return with a key value of -1, so this is advisable when you are saving user text
+   and not key value codes.
+   An example might be where you present the user with a list of names but want to allow
+   them to add a new name.
+2. User will get a warning saying "no list matches" when they type in text not in the autocomplete list
 
 .. _Width:
 
