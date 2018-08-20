@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.9.0-2
+ * @version         Version 1.9.0-3
  *
  *
  ******************************************/
@@ -103,6 +103,7 @@ this._cfg={
             inv_data : 'Invalid Data format supplied to menuoptions. See https://goo.gl/VvHcrZ for details',
             rkr_err : 'When using the rocker control, exactly 2 elements need to be supplied to menuoptions',
             only : ' only',
+            inv_char : 'invalid char',
             inv_mon : 'invalid month',
             inv_day : 'invalid day',
             inv_tm : 'invalid time',
@@ -937,6 +938,7 @@ this._cfg={
 
     _check_whole_input : function (StrToCheck) {
         var str_len = this.cached['.mo_elem'].val().length;
+        var cut_char = false;
         this.options._mask_status.mask_passed=true;
         for (var x = str_len; str_len > 0; str_len--) {
             if ( this.options.Data !== ""  && this._matches(this.cached['.mo_elem'].val(), 'partial').length === 0 ||
@@ -944,17 +946,20 @@ this._cfg={
                     if ( this.options.Mask.length > 0 ) {
                          if ( /RegExp/.test(this.options.Mask) ) {
                              if ( ! new RegExp(this.options._mask.Whole).test(this._esc_spec_chars(this.cached['.mo_elem'].val())) ) {
-                                this._cut_last_char('Invalid char', str_len);
+                                this._cut_last_char(this._cfg.inv_char, str_len);
+                                cut_char = true;
                              } else {
                                 this.cached['.mo_elem'].attr('menu_opt_key', this.cached['.mo_elem'].val());
-                                this.__set_help_msg('', 'good'); 
+                                if ( cut_char === false ) {
+                                    this.__set_help_msg('', 'good');
+                                }
                                 return;
                              }
                          } else { 
                             this._single_char_valid_mask(this.cached['.mo_elem'].val(), str_len);
                          } 
                     } else {
-                        this._cut_last_char('invalid char', this.cached['.mo_elem'].val().length);
+                        this._cut_last_char(this._cfg.inv_char, this.cached['.mo_elem'].val().length);
                     }
             }
         }
@@ -1054,11 +1059,10 @@ this._cfg={
                  e.keyCode === $.ui.keyCode.TAB && curVal.length === 0 ) { 
              e.preventDefault(); 
              var keytype = e.keyCode === $.ui.keyCode.ENTER ? "ENTERKey" : "TABKey";
-             if ( curVal.length > 0 && this.options.UserInputAllowed === true &&
+             if ( curVal.length > 0 && this.options.UserInputAllowed === true ||
                   e.keyCode === $.ui.keyCode.ENTER && $('table.CrEaTeDtAbLeStYlE tr').length === 0 ) {
                  /*--  this catches user input that is not in the autocomplete list  --*/
-                this.__exec_trigger({ 'newCode': -1, 'noGreenChk': true,
-                            'newVal' : curVal, 'type': keytype });
+                this.__exec_trigger({ 'newCode': -1, 'noGreenChk': true, 'newVal' : curVal, 'type': keytype });
              } else {
                 this.__exec_trigger({ 'newCode': $('table.CrEaTeDtAbLeStYlE td:first').attr('menu_opt_key'),
                             'newVal' : $('table.CrEaTeDtAbLeStYlE td:first').text(), 'type': keytype });
@@ -1652,6 +1656,11 @@ this._cfg={
             this.cached['.mo_elem'].attr('menu_opt_key', '');
         }
         if (this.options.Data === "") { // short circuit autocomplete logic here (if no Data)
+             var curVal = this.cached['.mo_elem'].val();
+             if ( curVal.length > 0 && this.options._mask.hasOwnProperty('Whole') === true &&
+                  e.keyCode === $.ui.keyCode.ENTER) {
+                 this.__exec_trigger({'newCode': -1, 'noGreenChk': true, 'newVal': curVal, 'type': 'ENTERKey'});
+             }
             return false;
         }
         if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){

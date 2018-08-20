@@ -100,6 +100,11 @@
             this.cached['.mo_elem'].attr('menu_opt_key', '');
         }
         if (this.options.Data === "") { // short circuit autocomplete logic here (if no Data)
+             var curVal = this.cached['.mo_elem'].val();
+             if ( curVal.length > 0 && this.options._mask.hasOwnProperty('Whole') === true &&
+                  e.keyCode === $.ui.keyCode.ENTER) {
+                 this.__exec_trigger({'newCode': -1, 'noGreenChk': true, 'newVal': curVal, 'type': 'ENTERKey'});
+             }
             return false;
         }
         if (/keydown|keyup/.test(e.type) &&  e.keyCode !== $.ui.keyCode.BACKSPACE && this._arrow_keys(e) === true ){

@@ -6,6 +6,7 @@ this._cfg={
             inv_data : 'Invalid Data format supplied to menuoptions. See https://goo.gl/VvHcrZ for details',
             rkr_err : 'When using the rocker control, exactly 2 elements need to be supplied to menuoptions',
             only : ' only',
+            inv_char : 'invalid char',
             inv_mon : 'invalid month',
             inv_day : 'invalid day',
             inv_tm : 'invalid time',

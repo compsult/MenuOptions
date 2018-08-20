@@ -188,6 +188,7 @@
 
     _check_whole_input : function (StrToCheck) {
         var str_len = this.cached['.mo_elem'].val().length;
+        var cut_char = false;
         this.options._mask_status.mask_passed=true;
         for (var x = str_len; str_len > 0; str_len--) {
             if ( this.options.Data !== ""  && this._matches(this.cached['.mo_elem'].val(), 'partial').length === 0 ||
@@ -195,17 +196,20 @@
                     if ( this.options.Mask.length > 0 ) {
                          if ( /RegExp/.test(this.options.Mask) ) {
                              if ( ! new RegExp(this.options._mask.Whole).test(this._esc_spec_chars(this.cached['.mo_elem'].val())) ) {
-                                this._cut_last_char('Invalid char', str_len);
+                                this._cut_last_char(this._cfg.inv_char, str_len);
+                                cut_char = true;
                              } else {
                                 this.cached['.mo_elem'].attr('menu_opt_key', this.cached['.mo_elem'].val());
-                                this.__set_help_msg('', 'good'); 
+                                if ( cut_char === false ) {
+                                    this.__set_help_msg('', 'good');
+                                }
                                 return;
                              }
                          } else { 
                             this._single_char_valid_mask(this.cached['.mo_elem'].val(), str_len);
                          } 
                     } else {
-                        this._cut_last_char('invalid char', this.cached['.mo_elem'].val().length);
+                        this._cut_last_char(this._cfg.inv_char, this.cached['.mo_elem'].val().length);
                     }
             }
         }
