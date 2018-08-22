@@ -2,6 +2,9 @@
         var newVal = $.trim(params.newVal),
             key = /phone/i.test(this.options.Mask) ? params.newCode.replace(new RegExp('[^\\d]', 'g'), '') : params.newCode;
         this.cached['.mo_elem'].val(newVal);
+        if (/YYYY/i.test(this.options.Mask)) {
+            key = this._menu_opt_date(this.options.Mask, newVal);
+        }
         this.cached['.mo_elem'].attr('menu_opt_key',key);
         this._trigger("onSelect", this, {
             "newCode": key,
@@ -9,8 +12,8 @@
             "type": params.type
         });
         if ( ! /Rocker/i.test(this.options.MenuOptionsType) ) {
-            this._set_bg_color('good');
             if ( ! params.hasOwnProperty(('noGreenChk'))) {
+                this._set_bg_color('good');
                 $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
             }
         }

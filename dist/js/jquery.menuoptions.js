@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.9.0-3
+ * @version         Version 1.9.0-4
  *
  *
  ******************************************/
@@ -692,6 +692,9 @@ this._cfg={
         var newVal = $.trim(params.newVal),
             key = /phone/i.test(this.options.Mask) ? params.newCode.replace(new RegExp('[^\\d]', 'g'), '') : params.newCode;
         this.cached['.mo_elem'].val(newVal);
+        if (/YYYY/i.test(this.options.Mask)) {
+            key = this._menu_opt_date(this.options.Mask, newVal);
+        }
         this.cached['.mo_elem'].attr('menu_opt_key',key);
         this._trigger("onSelect", this, {
             "newCode": key,
@@ -699,8 +702,8 @@ this._cfg={
             "type": params.type
         });
         if ( ! /Rocker/i.test(this.options.MenuOptionsType) ) {
-            this._set_bg_color('good');
             if ( ! params.hasOwnProperty(('noGreenChk'))) {
+                this._set_bg_color('good');
                 $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
             }
         }
@@ -1658,7 +1661,7 @@ this._cfg={
         if (this.options.Data === "") { // short circuit autocomplete logic here (if no Data)
              var curVal = this.cached['.mo_elem'].val();
              if ( curVal.length > 0 && this.options._mask.hasOwnProperty('Whole') === true &&
-                  e.keyCode === $.ui.keyCode.ENTER) {
+                  e.keyCode === $.ui.keyCode.ENTER && /keydown/.test(e.type)) {
                  this.__exec_trigger({'newCode': -1, 'noGreenChk': true, 'newVal': curVal, 'type': 'ENTERKey'});
              }
             return false;
@@ -1939,6 +1942,16 @@ this._cfg={
             $('span#SP_' + $dd_span.options._ID)
                 .offset({left : this.cached['.mo_elem'].offset().left + this.cached['.mo_elem'].outerWidth() });
         }
+    },
+
+    _menu_opt_date : function(mask, dt) {
+        if ( /YYYYMMDD/.test(mask)) {
+            dt = dt.substring(0,4)+'-'+dt.substring(4,6)+'-'+dt.substring(6);
+        }
+        var date = new Date(dt);
+        return date.getUTCFullYear() + "-"+
+               ("0" + (date.getUTCMonth()+1)).slice(-2) + "-"+
+               ("0" + (date.getUTCDate())).slice(-2);
     },
 
     _max_val_test : function (val, maxval, offset) {

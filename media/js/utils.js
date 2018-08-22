@@ -1,3 +1,13 @@
+    _menu_opt_date : function(mask, dt) {
+        if ( /YYYYMMDD/.test(mask)) {
+            dt = dt.substring(0,4)+'-'+dt.substring(4,6)+'-'+dt.substring(6);
+        }
+        var date = new Date(dt);
+        return date.getUTCFullYear() + "-"+
+               ("0" + (date.getUTCMonth()+1)).slice(-2) + "-"+
+               ("0" + (date.getUTCDate())).slice(-2);
+    },
+
     _max_val_test : function (val, maxval, offset) {
         if (/\d/.test(val[offset]) && val[offset] <= maxval ) {
             return [true, ''];

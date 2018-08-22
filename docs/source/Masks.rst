@@ -83,6 +83,9 @@ FixedLen (optional)
 ~~~~~~~~~~~~~~~~~~~
 When using a User Defined masks, you can specify a FixedLen. To pass validation, the input string must be this exact length.
 
+Notes: 
+    1. when using FixedLen, if the user input passes the Mask test and the FixedLen is reached, the onSubmit event will be triggered with data.type set to 'Completed'. This allows a developer to automatically proceed (e.g., with a database update) once the last valid character has been entered (enter key becomes optional).
+
 Pre-defined masks
 -----------------
 
@@ -94,12 +97,18 @@ YYYYMMDD
 
     "Mask": "YYYYMMDD"
 
+Notes: 
+    1. date will be saved in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_  in javascript ISO format (YYYY-MM-DD).
+
 Mon DD, YYYY
 ~~~~~~~~~~~~
 
 .. code-block:: javascript
 
     "Mask": "Mon DD, YYYY"
+
+Notes: 
+    1. date will be saved in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_  in javascript ISO format (YYYY-MM-DD).
 
 USphone
 ~~~~~~~

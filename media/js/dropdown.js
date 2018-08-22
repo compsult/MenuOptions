@@ -102,7 +102,7 @@
         if (this.options.Data === "") { // short circuit autocomplete logic here (if no Data)
              var curVal = this.cached['.mo_elem'].val();
              if ( curVal.length > 0 && this.options._mask.hasOwnProperty('Whole') === true &&
-                  e.keyCode === $.ui.keyCode.ENTER) {
+                  e.keyCode === $.ui.keyCode.ENTER && /keydown/.test(e.type)) {
                  this.__exec_trigger({'newCode': -1, 'noGreenChk': true, 'newVal': curVal, 'type': 'ENTERKey'});
              }
             return false;
