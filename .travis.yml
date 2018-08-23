@@ -19,6 +19,11 @@ addons:
 
 script: travis_wait 30 ./runTests.bash
 
+# safelist
+branches:
+  only:
+  - master
+
 env:
   global:
   - secure: H01/wV1voe34U+Efc3gGXx2niZPYC3zF/NQumPaZmAl7yMKmG0TDMxlNAlkKyKjDWn2J5y0a3u/hrk2mvaC3FUgH+7IngelfS4NpCN9ZzHhLVoXgTD2iq3OW9Qr2gLbf0ckMK7u2Vqndxmt+FNxX/baQXJ/0fn3tFfXLLU+UqwZ3Qb3cllKNLeL4LmJS+dNXkAeqnQxLhHAy77+2gk967gdMTTveAdHr/HqCUWDa+jxFTqZBRuhGIQcgkorvbtvNdtuWtHk0UelSj3pgIaIWnhbxxqr03jH2DJE8Nilbuq3OygwKs8CbOolNp4B4pJNTijxEvbVVIMB0K+GWD6xbokZXnetjerjhwh5EvbGb6qZTCq8RWpoHRMgutD5N2kmvueK+P420+QLo77b/9cP4D3YohXiDn+hUD+i5NE9EZ+1PsFBVpeSiKkL4He9FKTIMuyV/d0hYUHa6AESwdIgswHLIEU1/mqpAwdjbtc+JssqpCsDiiou8/UA01cGYTVjktpANIz3vkwijmffNdkCVxH4CyklCFiWHwRDfgiq5kIzTf8l/5AsYfLDivKTW3CYiassmuJav2547LIKU9inEWF2yGoCA3ts3Rg7r/0UDjf3QrWsintee3w2x9N9M31HlKrcnITbk6P4O1tS9ai0ZMnccfipdltl3rg80B/21TI8=
