@@ -62,20 +62,9 @@ class testSL(SeleniumUtils, SetupByLocation):
                               'newVal': 'NewVal',
                               'newKey': 'NewKey' })
 
-    def test05_select_w_imgs(self):
-        """
-           check that MenuOptions select list autocomplete works with images
-        """
-        self.url='http://'+self.IP+'/examples/SelectWithImages_test.html'
-        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
-        self.check_autocomplete({ 'xpath': '//*[@id="CustSel"]',
-                         'filt_rslts': '//*[@id="SP_menuoptions0"]',
-                         'expected': 'CashChargeCheck',
-                         'test_key': 'c' })
-
     def test06_regex(self):
         """
-           check that MenuOptions select list autocomplete works special characters
+           check that MenuOptions select list autocomplete works special characters and that autocomplete works with images and clear button works
         """
         self.url='http://'+self.IP+'/examples/MultiSelect_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
@@ -83,11 +72,12 @@ class testSL(SeleniumUtils, SetupByLocation):
                          'filt_rslts': '//*[@id="SP_menuoptions7"]',
                          'expected': '1,000,000.00(verygooddriver)',
                          'test_key': '(' })
-
-    def test07_clear_btn(self):
-        """
-           check that click on 'X' clears the input and opens the select list dropdown
-        """
+        self.url='http://'+self.IP+'/examples/SelectWithImages_test.html'
+        self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
+        self.check_autocomplete({ 'xpath': '//*[@id="CustSel"]',
+                         'filt_rslts': '//*[@id="SP_menuoptions0"]',
+                         'expected': 'CashChargeCheck',
+                         'test_key': 'c' })
         self.url='http://'+self.IP+'/examples/QuickStartSelect_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_clr({ 'xpath': '//*[@id="CB_menuoptions1"]',

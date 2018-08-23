@@ -1,7 +1,7 @@
 FAQ
 ===
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.9.0-4
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.9.0-5
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -83,7 +83,7 @@ How would I reset (clear the data from) all MenuOptions multi-column autocomplet
 
 The clear button (or 'X') is not aligned correctly
 --------------------------------------------------
-There are 2 situations where this can happen.
+There are 2 main situations where this can happen.
 
 The first is when an input element is added dynamically (using javascript). 
 The clear button is positioned using the jQuery UI position() function, which requires 
@@ -112,6 +112,8 @@ For dynamically added elements, you can wrap the menuoptions call with a setTime
         });  
     }, 200 );
 
+Sometimes, using the CSS float:right makes the X display incorrectly. In this case,
+using float:left will usually correct this.
 
 How do I display text and have a hidden value, like the HTML select control?
 ----------------------------------------------------------------------------
