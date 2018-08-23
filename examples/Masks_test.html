@@ -97,7 +97,7 @@ $(document).ready(function() {
          },  
         "Justify": 'left',
         "ClearBtn": true,
-        "Help": 'top',
+        "Help": 'None',
         "Mask" : {"Whole":'^[ A-Za-z\-.,]*$', HelpMsg:"Doctor Name"}
     });  
     $('input#DrName2').menuoptions({ "ClearBtn": true, "Help": 'bottom', "Mask": {"Whole":'^[ A-Za-z\-.,]*$', HelpMsg:"Doctor Name"}, "Justify": 'left' });
@@ -217,7 +217,7 @@ $(document).ready(function() {
             <div class="row" style='height:70px'>
                 <div class="col-md-3 col-xs-3 text-right" style='height:70px;width:240px;border: 0px solid silver;'>
                     <span class=lg>User supplied RegExp</span><br>
-                    <span class=sub>'^[ A-Za-z\-.,]*$'</span>
+                    <span class=sub>'^[ A-Za-z\-.,]*$'  (Help suppressed)</span>
                 </div>
                 <div class="col-md-3 col-xs-3 text-left" style='height:70px;width:240px;border: 0px solid silver;'>
                     <input class='underlined'   style='width:124px' type=text id='DrName'  placeholder='Doctor Name' >

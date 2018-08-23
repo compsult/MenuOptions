@@ -18,7 +18,7 @@
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#height
         Height: '', // let user specify the exact height they want
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#help
-        Help: 'right', // where help message should display
+        Help: 'right', // where help message should display. 'None' means don't display help
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#justify
         Justify : 'left', // how to justify input inside input element
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue

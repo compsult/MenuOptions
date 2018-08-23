@@ -17,7 +17,7 @@ install:
 addons:
   sauce_connect: true
 
-script: ./runTests.bash
+script: travis_wait 30 ./runTests.bash
 
 env:
   global:

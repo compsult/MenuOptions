@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.9.0-5
+ * @version         Version 1.9.0-6
  *
  *
  ******************************************/
@@ -42,7 +42,7 @@ $.widget('mre.menuoptions', {
         //  http://menuoptions.readthedocs.org/en/latest/SelectParams.html#height
         Height: '', // let user specify the exact height they want
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#help
-        Help: 'right', // where help message should display
+        Help: 'right', // where help message should display. 'None' means don't display help
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#justify
         Justify : 'left', // how to justify input inside input element
         // http://menuoptions.readthedocs.org/en/latest/SelectParams.html#initialvalue
@@ -924,6 +924,9 @@ this._cfg={
            this._set_bg_color('clear');
         } else if ( this.options._mask.hasOwnProperty('FixedLen') && this.cached['.mo_elem'].val().length < this.options._mask.FixedLen){
            this._set_bg_color('err');
+        }
+        if ( /None/i.test(this.options.Help) ) {
+            $("span#HLP_"+this.options._ID).hide();
         }
     },
 

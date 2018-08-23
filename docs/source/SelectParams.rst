@@ -197,11 +197,13 @@ Height
 
 Help
 ~~~~
+    options: **right|top|bottom|None**
 You can specify one of three positions to show help (and error) messages
 
 Notes: 
 
-1. the default is 'right' (the other options are 'top' and 'bottom')
+1. the default is 'right' (the other psoition options are 'top' and 'bottom'). 
+2. Use 'None' to suppress all help messages.
 
 .. code-block:: javascript
     :emphasize-lines: 6
@@ -211,7 +213,7 @@ Notes:
              console.log(mo, data.newVal, data.newCode, data.type );   
          },  
         "ClearBtn": true,
-        "Help": 'bottom' // or 'top' or 'right'
+        "Help": 'bottom' // or 'top' or 'right' or 'None'
     });  
 
 .. _InitialValueS:

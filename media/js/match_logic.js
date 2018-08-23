@@ -172,6 +172,9 @@
         } else if ( this.options._mask.hasOwnProperty('FixedLen') && this.cached['.mo_elem'].val().length < this.options._mask.FixedLen){
            this._set_bg_color('err');
         }
+        if ( /None/i.test(this.options.Help) ) {
+            $("span#HLP_"+this.options._ID).hide();
+        }
     },
 
     _esc_spec_chars  : function(StrToCheck) {
