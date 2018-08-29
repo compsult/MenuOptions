@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.9.0-8
+ * @version         Version 1.7.5-10
  *
  *
  ******************************************/
@@ -1819,7 +1819,7 @@ this._cfg={
         // this is where mouse is inside drop down 
         if (  e.pageX + 1  > this.options._menu_box.left  &&
               e.pageX + 1 < this.options._menu_box.right &&
-              e.pageY + 1 > this.options._menu_box.top &&
+              e.pageY + 3 > this.options._menu_box.top &&
               e.pageY + 1 < this.options._menu_box.bottom) {
             return false;
         }

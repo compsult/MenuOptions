@@ -257,7 +257,7 @@
         // this is where mouse is inside drop down 
         if (  e.pageX + 1  > this.options._menu_box.left  &&
               e.pageX + 1 < this.options._menu_box.right &&
-              e.pageY + 1 > this.options._menu_box.top &&
+              e.pageY + 3 > this.options._menu_box.top &&
               e.pageY + 1 < this.options._menu_box.bottom) {
             return false;
         }
