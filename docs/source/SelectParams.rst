@@ -363,6 +363,7 @@ Notes:
    An example might be where you present the user with a list of names but want to allow
    them to add a new name.
 2. User will get a warning saying "no list matches" when they type in text not in the autocomplete list
+3. cannot be used with masks
 
 .. _Width:
 
