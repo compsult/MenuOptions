@@ -42,9 +42,15 @@ $(document).ready(function() {
     if ( document.URL.match(/singleobject/) ) {
        data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                 8:"August",9:"September",10:"October",11:"November",12:"December" };
+    } else if ( document.URL.match(/one_dimens_ary_bool/) ) {
+       data = [ true, false ];
+    } else if ( document.URL.match(/one_dimens_ary_num/) ) {
+       data = [ 1,2,3,4 ];
     } else if ( document.URL.match(/one_dimens_ary/) ) {
        data = [ "January","February","March","April","May", "June","July",
                 "August","September","October","November","December" ];
+    } else if ( document.URL.match(/two_dimens_ary_num/) ) {
+       data = [[1,2],[3,4]];
     } else if ( document.URL.match(/two_dimens_ary/) ) {
        data = [ [ "January","February"],["March","April"],["May", "June","July",
                 "August","September","October","November","December" ]];
@@ -77,30 +83,51 @@ $(document).ready(function() {
        data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                 8:"August",9:"September",10:"October",11:"November",12:"December" };
     }
-    $('input#selecttest').menuoptions({ 
-        "Data": data,
-        "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
-        }, 
-        "DataKeyNames": DataKeyNames,
-        "ClearBtn": true,
-        "InitialValue": { 'val': init_data },
-        "ShowAt": 'bottom',
-        "NotInListWarns": false,
-        "Sort": []
-    });  
-    $('input#scrolltest').menuoptions({ 
-        "Data": data,
-        "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
-        }, 
-        "ClearBtn": true,
-        "DataKeyNames": DataKeyNames,
-        "InitialValue": { 'val': init_data },
-        "NotInListWarns": false,
-        "Height": 200,
-        "Sort": [] 
-    });  
+    if ( document.URL.match(/two_dimens_ary_num|one_dimens_ary_num|one_dimens_ary_bool/) ) {
+        $('input#selecttest').menuoptions({ 
+            "Data": data,
+            "onSelect": function(mo, data) { 
+                console.log(mo, data.newVal, data.newCode, data.type );  
+            }, 
+            "ClearBtn": true,
+            "ShowAt": 'bottom',
+            "Sort": []
+        });  
+        $('input#scrolltest').menuoptions({ 
+            "Data": data,
+            "onSelect": function(mo, data) { 
+                console.log(mo, data.newVal, data.newCode, data.type );  
+            }, 
+            "ClearBtn": true,
+            "Height": 200,
+            "Sort": [] 
+        });  
+    } else {
+        $('input#selecttest').menuoptions({ 
+            "Data": data,
+            "onSelect": function(mo, data) { 
+                console.log(mo, data.newVal, data.newCode, data.type );  
+            }, 
+            "DataKeyNames": DataKeyNames,
+            "ClearBtn": true,
+            "InitialValue": { 'val': init_data },
+            "ShowAt": 'bottom',
+            "NotInListWarns": false,
+            "Sort": []
+        });  
+        $('input#scrolltest').menuoptions({ 
+            "Data": data,
+            "onSelect": function(mo, data) { 
+                console.log(mo, data.newVal, data.newCode, data.type );  
+            }, 
+            "ClearBtn": true,
+            "DataKeyNames": DataKeyNames,
+            "InitialValue": { 'val': init_data },
+            "NotInListWarns": false,
+            "Height": 200,
+            "Sort": [] 
+        });  
+    }
     $('button#menutest').on('click', function (e) {
         var tst = $('input#selecttest').menuoptions('re_serialize',$('form#tst').serialize());
         alert (tst);
@@ -244,9 +271,15 @@ $(document).ready(function() {
     if ( document.URL.match(/singleobject/) ) {
        data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                 8:"August",9:"September",10:"October",11:"November",12:"December" };
+    } else if ( document.URL.match(/one_dimens_ary_bool/) ) {
+       data = [ true, false ];
+    } else if ( document.URL.match(/one_dimens_ary_num/) ) {
+       data = [ 1,2,3,4 ];
     } else if ( document.URL.match(/one_dimens_ary/) ) {
        data = [ "January","February","March","April","May", "June","July",
                 "August","September","October","November","December" ];
+    } else if ( document.URL.match(/two_dimens_ary_num/) ) {
+       data = [[1,2],[3,4]];
     } else if ( document.URL.match(/two_dimens_ary/) ) {
        data = [ [ "January","February"],["March","April"],["May", "June","July",
                 "August","September","October","November","December" ]];
@@ -279,30 +312,51 @@ $(document).ready(function() {
        data = { 1:"January",2:"February",3:"March",4:"April",5:"May", 6:"June",7:"July",
                 8:"August",9:"September",10:"October",11:"November",12:"December" };
     }
-    $('input#selecttest').menuoptions({ 
-        "Data": data,
-        "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
-        }, 
-        "DataKeyNames": DataKeyNames,
-        "ClearBtn": true,
-        "InitialValue": { 'val': init_data },
-        "ShowAt": 'bottom',
-        "NotInListWarns": false,
-        "Sort": []
-    });  
-    $('input#scrolltest').menuoptions({ 
-        "Data": data,
-        "onSelect": function(mo, data) { 
-            console.log(mo, data.newVal, data.newCode, data.type );  
-        }, 
-        "ClearBtn": true,
-        "DataKeyNames": DataKeyNames,
-        "InitialValue": { 'val': init_data },
-        "NotInListWarns": false,
-        "Height": 200,
-        "Sort": [] 
-    });  
+    if ( document.URL.match(/two_dimens_ary_num|one_dimens_ary_num|one_dimens_ary_bool/) ) {
+        $('input#selecttest').menuoptions({ 
+            "Data": data,
+            "onSelect": function(mo, data) { 
+                console.log(mo, data.newVal, data.newCode, data.type );  
+            }, 
+            "ClearBtn": true,
+            "ShowAt": 'bottom',
+            "Sort": []
+        });  
+        $('input#scrolltest').menuoptions({ 
+            "Data": data,
+            "onSelect": function(mo, data) { 
+                console.log(mo, data.newVal, data.newCode, data.type );  
+            }, 
+            "ClearBtn": true,
+            "Height": 200,
+            "Sort": [] 
+        });  
+    } else {
+        $('input#selecttest').menuoptions({ 
+            "Data": data,
+            "onSelect": function(mo, data) { 
+                console.log(mo, data.newVal, data.newCode, data.type );  
+            }, 
+            "DataKeyNames": DataKeyNames,
+            "ClearBtn": true,
+            "InitialValue": { 'val': init_data },
+            "ShowAt": 'bottom',
+            "NotInListWarns": false,
+            "Sort": []
+        });  
+        $('input#scrolltest').menuoptions({ 
+            "Data": data,
+            "onSelect": function(mo, data) { 
+                console.log(mo, data.newVal, data.newCode, data.type );  
+            }, 
+            "ClearBtn": true,
+            "DataKeyNames": DataKeyNames,
+            "InitialValue": { 'val': init_data },
+            "NotInListWarns": false,
+            "Height": 200,
+            "Sort": [] 
+        });  
+    }
     $('button#menutest').on('click', function (e) {
         var tst = $('input#selecttest').menuoptions('re_serialize',$('form#tst').serialize());
         alert (tst);

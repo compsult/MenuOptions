@@ -10,7 +10,7 @@ function runLocal {
     nosetests --stop -v $1 
 }
 
-#--- runLocal test_DataInputs.py:testDS.test01_data_struct ---#
+runLocal test_DataInputs.py:testDS.test01_data_struct
 #--- runLocal test_addons.py:test_addons.test04_rt_arrow ---#
 #--- runLocal "test_Masks:testMasks.test18_HHMM_AM_chk_bad_paste" ---#
 #--- runLocal "test_Masks.py:testMasks.test10_YMD_bad_day_2" ---#
@@ -37,7 +37,7 @@ function runLocal {
 #--- runLocal "test_SelectList.py:testSL.test12_check_bad_paste_autocompl_only" ---#
 #--- runLocal "test_SelectList.py:testSL.test13_check_backspace" ---#
 #--- runLocal "test_SelectList.py:testSL.test04_regexp" ---#
-runLocal "test_SelectList.py:testSL.test03_autocomplete"
+# runLocal "test_SelectList.py:testSL.test03_autocomplete"
 #--- runLocal "test_SelectList.py:testSL.test05_select_w_imgs" ---#
 #--- runLocal "test_Money:testMoney.test02_click_pos" ---#
 #--- runLocal "test_Money:testMoney.test03_after_entry_pos" ---#

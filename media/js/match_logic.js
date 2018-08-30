@@ -77,10 +77,10 @@
         }
         var RegExStr = params.case_ins ? new RegExp(params.StrToCheck, 'i') : new RegExp(params.StrToCheck);
         var matching = $.map(this.orig_objs, function (o) {
-            if ( o.hasOwnProperty('val') === false || /string/i.test(typeof o.val) === false ) { 
+            if ( o.hasOwnProperty('val') === false || /boolean|string|number/i.test(typeof o.val) === false ) { 
                 return $this._validation_fail($this._cfg.dt_keys_err, 'fatal');
             } 
-            no_img = o.val.replace(/<img[\w\W]*?>/, '');
+            no_img = o.val.toString().replace(/<img[\w\W]*?>/, '');
             /*--  rocker needs whole field matches (no partials)  --*/
             if ( /Rocker/.test($this.options.MenuOptionsType)) {
                  if ( o.ky.toString() === params.StrToCheck ||

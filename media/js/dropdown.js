@@ -8,8 +8,9 @@
 
     _build_row : function (dd_span, subary) {
         return $.map(subary, function (obj) {
-            if (!$.isFunction(obj.ky) && obj.ky.match(/^ *divider *$/i) &&
-                    dd_span.options.MenuOptionsType === 'Navigate') {
+            if (!$.isFunction(obj.ky) && 
+                dd_span.options.MenuOptionsType === 'Navigate' && 
+                obj.ky.match(/^ *divider *$/i)) {
                 // for menu's, a non clickable divider row (for categories, etc)
                 return '\t<td class=' + obj.ky + '>' + obj.val + '</td>\n';
             }
@@ -117,7 +118,9 @@
         }  
         if (/keydown|mousedown|click/.test(e.type)) {  
             /*--  only focus and keyup create a dropdown (otherwise multiple calls to dropdown logic)  --*/
-            $("span#HLP_"+this.options._ID).show();
+            if (! /None/i.test(this.options.Help) ) {
+                $("span#HLP_"+this.options._ID).show();
+            }
             return false;
         }
         return true;
@@ -157,7 +160,9 @@
             if ( this._matches(this.cached['.mo_elem'].val(), 'exact').length === 1) {
                 this._set_bg_color('good');
                 this.cached['.mo_elem'].val($('table.CrEaTeDtAbLeStYlE td:first').text());
-                $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+                if (! /None/i.test(this.options.Help) ) {
+                    $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+                }
             }
         }
     },

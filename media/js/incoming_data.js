@@ -5,7 +5,7 @@
             this._build_array_of_objs_menu();
             return;
         }
-        if (typeof $dd_span.options.Data[0] === 'string') {
+        if (/boolean|string|number/i.test(typeof $dd_span.options.Data[0])) {
             /*--  take 1 dimensional array and make array of objs  --*/
             /*jslint unparam: true*/
             $dd_span.options.Data = $.unique($dd_span.options.Data);

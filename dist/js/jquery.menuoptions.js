@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.9.0-10
+ * @version         Version 1.7.5-10
  *
  *
  ******************************************/
@@ -704,7 +704,9 @@ this._cfg={
         if ( ! /Rocker/i.test(this.options.MenuOptionsType) ) {
             if ( ! params.hasOwnProperty(('noGreenChk'))) {
                 this._set_bg_color('good');
-                $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+                if (! /None/i.test(this.options.Help) ) {
+                    $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+                }
             }
         }
     },
@@ -830,10 +832,10 @@ this._cfg={
         }
         var RegExStr = params.case_ins ? new RegExp(params.StrToCheck, 'i') : new RegExp(params.StrToCheck);
         var matching = $.map(this.orig_objs, function (o) {
-            if ( o.hasOwnProperty('val') === false || /string/i.test(typeof o.val) === false ) { 
+            if ( o.hasOwnProperty('val') === false || /boolean|string|number/i.test(typeof o.val) === false ) { 
                 return $this._validation_fail($this._cfg.dt_keys_err, 'fatal');
             } 
-            no_img = o.val.replace(/<img[\w\W]*?>/, '');
+            no_img = o.val.toString().replace(/<img[\w\W]*?>/, '');
             /*--  rocker needs whole field matches (no partials)  --*/
             if ( /Rocker/.test($this.options.MenuOptionsType)) {
                  if ( o.ky.toString() === params.StrToCheck ||
@@ -1455,7 +1457,7 @@ this._cfg={
             this._build_array_of_objs_menu();
             return;
         }
-        if (typeof $dd_span.options.Data[0] === 'string') {
+        if (/boolean|string|number/i.test(typeof $dd_span.options.Data[0])) {
             /*--  take 1 dimensional array and make array of objs  --*/
             /*jslint unparam: true*/
             $dd_span.options.Data = $.unique($dd_span.options.Data);
@@ -1570,8 +1572,9 @@ this._cfg={
 
     _build_row : function (dd_span, subary) {
         return $.map(subary, function (obj) {
-            if (!$.isFunction(obj.ky) && obj.ky.match(/^ *divider *$/i) &&
-                    dd_span.options.MenuOptionsType === 'Navigate') {
+            if (!$.isFunction(obj.ky) && 
+                dd_span.options.MenuOptionsType === 'Navigate' && 
+                obj.ky.match(/^ *divider *$/i)) {
                 // for menu's, a non clickable divider row (for categories, etc)
                 return '\t<td class=' + obj.ky + '>' + obj.val + '</td>\n';
             }
@@ -1679,7 +1682,9 @@ this._cfg={
         }  
         if (/keydown|mousedown|click/.test(e.type)) {  
             /*--  only focus and keyup create a dropdown (otherwise multiple calls to dropdown logic)  --*/
-            $("span#HLP_"+this.options._ID).show();
+            if (! /None/i.test(this.options.Help) ) {
+                $("span#HLP_"+this.options._ID).show();
+            }
             return false;
         }
         return true;
@@ -1719,7 +1724,9 @@ this._cfg={
             if ( this._matches(this.cached['.mo_elem'].val(), 'exact').length === 1) {
                 this._set_bg_color('good');
                 this.cached['.mo_elem'].val($('table.CrEaTeDtAbLeStYlE td:first').text());
-                $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+                if (! /None/i.test(this.options.Help) ) {
+                    $("span#HLP_"+this.options._ID).show().html('&nbsp;').removeClass('helptext err_text').addClass('mask_match');
+                }
             }
         }
     },
