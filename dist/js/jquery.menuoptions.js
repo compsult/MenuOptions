@@ -849,7 +849,7 @@ this._cfg={
                 if ( RegExStr.test(no_img) ) {
                     newval = no_img.replace(RegExStr, '<span class=match>' +
                             RegExStr.exec(no_img)[0] + '</span>');
-                    origImg = o.val.match(/<img[\w\W]*?>/);
+                    origImg = o.val.toString().match(/<img[\w\W]*?>/);
                     if (origImg) {
                         newval = origImg + newval;
                     }
@@ -939,8 +939,8 @@ this._cfg={
     _matches : function(StrToCheck, exact) {
         StrToCheck=this._esc_spec_chars(StrToCheck);
         return $.map(this.orig_objs, function (o) { 
-            if (exact === 'exact' && StrToCheck.toUpperCase() === o.val.replace(/<img[\w\W]*?>/, '').toUpperCase()) { return o; }
-            else if (exact === 'partial' && new RegExp(StrToCheck, 'i').test(o.val.replace(/<img[\w\W]*?>/, ''))) { return o; }
+            if (exact === 'exact' && StrToCheck.toUpperCase() === o.val.toString().replace(/<img[\w\W]*?>/, '').toUpperCase()) { return o; }
+            else if (exact === 'partial' && new RegExp(StrToCheck, 'i').test(o.val.toString().replace(/<img[\w\W]*?>/, ''))) { return o; }
         });
     },
 
