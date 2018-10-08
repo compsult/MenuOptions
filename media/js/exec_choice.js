@@ -48,7 +48,8 @@
     },
 
     _choice_selected : function (e) {
-        if (/^ *divider *$/i.test($(e.target).attr('class'))) {
+        if (/^ *divider *$/i.test($(e.target).attr('class')) ||
+           this.options._prev.event === e.type ) {
             return;
         }
         this.options._prev.event = e.type;

@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-10
+ * @version         Version 1.9.0-13
  *
  *
  ******************************************/
@@ -738,7 +738,8 @@ this._cfg={
     },
 
     _choice_selected : function (e) {
-        if (/^ *divider *$/i.test($(e.target).attr('class'))) {
+        if (/^ *divider *$/i.test($(e.target).attr('class')) ||
+           this.options._prev.event === e.type ) {
             return;
         }
         this.options._prev.event = e.type;
