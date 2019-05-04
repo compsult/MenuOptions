@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.9.0-13
+ * @version         Version 1.9.1
  *
  *
  ******************************************/
@@ -683,7 +683,7 @@ this._cfg={
     },
 
     _detect_destroyed_input: function () {
-        $(this.element).bind('remove', function () {
+        $(this.element).on('remove', function () {
             this._destroy();
         });
     },
@@ -1636,7 +1636,7 @@ this._cfg={
         var tablehtml = this._create_table(ary_of_objs);
         this.dropdownbox = $(tablehtml);
         this._cache_elems();
-        this._calcDropBoxCoordinates();
+        /*--  this._calcDropBoxCoordinates();  --*/
     },
 
     _mask_only : function (e) {
@@ -1817,7 +1817,7 @@ this._cfg={
         // element & drop down||right )
         this.options._menu_box.top = this.cached['.dropdownspan'].position().top;
         this.options._menu_box.bottom = this.options._menu_box.top + 
-            this.cached['.dropdownspan'].height();
+            this.cached['.dropdownspan'].find('table.CrEaTeDtAbLeStYlE').height();
         this.options._menu_box.left = this.cached['.dropdownspan'].position().left;
         this.options._menu_box.right = this.options._menu_box.left + 
             this.cached['.dropdownspan'].width();
@@ -1935,7 +1935,7 @@ this._cfg={
 
     _get_n_set_width : function () {
         var $dd_span = this,
-            menu_width = parseInt($('span#SP_' + this.options._ID).css('width'), 10);
+            menu_width = $('table.CrEaTeDtAbLeStYlE').width();
         $dd_span.menu_start_loc = $dd_span.cached['.dropdownspan'].offset();
         $dd_span.options._width_adj.width_menu = menu_width;
         $dd_span.options._width_adj.width_after_adj = (menu_width >

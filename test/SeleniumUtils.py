@@ -12,7 +12,7 @@ from selenium.webdriver.common.alert import Alert
 
 USERNAME=os.getenv("SAUCE_USERNAME")
 SECRET_KEY=os.getenv("SAUCE_ACCESS_KEY")
-LOCAL_IP="localhost"
+LOCAL_IP="menuoptions" # if you are running tests, you will probably want to change this to "localhost"
 
 class SetupByLocation(object):
 
@@ -34,7 +34,7 @@ class SetupByLocation(object):
 
     def cfg_local (self):
         if self.TST_BROWSER is not None:
-            self.IP="localhost"
+            self.IP= LOCAL_IP
             if re.search(r'chrome', self.TST_BROWSER, re.I):
                 self.driver = webdriver.Chrome()
             elif re.search(r'firefox', self.TST_BROWSER, re.I):
@@ -47,7 +47,7 @@ class SetupByLocation(object):
                 self.driver = webdriver.Ie()
 
     def cfg_sauce (self):
-        self.IP="localhost"
+        self.IP= LOCAL_IP
         SE_HUB=os.getenv("SAUCE_URL")
         TST_VERSION=os.getenv("TST_VERSION")
         TST_NAME=os.getenv("TST_NAME")

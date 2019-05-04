@@ -6,7 +6,7 @@
 Welcome to MenuOptions
 =====================================================
 
-.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.9.0-13
+.. image:: https://travis-ci.org/compsult/MenuOptions.svg?branch=1.9.1
    :target: https://travis-ci.org/compsult/MenuOptions
 
 .. image:: https://saucelabs.com/buildstatus/compsult
@@ -50,11 +50,18 @@ Other benefits:
 - the value associated with with the label string is saved in the input element 
   automatically (in the `menu_opt_key <FAQ.html#what-is-the-menu-opt-key>`_ - no need to manually update a hidden field)
 
+Important Note:
+---------------
+
+.. code-block:: javascript
+
+    jQuery release 3.2.0+ broke the jQuery UI position command in MenuOptions. 
+    Please use jQuery 3.1.1 or earlier. A fix is under study...
 
 Prerequisites:
 --------------
 
-- jQuery version >=1.9
+- jQuery version <=3.1.1 
 - jQuery ui version >= 1.10
 - download `MenuOptions from git <https://github.com/compsult/MenuOptions>`_
 - download `MenuOptions from npm <https://www.npmjs.com/package/menuoptions>`_

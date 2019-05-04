@@ -28,7 +28,7 @@ class testMO(SeleniumUtils, SetupByLocation):
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.click_menu_item({ 'menu': 'menu_plain',
                           'xpath': '//td[text()="Google"]',
-                          'sleep': 1 })
+                          'sleep': 2 })
         self.find_tab('Google')
 
     def test04_js(self):
