@@ -7,7 +7,8 @@
             this.element.append("<span id=arr_" + this.options._ID + " class=" + direction + "_arrow></span>");
         }
         $('#arr_' + this.options._ID + '.' + direction + '_arrow').css('border-' + arr_dir, '4px solid ' + this.options.ShowDownArrow);
-        this.element.width(this.element.width()+1);
+        var adj_sz = parseInt($(this.element).text().length/2);
+        this.element.width(this.element.width()+adj_sz);
     },
 
     _show_menu_arrs : function () {

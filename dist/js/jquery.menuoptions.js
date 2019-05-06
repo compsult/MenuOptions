@@ -12,7 +12,7 @@
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.9.1
+ * @version         Version 1.7.5-10
  *
  *
  ******************************************/
@@ -1434,7 +1434,8 @@ this._cfg={
             this.element.append("<span id=arr_" + this.options._ID + " class=" + direction + "_arrow></span>");
         }
         $('#arr_' + this.options._ID + '.' + direction + '_arrow').css('border-' + arr_dir, '4px solid ' + this.options.ShowDownArrow);
-        this.element.width(this.element.width()+1);
+        var adj_sz = parseInt($(this.element).text().length/2);
+        this.element.width(this.element.width()+adj_sz);
     },
 
     _show_menu_arrs : function () {
@@ -1636,7 +1637,7 @@ this._cfg={
         var tablehtml = this._create_table(ary_of_objs);
         this.dropdownbox = $(tablehtml);
         this._cache_elems();
-        /*--  this._calcDropBoxCoordinates();  --*/
+        this._calcDropBoxCoordinates();
     },
 
     _mask_only : function (e) {
@@ -1883,7 +1884,8 @@ this._cfg={
     _show_drop_down : function (e) {
         var $dd_span = this,
             final_width = 0,
-            showAt = this.options.ShowAt;
+            showAt = this.options.ShowAt,
+            dropdown_ht = 0;
 
         this._addDropDownToDOM();
         this._get_n_set_width();
@@ -1892,6 +1894,9 @@ this._cfg={
              this.cached['.mo_elem'].closest('ul.navbar-nav').length ) {
              showAt = 'left+' + this.options.BootMenuOfs + ' top';
         }
+        dropdown_ht = $dd_span.cached['.dropdownspan'].height();
+        /*--  console.log("Drop down height = "+dropdown_ht+" Window height = "+$(window).height());  --*/
+        $dd_span.cached['.dropdownspan'].css({'height': dropdown_ht});
         // show the menu
         $dd_span.cached['.dropdownspan']
             .stop(true, false)
@@ -1905,10 +1910,12 @@ this._cfg={
         final_width = parseInt($('span#SP_' + this.options._ID).css('width'), 10);
         $('span#SP_' + $dd_span.options._ID).css({ zIndex: 9999});
         if (this._use_scroller()) {
-            $('span#SP_' + $dd_span.options._ID).css({'overflow-y': 'scroll',
-                'overflow-x': 'hidden', 'width' : final_width + 18,
-                'height': parseInt($dd_span.options.Height, 10)
-                });
+            dropdown_ht = parseInt($dd_span.options.Height, 10);
+            $dd_span.cached['.dropdownspan'].css({'height': dropdown_ht,
+                                                  'overflow-y': 'scroll',
+                                                  'overflow-x': 'hidden',
+                                                  'width': final_width+18,
+                                                  'display': 'inline-block'});
             $dd_span.cached['.dropdownspan']
                 .stop(true, false)
                 .show()
@@ -1927,7 +1934,7 @@ this._cfg={
 
     _use_scroller : function () {
         // is a scroll bar needed here? returns true or false
-        var final_ht = parseInt($('span#SP_' + this.options._ID).css('height'), 10);
+        var final_ht = parseInt($('span#SP_' + this.options._ID).find('table.CrEaTeDtAbLeStYlE').css('height'), 10);
         return (/Select/i.test(this.options.MenuOptionsType) && 
                 /^\d+/.test(this.options.Height) && 
                 parseInt(this.options.Height, 10) < final_ht);
@@ -1935,7 +1942,7 @@ this._cfg={
 
     _get_n_set_width : function () {
         var $dd_span = this,
-            menu_width = $('table.CrEaTeDtAbLeStYlE').width();
+            menu_width = parseInt($('span#SP_' + this.options._ID).css('width'), 10);
         $dd_span.menu_start_loc = $dd_span.cached['.dropdownspan'].offset();
         $dd_span.options._width_adj.width_menu = menu_width;
         $dd_span.options._width_adj.width_after_adj = (menu_width >

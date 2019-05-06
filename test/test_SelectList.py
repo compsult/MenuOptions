@@ -29,8 +29,10 @@ class testSL(SeleniumUtils, SetupByLocation):
                          'filt_rslts': '//*[@id="SP_menuoptions0"]',
                          'expected': 'JanuaryFebruaryMarchAprilMayAugust',
                          'test_key': 'a' })
+        print "after self.check_autocomplete"
         self.check_invalid_key ({ 'xpath': '//*[@id="selecttest"]',
                                   'inv_key': 'x' })
+        print "after self.check_invalid_key"
         self.url='http://'+self.IP+'/examples/MaskCombos_test.html'
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'})
         self.check_regexp_validation({ 'xpath': '//*[@id="starttime3"]',

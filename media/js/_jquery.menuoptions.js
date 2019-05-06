@@ -234,7 +234,7 @@ $.widget('mre.menuoptions', {
     },
 
     _detect_destroyed_input: function () {
-        $(this.element).bind('remove', function () {
+        $(this.element).on('remove', function () {
             this._destroy();
         });
     },

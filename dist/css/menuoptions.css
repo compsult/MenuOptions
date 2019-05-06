@@ -55,8 +55,8 @@ span table.HdrFilter, table.CrEaTeDtAbLeStYlE {
     border-collapse:collapse; 
     font-size: 14px; 
     text-align:center; 
-    margin-left: auto; 
-    margin-right: auto;
+    /*--  margin-left: auto;   --*/
+    /*--  margin-right: auto;  --*/
     font-family: Georgia, 'Times New Roman', Times, serif; 
     background-color: #EFE; 
     table-layout: auto;
@@ -146,7 +146,7 @@ span.warn_text {
 }
  span.err_text { 
      position: absolute;  
-     background:url(../imgs/red_x.png) no-repeat center left;
+    background:url(../imgs/red_x.png) no-repeat center left;
      display:inline-block; 
      white-space: nowrap; 
      font: italic 12px arial; 

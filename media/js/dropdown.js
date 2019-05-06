@@ -252,7 +252,7 @@
         // element & drop down||right )
         this.options._menu_box.top = this.cached['.dropdownspan'].position().top;
         this.options._menu_box.bottom = this.options._menu_box.top + 
-            this.cached['.dropdownspan'].height();
+            this.cached['.dropdownspan'].find('table.CrEaTeDtAbLeStYlE').height();
         this.options._menu_box.left = this.cached['.dropdownspan'].position().left;
         this.options._menu_box.right = this.options._menu_box.left + 
             this.cached['.dropdownspan'].width();
@@ -318,7 +318,8 @@
     _show_drop_down : function (e) {
         var $dd_span = this,
             final_width = 0,
-            showAt = this.options.ShowAt;
+            showAt = this.options.ShowAt,
+            dropdown_ht = 0;
 
         this._addDropDownToDOM();
         this._get_n_set_width();
@@ -327,6 +328,9 @@
              this.cached['.mo_elem'].closest('ul.navbar-nav').length ) {
              showAt = 'left+' + this.options.BootMenuOfs + ' top';
         }
+        dropdown_ht = $dd_span.cached['.dropdownspan'].height();
+        /*--  console.log("Drop down height = "+dropdown_ht+" Window height = "+$(window).height());  --*/
+        $dd_span.cached['.dropdownspan'].css({'height': dropdown_ht});
         // show the menu
         $dd_span.cached['.dropdownspan']
             .stop(true, false)
@@ -340,10 +344,12 @@
         final_width = parseInt($('span#SP_' + this.options._ID).css('width'), 10);
         $('span#SP_' + $dd_span.options._ID).css({ zIndex: 9999});
         if (this._use_scroller()) {
-            $('span#SP_' + $dd_span.options._ID).css({'overflow-y': 'scroll',
-                'overflow-x': 'hidden', 'width' : final_width + 18,
-                'height': parseInt($dd_span.options.Height, 10)
-                });
+            dropdown_ht = parseInt($dd_span.options.Height, 10);
+            $dd_span.cached['.dropdownspan'].css({'height': dropdown_ht,
+                                                  'overflow-y': 'scroll',
+                                                  'overflow-x': 'hidden',
+                                                  'width': final_width+18,
+                                                  'display': 'inline-block'});
             $dd_span.cached['.dropdownspan']
                 .stop(true, false)
                 .show()
@@ -362,7 +368,7 @@
 
     _use_scroller : function () {
         // is a scroll bar needed here? returns true or false
-        var final_ht = parseInt($('span#SP_' + this.options._ID).css('height'), 10);
+        var final_ht = parseInt($('span#SP_' + this.options._ID).find('table.CrEaTeDtAbLeStYlE').css('height'), 10);
         return (/Select/i.test(this.options.MenuOptionsType) && 
                 /^\d+/.test(this.options.Height) && 
                 parseInt(this.options.Height, 10) < final_ht);

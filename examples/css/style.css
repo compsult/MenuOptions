@@ -163,7 +163,7 @@ code.mo {
         color: brown;
 }
 button.jq_button { 
-    margin-left: 0; margin-right: -.3em; 
+    /*--  margin-left: 0; margin-right: -.3em;   --*/
     border-radius: 4px;
     border: 1px solid #d3d3d3;
     background: #e6e6e6 url(../imgs/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;

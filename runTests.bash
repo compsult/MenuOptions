@@ -15,6 +15,7 @@ function runTest {
     export TST_BUILD=`grep version package.json | perl -ane '{ s/,|:|"|version| //g; print $_; }'`
     #--- export PYTHONPATH=.; nosetests "test_Menus.py:testMO.test09_mousefiltering" ---#
     # nosetests "test.test_Rocker:test_rocker.test02_rocker"
+    # nosetests "test.test_SelectList:testSL.test03_autocomplete"
 	nosetests --stop -v 
     if [[ $? -ne 0 ]]; then
         echo "nosetest failed (runTest $@)"
@@ -31,7 +32,9 @@ function runLocal {
     rm test/*.pyc
     cp test/data_structs.py test/test_DataInputs.py
 	# nosetests --stop ${VERBOSE} -v test/test_SelectList.py:testSL.test02_chk_inp
+    # nosetests --stop ${VERBOSE} -v test/test_addons.py:test_addons.test03_down_arrow
     # nosetests "test.test_Rocker:test_rocker.test02_rocker"
+    # nosetests "test.test_SelectList:testSL.test03_autocomplete"
 	nosetests --stop ${VERBOSE} -v
 	#--- export TST_BROWSER=firefox ---#
 	#--- nosetests --stop ${VERBOSE} -v test/test_SelectList.py:testSL.test08_validregex ---#
@@ -43,9 +46,9 @@ function runSauce {
     if [[ -f test/test_DataInputs.py ]]; then
          mv -f test/test_DataInputs.py test/data_structs.py
     fi
-    runTest sauce safari "OS X 10.11" "Safari test" "10.0"
     runTest sauce chrome Linux "Chrome on linux" "48.0"
-    runTest sauce firefox Linux "Firefox on linux" "45.0"
+    runTest sauce safari "OS X 10.11" "Safari test" "10.0"
+    runTest sauce firefox Linux "Firefox on linux" "43.0"
     runTest sauce "internet explorer" "Windows 10" "IE test" "11.285"
 }
 

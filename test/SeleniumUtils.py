@@ -121,6 +121,7 @@ class SeleniumUtils(object):
         else:
             print ' '.join(['Found:   ',found.encode('utf-8'),'\nExpected:',params['expected'].encode('utf-8')])
             assert params['expected'] == found
+            
 
     def check_help_position (self, params ):
         if 'position' in params and params['position'] in ['top', 'bottom', 'right']:
