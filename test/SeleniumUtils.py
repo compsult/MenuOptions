@@ -68,6 +68,10 @@ class SetupByLocation(object):
             'deviceName': TST_DEVICE,
             'deviceOrientation': TST_DEVICE_ORIENT,
             'name': TST_NAME,
+             "recordVideo": False,
+             "videoUploadOnPass": False,
+             "recordScreenshots": False,
+             "recordLogs": False
             #--- 'autoAcceptAlerts': "true", ---#
         }
         self.driver = webdriver.Remote(desired_capabilities=desired_capabilities,

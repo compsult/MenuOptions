@@ -1,6 +1,7 @@
 #!/usr/bin/python 
 
 import time, re, sys
+from selenium.webdriver.common.keys import Keys
 from SeleniumUtils import SeleniumUtils, SetupByLocation
 
 
@@ -12,11 +13,19 @@ class testSL(SeleniumUtils, SetupByLocation):
 
     def test02_chk_inp(self):
         """
-           check that MenuOptions select list InitialValue works
+           check that MenuOptions select list InitialValue and scrolling works
         """
         self.open_n_tst_title({'url': self.url, 'title': 'MenuOptions'} )
         self.check_content({ 'xpath': '//*[@id="selecttest"]',
                              'inputtext': 'December'})
+        self.check_clr({ 'xpath': '//*[@id="CB_menuoptions1"]',
+                         'input': '//*[@id="scrolltest"]' })
+        self.check_scrolling({ 'xpath': '//*[@id="scrolltest"]',
+                               'keypress': Keys.ARROW_DOWN,
+                               'repeat': 9 })
+        self.check_scrolling({ 'xpath': '//*[@id="scrolltest"]',
+                               'keypress': Keys.ARROW_UP,
+                               'repeat': 9 })
 
     def test03_autocomplete(self):
         """

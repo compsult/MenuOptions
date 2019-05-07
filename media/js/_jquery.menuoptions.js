@@ -8,11 +8,11 @@
  *  mouseover filtering
  *
  * @author          Mike Etts
- * @copyright       Copyright (c) 2014-2016
+ * @copyright       Copyright (c) 2014-2019
  * @license         Menu Options jQuery widget is licensed under the MIT license
  * @link            http://www.menuoptions.org
  * @docs            http://menuoptions.readthedocs.org/en/latest/
- * @version         Version 1.7.5-10
+ * @version         Version 1.9.1-1
  *
  *
  ******************************************/
