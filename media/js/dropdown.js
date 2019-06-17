@@ -330,7 +330,10 @@
         }
         dropdown_ht = $dd_span.cached['.dropdownspan'].height();
         /*--  console.log("Drop down height = "+dropdown_ht+" Window height = "+$(window).height());  --*/
-        $dd_span.cached['.dropdownspan'].css({'height': dropdown_ht});
+        final_width = parseInt($('span#SP_' + this.options._ID).css('width'), 10);
+        $dd_span.cached['.dropdownspan'].css({'height' : dropdown_ht,
+                                              'width'  : final_width,
+                                              'display': 'inline-block'});
         // show the menu
         $dd_span.cached['.dropdownspan']
             .stop(true, false)
@@ -341,7 +344,6 @@
                 at : showAt,
                 collision : 'flipfit'
             });
-        final_width = parseInt($('span#SP_' + this.options._ID).css('width'), 10);
         $('span#SP_' + $dd_span.options._ID).css({ zIndex: 9999});
         if (this._use_scroller()) {
             dropdown_ht = parseInt($dd_span.options.Height, 10);

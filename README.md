@@ -1,7 +1,5 @@
 ## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=1.9.1)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
-#### Note: *jQuery release 3.2.0+ broke the jQuery UI position command in MenuOptions. Please use jQuery 3.1.1 or earlier.* A fix is under study...
-
 #### Input masks and multi-column autocomplete combined
 
 
