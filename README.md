@@ -1,5 +1,8 @@
 ## MenuOptions [![Build Status](https://travis-ci.org/compsult/MenuOptions.svg?branch=master)](https://travis-ci.org/compsult/MenuOptions) [![Sauce Test Status](https://saucelabs.com/buildstatus/compsult)](https://saucelabs.com/u/compsult) [![Read The docs](https://readthedocs.org/projects/pip/badge/?version=latest)](http://menuoptions.readthedocs.org/en/latest/) ##
 
+> **⚠️ MenuOptions is no longer maintained.**
+> A substantial subset of its functionality is now available in [Quickpick-ui](https://github.com/compsult/quickpick-ui).
+
 #### Input masks and multi-column autocomplete combined
 
 
