@@ -9,22 +9,22 @@
 
 #### What it looks like:
 
-[![alt text](http://www.menuoptions.org/examples/imgs/overview2.gif "input mask and autocomplete example")](http://menuoptions.org/examples/MaskCombos.html "input mask and autocomplete example")
+[![alt text](https://aquamarine-bunny-c312a9.netlify.app/examples/imgs/overview2.gif "input mask and autocomplete example")](https://aquamarine-bunny-c312a9.netlify.app/examples/MaskCombos.html "input mask and autocomplete example")
 
 #### Benefits
 
 
-*  [Input masking](http://www.menuoptions.org/examples/Masks.html)
+*  [Input masking](https://aquamarine-bunny-c312a9.netlify.app/examples/Masks.html)
     *   [user defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#id1) (via user supplied RegExp) and [pre-defined masks](http://menuoptions.readthedocs.io/en/latest/Masks.html#id2)
     *   error messages that explain why the input key is invalid
     *   hotkeys - a single key can fill a field (e.g., 't' fills in todays date in date fields)
-*  [Multi column autocomplete](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
+*  [Multi column autocomplete](https://aquamarine-bunny-c312a9.netlify.app/examples/ReloadMenuOptions.html)
     *   intelligent autocomplete (characters not in any list item are automatically removed, saving keystrokes)
     *  mouseover filtering lets user reduce choices by moving their mouse over a filter element
     *  [auto-configuration](http://menuoptions.readthedocs.io/en/latest/FAQ.html#what-do-you-mean-auto-configuration)
-*  [Rocker control](http://www.menuoptions.org/examples/Rocker.html)
+*  [Rocker control](https://aquamarine-bunny-c312a9.netlify.app/examples/Rocker.html)
     *   Binary options (true/false, yes/no, etc) that never hide a choice
-*  [Menus](http://www.menuoptions.org/examples/MenusBottom.html)
+*  [Menus](https://aquamarine-bunny-c312a9.netlify.app/examples/MenusBottom.html)
     *  Built from JSON
     *  mouseover filtering
 
@@ -39,7 +39,7 @@
 
 [(See full documentation)](http://menuoptions.readthedocs.org/en/latest/)
 
-[(See live demos)](http://www.menuoptions.org)
+[(See live demos)](https://aquamarine-bunny-c312a9.netlify.app)
 
 ### Installation
 
@@ -53,7 +53,7 @@ git clone https://github.com/compsult/MenuOptions.git
 
 
 ### Getting started with masks
-[See the demo](http://www.menuoptions.org/examples/Masks.html).
+[See the demo](https://aquamarine-bunny-c312a9.netlify.app/examples/Masks.html).
 
 ```javascript
     $('input#MdYtest').menuoptions({ 
@@ -62,10 +62,10 @@ git clone https://github.com/compsult/MenuOptions.git
     });  
 ```
 
-![alt text](http://www.menuoptions.org/examples/imgs/masks.png "masks image")
+![alt text](https://aquamarine-bunny-c312a9.netlify.app/examples/imgs/masks.png "masks image")
 
 ### Getting started with a simple multi-column autocomplete
-[See the demo](http://www.menuoptions.org/examples/QuickStartSelect.html).
+[See the demo](https://aquamarine-bunny-c312a9.netlify.app/examples/QuickStartSelect.html).
 
 ```javascript
 $('input#selecttest').menuoptions({                                         
@@ -77,11 +77,11 @@ $('input#selecttest').menuoptions({
         "Sort": [] // don't sort                                                            
     });           
 ```
-![alt text](http://www.menuoptions.org/examples/imgs/SimpleSelect.jpg "multi-column autocomplete image")
+![alt text](https://aquamarine-bunny-c312a9.netlify.app/examples/imgs/SimpleSelect.jpg "multi-column autocomplete image")
 
 ### Getting started with a simple menu
 
-[See the demo](http://www.menuoptions.org/examples/QuickStartMenu.html)
+[See the demo](https://aquamarine-bunny-c312a9.netlify.app/examples/QuickStartMenu.html)
 
 ```javascript
 var Data =  [ {"javascript": function() { alert('Run some javascript'); }},
@@ -93,32 +93,32 @@ $('button[id$="menutest"]').menuoptions({
 "MenuOptionsType": "Navigate", // Navigate is for menus
 });
 ```
-![alt text](http://www.menuoptions.org/examples/imgs/SimpleMenu.jpg "simple menu image")
+![alt text](https://aquamarine-bunny-c312a9.netlify.app/examples/imgs/SimpleMenu.jpg "simple menu image")
 
 ### Multiple MenuOptions controls, including the rocker control
 
-[See the demo](http://www.menuoptions.org/examples/MultiSelect.html)
+[See the demo](https://aquamarine-bunny-c312a9.netlify.app/examples/MultiSelect.html)
 
 This demo illustrates using the using multiple MenuOptions controls, including the rocker control 
 
-![alt text](http://www.menuoptions.org/examples/imgs/MultiSelects.png "using multiple menuoptions on a page ")
+![alt text](https://aquamarine-bunny-c312a9.netlify.app/examples/imgs/MultiSelects.png "using multiple menuoptions on a page ")
 
 ### Mouseover filtering with dividers
-[See the demo](http://www.menuoptions.org/examples/MenusBottom.html)
+[See the demo](https://aquamarine-bunny-c312a9.netlify.app/examples/MenusBottom.html)
 
-![alt text](http://www.menuoptions.org/examples/imgs/MenuWithMOandDivs.jpg "mouseover filtering with dividers")
+![alt text](https://aquamarine-bunny-c312a9.netlify.app/examples/imgs/MenuWithMOandDivs.jpg "mouseover filtering with dividers")
 
 
 ### Dynamic reloading of a MenuOptions multi-column autocomplete
-[See the demo](http://www.menuoptions.org/examples/ReloadMenuOptions.html)
+[See the demo](https://aquamarine-bunny-c312a9.netlify.app/examples/ReloadMenuOptions.html)
 
 In this case, the user selects a start time and the end time will be modified to only display
 the start time plus 1 hour and 30 minutes later
 
-![alt text](http://www.menuoptions.org/examples/imgs/Reload.png "dynamic reload of MenuOptions multi-column autocomplete")
+![alt text](https://aquamarine-bunny-c312a9.netlify.app/examples/imgs/Reload.png "dynamic reload of MenuOptions multi-column autocomplete")
 
 ### Using MenuOptions with jQuery's serialize
-[See the demo](http://www.menuoptions.org/examples/Serialize.html)
+[See the demo](https://aquamarine-bunny-c312a9.netlify.app/examples/Serialize.html)
 
 If you load MenuOptions multi-column autocomplete using an object, the value will be written into the 'menu_opt_key'
 attribute.  jQuery's serialize will not pick up the value of a MenuOptions multi-column autocomplete (menu_opt_key)
@@ -128,4 +128,4 @@ To account for this, wrap serialize() with re_serialize, like this:
 $('input[name=maritalstatus]').menuoptions('re_serialize', $('form#form1').serialize());
 ```
 
-![alt text](http://www.menuoptions.org/examples/imgs/re_serialize.png "using MenuOptions with serialize() ")
+![alt text](https://aquamarine-bunny-c312a9.netlify.app/examples/imgs/re_serialize.png "using MenuOptions with serialize() ")
